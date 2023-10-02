@@ -1,0 +1,16 @@
+{
+    "manifest_version": 3,
+    "name": "My Web Shortcuts",
+    "version": "1.0.0",
+    "action": {
+        "default_title": "Click to set Cuts"
+    },
+    "background": {
+        "service_worker": "src/background/background.js"
+    },
+    "permissions": [
+        "tabs",
+        "activeTab",
+        "scripting"
+    ]
+}
