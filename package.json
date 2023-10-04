@@ -10,5 +10,8 @@
   "devDependencies": {
     "@crxjs/vite-plugin": "^1.0.14",
     "vite": "^2.9.15"
+  },
+  "dependencies": {
+    "@medv/finder": "^3.1.0"
   }
 }

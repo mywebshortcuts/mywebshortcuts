@@ -1,3 +1,68 @@
-.MWSbordered{
-    border: 2px solid red !important;
+
+:root{
+    cursor:pointer !important;
+}
+
+.MWS-element{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.MWS-bordered{
+    outline: 2px solid red !important;
+}
+
+.MWS-clicked{
+    position:relative
+}
+
+.MWS-clicked::after {
+  content: attr(data-index); /* Display the data-index attribute as content */
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 15px;
+  height: 15px;
+  background-color: yellow;
+  color: black;
+  border: 2px solid black;
+  font-size: 12px;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align: center;
+}
+
+
+.MWS-clicked::before {
+  content: attr(data-keyboardShortcut); /* Display the data-index attribute as content */
+  position: absolute;
+  bottom: 5px;
+  right: 5px;
+  width: 15px;
+  height: 15px;
+  background-color: grey;
+  color: black;
+  border: 2px solid black;
+  font-size: 12px;
+  text-align: center;
+}
+
+
+
+.MWS-keyboardShortcutSelectionDialog{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 50%;
+}
+.MWS-keyboardShortcutSelectionDialog::backdrop{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.5);
 }

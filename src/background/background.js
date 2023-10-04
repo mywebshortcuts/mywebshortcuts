@@ -3,49 +3,56 @@
 import mainJS from '../scripts/main?script'
 
 
-let mwsCSS = `
+// let mwsCSS = `
 
-.MWSbordered{
-    outline: 2px solid red !important;
-}
+// .MWSbordered{
+//     outline: 2px solid red !important;
+// }
 
-.clicked{
-    position:relative
-}
+// .clicked{
+//     position:relative
+// }
 
-.clicked::after {
-  content: attr(data-index); /* Display the data-index attribute as content */
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 15px;
-  height: 15px;
-  background-color: yellow;
-  color: black;
-  border: 2px solid black;
-  font-size: 12px;
-  text-align: center;
-}
+// .clicked::after {
+//   content: attr(data-index); /* Display the data-index attribute as content */
+//   position: absolute;
+//   bottom: 5px;
+//   right: 5px;
+//   width: 15px;
+//   height: 15px;
+//   background-color: yellow;
+//   color: black;
+//   border: 2px solid black;
+//   font-size: 12px;
+
+//   display:flex;
+//   justify-content:center;
+//   align-items:center;
+//   text-align: center;
+// }
 
 
-.clicked::before {
-  content: attr(data-keyboardShortcut); /* Display the data-index attribute as content */
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 15px;
-  height: 15px;
-  background-color: grey;
-  color: black;
-  border: 2px solid black;
-  font-size: 12px;
-  text-align: center;
-}
-:root{
-    cursor:pointer !important;
-}
+// .clicked::before {
+//   content: attr(data-keyboardShortcut); /* Display the data-index attribute as content */
+//   position: absolute;
+//   bottom: 5px;
+//   right: 5px;
+//   width: 15px;
+//   height: 15px;
+//   background-color: grey;
+//   color: black;
+//   border: 2px solid black;
+//   font-size: 12px;
+//   text-align: center;
+// }
+// :root{
+//     cursor:pointer !important;
+// }
 
-`
+// `
+
+
+let mwsCSS = ``
 // console.log(scriptPath);
 
 chrome.action.onClicked.addListener( async (tab) => {
@@ -92,3 +99,18 @@ chrome.action.onClicked.addListener( async (tab) => {
 
     }
 });
+
+chrome.runtime.onMessage.addListener(
+    function (request, sender, sendResponse) {
+        if (request.msg === "NewShortcuts"){
+            (async () => {
+                const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
+                const response = await chrome.tabs.sendMessage(tab.id, { msg: "NewShortcuts" });
+                // do something with response here, not outside the function
+                // console.log(response);
+            })();
+        }
+            // sendResponse({ farewell: "goodbye" });
+
+    }
+);
