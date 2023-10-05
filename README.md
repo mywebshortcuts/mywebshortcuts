@@ -1,14 +1,18 @@
+> Note: There are a lot of basic functionalities missing currently, that's why this project has a lot of scope for contributions, star & watch the repository to stay updated, or follow [@Prakhartiwari0](https://twitter.com/Prakhartiwari0) on Twitter.
+
 ![image](https://github.com/prakhartiwari0/my-web-shortcuts/assets/65062036/febd6d27-ed86-4d3c-8e3a-5082babd7ba6)
 
 
 <h1 align="center"> My Web Shortcuts </h1>
 
-A Browser Extension to create custom keyboard shortcuts on any website
+A Browser Extension to create custom keyboard shortcuts on any website. When you click on the Extension icon in the toolbar, you get to select an element to set the shortcut for, and then select the keyboard key to use in order to click on that element. After doing that, just reload the website and you will be able to click on that element just by pressing the key.
+
+
 
 
 # How to Install the extension
 
-> Note: Only Chromium based browsers like Google Chrome & Brave are supported currently.
+> Note: Only Chromium-based browsers like Google Chrome & Brave are supported currently.
 
 <details>
 <summary>
