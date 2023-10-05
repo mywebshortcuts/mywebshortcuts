@@ -1,8 +1,6 @@
 
 import './mws.css'
 
-
-
 // import { finder } from '@medv/finder'
 
 import {toJSON, toDOM} from './domJsonConverter'
