@@ -2,7 +2,10 @@
 import './mws.css'
 
 
+
 // import { finder } from '@medv/finder'
+
+import {toJSON, toDOM} from './domJsonConverter'
 
 import elementCreator from './elementCreator'
 
@@ -86,6 +89,12 @@ function highlighter() {
         currentElement = getElementOnCoordinates(x, y);
 
         
+        // console.log(finder(currentElement));
+        
+        // console.log(toJSON(currentElement));
+        
+        // console.log(toDOM(toJSON(currentElement)));
+
 
         currentElement.classList.add('MWS-bordered')
 
@@ -134,20 +143,35 @@ function highlighter() {
             if (selectedShortcut==undefined) {
                 return
             }
+
             if (!allShortcuts.includes(selectedShortcut)) {
                 allShortcuts.push(selectedShortcut)
             }
-            keyElementRelationObject[selectedShortcut] = currentElement
+            keyElementRelationObject[selectedShortcut] = toJSON(currentElement)
 
             console.log(allShortcuts);
             console.log(keyElementRelationObject);
             
-            chrome.storage.local.set({ elementShortcutsRelation: keyElementRelationObject }).then(() => {
-                console.log("Relations are set");
-                chrome.storage.local.set({ allSetShortcutsArray: allShortcuts }).then(() => {
-                    console.log("List of Set Shorcuts is set");
+            chrome.storage.local.get(["elementShortcutsRelation", 'allSetShortcutsArray']).then((result) => {
+
+                let previousData = {
+                    allSetShortcutsArray: result.allSetShortcutsArray ? result.allSetShortcutsArray : [],
+                    elementShortcutsRelation: result.elementShortcutsRelation ? result.elementShortcutsRelation : {}
+}
+
+
+                let updatedData = {
+                    allSetShortcutsArray: (previousData.allSetShortcutsArray).concat(allShortcuts),
+                    keyElementRelationObject: { ...previousData.elementShortcutsRelation, ...keyElementRelationObject }
+                } 
+                chrome.storage.local.set({ elementShortcutsRelation: updatedData.keyElementRelationObject }).then(() => {
+                    console.log("Relations are set");
+                    chrome.storage.local.set({ allSetShortcutsArray: updatedData.allSetShortcutsArray }).then(() => {
+                        console.log("List of Set Shorcuts is set");
+                    });
                 });
             });
+
 
 
 
@@ -207,10 +231,6 @@ function highlighter() {
         
         
         if (!currentState.keyboardShortcutSelectorOpen) {
-            console.log(
-                // finder(clickedElement)
-
-            ); 
             // console.log(`Before calling the dialog opener function: ${currentElement}`);
             selectKeyboardShortcut()            
         }

@@ -1,15 +1,16 @@
 {
-  "name": "-",
+  "name": "my-web-shortcuts",
   "private": true,
   "version": "0.0.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^1.0.14",
-    "vite": "^2.9.15"
+    "@crxjs/vite-plugin": "^2.0.0-beta.19",
+    "vite": "^4.4.5"
   },
   "dependencies": {
     "@medv/finder": "^3.1.0"
