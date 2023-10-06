@@ -1,7 +1,7 @@
-import { toDOM } from "./domJsonConverter";
+import { toDOM } from "../modules/domJsonConverter";
 
+import { getStorage, setEvent } from "../modules/quickMethods";
 
-getData()
 
 // chrome.runtime.onMessage.addListener(
 //     function (request, sender, sendResponse) {
@@ -23,21 +23,24 @@ let allSetShortcutsArray =[];
 
 let elementShortcutsRelation;
 
-function getData() {
+async function getData() {
     
-    chrome.storage.local.get(["elementShortcutsRelation", 'allSetShortcutsArray']).then((result) => {
+    // chrome.storage.local.get(["elementShortcutsRelation", 'allSetShortcutsArray']).then((result) => {
         // console.log(result);
+        
+        const data = await getStorage(["elementShortcutsRelation", 'allSetShortcutsArray'])
 
-        allSetShortcutsArray = result.allSetShortcutsArray ? result.allSetShortcutsArray : []
-        elementShortcutsRelation = result.elementShortcutsRelation ? result.elementShortcutsRelation : {}
+    allSetShortcutsArray = data.allSetShortcutsArray ? data.allSetShortcutsArray : []
+    elementShortcutsRelation = data.elementShortcutsRelation ? data.elementShortcutsRelation : {}
 
 
         console.log(allSetShortcutsArray);
         console.log(elementShortcutsRelation);
         // console.log("Value currently is " + result);
         // console.log("Value currently is " + result.elementShortcutsRelation);
-    });
+    // });
 }
+getData()
 
 
 

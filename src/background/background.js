@@ -1,6 +1,6 @@
 // import {bro} from "../scripts/main";
 
-import mainJS from '../scripts/main?script'
+import setter from '../scripts/setter?script'
 
 
 // let mwsCSS = `
@@ -81,7 +81,7 @@ chrome.action.onClicked.addListener( async (tab) => {
                 // });
                 chrome.scripting.executeScript({
                     target: { tabId: tab.id },
-                    files: [mainJS]
+                    files: [setter]
                 });
 
                 chrome.tabs.sendMessage(tab.id, { message: "start" });
@@ -114,3 +114,9 @@ chrome.runtime.onMessage.addListener(
 
     }
 );
+chrome.runtime.onInstalled.addListener(details => {
+    console.log("BRooooo Hiiii you just installed meee");
+    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+        chrome.runtime.setUninstallURL('https://www.heyprakhar.xyz');
+    }
+});

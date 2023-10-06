@@ -9,31 +9,34 @@
         "128": "src/assets/128x128.png"
     },
     "action": {
-        "default_icon": { 
+        "default_icon": {
             "16": "src/assets/16x16.png",
-            "24": "src/assets/24x24.png", 
-            "32": "src/assets/32x32.png" 
+            "24": "src/assets/24x24.png",
+            "32": "src/assets/32x32.png"
         },
         "default_title": "Click to set Cuts"
     },
     "background": {
         "service_worker": "src/background/background.js"
     },
-
     "content_scripts": [
         {
             "matches": [
-                "https://motherfuckingwebsite.com/*","https://github.com/*"
+                "https://motherfuckingwebsite.com/*",
+                "https://github.com/*"
             ],
             "js": [
                 "src/scripts/useCustomShortcut.js"
             ]
         }
     ],
-
+    "options_page": "src/options/options.html",
+    
     "permissions": [
         "tabs",
         "activeTab",
-        "scripting","storage","nativeMessaging"
+        "scripting",
+        "storage",
+        "nativeMessaging"
     ]
 }
