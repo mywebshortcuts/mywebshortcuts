@@ -175,9 +175,14 @@ const mws = {
         }
         mws.currentElement = getElemAt(x, y);
         // mws.currentElement.classList.add('MWS-bordered')
+        setTextContent(qS('.MWS-currentElementSpan'), finder(mws.currentElement))
 
         addClass(mws.currentElement, ['MWS-bordered'])
 
+        // console.log(mws.currentElement);
+        // console.log(finder(mws.currentElement));
+
+    },
 
     closeKeyboardShortcutSelectionDialog: function () {
         // mws.switchOffSelector()
