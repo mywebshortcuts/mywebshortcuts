@@ -1,7 +1,7 @@
 
 import './styles/mws.css'
 
-// import { finder } from '@medv/finder'
+import { finder } from '@medv/finder'
 
 import { toJSON } from '../modules/domJsonConverter.js'
 
@@ -97,8 +97,8 @@ const mws = {
 
     currentState: {
         elementSelectionOn: false,
-        keyboardShortcutSelectorOpen: false
-
+        keyboardShortcutSelectorOpen: false,
+        elementSelectorOpen: false
     },
 
     currentElement: null,
@@ -141,8 +141,6 @@ const mws = {
 
         if (mws.currentState.keyboardShortcutSelectorOpen) {
             mws.selectedShortcut = pressedKey
-
-            // document.querySelector('.MWS-dialogSpan').textContent = "Selected Shortcut: " + selectedShortcut
             setTextContent(qS('.MWS-dialogSpan'), `Selected Shortcut: ${mws.selectedShortcut}`)
         }
     },
@@ -329,8 +327,6 @@ const mws = {
             `
         }
         let floatingDiv = elementCreator(floatingDivData)
-
-        // floatingDiv.style.display = 'none'
         document.body.appendChild(floatingDiv)
 
 
