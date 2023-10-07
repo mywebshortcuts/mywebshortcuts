@@ -61,10 +61,18 @@ button.MWS-element{
 
 
 .MWS-keyboardShortcutSelectionDialog{
+    cursor: auto;
+
     display: flex;
     justify-content: center;
     align-items: center;
+
+    flex-direction: column;
     
+padding: 2rem;
+
+border-radius: 2rem;
+
     width: 50%;
 }
 .MWS-keyboardShortcutSelectionDialog::backdrop{
@@ -72,7 +80,16 @@ button.MWS-element{
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
+
 }
+.MWS-closeKeyboardShortcutSelectionDialogButton{
+    font-size: 2rem;
+
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
 
 
 .MWS-floatingDiv{
