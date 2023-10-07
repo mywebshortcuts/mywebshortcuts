@@ -169,6 +169,7 @@ const mws = {
         }
 
         if (getElemAt(x, y).classList.contains('MWS-element')) {
+            mws.currentElement = undefined
             console.log("ignored");
             return
         }
@@ -177,25 +178,19 @@ const mws = {
 
         addClass(mws.currentElement, ['MWS-bordered'])
 
+
+    closeKeyboardShortcutSelectionDialog: function () {
+        // mws.switchOffSelector()
+        const dialogElement = qS('.MWS-keyboardShortcutSelectionDialog')
+        // dialogElement.close() 
+        document.body.removeChild(dialogElement)
+        mws.currentState.keyboardShortcutSelectorOpen = false;
+
+        // mws.openFloatingDiv()
     },
 
-    selectKeyboardShortcut: function () {
-
+    openKeyboardShortcutSelectionDialog: function () {
         mws.currentState.keyboardShortcutSelectorOpen = true;
-
-        // let elementData = {
-        //     tagName: "div",
-        //     attributes: {
-        //         classes: ['MWS-element'],
-        //         id: undefined,
-        //         otherAttributes: []
-        //     },
-        //     textContent: undefined,
-        //     innerHTML: undefined,
-        //     childElements: []
-        // }
-
-
         let dialogElementData = {
             tagName: 'dialog',
             attributes: {
@@ -203,7 +198,7 @@ const mws = {
             },
             // childElements: [spanElement, buttonElement]
             innerHTML: `
-	<button class="MWS-element MWS-closeDialogButton"}>Close</button>
+	<button class="MWS-element MWS-closeDialogButton">Close</button>
 
 
 	<span class="MWS-element MWS-dialogSpan">Selected Shortcut: a</span>
@@ -213,21 +208,7 @@ const mws = {
             `
         }
         let dialogElement = elementCreator(dialogElementData)
-
-
-
         document.body.appendChild(dialogElement)
-
-
-
-        function closeDialog() {
-            console.log("Closing Selector");
-            dialogElement.close()
-            document.body.removeChild(dialogElement)
-
-            mws.currentState.keyboardShortcutSelectorOpen = false;
-
-        }
 
 
         qS('.MWS-selectionDoneButton').addEventListener('click', async (event) => {
@@ -264,17 +245,17 @@ const mws = {
 
             mws.currentState.keyboardShortcutSelectorOpen = false
 
-            mws.switchOffSelector()
+            mws.turnOffEverything()
 
-            closeDialog()
+            mws.closeKeyboardShortcutSelectionDialog()
         })
 
         setEvent(qS('.MWS-closeDialogButton'), 'click', (event) => {
             event.preventDefault()
-
             rmClass(mws.currentElement, ['MWS-bordered'])
             mws.currentElement = undefined;
-            closeDialog()
+
+            mws.closeKeyboardShortcutSelectionDialog()
         })
 
         dialogElement.showModal()
@@ -293,10 +274,9 @@ const mws = {
             return
         }
 
-
-
         if (!mws.currentState.keyboardShortcutSelectorOpen) {
-            mws.selectKeyboardShortcut()
+            // mws.closeFloatingDiv()
+            mws.openKeyboardShortcutSelectionDialog()
         }
 
         // This code will be there when multiple click functionality is added
@@ -313,26 +293,22 @@ const mws = {
         window.removeEventListener('mouseover', mws.addRemoveborder);
         window.removeEventListener('click', mws.whenClicked);
 
-        mws.turnOffKeyboarder()
-
         rmClass(qS('html'), ['MWS-stylesForPage'])
 
     },
     switchOnSelector: function () {
+        addClass(qS('html'), ['MWS-stylesForPage'])
 
         window.addEventListener('mouseover', mws.addRemoveborder);
         window.addEventListener('click', mws.whenClicked);
-
-
-
-        mws.turnOnKeyboarder()
-
-        addClass(qS('html'), ['MWS-stylesForPage'])
-
     },
 
+    closeFloatingDiv: () => {
+        document.body.removeChild(qS('.MWS-floatingDiv'))
+    },
 
     openFloatingDiv: function () {
+
 
         let floatingDivData = {
             tagName: 'div',
@@ -357,31 +333,40 @@ const mws = {
 
         setEvent(qS('.MWS-elementSelectionEnableDisableButton'), 'click', (event) => {
             if (selectionEnabled) {
-                setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), "Off")
                 selectionEnabled = false
-
-                mws.switchOffSelector()
+                setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), "Off")
+                mws.turnOffEverything()
             }
             else {
                 setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), "On")
                 selectionEnabled = true
-                mws.switchOnSelector()
+                mws.turnOnEverything()
             }
 
         })
 
         setEvent(qS('.MWS-closeElementSelectorButton'), 'click', (event) => {
-            mws.switchOffSelector()
-            document.body.removeChild(floatingDiv)
+            mws.turnOffEverything()
+            // document.body.removeChild(floatingDiv)
+            mws.closeFloatingDiv()
         })
 
         // dialogElement.showModal()
 
 
     },
+    turnOffEverything: function () {
+        mws.switchOffSelector()
+        mws.turnOffKeyboarder()
+    },
+    turnOnEverything: function () {
+        mws.switchOnSelector()
+        mws.turnOnKeyboarder()
+    },
 
     init: function () {
         mws.switchOnSelector()
+        mws.turnOnKeyboarder()
 
         mws.openFloatingDiv()
 
