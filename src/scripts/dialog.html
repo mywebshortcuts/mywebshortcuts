@@ -5,16 +5,39 @@ inside the template strings is cumbersome and I can't take the benefit of emmet 
 <!-- <dialog></dialog> -->
 
 <dialog class="MWS-element MWS-keyboardShortcutSelectionDialog" open="">
-	<button class="MWS-element MWS-closeDialogButton">X</button>
-	<span class="MWS-element MWS-dialogSpan">Selected Shortcut: a</span>
-	<button class="MWS-element MWS-selectionDoneButton">Done</button>
-</dialog>
+	<button class="MWS-element MWS-closeKeyboardShortcutSelectionDialogButton">
+		Close
+	</button>
+	<p class="MWS-element MWS-shortcutShowupPara">
+		Selected Shortcut:
+		<span class="MWS-element MWS-selectedShortcutSpan">None</span>
+	</p>
+	<button class="MWS-element MWS-shortcutSelectionDoneButton">Select Shortcut</button>
+
+	<label for="shortcutName" class="MWS-element MWS-ShortcutNameLabel"
+		>Shortcut Name:
+	</label>
+	<input
+		type="text"
+		id="shortcutName"
+		maxlength="20"
+		class="MWS-element MWS-shortcutNameInput"
+		disabled="true" />
+
+		
+		<button class="MWS-element MWS-allDoneButton">Done</button>
+
+	</dialog>
+
 
 
 <div class="MWS-element MWS-floatingDiv">
-	<button class="MWS-element MWS-elementSelectionEnableDisableButton">On</button>
+	<button class="MWS-element MWS-elementSelectionEnableDisableButton">
+		On
+	</button>
 	<p class="MWS-element MWS-selectedElementPara">
-		Select Element: <span class="MWS-element MWS-currentElementSpan">currentElement</span>
+		Select Element:
+		<span class="MWS-element MWS-currentElementSpan">currentElement</span>
 	</p>
 	<button class="MWS-element MWS-closeElementSelectorButton">Close</button>
 </div>
