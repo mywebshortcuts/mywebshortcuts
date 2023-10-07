@@ -260,6 +260,11 @@ const mws = {
 
         qS('.MWS-shortcutSelectionDoneButton').addEventListener('click', (e) => {
             e.preventDefault()
+            if (mws.selectedShortcut == undefined) { return }
+
+            if (!mws.allShortcuts.includes(mws.selectedShortcut)) {
+                mws.allShortcuts.push(mws.selectedShortcut)
+            }
             if (mws.keyboardShortcutValidator([mws.selectedShortcut])) {
                 console.log(mws.selectedShortcut);
                 mws.enableNameSetting()
