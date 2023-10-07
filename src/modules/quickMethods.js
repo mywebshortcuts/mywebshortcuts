@@ -14,7 +14,9 @@ export const getElemAt = (x, y) => {
 }
 
 export const setTextContent = (element, text = "") => {
-    element.textContent = text
+    if (element) {
+        element.textContent = text
+    }
 }
 export const getTextContent = (element) => {
     return element.textContent
