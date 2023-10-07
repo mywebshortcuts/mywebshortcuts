@@ -4,6 +4,8 @@
 
 .MWS-stylesForPage{
     cursor:pointer !important;
+
+    position: relative;
 }
 
 .MWS-element{
@@ -68,4 +70,40 @@
     justify-content: center;
     align-items: center;
     background-color: rgba(0, 0, 0, 0.5);
+}
+
+
+.MWS-floatingDiv{
+    display: flex;
+
+    background-color: whitesmoke;
+    padding: 2rem;
+
+    position: fixed;
+    bottom: 0px;
+    right: 0px;
+
+    border: 2px solid black;
+
+    z-index: 100;
+
+    cursor: grab;
+}
+
+
+.MWS-elementSelectionEnableDisableButton{
+
+}
+
+
+.MWS-selectedElementPara{
+
+}
+.MWS-currentElementSpan{
+
+}
+
+
+.MWS-closeElementSelectorButton{
+
 }
