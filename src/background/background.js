@@ -55,6 +55,16 @@ import setter from '../scripts/setter?script'
 let mwsCSS = ``
 // console.log(scriptPath);
 
+
+function turnOffSelector(tab) {
+    chrome.scripting.removeCSS({
+        target: { tabId: tab.id },
+        css: mwsCSS,
+    })
+    chrome.tabs.sendMessage(tab.id, { action: "turnOffSelector" });
+
+}
+
 chrome.action.onClicked.addListener( async (tab) => {
 
     // We retrieve the action badge to check if the extension is 'ON' or 'OFF'
@@ -90,12 +100,7 @@ chrome.action.onClicked.addListener( async (tab) => {
             )
     } else if (nextState === undefined) {
         // Remove the CSS file when the user turns the extension off
-        await
-            chrome.scripting.removeCSS({
-                target: { tabId: tab.id },
-                css: mwsCSS,
-            })
-        chrome.tabs.sendMessage(tab.id, { message: "stop" });
+        turnOffSelector(tab)
 
     }
 });
@@ -109,6 +114,11 @@ chrome.runtime.onMessage.addListener(
                 // do something with response here, not outside the function
                 // console.log(response);
             })();
+        }
+        if (request.action == "turnOffSelector") {
+            turnOffSelector()
+
+            
         }
             // sendResponse({ farewell: "goodbye" });
 

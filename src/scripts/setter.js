@@ -5,15 +5,15 @@ import './styles/mws.css'
 
 import { toJSON } from '../modules/domJsonConverter.js'
 
-import {addClass, rmClass, getElemAt, setTextContent, setInnerHTML, getAttr, setAttr, setEvent, rmEvent,
-    qS, qSA, apCh, getStorage, setStorage, sendMsg } from "../modules/quickMethods.js"
+import {
+    addClass, rmClass, getElemAt, setTextContent, setInnerHTML, getAttr, setAttr, setEvent, rmEvent,
+    qS, qSA, apCh, getStorage, setStorage, sendMsg
+} from "../modules/quickMethods.js"
 
 import elementCreator from '../modules/elementCreator'
 
-// const _ = mws;
 
 const mws = {
-
     // dom: {
     //     addClass: (element, classesArray = []) => {
 
@@ -95,7 +95,6 @@ const mws = {
     //     },
     // },
 
-
     currentState: {
         elementSelectionOn: false,
         keyboardShortcutSelectorOpen: false
@@ -103,8 +102,6 @@ const mws = {
     },
 
     currentElement: null,
-
-
     clickedElementsArray: [],
     selectedShortcut: undefined,
     allShortcuts: [], // {"website":["shortcut", "shortcut"]}
@@ -134,6 +131,10 @@ const mws = {
     */
 
 
+    /*
+
+    */
+
     keyboarder: function () {
 
         // setEvent(window, 'keydown', )
@@ -154,193 +155,212 @@ const mws = {
     },
 
 
-        addRemoveborder: function(event) {
-            let [x, y] = [event.clientX, event.clientY]
+    addRemoveborder: function (event) {
+        let [x, y] = [event.x, event.y]
 
 
-            if (mws.currentState.keyboardShortcutSelectorOpen) {
-                return
-            }
+        if (mws.currentState.keyboardShortcutSelectorOpen) {
+            return
+        }
 
-            if (mws.currentElement) {
-                mws.currentElement.classList.remove('MWS-bordered')
-            }
+        // If current Element already exists then remove the class
+        if (mws.currentElement) {
+            mws.currentElement.classList.remove('MWS-bordered')
+        }
 
-            if (getElemAt(x, y).classList.contains('MWS-element')) {
-                console.log("ignored");
-                return
-            }
-            mws.currentElement = getElemAt(x, y);
-            // mws.currentElement.classList.add('MWS-bordered')
+        if (getElemAt(x, y).classList.contains('MWS-element')) {
+            console.log("ignored");
+            return
+        }
+        mws.currentElement = getElemAt(x, y);
+        // mws.currentElement.classList.add('MWS-bordered')
 
-            addClass(mws.currentElement, ['MWS-bordered'])
+        addClass(mws.currentElement, ['MWS-bordered'])
 
-        },
+    },
 
-        selectKeyboardShortcut: function() {
-            mws.currentState.keyboardShortcutSelectorOpen = true;
+    selectKeyboardShortcut: function () {
+        function  closeDialog() {
+            console.log("Closing Selector");
+            dialogElement.close()
+            document.body.removeChild(dialogElement)
 
-            // let elementData = {
-            //     tagName: "div",
-            //     attributes: {
-            //         classes: ['MWS-element'],
-            //         id: undefined,
-            //         otherAttributes: []
-            //     },
-            //     textContent: undefined,
-            //     innerHTML: undefined,
-            //     childElements: []
-            // }
+            mws.currentState.keyboardShortcutSelectorOpen = false;
 
+        }
 
-            let spanElementData = {
-                tagName: 'span',
-                attributes: {
-                    classes: ['MWS-element', "MWS-dialogSpan"]
-                },
-                textContent: `Selected the keyboard shortcut: ${mws.selectedShortcut}`
-            }
-            let spanElement = elementCreator(spanElementData)
+        mws.currentState.keyboardShortcutSelectorOpen = true;
 
-            let buttonElementData = {
-                tagName: 'button',
-                attributes: {
-                    classes: ["MWS-element", "MWS-dialogButton"]
-                },
-                textContent: "Done"
-            }
-            let buttonElement = elementCreator(buttonElementData)
-
-            buttonElement.addEventListener('click', (event) => {
-                event.preventDefault()
-                if (mws.selectedShortcut == undefined) { return }
-
-                if (!mws.allShortcuts.includes(mws.selectedShortcut)) {
-                    mws.allShortcuts.push(mws.selectedShortcut)
-                }
-                mws.keyElementRelationObject[mws.selectedShortcut] = toJSON(mws.currentElement)
-
-                console.log(mws.allShortcuts);
-                console.log(mws.keyElementRelationObject);
+        // let elementData = {
+        //     tagName: "div",
+        //     attributes: {
+        //         classes: ['MWS-element'],
+        //         id: undefined,
+        //         otherAttributes: []
+        //     },
+        //     textContent: undefined,
+        //     innerHTML: undefined,
+        //     childElements: []
+        // }
 
 
-                chrome.storage.local.get(["elementShortcutsRelation", 'allSetShortcutsArray']).then((result) => {
-
-                    let previousData = {
-                        allSetShortcutsArray: result.allSetShortcutsArray ? result.allSetShortcutsArray : [],
-                        elementShortcutsRelation: result.elementShortcutsRelation ? result.elementShortcutsRelation : {}
-                    }
-
-
-                    let updatedData = {
-                        allSetShortcutsArray: (previousData.allSetShortcutsArray).concat(mws.allShortcuts),
-                        keyElementRelationObject: { ...previousData.elementShortcutsRelation, ...mws.keyElementRelationObject }
-                    }
-                    chrome.storage.local.set({ elementShortcutsRelation: updatedData.keyElementRelationObject }).then(() => {
-                        console.log("Relations are set");
-                        chrome.storage.local.set({ allSetShortcutsArray: updatedData.allSetShortcutsArray }).then(() => {
-                            console.log("List of Set Shorcuts is set");
-                             chrome.runtime.sendMessage({ message: "NewShortcuts"});
-                        });
-                    });
-
-                });
+        let dialogElementData = {
+            tagName: 'dialog',
+            attributes: {
+                classes: ['MWS-element', 'MWS-keyboardShortcutSelectionDialog']
+            },
+            // childElements: [spanElement, buttonElement]
+            innerHTML: `
+	<button class="MWS-element MWS-closeDialogButton"}>Close</button>
 
 
-                // (async () => {
-                    // const response = await chrome.runtime.sendMessage({ msg: "NewShortcuts" });
-                    // console.log(response);
-                // })();
+	<span class="MWS-element MWS-dialogSpan">Selected Shortcut: a</span>
 
-
-
-
-                mws.currentElement.classList.remove('MWS-clicked')
-                mws.currentElement = undefined;
-                dialogElement.close()
-                mws.currentState.keyboardShortcutSelectorOpen = false
-
-                mws.switchOffSelector()
-                document.body.removeChild(dialogElement)
-            })
-
-
-            let dialogElementData = {
-                tagName: 'dialog',
-                attributes: {
-                    classes: ['MWS-element', 'MWS-keyboardShortcutSelectionDialog']
-                },
-                childElements: [spanElement, buttonElement]
-            }
-            let dialogElement = elementCreator(dialogElementData)
-
-
-            document.body.appendChild(dialogElement)
-            dialogElement.showModal()
-        },
-
-
-        whenClicked: function(event) {
-
-            // document.addEventListener('contextmenu', (e) => {
-                // e.preventDefault();
-            // });
-
+	<button class="MWS-element MWS-selectionDoneButton">Done</button>
             
+            `
+        }
+        let dialogElement = elementCreator(dialogElementData)
+
+
+
+        document.body.appendChild(dialogElement)
+
+
+        qS('.MWS-selectionDoneButton').addEventListener('click', async (event) => {
             event.preventDefault()
-            // event.stopPropagation()
-            const clickedElement = mws.currentElement;
+            if (mws.selectedShortcut == undefined) { return }
 
-            if (!mws.currentElement) {
-                return
+            if (!mws.allShortcuts.includes(mws.selectedShortcut)) {
+                mws.allShortcuts.push(mws.selectedShortcut)
+            }
+            mws.keyElementRelationObject[mws.selectedShortcut] = toJSON(mws.currentElement)
+
+
+            const result = await getStorage(["elementShortcutsRelation", 'allSetShortcutsArray'])
+
+            let previousData = {
+                allSetShortcutsArray: result.allSetShortcutsArray ? result.allSetShortcutsArray : [],
+                elementShortcutsRelation: result.elementShortcutsRelation ? result.elementShortcutsRelation : {}
             }
 
-            if (clickedElement.classList.contains('MWS-element')) {
-                return
+            let updatedData = {
+                allSetShortcutsArray: (previousData.allSetShortcutsArray).concat(mws.allShortcuts),
+                keyElementRelationObject: { ...previousData.elementShortcutsRelation, ...mws.keyElementRelationObject }
             }
 
-            clickedElement.classList.add("MWS-clicked")
+            await setStorage({ elementShortcutsRelation: updatedData.keyElementRelationObject, allSetShortcutsArray: updatedData.allSetShortcutsArray })
 
-
-            if (!mws.currentState.keyboardShortcutSelectorOpen) {
-                mws.selectKeyboardShortcut()
-            }
-
-            // This code will be there when multiple click functionality is added
-            // if (!clickedElementsArray.contains(mws.currentElement)) {
-            //     clickedElementsArray.push(mws.currentElement)
-            //     mws.currentElement.setAttribute('data-index', `${clickedElementsArray.length}`)
-            // }
-
-        },
+            chrome.runtime.sendMessage({ msg: "NewShortcuts" });
+            chrome.runtime.sendMessage({ action: "turnOffSelector" });
 
 
 
+            rmClass(mws.currentElement, ['MWS-bordered'])
+            mws.currentElement = undefined;
+
+            mws.currentState.keyboardShortcutSelectorOpen = false
+
+            mws.switchOffSelector()
+
+            closeDialog()
+        })
+
+        // setEvent(qS('.MWS-closeDialogButton'), 'click', closeDialog)
+
+        dialogElement.showModal()
+    },
+
+
+    whenClicked: function (event) {
+
+        // document.addEventListener('contextmenu', (e) => {
+        // e.preventDefault();
+        // });
+
+
+        event.preventDefault()
+        // event.stopPropagation()
+        const clickedElement = mws.currentElement;
+
+        if (!mws.currentElement) {
+            return
+        }
+
+        if (clickedElement.classList.contains('MWS-element')) {
+            return
+        }
+
+        clickedElement.classList.add("MWS-clicked")
+
+
+        if (!mws.currentState.keyboardShortcutSelectorOpen) {
+            mws.selectKeyboardShortcut()
+        }
+
+        // This code will be there when multiple click functionality is added
+        // if (!clickedElementsArray.contains(mws.currentElement)) {
+        //     clickedElementsArray.push(mws.currentElement)
+        //     mws.currentElement.setAttribute('data-index', `${clickedElementsArray.length}`)
+        // }
+
+    },
 
     switchOffSelector: function () {
         window.removeEventListener('mouseover', mws.addRemoveborder);
         window.removeEventListener('click', mws.whenClicked);
+
+        rmClass(qS('html'), ['MWS-stylesForPage'])
+
     },
 
+
+    openFloatingDiv: function () {
+
+        let dialogElementData = {
+            tagName: 'dialog',
+            attributes: {
+                classes: ['MWS-element', 'MWS-keyboardShortcutSelectionDialog']
+            },
+            // childElements: [spanElement, buttonElement]
+            innerHTML: `
+<dialog class="MWS-element MWS-keyboardShortcutSelectionDialog" open="">
+	<button class="MWS-element MWS-closeDialogButton">X</button>
+	<span class="MWS-element MWS-dialogSpan">Selected Shortcut: a</span>
+	<button class="MWS-element MWS-selectionDoneButton">Done</button>
+</dialog>
+            
+            `
+        }
+        let dialogElement = elementCreator(dialogElementData)
+
+
+
+        document.body.appendChild(dialogElement)
+
+
+        qS('.MWS-selectionDoneButton').addEventListener('click', async (event) => {
+        })
+
+        dialogElement.showModal()
+    },
 
     init: function () {
         window.addEventListener('mouseover', mws.addRemoveborder);
         window.addEventListener('click', mws.whenClicked)
 
         mws.keyboarder()
+        addClass(qS('html'), ['MWS-stylesForPage'])
 
 
         chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-            if (message.message === "stop") {
+            if (message.message === "turnOffSelector") {
                 mws.switchOffSelector()
 
             }
         });
 
     }
-
-
-
 }
 
 mws.init()
