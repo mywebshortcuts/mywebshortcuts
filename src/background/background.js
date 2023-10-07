@@ -49,21 +49,9 @@ chrome.action.onClicked.addListener(async (tab) => {
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        if (request.msg === "NewShortcuts") {
-            (async () => {
-                const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true });
-                const response = await chrome.tabs.sendMessage(tab.id, { msg: "NewShortcuts" });
-                // do something with response here, not outside the function
-                // console.log(response);
-            })();
-        }
         if (request.action == "turnOffSelector") {
             turnOffSelector()
-
-
         }
-        // sendResponse({ farewell: "goodbye" });
-
     }
 );
 chrome.runtime.onInstalled.addListener(details => {
