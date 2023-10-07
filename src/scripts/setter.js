@@ -180,14 +180,6 @@ const mws = {
     },
 
     selectKeyboardShortcut: function () {
-        function  closeDialog() {
-            console.log("Closing Selector");
-            dialogElement.close()
-            document.body.removeChild(dialogElement)
-
-            mws.currentState.keyboardShortcutSelectorOpen = false;
-
-        }
 
         mws.currentState.keyboardShortcutSelectorOpen = true;
 
@@ -225,6 +217,17 @@ const mws = {
 
 
         document.body.appendChild(dialogElement)
+
+
+
+        function closeDialog() {
+            console.log("Closing Selector");
+            dialogElement.close()
+            document.body.removeChild(dialogElement)
+
+            mws.currentState.keyboardShortcutSelectorOpen = false;
+
+        }
 
 
         qS('.MWS-selectionDoneButton').addEventListener('click', async (event) => {
@@ -265,22 +268,22 @@ const mws = {
 
             closeDialog()
         })
+        console.log(qS('.MWS-closeDialogButton'));
 
-        // setEvent(qS('.MWS-closeDialogButton'), 'click', closeDialog)
+        setEvent(qS('.MWS-closeDialogButton'), 'click', (event)=>{
+            event.preventDefault()
+
+            rmClass(mws.currentElement, ['MWS-bordered'])
+            mws.currentElement = undefined;
+            closeDialog()
+        })
 
         dialogElement.showModal()
     },
 
 
     whenClicked: function (event) {
-
-        // document.addEventListener('contextmenu', (e) => {
-        // e.preventDefault();
-        // });
-
-
         event.preventDefault()
-        // event.stopPropagation()
         const clickedElement = mws.currentElement;
 
         if (!mws.currentElement) {
@@ -291,14 +294,15 @@ const mws = {
             return
         }
 
-        clickedElement.classList.add("MWS-clicked")
-
-
+        
+        
         if (!mws.currentState.keyboardShortcutSelectorOpen) {
             mws.selectKeyboardShortcut()
         }
-
+        
         // This code will be there when multiple click functionality is added
+
+        // clickedElement.classList.add("MWS-clicked")
         // if (!clickedElementsArray.contains(mws.currentElement)) {
         //     clickedElementsArray.push(mws.currentElement)
         //     mws.currentElement.setAttribute('data-index', `${clickedElementsArray.length}`)
@@ -317,7 +321,7 @@ const mws = {
 
     openFloatingDiv: function () {
 
-        let dialogElementData = {
+        let floatingDivData = {
             tagName: 'dialog',
             attributes: {
                 classes: ['MWS-element', 'MWS-keyboardShortcutSelectionDialog']
@@ -332,13 +336,8 @@ const mws = {
             
             `
         }
-        let dialogElement = elementCreator(dialogElementData)
-
-
-
-        document.body.appendChild(dialogElement)
-
-
+        let floatingDiv = elementCreator(floatingDivData)
+        document.body.appendChild(floatingDiv)
         qS('.MWS-selectionDoneButton').addEventListener('click', async (event) => {
         })
 
