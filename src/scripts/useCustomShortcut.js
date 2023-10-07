@@ -46,6 +46,12 @@ getData()
 
 document.addEventListener('keypress', (event)=>{
     // console.log(event.key);
+    const activeElement = document.activeElement;
+
+    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+        // An input element is focused; don't execute your shortcut
+        return;
+    }
     let key = event.key
     if (allSetShortcutsArray.includes(key)) {
         // console.log("yes bro");
