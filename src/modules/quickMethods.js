@@ -1,6 +1,5 @@
 
 export const addClass = (element, classesArray = []) => {
-
     classesArray.forEach((cls) => {
         return element.classList.add(cls)
     })
@@ -37,9 +36,8 @@ export const rmEvent = (element, eventName, functionAttached, options = {}) => {
     element.removeEventListener(eventName, functionAttached, options)
 }
 
-export const qS = (selector) => {
-    return document.querySelector(selector)
-    
+export function qS (selector, parentElement=document){    
+    return parentElement.querySelector(selector)
 }
 
 
@@ -50,7 +48,7 @@ export const apCh = (child) => {
     document.body.appendChild(child)
 }
 
-export const getStorage = (keys = [], area = "local", returnPromise = false) => {
+export const getStorage = (keys = [], returnPromise = false, area = "local") => {
     if (area == "sync") {
         return returnPromise ? chrome.storage.sync.get(keys) : chrome.storage.sync.get(keys).then((data) => data)
     }
@@ -59,7 +57,7 @@ export const getStorage = (keys = [], area = "local", returnPromise = false) => 
     }
     return returnPromise ? chrome.storage.local.get(keys) : chrome.storage.local.get(keys).then((data) => data)
 }
-export const setStorage = (keyValues = {}, area = "local", returnPromise = false) => {
+export const setStorage = (keyValues = {}, returnPromise = false, area = "local") => {
     if (area == "sync") {
         return returnPromise ? chrome.storage.sync.set(keyValues) : chrome.storage.sync.set(keyValues).then((data) => data)
     }
