@@ -56,8 +56,10 @@ export const rmEvent = (element, eventName, functionAttached, options = {}) => {
     element.removeEventListener(eventName, functionAttached, options)
 }
 
-export function qS (selector, parentElement=document){    
-    return parentElement.querySelector(selector)
+export function qS (selector, parentElement=document){
+    if (selector) {
+        return parentElement.querySelector(selector)
+    } 
 }
 
 
