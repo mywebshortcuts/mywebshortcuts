@@ -1,6 +1,6 @@
 > Note: There are a lot of basic functionalities missing currently, that's why this project has a lot of scope for contributions, star & watch the repository to stay updated, or follow [@Prakhartiwari0](https://twitter.com/Prakhartiwari0) on Twitter.
 
-![image](https://github.com/prakhartiwari0/my-web-shortcuts/assets/65062036/febd6d27-ed86-4d3c-8e3a-5082babd7ba6)
+![image](src/assets/github_banner.png)
 
 
 <h1 align="center"> My Web Shortcuts </h1>
