@@ -44,15 +44,19 @@ Show the Steps
 
 ## Features to work on
 
-**Element Selection for a Keyboard Shortcut**
-One can select a single or multiple elements with a single keyboard shortcut attached to it. 
+
+### Type of **Element/Location Selection for a Keyboard Shortcut**
+One can select a single or multiple elements or a location(x,y) on the webpage with a single keyboard shortcut attached to it. 
 
 
-- Single Element Clicking: Simply Select an Element to click on.
+- `singleElement` Single Element Clicking: Simply Select an Element to click on.
+  - `conditionally` Click Conditionally: 
+    - 1. `otherElementExists` Click on this Element if some other Element exists.
+    - 2. `otherElementDoesNotExist` Click on this Element if some other Element doesn't exists.
 
-- Multiple Elements Selection:
-   - Select Elements to click in series at desired intervals
-   - Select Elements to click conditionally:
-     -  1. Click on Next Element if Element doesn't exists.
-     -  2. Click on Next Element if Element isn't clickable.
-     -  3. Click on this Element if some other Element exists.
+- `multiElements` Multiple Elements Selection: Select multiple elements to click on one by one from the first to the last.
+   - `atIntervals` Select Elements to click in series at desired intervals
+   - `conditionally` Select Elements to click conditionally:
+     - 1. `currentElementDoesNotExist` Click on Next Element if the current Element doesn't exist.
+     - 2. `currentElementNotClickable` Click on Next Element if the current Element isn't clickable.
+- `locateElement` Location Selection: Click on the element that exists on the Coordinates  
