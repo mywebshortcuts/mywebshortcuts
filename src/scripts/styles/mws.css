@@ -14,7 +14,9 @@
     align-items: center;
 
 }
-
+button.MWS-element{
+    user-select: none;
+}
 .MWS-bordered{
     outline: 2px solid red !important;
 }
@@ -75,6 +77,12 @@
 
 .MWS-floatingDiv{
     display: flex;
+
+    width: fit-content;
+    height: fit-content;
+
+    min-width: 300px;
+    min-height: 100px;
 
     background-color: whitesmoke;
     padding: 2rem;
