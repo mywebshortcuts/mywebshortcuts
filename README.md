@@ -39,3 +39,20 @@ Show the Steps
 
 
 </details>
+
+
+
+## Features to work on
+
+**Element Selection for a Keyboard Shortcut**
+One can select a single or multiple elements with a single keyboard shortcut attached to it. 
+
+
+- Single Element Clicking: Simply Select an Element to click on.
+
+- Multiple Elements Selection:
+   - Select Elements to click in series at desired intervals
+   - Select Elements to click conditionally:
+     -  1. Click on Next Element if Element doesn't exists.
+     -  2. Click on Next Element if Element isn't clickable.
+     -  3. Click on this Element if some other Element exists.
