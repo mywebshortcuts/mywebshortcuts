@@ -20,6 +20,20 @@ export const getTextContent = (element) => {
     return element.textContent
 }
 
+export const updateCSS = (element, cssObject = {}) =>{
+    // element.style.cssText = cssText
+
+    for (const key in cssObject) {
+        if (Object.hasOwnProperty.call(cssObject, key)) {
+            const value = cssObject[key];
+
+            // console.log(`${key}: ${value};`);
+            element.style.cssText += `${key}: ${value};`
+
+        }
+    }
+}
+
 export const setInnerHTML = (element, html = "") => {
     element.innerHTML = html
 }
