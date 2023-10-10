@@ -14,7 +14,8 @@
             "24": "src/assets/24x24.png",
             "32": "src/assets/32x32.png"
         },
-        "default_title": "Click to set Cuts"
+        "default_title": "My Web Shortcuts",
+        "default_popup": "src/popup/popup.html"
     },
     "background": {
         "service_worker": "src/background/background.js"
@@ -23,15 +24,16 @@
         {
             "matches": [
                 "https://motherfuckingwebsite.com/*",
-                "https://github.com/*"
+                "https://www.google.com/*",
+                "https://www.heyprakhar.xyz/*"
             ],
+            "all_frames": true,
             "js": [
                 "src/scripts/useCustomShortcut.js"
             ]
         }
     ],
     "options_page": "src/options/options.html",
-    
     "permissions": [
         "tabs",
         "activeTab",
