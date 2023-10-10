@@ -1,6 +1,6 @@
 body.flex {
 	min-height: 400px;
-	min-width: 300px;
+	min-width:300px;
 
 	background-color: var(--dark-grey);
 
@@ -65,7 +65,7 @@ body.flex {
 	color: var(--dark-green);
 }
 
-.noShortcutDiv {
+.displayMessageDiv {
 	/* background-color: #fff; */
 	text-align: center;
 	width: 100%;
@@ -76,7 +76,7 @@ body.flex {
 	width: 100%;
 	overflow-y: auto;
 
-	padding: .2rem .5rem;
+	padding: 0.2rem 0.5rem;
 	/* padding-top: 0rem; */
 	/* padding-right: 0.3rem; */
 
@@ -91,21 +91,32 @@ body.flex {
 	width: 100%;
 
 	background-color: var(--light-blue);
-	padding: 0.7rem;
+	padding: 0.4rem;
 
 	border-radius: 1rem;
 	flex-direction: row;
 
-	justify-content: space-between;
+	/* justify-content: flex-start; */
 
 	margin: 0.2rem 0rem;
 }
 .shortcutDiv div {
+	align-items: flex-start;
+	padding: 0.1rem 0.6rem;
 }
 
+.shortcutNameDiv.flex {
+	flex: 2;
+}
+.shortcutKeyDiv.flex {
+	flex: .5;
+}
+.shortcutEnableDisableButtonDiv {
+	flex: 1;
+}
 .shortcutEnableDisableButton {
 	color: white;
-	padding: 0.5rem;
+	padding: 0.9rem;
 }
 
 /* FOOTER */

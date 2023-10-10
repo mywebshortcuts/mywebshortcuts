@@ -510,6 +510,7 @@ const mws = {
 
     },
     init: async function () {
+
         mws.websiteURL = extractCoreUrl(window.location.href)
         // console.log(mws.websiteURL);
 

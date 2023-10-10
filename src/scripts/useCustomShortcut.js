@@ -113,26 +113,24 @@ const ucs = {
     },
 
 
-    updateData: async function (data = {}) {
-        return new Promise(async (resolve, reject) => {
-            if (isObjEmpty(data)) {
-                const returnedData = await getCompleteData()
-                ucs.completeData = returnedData;
-                console.log(ucs.completeData);
-            } else {
-                ucs.completeData = data;
-                console.log(ucs.completeData);
-            }
-            if (!isObjEmpty(ucs.completeData) && ucs.completeData.websitesData[ucs.websiteURL]) {
-                ucs.extractAndSetCurrentWebsiteData();
-                resolve(ucs.completeData);
-            }
-        });
+    updateData: async function () {
+        // return new Promise(async (resolve, reject) => {
+        // const returnedData = await getCompleteData()
+        // ucs.completeData = returnedData;
+        ucs.completeData = await getCompleteData();
+        console.log(ucs.completeData);
+        if (!isObjEmpty(ucs.completeData) && ucs.completeData.websitesData[ucs.websiteURL]) {
+            ucs.extractAndSetCurrentWebsiteData();
+            // resolve(ucs.completeData);
+            return ucs.completeData
+        }
+        // });
     },
 
 
     init: async function () {
-        ucs.updateData().then(completeData => {
+       await ucs.updateData()
+    //    .then(completeData => {
             // console.log(ucs.completeData);
 
 
@@ -188,7 +186,7 @@ const ucs = {
                 }
 
             }
-        })
+        // })
 
     }
 

@@ -75,10 +75,14 @@ const bg = {
 
     getCompleteDataInBackground: async function () {
         const data = await getCompleteData()
-        if (!isObjEmpty(data)) {
+        console.log(data);
+        if (isObjEmpty(data)) {
+            // console.log(data);
+            await setStorage({...bg.completeData})
+        }
+        else{
             bg.completeData = data
         }
-        console.log(bg.completeData);
     },
 
     onDataUpdate: async function () {
@@ -89,17 +93,7 @@ const bg = {
     },
     init: async function () {
 
-        // Allowing access to Session storage for content scripts
-        // chrome.storage.session.setAccessLevel({ accessLevel: "TRUSTED_AND_UNTRUSTED_CONTEXTS" });
-
         await bg.getCompleteDataInBackground()
-
-        chrome.storage.onChanged.addListener(async (changes) => {
-            console.log("Data updated");
-            console.log(changes);
-            await bg.onDataUpdate()
-        })
-
 
         chrome.runtime.onInstalled.addListener(details => {
             console.log("BRooooo Hiiii you just installed meee");
@@ -117,9 +111,9 @@ const bg = {
             }
             
             if (request.msg = "sendCompleteData") {
-                console.log(bg.completeData);
+                console.log("Something asked for data: ",bg.completeData);
                 await bg.onDataUpdate()
-                sendResponse(bg.completeData)
+                await sendResponse(bg.completeData)
             }
             if (request.action == "turnOffSelector") {
                 bg.turnOffSelector(request.tab)
@@ -133,6 +127,10 @@ const bg = {
     }
 }
 
+chrome.storage.onChanged.addListener(async (changes) => {
+    console.log("Data updated");
+    await bg.onDataUpdate()
+})
 
 bg.init()
 

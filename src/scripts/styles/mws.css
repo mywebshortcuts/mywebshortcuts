@@ -114,6 +114,52 @@ button.MWS-element:hover{
 	text-align: center;
 }
 
+
+/* FLOATING DIV */
+
+
+.MWS-floatingDiv {
+	display: flex;
+	flex-direction: column;
+
+	width: fit-content;
+	height: fit-content;
+
+	min-width: 300px;
+	min-height: 100px;
+
+	background-color: var(--MWS-dark-grey);
+	padding: 2rem;
+
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+
+	border-radius: 1rem;
+
+	box-shadow: 0px 0px 10px 2px var(--MWS-black);
+	color: var(--MWS-light-blue);
+
+	z-index: 10000;
+
+	cursor: grab;
+}
+
+.MWS-elementSelectionEnableDisableButton {
+}
+
+.MWS-selectedElementPara {
+}
+.MWS-currentElementSpan {
+}
+
+.MWS-closeElementSelectorButton {
+}
+
+
+/* KEY SELECTOR DIALOG */
+
+
 .MWS-keyboardShortcutSelectionDialog {
 	cursor: auto;
 
@@ -141,39 +187,4 @@ button.MWS-element:hover{
 	position: absolute;
 	top: 0px;
 	right: 0px;
-}
-
-.MWS-floatingDiv {
-	display: flex;
-	flex-direction: column;
-
-	width: fit-content;
-	height: fit-content;
-
-	min-width: 300px;
-	min-height: 100px;
-
-	background-color: whitesmoke;
-	padding: 2rem;
-
-	position: fixed;
-	bottom: 0px;
-	right: 0px;
-
-	border: 2px solid black;
-
-	z-index: 10000;
-
-	cursor: grab;
-}
-
-.MWS-elementSelectionEnableDisableButton {
-}
-
-.MWS-selectedElementPara {
-}
-.MWS-currentElementSpan {
-}
-
-.MWS-closeElementSelectorButton {
 }
