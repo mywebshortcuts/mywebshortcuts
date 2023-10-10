@@ -1,8 +1,142 @@
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+body.flex {
+	min-height: 400px;
+	min-width: 300px;
+
+	background-color: var(--dark-grey);
+
+	padding: 1rem;
+	justify-content: flex-start;
+
+	position: relative;
+
+	color: var(--dark-grey);
+}
+
+.mwsBrandingHeader.flex {
+	/* border-bottom: 2px solid black; */
+
+	align-items: baseline;
+}
+.mwsHeaderImage {
+	width: 80%;
+	margin: 0.2rem;
+}
+
+.startSelectionButton {
+	/* background-color: transparent;
+	color: var(--dark-green); */
+	font-size: 2rem;
+
+	/* border: 2px solid var(--dark-green); */
+	border-radius: 100%;
+
+	width: 2rem;
+	height: 2rem;
+
+	padding: 1.5rem;
+
+	position: absolute;
+	top: 0.7rem;
+	right: 0.7rem;
+}
+.startSelectionButton:hover {
+	/* background-color: var(--dark-green);
+	color: white; */
+	/* border: 2px solid var(--dark-green); */
+}
+
+/* SHORTCUTS AREA */
+
+.activeWebsiteShortcutsDiv.flex {
+	/* background-color: var(--dark-blue); */
+
+	border-radius: 0.3rem;
+
+	margin-top: 0.5rem;
+	padding: 1rem;
+
+	font-size: 1rem;
+
+	max-height: 300px;
+
+	width: 100%;
+}
+.activeWebsiteShortcutsDiv h3 {
+	color: var(--dark-green);
+}
+
+.noShortcutDiv {
+	/* background-color: #fff; */
+	text-align: center;
+	width: 100%;
+	color: var(--light-blue);
+}
+
+.shortcutsListDiv {
+	width: 100%;
+	overflow-y: auto;
+
+	padding: .2rem .5rem;
+	/* padding-top: 0rem; */
+	/* padding-right: 0.3rem; */
+
+	border-radius: 1rem;
+
+	background-color: #404040;
+
+	scroll-behavior: smooth;
+}
+
+.shortcutDiv.flex {
+	width: 100%;
+
+	background-color: var(--light-blue);
+	padding: 0.7rem;
+
+	border-radius: 1rem;
+	flex-direction: row;
+
+	justify-content: space-between;
+
+	margin: 0.2rem 0rem;
+}
+.shortcutDiv div {
+}
+
+.shortcutEnableDisableButton {
+	color: white;
+	padding: 0.5rem;
+}
+
+/* FOOTER */
+
+footer.flex {
+	padding: 0.5rem;
+	min-height: 1.5rem;
+
+	flex-direction: column;
+}
+footer.flex button {
+	padding: 0.8rem;
+	margin: 0.2rem;
+	font-weight: 500;
+}
+.disableButtonsDiv {
+	flex-direction: row;
+}
+.disableButtonsDiv button {
+	width: 50%;
+	font-weight: 900;
+}
+
+.settingsButtonDiv {
+	width: 100%;
+}
+.openOptionsButton {
+	width: 100%;
+	background-color: var(--black);
+	color: white;
+}
+.openOptionsButton:hover {
+	background-color: var(--dark-green);
 }

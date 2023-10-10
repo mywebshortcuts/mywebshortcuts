@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- <link rel="stylesheet" href="./style.css" />
+		<link rel="stylesheet" href="../forExtensionPages.css" /> -->
+	</head>
+	<body class="flex">
+		<div class="mwsBrandingHeader flex">
+			<img src="../assets/48x48.png" alt="headerImage" class="mwsHeaderImage" />
+		</div>
+
+		<button
+			class="startSelectionButton greenButton flex"	
+			title="Add a Shortcut in this Website">
+			+
+		</button>
+
+		<div class="activeWebsiteShortcutsDiv flex">
+			<h3>Shortcuts for this Website</h3>
+
+			<div class="shortcutsListDiv">
+
+				<!-- EACH SHORTCUT DIV -->
+				<template class="shortcutDivTemplate">
+
+					<div class="shortcutDiv flex">
+						<div class="shortcutNameDiv flex" title="Name of the Shortcut">
+							<span class="shortcutName">Submit Button</span>
+						</div>
+
+						<div class="shortcutKeyDiv flex" title="Shortcut Key">
+							<span class="shortcutKey">S</span>
+						</div>
+						<div
+							class="shortcutEnableDisableButtonDiv flex"
+							title="Shortcut Enabled/Disabled">
+							<button class="shortcutEnableDisableButton">On</button>
+						</div>
+					</div>
+				</template>
+				<!-- ---------------- -->
+
+				<div class="noShortcutDiv flex">
+					<h4>You haven't set any shortcuts for this website yet 😕</h4>
+				</div>
+			</div>
+		</div>
+
+		<footer class="flex">
+			<div class="disableButtonsDiv flex">
+				<button
+					class="disableCurrentWebsiteButton redButton"
+					title="Disable custom shortcuts for this website">
+					Disable for this Website
+				</button>
+				<button
+					class="disableEverywhereButton redButton"
+					title="Disable custom shortcuts for all websites">
+					Disable everywhere
+				</button>
+			</div>
+
+			<div class="settingsButtonDiv flex">
+				<button class="openOptionsButton">Open Settings ⚙️</button>
+			</div>
+		</footer>
+	</body>
+	<script type="module" src="./script.js"></script>
+</html>
