@@ -1,62 +1,138 @@
 // import {bro} from "../scripts/main";
 
+import { getCompleteData, getStorage, isObjEmpty, sendMsg, setStorage } from '../modules/quickMethods';
 import setter from '../scripts/setter?script'
 
 
-let mwsCSS = ``
+
+// STORAGE MAP
+
+const completeDataMap =
+{
+    "websitesData": {
 
 
-function turnOffSelector(tab) {
-    // chrome.scripting.removeCSS({
-    //     target: { tabId: tab.id },
-    //     css: mwsCSS,
-    // })
-    chrome.tabs.sendMessage(tab.id, { action: "turnOffSelector" });
+        // Each Website Data
+        "websiteURL": {
+            settings: {
+                enabled: true,
+            },
+            shortcuts: {
 
+                "shortcut1": {
+                    name: "",
+                    enabled: true,
+
+                    // Single Element or Multiple Elements or Location on View Screen
+                    type: "", // Read the Readme
+                    // In multiElements type, all the selected elements in the array will be clicked one by one from first to last
+
+                    // Will be updated when other types are added
+                    properties: {
+                        todo: "click" // click, focus, highlight(add bright borders), scrollTo 
+                    },
+
+                    // Data about the element to be selected
+                    selected: {} // {elementJSON} OR [{elementJSON}, {elementJSON}...] OR " cssSelector.class[attribute='value'] " OR {x:20, y:20},
+                },
+            },
+        }
+
+    },
+
+    globalSettings: {
+        extensionEnabled: true,
+        darkMode: true,
+
+    }
 }
 
-chrome.action.onClicked.addListener(async (tab) => {
 
-    // We retrieve the action badge to check if the extension is 'ON' or 'OFF'
-    const prevState = await chrome.action.getBadgeText({ tabId: tab.id });
-    // Next state will always be the opposite
-    const nextState = prevState === 'ON' ? undefined : 'ON';
+const bg = {
+    completeData: {
+        websitesData: {},
 
-    // Set the action badge to the next state
-    await chrome.action.setBadgeText({
-        tabId: tab.id,
-        text: nextState
-    });
+        globalSettings: {
+            extensionEnabled: true,
+            darkMode: true,
 
-    if (nextState === 'ON') {
-        // Insert the CSS file when the user turns the extension on (UNUSED AS OF NOW)
-        // chrome.scripting.insertCSS({
-        //     target: { tabId: tab.id },
-        //     css: mwsCSS,
-        // }).then(() => {
-        // })
+        }
+    },
+
+
+    turnOffSelector: function (tab) {
+        chrome.tabs.sendMessage(tab.id, { action: "turnOffSelector" })
+    },
+
+    turnOnSelector: function (tab) {
         chrome.scripting.executeScript({
             target: { tabId: tab.id },
             files: [setter]
-        });
+        })
 
-        chrome.tabs.sendMessage(tab.id, { message: "start" });
+        chrome.tabs.sendMessage(tab.id, { action: "turnOnSelector" });
+    },
 
-    } else if (nextState === undefined) {
-        turnOffSelector(tab)
-    }
-});
-
-chrome.runtime.onMessage.addListener(
-    function (request, sender, sendResponse) {
-        if (request.action == "turnOffSelector") {
-            turnOffSelector()
+    getCompleteDataInBackground: async function () {
+        const data = await getCompleteData()
+        if (!isObjEmpty(data)) {
+            bg.completeData = data
         }
+        console.log(bg.completeData);
+    },
+
+    onDataUpdate: async function () {
+        await bg.getCompleteDataInBackground()
+
+        // await sendMsg({ msg: "dataUpdated", data: bg.completeData })
+
+    },
+    init: async function () {
+
+        // Allowing access to Session storage for content scripts
+        // chrome.storage.session.setAccessLevel({ accessLevel: "TRUSTED_AND_UNTRUSTED_CONTEXTS" });
+
+        await bg.getCompleteDataInBackground()
+
+        chrome.storage.onChanged.addListener(async (changes) => {
+            console.log("Data updated");
+            console.log(changes);
+            await bg.onDataUpdate()
+        })
+
+
+        chrome.runtime.onInstalled.addListener(details => {
+            console.log("BRooooo Hiiii you just installed meee");
+            if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
+                chrome.runtime.setUninstallURL('https://www.heyprakhar.xyz');
+            }
+        })
+
+
+        chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
+
+            if (request.spread) {
+                console.log("Spreading");
+                chrome.tabs.sendMessage(sender.tab.id, request);
+            }
+            
+            if (request.msg = "sendCompleteData") {
+                console.log(bg.completeData);
+                await bg.onDataUpdate()
+                sendResponse(bg.completeData)
+            }
+            if (request.action == "turnOffSelector") {
+                bg.turnOffSelector(request.tab)
+            }
+            else if (request.action == "turnOnSelector") {
+                bg.turnOnSelector(request.tab)
+            }
+        }
+        )
+
     }
-);
-chrome.runtime.onInstalled.addListener(details => {
-    console.log("BRooooo Hiiii you just installed meee");
-    if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-        chrome.runtime.setUninstallURL('https://www.heyprakhar.xyz');
-    }
-});
+}
+
+
+bg.init()
+
