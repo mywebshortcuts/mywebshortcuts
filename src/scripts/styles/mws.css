@@ -1,134 +1,179 @@
 
-:root{
+*.MWS-element{
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  /* --default-font: 'Grandstander', cursive; */
+  
+  --MWS-black:#000000;
+  
+  --MWS-light-green:#54B948;
+  --MWS-dark-green:#49A942;
+  
+  --MWS-dark-blue:#26BCD6;
+  --MWS-light-blue:#7ED0E0;
+  --MWS-lightest-blue:#CCEAEE;
+  
+  --MWS-grey:#C0D3D8;
+  --MWS-dark-grey:#262626;
+  
+  --MWS-red: #d75454;
 }
 
-.MWS-stylesForPage{
-    cursor:pointer !important;
 
-    position: relative;
+
+.MWS-element {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.MWS-element{
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
+.flex.MWS-element{
+  display:flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-direction: column;
 }
+
+
 button.MWS-element{
-    user-select: none;
+  
+  background-color: var(--MWS-dark-green);
+  
+  border: none;
+
+  cursor: pointer;
+
+  border-radius: .5rem;
+  user-select: none;
+  padding: 1rem;
+
+  transition: .15s ease;
+  
 }
-.MWS-bordered{
-    outline: 2px solid red !important;
+button.MWS-element:hover{
+  /* transition: .15s ease; */
+  background-color: var(--MWS-light-green);
 }
 
-.MWS-clicked{
-    position:relative
+
+
+.MWS-stylesForPage {
+	cursor: pointer !important;
+
+	position: relative;
+}
+
+
+.MWS-bordered {
+	outline: 2px solid red !important;
+}
+/* .MWS-bordered[data-mwsShortcutSet] {
+    border-color: yellow !important;
+} */
+
+.MWS-clicked {
+	position: relative;
 }
 
 .MWS-clicked::after {
-  content: attr(data-index); /* Display the data-index attribute as content */
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 15px;
-  height: 15px;
-  background-color: yellow;
-  color: black;
-  border: 2px solid black;
-  font-size: 12px;
+	content: attr(data-index); /* Display the data-index attribute as content */
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	width: 15px;
+	height: 15px;
+	background-color: yellow;
+	color: black;
+	border: 2px solid black;
+	font-size: 12px;
 
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
 }
-
 
 .MWS-clicked::before {
-  content: attr(data-keyboardShortcut); /* Display the data-index attribute as content */
-  position: absolute;
-  bottom: 5px;
-  right: 5px;
-  width: 15px;
-  height: 15px;
-  background-color: grey;
-  color: black;
-  border: 2px solid black;
-  font-size: 12px;
-  text-align: center;
+	content: attr(
+		data-keyboardShortcut
+	); /* Display the data-index attribute as content */
+	position: absolute;
+	bottom: 5px;
+	right: 5px;
+	width: 15px;
+	height: 15px;
+	background-color: grey;
+	color: black;
+	border: 2px solid black;
+	font-size: 12px;
+	text-align: center;
 }
 
+.MWS-keyboardShortcutSelectionDialog {
+	cursor: auto;
 
+	display: flex;
+	justify-content: center;
+	align-items: center;
 
-.MWS-keyboardShortcutSelectionDialog{
-    cursor: auto;
+	flex-direction: column;
 
-    display: flex;
-    justify-content: center;
-    align-items: center;
+	padding: 2rem;
 
-    flex-direction: column;
-    
-padding: 2rem;
+	border-radius: 2rem;
 
-border-radius: 2rem;
-
-    width: 50%;
+	width: 50%;
 }
-.MWS-keyboardShortcutSelectionDialog::backdrop{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(0, 0, 0, 0.5);
-
+.MWS-keyboardShortcutSelectionDialog::backdrop {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.5);
 }
-.MWS-closeKeyboardShortcutSelectionDialogButton{
-    font-size: 2rem;
+.MWS-closeKeyboardShortcutSelectionDialogButton {
+	font-size: 2rem;
 
-    position: absolute;
-    top: 0px;
-    right: 0px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
 
+.MWS-floatingDiv {
+	display: flex;
+	flex-direction: column;
 
+	width: fit-content;
+	height: fit-content;
 
-.MWS-floatingDiv{
-    display: flex;
+	min-width: 300px;
+	min-height: 100px;
 
-    width: fit-content;
-    height: fit-content;
+	background-color: whitesmoke;
+	padding: 2rem;
 
-    min-width: 300px;
-    min-height: 100px;
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
 
-    background-color: whitesmoke;
-    padding: 2rem;
+	border: 2px solid black;
 
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
+	z-index: 10000;
 
-    border: 2px solid black;
-
-    z-index: 100;
-
-    cursor: grab;
+	cursor: grab;
 }
 
-
-.MWS-elementSelectionEnableDisableButton{
-
+.MWS-elementSelectionEnableDisableButton {
 }
 
-
-.MWS-selectedElementPara{
-
+.MWS-selectedElementPara {
 }
-.MWS-currentElementSpan{
-
+.MWS-currentElementSpan {
 }
 
-
-.MWS-closeElementSelectorButton{
-
+.MWS-closeElementSelectorButton {
 }

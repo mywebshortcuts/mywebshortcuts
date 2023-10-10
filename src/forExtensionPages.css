@@ -1,0 +1,111 @@
+/* @import url('https://fonts.googleapis.com/css2?family=Grandstander:ital,wght@0,100;0,200;0,300;0,400;0,500;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap'); */
+
+/* @import url(assets/grandstander_font/Grandstander-VariableFont_wght.ttf); */
+
+* {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
+}
+
+@font-face {
+	font-family: 'Grandstander';
+	src: url('./assets/grandstander_font/Grandstander-VariableFont_wght.ttf')
+		format('truetype');
+}
+
+:root {
+	/* --default-font: 'Grandstander', cursive; */
+
+	--black: #000000;
+
+	--light-green: #54b948;
+	--dark-green: #49a942;
+
+	--dark-blue: #26bcd6;
+	--light-blue: #7ed0e0;
+	--lightest-blue: #cceaee;
+
+	--grey: #c0d3d8;
+	--dark-grey: #262626;
+
+	--red: #d75454;
+}
+
+/* Remove the default scrollbar styles */
+::-webkit-scrollbar {
+	width: 10px; /* Adjust the width as needed */
+}
+
+/* Track (the background) */
+::-webkit-scrollbar-track {
+	background: transparent; /* No background color */
+	/* margin: .5rem 0px; */
+}
+
+/* Handle (the thumb) */
+::-webkit-scrollbar-thumb {
+	margin-top: 1rem;
+	background: rgba(93, 128, 151, 0.768);
+	border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: rgb(93, 128, 151);
+}
+
+body {
+	font-family: var(--default-font);
+}
+
+.flex {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	flex-direction: column;
+}
+
+button {
+	background-color: var(--dark-green);
+
+	border: none;
+
+	cursor: pointer;
+
+	border-radius: 0.5rem;
+	user-select: none;
+
+	transition: 0.15s ease;
+}
+button:hover {
+	/* transition: .15s ease; */
+	background-color: var(--light-green);
+}
+button:disabled{
+  color: var(--grey) !important;
+  border-color: var(--grey)!important;
+  opacity: 0.7 !important;
+  background-color: transparent !important;
+
+  pointer-events: none !important;
+}
+
+.redButton {
+	background-color: transparent;
+	border: 2px solid var(--red);
+	color: var(--red);
+}
+.redButton:hover {
+	background-color: var(--red);
+	color: white;
+}
+
+.greenButton {
+	background-color: transparent;
+	border: 2px solid var(--dark-green);
+	color: var(--dark-green);
+}
+.greenButton:hover {
+	background-color: var(--dark-green);
+	color: white;
+}
