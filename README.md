@@ -56,6 +56,7 @@ One can select a single or multiple elements or a location(x,y) on the webpage w
 
 - `multiElements` Multiple Elements Selection: Select multiple elements to click on one by one from the first to the last.
    - `atIntervals` Select Elements to click in series at desired intervals
+   - `similar` Select Elements to click/focus on all the similar Elements one by one, shift click to reverse (e.g. Google result links, Discord users list etc.)
    - `conditionally` Select Elements to click conditionally:
      - 1. `currentElementDoesNotExist` Click on Next Element if the current Element doesn't exist.
      - 2. `currentElementNotClickable` Click on Next Element if the current Element isn't clickable.
