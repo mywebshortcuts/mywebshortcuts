@@ -2,7 +2,7 @@ import "../forExtensionPages.css"
 import "./style.css"
 
 
-import { extractCoreUrl, qS, sendMsg, setEvent, setTextContent, setStorage, updateCSS, switchClass, getCompleteData, isObjEmpty } from "../modules/quickMethods"
+import { extractCoreUrl, qS, sendMsg, setEvent, setTextContent, setStorage, updateCSS, switchClass, getCompleteData, isObjEmpty, qSA } from "../modules/quickMethods"
 
 
 const pop = {
@@ -40,7 +40,7 @@ const pop = {
             pop.currentWebsiteSettings = pop.completeData.websitesData[pop.currentTabURL].settings || {}
             pop.currentWebsiteShortcutsData = pop.completeData.websitesData[pop.currentTabURL].shortcuts || {}
         }
-        pop.updateDOM()
+    pop.updateDOM()
     },
 
     getCompleteData: async () => {
@@ -56,7 +56,6 @@ const pop = {
         await setStorage({ ...pop.completeData })
 
         await pop.getCompleteData()
-        pop.updateDOM()
         if (pop.completeData.globalSettings.extensionEnabled) {
             sendMsg({ msg: "extensionEnabledEverywhere", spread:true, tab: pop.currentTab })
         }
@@ -67,16 +66,53 @@ const pop = {
     },
 
     
+    enableDisableForWebsite: async () => {
+        // If it's true make it false, and vice versa...
+        pop.completeData.websitesData[pop.currentTabURL].settings.enabled = !pop.completeData.websitesData[pop.currentTabURL].settings.enabled
+
+
+        await setStorage({ ...pop.completeData })
+
+        await pop.getCompleteData()
+        // pop.updateDOM()
+        if (pop.currentWebsiteData.settings.enabled) {
+            sendMsg({ msg: "extensionEnabledForWebsite", spread:true, tab: pop.currentTab })
+        }
+        else{
+            sendMsg({ msg: "extensionDisabledForWebsite", spread:true, tab: pop.currentTab })
+        }
+
+    },
+
+    
+    
+    enableDisableForShortcut: async (event, buttonElement) => {
+        console.log(buttonElement);
+
+        const key = buttonElement.getAttribute('data-shortcutKey')
+        // If it's true make it false, and vice versa...
+        pop.completeData.websitesData[pop.currentTabURL].shortcuts[key].enabled = !pop.completeData.websitesData[pop.currentTabURL].shortcuts[key].enabled
+
+
+
+        await setStorage({ ...pop.completeData })
+
+        await pop.getCompleteData()
+
+    },
+
+    
 
     createShortcutDivs: ()=>{
         const templateElement = document.querySelector('.shortcutDivTemplate')
-        console.log(templateElement);
+        // console.log(templateElement);
         let template = templateElement.content.cloneNode(true)
 
         const shortcutsListDiv = qS('.shortcutsListDiv')
         // console.log(shortcutsListDiv.children);
-        console.log(shortcutsListDiv.children.length);
+        // console.log(shortcutsListDiv.children.length);
 
+        // Remove all the existing shortcut divs and create new ones (ignoring the one inside template as it's needed)
         function removeChildrenExceptTemplate(element) {
             const children = element.children;
 
@@ -102,22 +138,32 @@ const pop = {
 
                 let eachShortcutData = shortcutsData[key];
 
-                console.log(eachShortcutData);
-                console.log(eachShortcutData.enabled);
-
-                console.log(template);
-                console.log(template.querySelector(".shortcutName"));
-
                 shortcutDiv.querySelector(".shortcutName").textContent = eachShortcutData.name
                 shortcutDiv.querySelector(".shortcutKey").textContent = key
                 shortcutDiv.querySelector(".shortcutEnableDisableButton").textContent = eachShortcutData.enabled ? "On" : "Off"
+                shortcutDiv.querySelector(".shortcutEnableDisableButton").classList.add(eachShortcutData.enabled ? "greenButtonFilled" : "redButtonFilled")
+                console.log(shortcutDiv.querySelector(".shortcutEnableDisableButton"));
+                shortcutDiv.querySelector(".shortcutEnableDisableButton").setAttribute('data-shortcutKey', key)
 
+                
                 shortcutsListDiv.appendChild(shortcutDiv)
 
-                console.log("Shortcut Data",eachShortcutData);
-                
+                let shortcutEnableDisableButton = shortcutsListDiv.querySelector(`.shortcutEnableDisableButton[data-shortcutKey='${key}']`)
+
+                setEvent(shortcutEnableDisableButton, "click", (e) => {
+                    // let classToRemove = eachShortcutData.enabled ? "greenButtonFilled" : "redButtonFilled"
+                    // let classToAdd = eachShortcutData.enabled ? "redButtonFilled" : "greenButtonFilled"
+                    
+                    // console.log(classToAdd);
+                    // console.log(classToRemove);
+                    
+                    // switchClass(shortcutEnableDisableButton, classToRemove, classToAdd)
+
+                    // console.log(shortcutEnableDisableButton);
+                    pop.enableDisableForShortcut(e, shortcutEnableDisableButton)
+                })
             }
-        }
+        }   
 
         // console.log(template);
         // console.log(template.querySelector('.shortcutName'));
@@ -130,16 +176,28 @@ const pop = {
         if (!pop.globalSettings.extensionEnabled) {
             setTextContent(qS('.disableEverywhereButton'), "Enable Everwhere")
             switchClass(qS('.disableEverywhereButton'), "redButton", "greenButton")
-            console.log("extension disabled");
+            console.log("extension disabled everywhere");
         }
         else {
             setTextContent(qS('.disableEverywhereButton'), "Disable Everwhere")
             switchClass(qS('.disableEverywhereButton'), "greenButton", "redButton")
-            console.log("extension enabled");
+            console.log("extension enabled everywhere");
         }
+        // if (pop.currentWebsiteData[pop.currentTabURL]) {
+            if (!pop.currentWebsiteData.settings.enabled) {
+                setTextContent(qS('.disableCurrentWebsiteButton'), "Enable For this website")
+                switchClass(qS('.disableCurrentWebsiteButton'), "redButton", "greenButton")
+                console.log("extension disabled on website");
+            }
+            else {
+                setTextContent(qS('.disableCurrentWebsiteButton'), "Disable for this Website")
+                switchClass(qS('.disableCurrentWebsiteButton'), "greenButton", "redButton")
+                console.log("extension enabled on website");
+            }
+        // }
 
         if (!isObjEmpty(pop.currentWebsiteShortcutsData)) {
-            console.log("shortcuts are set!");
+            // console.log("shortcuts are set!");
             if (qS('.displayMessageDiv')) {
                 qS('.displayMessageDiv').remove()
             }
@@ -169,10 +227,12 @@ const pop = {
 
         await pop.getCompleteData()
 
-        pop.updateDOM()
+        // pop.updateDOM()
 
         setEvent(qS('.startSelectionButton'), "click", pop.startSelection)
         setEvent(qS('.disableEverywhereButton'), "click", pop.enableDisableEverwhere)
+        setEvent(qS('.disableCurrentWebsiteButton'), "click", pop.enableDisableForWebsite)
+
 
         const openOptionsButton = document.querySelector('.openOptionsButton');
 

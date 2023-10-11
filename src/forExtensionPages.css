@@ -30,6 +30,7 @@
 	--dark-grey: #262626;
 
 	--red: #d75454;
+	--light-red: #d37070;
 }
 
 /* Remove the default scrollbar styles */
@@ -108,4 +109,24 @@ button:disabled{
 .greenButton:hover {
 	background-color: var(--dark-green);
 	color: white;
+}
+
+
+
+.redButtonFilled {
+	background-color: var(--red);
+	/* border: 2px solid var(--red); */
+	color: white;
+}
+.redButtonFilled:hover {
+	background-color: var(--light-red);
+}
+
+.greenButtonFilled {
+	background-color: var(--dark-green);
+	/* border: 2px solid var(--dark-green); */
+	color: white;
+}
+.greenButtonFilled:hover {
+	background-color: var(--light-green);
 }

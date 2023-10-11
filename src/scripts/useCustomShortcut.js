@@ -35,6 +35,9 @@ const ucs = {
 
 
     onShortcutClicker: function (event) {
+        if (!ucs.currentWebsiteData.shortcuts[event.key].enabled) {
+            return            
+        }
         const activeElement = document.activeElement;
 
         if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
@@ -170,12 +173,12 @@ const ucs = {
                             else if (request.msg === "selectorEnabled") {
                                 ucs.turnOff()
                             }
-                            else if (request.msg === "extensionEnabledEverywhere") {
-                                ucs.init()
-                            }
-                            else if (request.msg === "extensionDisabledEverywhere") {
-                                ucs.init()
-                            }
+                            // else if (request.msg === "extensionEnabledEverywhere" || ) {
+                            //     ucs.init()
+                            // }
+                            // else if (request.msg === "extensionDisabledEverywhere") {
+                            //     ucs.init()
+                            // }
                             // else if (request.msg = "dataUpdated") {
                             //     console.log("Okay bro UCS update karlega apna data");
                             //     await ucs.updateData(request.data)
@@ -197,5 +200,5 @@ const ucs = {
 ucs.init()
 chrome.storage.onChanged.addListener(async (changes) => {
     console.log("UCS updating data");
-    await ucs.updateData()
+    await ucs.init()
 })
