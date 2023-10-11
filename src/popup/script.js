@@ -184,7 +184,7 @@ const pop = {
             console.log("extension enabled everywhere");
         }
         // if (pop.currentWebsiteData[pop.currentTabURL]) {
-            if (!pop.currentWebsiteData.settings.enabled) {
+        if (pop.currentWebsiteData && !pop.currentWebsiteData.settings.enabled) {
                 setTextContent(qS('.disableCurrentWebsiteButton'), "Enable For this website")
                 switchClass(qS('.disableCurrentWebsiteButton'), "redButton", "greenButton")
                 console.log("extension disabled on website");
