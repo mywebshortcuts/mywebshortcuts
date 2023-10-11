@@ -68,6 +68,9 @@
 	--MWS-dark-grey: #262626;
 
 	--MWS-red: #d75454;
+
+
+
 }
 .MWS-element {
 	display: flex;
@@ -106,11 +109,14 @@ button.MWS-element:hover {
 	width: fit-content;
 	height: fit-content;
 
-	min-width: 300px;
-	min-height: 100px;
+	width: 300px;
+	height: 400px;
+	
+	/* min-width: 300px;
+	min-height: 100px; */
 
 	background-color: var(--MWS-dark-grey);
-	padding: 2rem;
+	padding: 20px;
 
 	position: fixed;
 	bottom: 0px;
@@ -154,7 +160,7 @@ button.MWS-element:hover {
 }
 .MWS-currentElementSpan{
 	font-weight: 900;
-	font-size: 20px;
+	font-size: 17px;
 }
 .MWS-selectElementButton{
 	margin: 5px 0px;
