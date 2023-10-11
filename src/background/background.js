@@ -4,50 +4,6 @@ import { getCompleteData, getStorage, isObjEmpty, sendMsg, setStorage } from '..
 import setter from '../scripts/setter?script'
 
 
-
-// STORAGE MAP
-
-const completeDataMap =
-{
-    "websitesData": {
-
-
-        // Each Website Data
-        "websiteURL": {
-            settings: {
-                enabled: true,
-            },
-            shortcuts: {
-
-                "shortcut1": {
-                    name: "",
-                    enabled: true,
-
-                    // Single Element or Multiple Elements or Location on View Screen
-                    type: "", // Read the Readme
-                    // In multiElements type, all the selected elements in the array will be clicked one by one from first to last
-
-                    // Will be updated when other types are added
-                    properties: {
-                        todo: "click" // click, focus, highlight(add bright borders), scrollTo 
-                    },
-
-                    // Data about the element to be selected
-                    selected: {} // {elementJSON} OR [{elementJSON}, {elementJSON}...] OR " cssSelector.class[attribute='value'] " OR {x:20, y:20},
-                },
-            },
-        }
-
-    },
-
-    globalSettings: {
-        extensionEnabled: true,
-        darkMode: true,
-
-    }
-}
-
-
 const bg = {
     completeData: {
         websitesData: {},
