@@ -31,7 +31,7 @@ const bg = {
 
     getCompleteDataInBackground: async function () {
         const data = await getCompleteData()
-        console.log(data);
+        // console.log(data);
         if (isObjEmpty(data)) {
             // console.log(data);
             await setStorage({...bg.completeData})
@@ -63,7 +63,7 @@ const bg = {
 
             if (request.spread) {
                 console.log("Spreading");
-                chrome.tabs.sendMessage(sender.tab.id, request);
+                chrome.tabs.sendMessage(request.tab.id, request);
             }
             
             if (request.msg = "sendCompleteData") {
@@ -84,7 +84,7 @@ const bg = {
 }
 
 chrome.storage.onChanged.addListener(async (changes) => {
-    console.log("Data updated");
+    // console.log("Data updated");
     await bg.onDataUpdate()
 })
 
