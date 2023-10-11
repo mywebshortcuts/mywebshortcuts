@@ -31,27 +31,30 @@ inside the template strings is cumbersome and I can't get the benefit of emmet a
 
 <!-- ELEMENT SELECTOR FLOATING DIV -->
 <div class="MWS-element MWS-floatingDiv">
-	<button class="MWS-element MWS-elementSelectionEnableDisableButton greenButton">
-		On
-	</button>
+	<button class="MWS-element MWS-elementSelectionEnableDisableButton">On</button>
 	<p class="MWS-element MWS-selectedElementPara">
-		Select Element:
-		<span class="MWS-element MWS-currentElementSpan">currentElement</span>
+		Select Element: <span class="MWS-element MWS-currentElementSpan">currentElement</span>
 	</p>
-<label class="MWS-element MWS-singleElementLabel">
-  <input type="radio" class="MWS-element MWS-singleElementRadio" name="elementSelectionType" value="single" checked>
-  Single Element
-</label>
 
-<label class="MWS-element MWS-multipleElementsLabel">
-  <input type="radio" class="MWS-element MWS-multipleElementsRadio" name="elementSelectionType" value="multiple" disabled="true">
-  Multiple Elements (Coming Soon)
-</label>
+	<label class="MWS-element MWS-singleElementLabel">
+	<input type="radio" class="MWS-element MWS-singleElementRadio" name="elementSelectionType" value="single" checked>
+	Single Element
+	</label>
 
-<label class="MWS-element MWS-locationOnWindowLabel">
-  <input type="radio" class="MWS-element MWS-locationOnWindowRadio" name="elementSelectionType" value="location" disabled="true">
-  Location on Window (Coming Soon)
-</label>
+	<label class="MWS-element MWS-multipleElementsLabel">
+	<input type="radio" class="MWS-element MWS-multipleElementsRadio" name="elementSelectionType" value="multiple" disabled="true">
+	Multiple Elements (Coming Soon)
+	</label>
 
-	<button class="MWS-element MWS-closeElementSelectorButton redButton">Close</button>
+	<label class="MWS-element MWS-locationOnWindowLabel">
+
+	<input type="radio" class="MWS-element MWS-locationOnWindowRadio" name="elementSelectionType" value="location" disabled="true">
+	Location on Window (Coming Soon)
+
+	</label>
+
+	<button class="MWS-element MWS-selectElementButton">Select Element</button>
+
+	<button class="MWS-element MWS-closeElementSelectorButton">Close</button>
+
 </div>
