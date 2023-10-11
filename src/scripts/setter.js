@@ -47,32 +47,45 @@ const mws = {
 
     extensionElementsInnerHTML: {
         elementSelectorDiv: `
-            <button class="MWS-element MWS-elementSelectionEnableDisableButton">On</button>
-            <p class="MWS-element MWS-selectedElementPara">
-                Select Element: <span class="MWS-element MWS-currentElementSpan">currentElement</span>
-            </p>
+	<button class="MWS-element MWS-closeElementSelectorButton">Close</button>
 
-            <label class="MWS-element MWS-singleElementLabel">
-            <input type="radio" class="MWS-element MWS-singleElementRadio" name="elementSelectionType" value="single" checked>
-            Single Element
-            </label>
+	<div class="MWS-element MWS-selectedElementDiv">
+		<p class="MWS-element MWS-selectedElementPara">
+			Selected Element:-
+			<span class="MWS-element MWS-currentElementSpan">currentElement</span>
+		</p>
 
-            <label class="MWS-element MWS-multipleElementsLabel">
-            <input type="radio" class="MWS-element MWS-multipleElementsRadio" name="elementSelectionType" value="multiple" disabled="true">
-            Multiple Elements (Coming Soon)
-            </label>
+		<button class="MWS-element MWS-selectElementButton">Select Element</button>
+	</div>
 
-            <label class="MWS-element MWS-locationOnWindowLabel">
+	<div class="MWS-element MWS-selectionOptionsDiv">
+		<h3 class="MWS-element MWS-selectionOptionsHeading">Selection Options</h3>
 
-            <input type="radio" class="MWS-element MWS-locationOnWindowRadio" name="elementSelectionType" value="location" disabled="true">
-            Location on Window (Coming Soon)
+		<label class="MWS-element MWS-singleElementLabel" for="typeOfSelection"
+			>Selection Type:
+		</label>
+		<select
+			class="MWS-element MWS-select MWS-elementType-single"
+			name="elementSelectionType"
+			id="typeOfSelection">
+			<option value="single" class="MWS-element MWS-option">
+				Single Element
+			</option>
+			<option value="multiple" class="MWS-element MWS-option" disabled="true">
+				Multiple Elements (Coming Soon)
+			</option>
+			<option value="location" class="MWS-element MWS-option" disabled="true">
+				Location on Window (Coming Soon)
+			</option>
+		</select>
+	</div>
 
-            </label>
-            
-            <button class="MWS-element MWS-selectElementButton">Select Element</button>
-
-            <button class="MWS-element MWS-closeElementSelectorButton">Close</button>
-            `,
+	<div class="MWS-element MWS-elementSelectorActionsDiv">
+		<button class="MWS-element MWS-elementSelectionEnableDisableButton">
+			On
+		</button>
+	</div>
+        `,
 
         keyboardShortcutSelectorDialog: `
 	<button class="MWS-element MWS-closeKeyboardShortcutSelectionDialogButton">

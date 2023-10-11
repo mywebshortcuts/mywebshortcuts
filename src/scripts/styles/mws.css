@@ -1,85 +1,16 @@
-
-*.MWS-element{
-  margin: 0px;
-  padding: 0px;
-  box-sizing: border-box;
-
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-  /* --default-font: 'Grandstander', cursive; */
-  
-  --MWS-black:#000000;
-  
-  --MWS-light-green:#54B948;
-  --MWS-dark-green:#49A942;
-  
-  --MWS-dark-blue:#26BCD6;
-  --MWS-light-blue:#7ED0E0;
-  --MWS-lightest-blue:#CCEAEE;
-  
-  --MWS-grey:#C0D3D8;
-  --MWS-dark-grey:#262626;
-  
-  --MWS-red: #d75454;
-}
-
-
-
-.MWS-element {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-}
-
-
-.flex.MWS-element{
-  display:flex;
-  justify-content: center;
-  align-items: center;
-
-  flex-direction: column;
-}
-
-
-button.MWS-element{
-  
-  background-color: var(--MWS-dark-green);
-  
-  border: none;
-
-  cursor: pointer;
-
-  border-radius: .5rem;
-  user-select: none;
-  padding: 1rem;
-
-  transition: .15s ease;
-  
-}
-button.MWS-element:hover{
-  /* transition: .15s ease; */
-  background-color: var(--MWS-light-green);
-}
-
-
+/* STYLES THAT WILL BE USED IN THE WEBPAGE FOR ELEMENT SELECTION PURPOSES */
 
 .MWS-stylesForPage {
 	cursor: pointer !important;
-
 	position: relative;
 }
-
 
 .MWS-bordered {
 	outline: 2px solid red !important;
 }
-/* .MWS-bordered[data-mwsShortcutSet] {
-    border-color: yellow !important;
-} */
-
 .MWS-clicked {
 	position: relative;
 }
-
 .MWS-clicked::after {
 	content: attr(data-index); /* Display the data-index attribute as content */
 	position: absolute;
@@ -97,7 +28,6 @@ button.MWS-element:hover{
 	align-items: center;
 	text-align: center;
 }
-
 .MWS-clicked::before {
 	content: attr(
 		data-keyboardShortcut
@@ -115,12 +45,63 @@ button.MWS-element:hover{
 }
 
 
-/* FLOATING DIV */
+/* UNIVERSAL Styles for all the Extension Generated Elements */
+*.MWS-element {
+	margin: 0px;
+	padding: 0px;
+	box-sizing: border-box;
 
+	/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
+	font-family: Ubuntu;
+	/* --default-font: 'Grandstander', cursive; */
+
+	--MWS-black: #000000;
+
+	--MWS-light-green: #54b948;
+	--MWS-dark-green: #49a942;
+
+	--MWS-dark-blue: #26bcd6;
+	--MWS-light-blue: #7ed0e0;
+	--MWS-lightest-blue: #cceaee;
+
+	--MWS-grey: #c0d3d8;
+	--MWS-dark-grey: #262626;
+
+	--MWS-red: #d75454;
+}
+.MWS-element {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+button.MWS-element {
+	background-color: transparent;
+	border:2px solid var(--MWS-dark-green);
+	color:var(--MWS-dark-green);
+	cursor: pointer;
+	border-radius: 0.5rem;
+	user-select: none;
+	padding: 1rem;
+	transition: 0.15s ease;
+}
+button.MWS-element:hover {
+	transition: 0.15s ease;
+	background-color: var(--MWS-dark-green);
+	color:var(--MWS-dark-grey);
+}
+
+
+
+
+/* Element Selector Styles */
 
 .MWS-floatingDiv {
 	display: flex;
 	flex-direction: column;
+	/* align-items: flex-start; */
+
 
 	width: fit-content;
 	height: fit-content;
@@ -135,7 +116,7 @@ button.MWS-element:hover{
 	bottom: 0px;
 	right: 0px;
 
-	border-radius: 1rem;
+	border-radius: 10px;
 
 	box-shadow: 0px 0px 10px 2px var(--MWS-black);
 	color: var(--MWS-light-blue);
@@ -144,23 +125,71 @@ button.MWS-element:hover{
 
 	cursor: grab;
 }
+.MWS-floatingDiv > div{
+	display: flex;
+	align-items: center;
+	margin: 10px 0rem;
+	width: 100%;
 
-.MWS-elementSelectionEnableDisableButton {
 }
 
-.MWS-selectedElementPara {
+.MWS-floatingDiv .MWS-closeElementSelectorButton {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	
+	background-color: transparent;
+	color: var(--MWS-red);
+	border-color: var(--MWS-red);
 }
-.MWS-currentElementSpan {
+.MWS-floatingDiv .MWS-closeElementSelectorButton:hover {
+	color: var(--MWS-dark-grey);
+	background-color: var(--MWS-red);
 }
 
-.MWS-closeElementSelectorButton {
+
+
+.MWS-selectedElementDiv{
+	width: 100%;
+}
+.MWS-currentElementSpan{
+	font-weight: 900;
+	font-size: 20px;
+}
+.MWS-selectElementButton{
+	margin: 5px 0px;
 }
 
 
-/* KEY SELECTOR DIALOG */
+.MWS-selectionOptionsDiv{
+	background-color: var(--MWS-light-blue);
+	color: var(--MWS-dark-grey);
+	padding: 10px 10px;
+	border-radius: 10px;
+}
+.MWS-selectionOptionsDiv .MWS-select{
+	background-color: var(--MWS-dark-blue);
+	border-radius: 5px;
+	padding: 5px;
+	
+	cursor: pointer;
+	
+}
+.MWS-selectionOptionsDiv .MWS-select option{
+	cursor: pointer;
+}
 
+
+
+
+
+
+
+/* KEY SELECTOR Styles */
 
 .MWS-keyboardShortcutSelectionDialog {
+	background-color: var(--MWS-dark-grey);
+	color: var(--MWS-light-blue);
 	cursor: auto;
 
 	display: flex;
@@ -171,20 +200,42 @@ button.MWS-element:hover{
 
 	padding: 2rem;
 
-	border-radius: 2rem;
+	border-radius: 10px;
 
 	width: 50%;
+
+	box-shadow: 0px 0px 15px 5px black;
+	border: none;
+
+	margin: auto;
 }
-.MWS-keyboardShortcutSelectionDialog::backdrop {
-	display: flex;
+.MWS-keyboardShortcutSelectionDialog .MWS-keyboardShortcutSelectionDialog::backdrop {
+	/* display: flex;
 	justify-content: center;
-	align-items: center;
+	align-items: center; */
 	background-color: rgba(0, 0, 0, 0.5);
 }
-.MWS-closeKeyboardShortcutSelectionDialogButton {
-	font-size: 2rem;
-
+.MWS-keyboardShortcutSelectionDialog .MWS-closeKeyboardShortcutSelectionDialogButton {
+	font-size: 20px;
 	position: absolute;
 	top: 0px;
 	right: 0px;
+
+	margin:10px;
+
+	background-color: transparent;
+	color: var(--MWS-red);
+	border-color: var(--MWS-red);
+}
+.MWS-keyboardShortcutSelectionDialog .MWS-closeKeyboardShortcutSelectionDialogButton:hover {
+	background-color: var(--MWS-red);
+	color: var(--MWS-dark-grey);
+}
+
+
+.MWS-keyboardShortcutSelectionDialog .MWS-shortcutNameInput{
+	padding: 5px 5px;
+	font-size: 15px;
+	border-radius: 10px;
+
 }
