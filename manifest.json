@@ -23,7 +23,7 @@
     "content_scripts": [
         {
             "matches": [
-                "https://motherfuckingwebsite.com/*",
+                "https://opensource.guide/*",
                 "https://www.google.com/*",
                 "https://www.heyprakhar.xyz/*"
             ],
