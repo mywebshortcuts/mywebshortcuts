@@ -14,12 +14,16 @@ import elementCreator from '../modules/elementCreator'
 
 
 const mws = {
+
+    // Set of variables to track the state of various things in order to allow or prevent actions
     currentState: {
         elementSelectionOn: false,
         elementSelectorOpen: false,
         keyboardShortcutSelectorOpen: false,
         keyboardShortcutSelectionOn: false,
     },
+
+    // Global Variables
     currentElement: null,
     clickedElementsArray: [],
     selectedShortcut: undefined,
@@ -28,7 +32,7 @@ const mws = {
     allElements: [],
     keyElementRelationObject: {},
 
-    websiteURL: "",
+    completeData: {},
     allWebsitesData: {},
 
     websiteData: {
@@ -37,31 +41,122 @@ const mws = {
         },
         shortcuts: {}
     },
-    completeData: {},
 
-    keyboarder: function (e) {
-        e.preventDefault()
-        let pressedKey = e.key;
+    websiteURL: "",
 
-        if (mws.currentState.keyboardShortcutSelectionOn) {
-            mws.selectedShortcut = pressedKey
-            setTextContent(qS('.MWS-selectedShortcutSpan'), `${mws.selectedShortcut}`)
+
+    extensionElementsInnerHTML: {
+        elementSelectorDiv: `
+            <button class="MWS-element MWS-elementSelectionEnableDisableButton">On</button>
+            <p class="MWS-element MWS-selectedElementPara">
+                Select Element: <span class="MWS-element MWS-currentElementSpan">currentElement</span>
+            </p>
+
+            <label class="MWS-element MWS-singleElementLabel">
+            <input type="radio" class="MWS-element MWS-singleElementRadio" name="elementSelectionType" value="single" checked>
+            Single Element
+            </label>
+
+            <label class="MWS-element MWS-multipleElementsLabel">
+            <input type="radio" class="MWS-element MWS-multipleElementsRadio" name="elementSelectionType" value="multiple" disabled="true">
+            Multiple Elements (Coming Soon)
+            </label>
+
+            <label class="MWS-element MWS-locationOnWindowLabel">
+
+            <input type="radio" class="MWS-element MWS-locationOnWindowRadio" name="elementSelectionType" value="location" disabled="true">
+            Location on Window (Coming Soon)
+
+            </label>
+            
+            <button class="MWS-element MWS-selectElementButton">Select Element</button>
+
+            <button class="MWS-element MWS-closeElementSelectorButton">Close</button>
+            `,
+
+        keyboardShortcutSelectorDialog: `
+	<button class="MWS-element MWS-closeKeyboardShortcutSelectionDialogButton">
+		Close
+	</button>
+	<p class="MWS-element MWS-shortcutShowupPara">
+		Selected Shortcut:
+		<span class="MWS-element MWS-selectedShortcutSpan">None</span>
+	</p>
+	<button class="MWS-element MWS-shortcutSelectionDoneButton">Select Shortcut</button>
+
+	<label for="shortcutName" class="MWS-element MWS-ShortcutNameLabel"
+		>Shortcut Name:
+	</label>
+	<input
+		type="text"
+		id="shortcutName"
+		maxlength="20"
+		class="MWS-element MWS-shortcutNameInput"
+        disabled="true" />
+
+		
+		<button class="MWS-element MWS-allDoneButton">Done</button>
+            `,
+    },
+
+    // DATA MANAGEMENT FUNCTIONS: These funcs get data from the storage, update the respective variable values, and update the storage 
+
+    // Gets data from the storage and stores it in respective variables
+    getExistingDataOfCurrentWebsite: async function () {
+
+        mws.completeData = await getCompleteData()
+        // console.log("I asked for data from", mws.completeData);
+
+        mws.allWebsitesData = mws.completeData.websitesData
+
+        if (isObjEmpty(mws.completeData) || !mws.completeData.websitesData[mws.websiteURL] || isObjEmpty(mws.completeData.websitesData[mws.websiteURL].shortcuts)) {
+            console.log("Nhi h kch khaas ki aage badhe hum...");
+            return
         }
+        mws.websiteData = mws.allWebsitesData[mws.websiteURL]
+
+        mws.allShortcuts = Object.keys(mws.websiteData.shortcuts) || []
+        // console.log(mws.allShortcuts);
+
+        // This logic will change when types are added
+        mws.allElements = Object.values(mws.websiteData.shortcuts).map(eachShortcutObject => eachShortcutObject.selected) || []
+
+
+
     },
-    turnOnKeyboarder: () => {
-        // keypress only listens to Character Key Presses and not all key presses like CTRL, Tab, F1, etc. (keydown detects all)
-        // This is done to prevent any issues with pre-existing shortcuts in the browser or the OS. It may be removed 
-        // with some measures in the future.
-        window.addEventListener('keypress', mws.keyboarder)
-    },
-    turnOffKeyboarder: () => {
-        window.removeEventListener('keypress', mws.keyboarder)
+
+    // Sets the new data (updated variables) to storage
+    setDataOfCurrentWebsite: async function () {
+        let newShortcutData = {
+            name: mws.shortcutName,
+            enabled: true,
+
+            // We will use mws.getSelectedType() once other types are added
+            type: "singleElement",
+            properties: {
+                todo: 'click'
+            },
+
+            selected: toJSON(mws.currentElement),
+        }
+
+
+        mws.websiteData.shortcuts[mws.selectedShortcut] = newShortcutData
+
+        mws.allWebsitesData[mws.websiteURL] = mws.websiteData
+
+        mws.completeData.websitesData = mws.allWebsitesData
+        await chrome.storage.local.set({ ...mws.completeData })
+
     },
 
 
+    // --------- EVENT FUNCTIONS ---------
+
+    // This function will add or Remove a class to the hovered element that gives it a border 
     addRemoveborder: function (event) {
-        // This function will add or Remove a class to the hovered element that gives it a border 
         let [x, y] = [event.x, event.y]
+        console.log(x, y);
 
 
         if (mws.currentState.keyboardShortcutSelectorOpen) {
@@ -94,14 +189,126 @@ const mws = {
 
     },
 
-    closeKeyboardShortcutSelectionDialog: function () {
-        // mws.switchOffSelector()
-        const dialogElement = qS('.MWS-keyboardShortcutSelectionDialog')
-        document.body.removeChild(dialogElement)
-        mws.currentState.keyboardShortcutSelectorOpen = false;
+    // This func tracks when a user clicks anywhere in the window, mainly used to select the clicked elements
+    whenClicked: function (event) {
+        if (!mws.currentElement) {
+            return
+        }
+        const clickedElement = mws.currentElement;
+        if (!mws.currentState.elementSelectionOn) {
+            return
 
-        // mws.openFloatingDiv()
+        }
+        if (clickedElement.classList.contains('MWS-element')) {
+            return
+        }
+        // if (!mws.isElementFocusable(clickedElement)) {
+        //     console.log("Not Focusable");
+        //     return
+        // }
+        // console.log(mws.currentElement);
+
+        event.preventDefault()
+        event.stopPropagation()
+        if (!mws.currentState.keyboardShortcutSelectorOpen) {
+            rmClass(mws.currentElement, ['MWS-bordered'])
+            mws.openKeyboardShortcutSelectionDialog()
+        }
+
+
+
+
+        // This code will be there when multiple click functionality is added
+
+        // clickedElement.classList.add("MWS-clicked")
+        // if (!clickedElementsArray.contains(mws.currentElement)) {
+        //     clickedElementsArray.push(mws.currentElement)
+        //     mws.currentElement.setAttribute('data-index', `${clickedElementsArray.length}`)
+        // }
+
     },
+
+
+    // Track keyboard key for shortcut selection when the dialog is open 
+    keyboarder: function (e) {
+        let pressedKey = e.key;
+
+
+        if (mws.currentState.keyboardShortcutSelectionOn) {
+            const keyCode = e.keyCode || e.which;
+
+            // Check if it's a character key (alphabets and numbers)
+            if ((keyCode >= 65 && keyCode <= 90) ||   // A-Z
+                (keyCode >= 48 && keyCode <= 57)) {    // 0-9
+                // It's a character key
+                console.log('Character key pressed:', e.key);
+
+                e.preventDefault()
+                mws.selectedShortcut = pressedKey
+                setTextContent(qS('.MWS-selectedShortcutSpan'), `${mws.selectedShortcut}`)
+            }
+        }
+    },
+
+    //  As the name says, this func disables unloading (reload or closing) of a tab. 
+    //  It doesn't DISABLES it actually, instead PREVENT it from happening and asks for a confirmation 
+    disableWindowUnload: function (e) {
+        console.log("Yoo it's me the unload stopperrr");
+        // Cancel the event (prevent the browser from closing or reloading the page)
+        e.preventDefault();
+        // Chrome requires the following line to work
+        e.returnValue = "";
+    },
+
+    pauseResumeSelection: (e) => {
+        if (mws.currentState.elementSelectionOn) {
+            // e.preventDefault()
+            console.log(e);
+            if (e.type == "keydown") {
+                // keyCode of both ControlLeft and ControlRight is 17, bcoz obv both are Control keys
+                if (e.keyCode == 17) {
+                    window.removeEventListener('mouseover', mws.addRemoveborder);
+                }
+
+            }
+            if (e.type == "keyup") {
+                if (e.keyCode == 17) {
+                    window.addEventListener('mouseover', mws.addRemoveborder);
+                }
+            }
+
+        }
+    },
+
+    // Turner Functions: These functions add or remove events from window/DOM elements
+
+    turnOnKeyboardEvents: () => {
+        window.addEventListener('keydown', mws.keyboarder)
+        window.addEventListener('keydown', mws.pauseResumeSelection)
+        window.addEventListener('keyup', mws.pauseResumeSelection)
+
+    },
+    turnOffKeyboardEvents: () => {
+        window.removeEventListener('keydown', mws.keyboarder)
+
+        window.removeEventListener('keydown', mws.pauseResumeSelection)
+        window.removeEventListener('keyup', mws.pauseResumeSelection)
+    },
+
+
+
+    turnOnWindowUnloadStopper: function () {
+        console.log("No you cannot unload");
+        window.addEventListener("beforeunload", mws.disableWindowUnload);
+    },
+    turnOffWindowUnloadStopper: function () {
+        console.log("Yes you can unload");
+        window.removeEventListener("beforeunload", mws.disableWindowUnload);
+    },
+
+
+
+    // HELPER FUNCTIONS: These functions are used by other functions in order to do a specific task like 
 
     getSelectedType: function () {
 
@@ -124,7 +331,7 @@ const mws = {
 
     enableNameSetting: function () {
         mws.currentState.keyboardShortcutSelectionOn = false;
-        mws.turnOffKeyboarder()
+        // mws.turnOffKeyboardEvents()
         const nameInput = qS('.MWS-shortcutNameInput')
         nameInput.disabled = false
 
@@ -133,64 +340,8 @@ const mws = {
         })
 
     },
-    disableWindowUnload: function (e) {
-        console.log("Yoo it's me the unload stopperrr");
-        // Cancel the event (prevent the browser from closing or reloading the page)
-        e.preventDefault();
-        // Chrome requires the following line to work
-        e.returnValue = "";
-    },
-    turnOnWindowUnloadStopper: function () {
-        console.log("No you cannot unload");
-        window.addEventListener("beforeunload", mws.disableWindowUnload);
-    },
-    turnOffWindowUnloadStopper: function () {
-        console.log("Yes you can unload");
-        window.removeEventListener("beforeunload", mws.disableWindowUnload);
-    },
 
 
-    setDataOfCurrentWebsite: async function () {
-        let shortcutDataMap = {
-            name: "",
-            enabled: true,
-
-            // Single Element or Multiple Elements or Location on View Screen
-            type: "singleElement", // Read the Readme
-            // In multiElements type, all the selected elements in the array will be clicked one by one from first to last
-
-            // Will be updated when other types are added
-            properties: {
-                todo: "click" // click, focus, highlight(add bright borders), scrollTo 
-            },
-
-            // Data about the element to be selected
-            selected: {} // {elementJSON} OR [{elementJSON}, {elementJSON}...] OR " cssSelector.class[attribute='value'] " OR {x:20, y:20},
-        }
-
-        let shortcut = mws.selectedShortcut
-        // console.log(shortcut);
-
-        let newShortcutData = {
-            name: mws.shortcutName,
-            enabled: true,
-
-            // We will use mws.getSelectedType() once other types are added
-            type: "singleElement",
-            properties: {
-                todo: 'click'
-            },
-
-            selected: toJSON(mws.currentElement),
-        }
-        mws.websiteData.shortcuts[shortcut] = newShortcutData
-
-        mws.allWebsitesData[mws.websiteURL] = mws.websiteData
-
-        mws.completeData.websitesData = mws.allWebsitesData
-        await chrome.storage.local.set({ ...mws.completeData })
-
-    },
 
     keyboardShortcutValidator: function (newShortcut) {
         // This function will be updated a lot with time as we get to know shortcuts that are causing issues for MOST of the users.
@@ -200,7 +351,7 @@ const mws = {
 
     },
     openKeyboardShortcutSelectionDialog: function () {
-        mws.turnOnKeyboarder()
+        mws.turnOnKeyboardEvents()
 
         mws.currentState.keyboardShortcutSelectorOpen = true;
         mws.currentState.keyboardShortcutSelectionOn = true;
@@ -210,29 +361,7 @@ const mws = {
                 classes: ['MWS-element', 'MWS-keyboardShortcutSelectionDialog']
             },
             // childElements: [spanElement, buttonElement]
-            innerHTML: `
-	<button class="MWS-element MWS-closeKeyboardShortcutSelectionDialogButton">
-		Close
-	</button>
-	<p class="MWS-element MWS-shortcutShowupPara">
-		Selected Shortcut:
-		<span class="MWS-element MWS-selectedShortcutSpan">None</span>
-	</p>
-	<button class="MWS-element MWS-shortcutSelectionDoneButton">Select Shortcut</button>
-
-	<label for="shortcutName" class="MWS-element MWS-ShortcutNameLabel"
-		>Shortcut Name:
-	</label>
-	<input
-		type="text"
-		id="shortcutName"
-		maxlength="20"
-		class="MWS-element MWS-shortcutNameInput"
-        disabled="true" />
-
-		
-		<button class="MWS-element MWS-allDoneButton">Done</button>
-            `
+            innerHTML: mws.extensionElementsInnerHTML.keyboardShortcutSelectorDialog
         }
         let dialogElement = elementCreator(dialogElementData)
         document.body.appendChild(dialogElement)
@@ -262,7 +391,6 @@ const mws = {
         })
 
         setEvent(qS('.MWS-closeKeyboardShortcutSelectionDialogButton'), 'click', (event) => {
-            event.preventDefault()
             rmClass(mws.currentElement, ['MWS-bordered'])
             mws.currentElement = undefined;
 
@@ -270,6 +398,16 @@ const mws = {
         })
 
         dialogElement.showModal()
+    },
+
+    closeKeyboardShortcutSelectionDialog: function () {
+        // mws.switchOffSelector()
+        const dialogElement = qS('.MWS-keyboardShortcutSelectionDialog')
+        mws.currentState.keyboardShortcutSelectorOpen = false;
+        mws.currentState.keyboardShortcutSelectionOn = false;
+        document.body.removeChild(dialogElement)
+
+        // mws.openFloatingDiv()
     },
 
     isElementFocusable: function (element) {
@@ -295,64 +433,54 @@ const mws = {
 
     },
 
-    whenClicked: function (event) {
-        if (!mws.currentElement) {
-            return
-        }
-        const clickedElement = mws.currentElement;
-        if (!mws.currentState.elementSelectionOn) {
-            return
+    // This function changes the state variable provided to it AND  updates the DOM, content & CSS of Elements created by MWS(this extension) accordingly 
+    changeStateAndUpdateDOM: (changedStateVariable = "") => {
 
+        // These are functions that will be executed on a specific state variable changes 
+        const reactionForStateChange = {
+            elementSelectionOn: () => {
+                setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), mws.currentState[changedStateVariable] ? "On" : "Off")
+            }
         }
-        if (clickedElement.classList.contains('MWS-element')) {
-            return
-        }
-        if (!mws.isElementFocusable(clickedElement)) {
-            console.log("Not Focusable");
-            return
-        }
-        // console.log(mws.currentElement);
-
-        event.preventDefault()
-        event.stopPropagation()
-        if (!mws.currentState.keyboardShortcutSelectorOpen) {
-            rmClass(mws.currentElement, ['MWS-bordered'])
-            // console.log(mws.currentElement);
-            // mws.closeFloatingDiv()
-            mws.openKeyboardShortcutSelectionDialog()
+        if (changedStateVariable) {
+            console.log(mws.currentState[changedStateVariable]);
+            mws.currentState[changedStateVariable] = !mws.currentState[changedStateVariable]
+            console.log(mws.currentState[changedStateVariable]);
+            reactionForStateChange[changedStateVariable]()
         }
 
-
-
-
-        // This code will be there when multiple click functionality is added
-
-        // clickedElement.classList.add("MWS-clicked")
-        // if (!clickedElementsArray.contains(mws.currentElement)) {
-        //     clickedElementsArray.push(mws.currentElement)
-        //     mws.currentElement.setAttribute('data-index', `${clickedElementsArray.length}`)
-        // }
 
     },
 
+
+    // These functions (switchOffSelector, switchOnSelector) enable or disable the selection of elements,
+    // they enable/disable the hover and click events and add/remove the extension's CSS classes to/from the DOM.
     switchOffSelector: function () {
-        mws.currentState.elementSelectionOn = false
         mws.currentElement = undefined
         rmClass(qS('html'), ['MWS-stylesForPage'])
 
         window.removeEventListener('mouseover', mws.addRemoveborder);
         window.removeEventListener('click', mws.whenClicked);
 
-        setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), mws.currentState.elementSelectionOn ? "On" : "Off")
+        mws.changeStateAndUpdateDOM("elementSelectionOn")
     },
     switchOnSelector: function () {
-        mws.currentState.elementSelectionOn = true
         addClass(qS('html'), ['MWS-stylesForPage'])
 
         window.addEventListener('mouseover', mws.addRemoveborder);
         window.addEventListener('click', mws.whenClicked);
 
-        setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), mws.currentState.elementSelectionOn ? "On" : "Off")
+
+        mws.changeStateAndUpdateDOM("elementSelectionOn")
+    },
+    // The function to trigger switchOnSelector or switchOffSelector depending on mws.currentState.elementSelectionOn
+    switchSelector: () => {
+        if (mws.currentState.elementSelectionOn) {
+            mws.switchOffSelector()
+        }
+        else {
+            mws.switchOnSelector()
+        }
     },
 
     closeFloatingDiv: () => {
@@ -395,28 +523,7 @@ const mws = {
             attributes: {
                 classes: ['MWS-element', 'MWS-floatingDiv']
             },
-            innerHTML: `
-	<button class="MWS-element MWS-elementSelectionEnableDisableButton">On</button>
-	<p class="MWS-element MWS-selectedElementPara">
-		Select Element: <span class="MWS-element MWS-currentElementSpan">currentElement</span>
-	</p>
-<label class="MWS-element MWS-singleElementLabel">
-  <input type="radio" class="MWS-element MWS-singleElementRadio" name="elementSelectionType" value="single" checked>
-  Single Element
-</label>
-
-<label class="MWS-element MWS-multipleElementsLabel">
-  <input type="radio" class="MWS-element MWS-multipleElementsRadio" name="elementSelectionType" value="multiple" disabled="true">
-  Multiple Elements (Coming Soon)
-</label>
-
-<label class="MWS-element MWS-locationOnWindowLabel">
-  <input type="radio" class="MWS-element MWS-locationOnWindowRadio" name="elementSelectionType" value="location" disabled="true">
-  Location on Window (Coming Soon)
-</label>
-
-	<button class="MWS-element MWS-closeElementSelectorButton">Close</button>
-            `
+            innerHTML: mws.extensionElementsInnerHTML.elementSelectorDiv
         }
         let floatingDiv = elementCreator(floatingDivData)
         document.body.appendChild(floatingDiv)
@@ -427,20 +534,20 @@ const mws = {
 
         function enableDisableElementSelection() {
             if (mws.currentState.elementSelectionOn) {
-                mws.currentState.elementSelectionOn = false
+                // mws.currentState.elementSelectionOn = false
                 // setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), "Off")
                 mws.switchOffSelector()
             }
             else {
                 // setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), "On")
-                mws.currentState.elementSelectionOn = true
+                // mws.currentState.elementSelectionOn = true
                 mws.switchOnSelector()
             }
-            setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), mws.currentState.elementSelectionOn ? "On" : "Off")
+            // setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), mws.currentState.elementSelectionOn ? "On" : "Off")
 
         }
 
-        setEvent(qS('.MWS-elementSelectionEnableDisableButton'), 'click', enableDisableElementSelection)
+        setEvent(qS('.MWS-elementSelectionEnableDisableButton'), 'click', mws.switchSelector)
 
         function closeElementSelectorAndTurnOffElementSelection() {
             mws.turnOffEverything()
@@ -449,6 +556,12 @@ const mws = {
         }
 
         setEvent(qS('.MWS-closeElementSelectorButton'), 'click', closeElementSelectorAndTurnOffElementSelection)
+
+        setEvent(qS('.MWS-selectElementButton'), 'click', ()=>{
+
+            rmClass(mws.currentElement, ['MWS-bordered'])
+            mws.openKeyboardShortcutSelectionDialog()
+        })
 
         // dialogElement.showModal()
 
@@ -460,7 +573,7 @@ const mws = {
         mws.turnOffWindowUnloadStopper()
 
         mws.switchOffSelector()
-        mws.turnOffKeyboarder()
+        mws.turnOffKeyboardEvents()
 
         if (mws.currentElement) {
             rmClass(mws.currentElement, ['MWS-bordered'])
@@ -472,14 +585,16 @@ const mws = {
 
         sendMsg({ msg: "selectorDisabled", spread: true })
     },
-    turnOnEverything: function () {
-        mws.getExistingDataOfCurrentWebsite()
+    turnOnEverything: async function () {
+        mws.websiteURL = extractCoreUrl(window.location.href)
+
+        await mws.getExistingDataOfCurrentWebsite()
 
 
-        mws.turnOnWindowUnloadStopper()
+        // mws.turnOnWindowUnloadStopper()
         mws.switchOnSelector()
 
-        mws.turnOnKeyboarder()
+        mws.turnOnKeyboardEvents()
 
         mws.openFloatingDiv()
 
@@ -487,45 +602,26 @@ const mws = {
 
     },
 
-    getExistingDataOfCurrentWebsite: async function () {
-
-        mws.completeData = await getCompleteData()
-        // console.log("I asked for data from", mws.completeData);
-
-        mws.allWebsitesData = mws.completeData.websitesData
-
-        if (isObjEmpty(mws.completeData) || !mws.completeData.websitesData[mws.websiteURL] || isObjEmpty(mws.completeData.websitesData[mws.websiteURL].shortcuts)) {
-            console.log("Nhi h kch khaas ki aage badhe hum...");
-            return
-        }
-        mws.websiteData = mws.allWebsitesData[mws.websiteURL]
-
-        mws.allShortcuts = Object.keys(mws.websiteData.shortcuts) || []
-        // console.log(mws.allShortcuts);
-
-        // This logic will change when types are added
-        mws.allElements = Object.values(mws.websiteData.shortcuts).map(eachShortcutObject => eachShortcutObject.selected) || []
 
 
-
-    },
     init: async function () {
 
-        mws.websiteURL = extractCoreUrl(window.location.href)
+        // mws.websiteURL = extractCoreUrl(window.location.href)
         // console.log(mws.websiteURL);
 
 
-        sendMsg({ msg: "selectorEnabled", spread: true })
+        // sendMsg({ msg: "selectorEnabled", spread: true })
 
         // mws.turnOnWindowUnloadStopper()
 
-        await mws.getExistingDataOfCurrentWebsite()
-        mws.switchOnSelector()
-        // mws.turnOnKeyboarder()
+        // await mws.getExistingDataOfCurrentWebsite()
+        // mws.switchOnSelector()
+        // mws.turnOnKeyboardEvents()
 
-        mws.openFloatingDiv()
+        // mws.openFloatingDiv()
 
 
+        mws.turnOnEverything()
 
         chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             if (message.action === "turnOffSelector") {
