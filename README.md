@@ -8,6 +8,8 @@
 
 <h1 align="center"> My Web Shortcuts </h1>
 
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+
 A Browser Extension to create custom keyboard shortcuts on any website. When you click on the Extension icon in the toolbar, you get to select an element to set the shortcut for, and then select the keyboard key to use in order to click on that element. After doing that, just reload the website and you will be able to click on that element just by pressing the key.
 
 
