@@ -19,7 +19,7 @@
 A Browser Extension to create custom keyboard shortcuts on any website. When you click on the Extension icon in the toolbar, you get to select an element to set the shortcut for, and then select the keyboard key to use in order to click on that element. After doing that, just reload the website and you will be able to click on that element just by pressing the key.
 
 
-<a href="https://youtu.be/x_fYfporwmA" align="center"> <img width="400px" src="https://github.com/prakhartiwari0/my-web-shortcuts/assets/65062036/2746035b-49d9-42c5-95bf-6e26d6cefc4d"> </a>
+<a href="https://youtu.be/x_fYfporwmA" align="center"> First Demo of My Web Shortcuts + Invitation to Contributors! </a>
 
 
 # How to Install the extension
