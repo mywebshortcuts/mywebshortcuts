@@ -127,7 +127,7 @@ export const extractCoreUrl = function (url) {
     const urlObject = new URL(url);
 
     // Extract the protocol, host, and path (e.g., "https://www.google.com/search")
-    const coreUrlWithPath = urlObject.origin + urlObject.pathname;
+    const coreUrlWithPath = urlObject.origin;
 
     // Return the core URL with path without unnecessary query parameters
     return coreUrlWithPath;
