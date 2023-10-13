@@ -1,6 +1,12 @@
 > Note: There are a lot of basic functionalities missing currently, that's why this project has a lot of scope for contributions, star & watch the repository to stay updated, or follow [@Prakhartiwari0](https://twitter.com/Prakhartiwari0) on Twitter.
 
 <!-- ![image](src/assets/github_banner.png) -->
+<h2 align="center">
+<a href="https://youtu.be/x_fYfporwmA"> DEMO VIDEO IS OUT!🔥</a>
+
+   
+</h2>
+
 
 ![image](.github/assets/MWS-GithubReadme_Banner-optimized.gif)
 
@@ -13,6 +19,7 @@
 A Browser Extension to create custom keyboard shortcuts on any website. When you click on the Extension icon in the toolbar, you get to select an element to set the shortcut for, and then select the keyboard key to use in order to click on that element. After doing that, just reload the website and you will be able to click on that element just by pressing the key.
 
 
+<a href="https://youtu.be/x_fYfporwmA" align="center"> <img width="400px" src="https://github.com/prakhartiwari0/my-web-shortcuts/assets/65062036/2746035b-49d9-42c5-95bf-6e26d6cefc4d"> </a>
 
 
 # How to Install the extension
