@@ -72,4 +72,4 @@ One can select a single or multiple elements or a location(x,y) on the webpage w
    - `conditionally` Select Elements to click conditionally:
      - 1. `currentElementDoesNotExist` Click on Next Element if the current Element doesn't exist.
      - 2. `currentElementNotClickable` Click on Next Element if the current Element isn't clickable.
-- `locateElement` Location Selection: Click on the element that exists on the Coordinates  
+- `locateElement` Location Selection: Click on the element that exists on the Coordinates.
