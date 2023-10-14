@@ -1,4 +1,4 @@
-> Note: There are a lot of basic functionalities missing currently, that's why this project has a lot of scope for contributions, star & watch the repository to stay updated, or follow [@Prakhartiwari0](https://twitter.com/Prakhartiwari0) on Twitter.
+> Read **Thoughts from the [Creator](https://twitter.com/Prakhartiwari0)** Announcement - 14 October 2023
 
 <!-- ![image](src/assets/github_banner.png) -->
 <h2 align="center">
