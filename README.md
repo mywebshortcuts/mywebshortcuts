@@ -1,4 +1,4 @@
-> Read **Thoughts from the [Creator](https://twitter.com/Prakhartiwari0)** Announcement - 14 October 2023
+> Read [**Thoughts from the Creator**](https://github.com/prakhartiwari0/my-web-shortcuts/discussions/12) Announcement - 14 October 2023
 
 <!-- ![image](src/assets/github_banner.png) -->
 <h2 align="center">
