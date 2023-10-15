@@ -1,5 +1,8 @@
+/* Import Google Fonts - Inter */
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 body {
-    font-family: var(--default-font);
+    font-family: 'Inter', sans-serif;
     /* background-color: aqua; */
 
 
@@ -16,21 +19,55 @@ main {
     height: 100vh;
 }
 
-main .wrapper {
+main .option-wrapper {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    width: 100%;
 }
 
-main .wrapper h1 {
-    margin-bottom: 0.5rem;
+main .option-wrapper .content-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+main .option-wrapper h1 {
+    margin-bottom: 1rem;
+    /* Text styling */
+    color: #4ecf4e;
+}
+
+main .button-wrapper {
+    max-width: 400px;
+    width: 100% !important;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 1rem;
+}
+
+main .button-wrapper .text {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.65);
+    margin-left: 0.5rem;
+}
+
+main .button-wrapper .clearAllDataButton {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1rem;
     /* Text styling */
     color: #fff;
 }
 
-main button {
-    padding: 1rem 1.5rem;
-    /* Text styling */
+main .button-wrapper .clearAllDataButton p {
     color: #fff;
 }
