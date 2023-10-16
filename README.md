@@ -12,13 +12,13 @@
 
 
 
-<h1 align="center"> My Web Shortcuts 🌐 </h1>
+<h1 align="center"> My Web Shortcuts 🌐⌨️ </h1>
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
 
 A Browser Extension to create custom keyboard shortcuts for any website you browse. 
 
-# How to use it
+### How to use it
 1. Click on the extension icon in the toolbar.
 2. Select an element to set the shortcut for.
 3. Now select the keyboard key to use in order to click on that element.
