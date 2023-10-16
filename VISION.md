@@ -28,7 +28,7 @@ Tool | Extension |
 ## What's Next?
 
 
-This project started as a response to a minor problem faced by both myself and numerous other dwellers of the internet. But only time will tell what it becomes, a success, or a lesson to learn. I aim to make this tool accessible, easy to use, and simple for a daily user. 
+This project started as a solution to a minor problem faced by both myself and numerous other dwellers of the internet. But only time will tell what it becomes, a success, or a lesson to learn. I aim to make this tool accessible, easy to use, and simple for a daily user. 
 
 This extension will become available for Chrome and Firefox. If a browser supports chrome extensions, then this extension will be available for it as well.
 
