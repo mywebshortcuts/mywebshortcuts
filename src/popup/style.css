@@ -13,13 +13,10 @@ body.flex {
 }
 
 .mwsBrandingHeader.flex {
-	/* border-bottom: 2px solid black; */
-
-	align-items: baseline;
+	align-items: center;
 }
 .mwsHeaderImage {
-	width: 80%;
-	margin: 0.2rem;
+	width: 40%;
 }
 
 .startSelectionButton {
