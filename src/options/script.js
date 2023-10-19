@@ -3,6 +3,9 @@ import "../forExtensionPages.css"
 import { qS, setEvent } from "../modules/quickMethods";
 import "./style.css"
 
+// Import Font Awesome
+import "../assets/font-awesome/css/fontawesome.css"
+import "../assets/font-awesome/css/solid.css"
 
 const opt = {
 
