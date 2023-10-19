@@ -8,26 +8,10 @@
     font-display: swap;
 }
 
-/* Import Font Awesome */
-@font-face {
-    font-family: 'Font Awesome 6 Free Solid';
-    src: url('../assets/font-awesome/FontAwesome6Free-Solid.woff2') format('woff2'),
-        url('../assets/font-awesome/FontAwesome6Free-Solid.woff') format('woff');
-    font-weight: 900;
-    font-style: normal;
-    font-display: swap;
-}
-
-/* Font Awesome icons */
-i {
-    font-family: 'Font Awesome 6 Free Solid';
-}
-
 body {
     font-family: 'Inter', sans-serif;
     /* background-color: aqua; */
-
-
+    
     font-weight: 100;
 
     background-color: green;
