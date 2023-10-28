@@ -1,73 +1,149 @@
 /* Import Google Fonts - Inter */
 @font-face {
-    font-family: 'Inter';
-    src: url('../assets/inter/Inter-Regular.woff2') format('woff2'),
-        url('../assets/inter/Inter-Regular.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-    font-display: swap;
+	font-family: 'Inter';
+	src: url('../assets/inter/Inter-Regular.woff2') format('woff2'),
+		url('../assets/inter/Inter-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
 }
 
 body {
-    font-family: 'Inter', sans-serif;
-    /* background-color: aqua; */
-    
-    font-weight: 100;
+	font-family: 'Inter', sans-serif;
+	/* background-color: aqua; */
 
-    background-color: var(--dark-grey);
-    height: 100%;
+	font-weight: 100;
+
+	background-color: var(--dark-grey);
+	height: 100%;
+
+	display: flex;
+	align-items: center;
+	/* justify-content: center; */
+	flex-direction: column;
 }
+
+.settings-header-text {
+	margin: 1rem;
+	/* Text styling */
+	color: var(--light-green);
+}
+
+.settings {
+	display: flex;
+	align-items: center;
+	/* justify-content: center; */
+
+	flex-direction: column;
+	height: 80vh;
+
+	margin: 1rem;
+
+	width: 40%;
+	min-width: 30rem;
+	border-radius: 1rem;
+	/* border: rgba(255, 255, 255, 0.2) 2px solid; */
+}
+.settingsNavigation {
+    width: 100%;
+
+    margin-left: 1.5rem;
+}
+
+.navigationButton {
+    background-color: transparent;
+	color: var(--dark-green);
+
+	border: var(--dark-green) 2px solid;
+
+	border-radius: 0px;
+	border-bottom: none;
+    
+	padding: 1rem;
+
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
+    
+}
+.navigationButton:hover {
+    color: var(--dark-grey);
+    background-color: var(--dark-green);
+}
+
+.navigationButton.active {
+    color: var(--dark-grey);
+    background-color: var(--light-green);
+}
+
+.settingsGroup{
+    display: none;
+}
+.settingsGroup.active{
+    display: flex;
+
+
+}
+
 
 main {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-}
+	display: flex;
+	align-items: center;
 
-main .option-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-}
+	flex-direction: column;
+	/* margin: 1rem; */
+	border: var(--light-green) 2px solid;
+	border-radius: 1rem;
 
-main .option-wrapper .content-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-main .option-wrapper h1 {
-    margin-bottom: 1rem;
-    /* Text styling */
-    color: #4ecf4e;
+	width: 100%;
+	height: 100%;
 }
 
 main .button-wrapper {
-    max-width: 400px;
-    width: 100% !important;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 1rem;
+	/* max-width: 400px; */
+	width: 100% !important;
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.5rem;
+	border: 1px solid rgba(255, 255, 255, 0.2);
+	border-radius: 1rem;
 }
 
 main .button-wrapper .text {
-    font-size: 0.875rem;
-    color: rgba(255, 255, 255, 0.65);
-    margin-left: 0.5rem;
+	font-size: 0.875rem;
+	color: rgba(255, 255, 255, 0.65);
+	margin-inline: 0.5rem;
 }
 
 main .button-wrapper .clearAllDataButton {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1rem;
+}
+
+footer {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+    
+	flex-direction: column;
+	height: fit-content;
+
+	margin: 1rem;
+	padding: 1rem;
+
+	width: 40%;
+	border-radius: 1rem;
+	/* border: rgba(255, 255, 255, 0.2) 2px solid; */
+	background-color: rgb(24, 24, 24);
+}
+
+.links-wrapper{
     display: flex;
-    flex-direction: row;
     align-items: center;
-    gap: 0.5rem;
-    padding: 0.75rem 1rem;
+    justify-content: space-evenly;
+width: 100%;
 }

@@ -1,36 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- <link rel="stylesheet" href="../forExtensionPages.css">
+		<!-- <link rel="stylesheet" href="../forExtensionPages.css">
     <link rel="stylesheet" href="./style.css"> -->
 
-    <title>My Web Shortcuts | Options ⚙️</title>
-</head>
+		<title>My Web Shortcuts | Options ⚙️</title>
+	</head>
 
-<body>
-    <main>
-        <div class="option-wrapper">
-            <div class="content-wrapper">
-                <h1>
-                    <span><i class="fa-solid fa-sliders"></i></span>
-                    Settings
-                </h1>
-            </div>
-            <div class="button-wrapper">
-                <p class="text">Delete all data</p>
-                <button class="clearAllDataButton redButton">
-                    <i class="fa-solid fa-trash-can"></i>
-                    <p>Delete</p>
-                </button>
-            </div>
+	<body>
+		<h1 class="settings-header-text">
+			<span><i class="fa-solid fa-sliders"></i></span>
+			My Web Shortcuts Settings
+		</h1>
+
+		<div class="settings">
+
+
+			<div class="settingsNavigation">
+				<button class="navigationButton active" data-groupID="1">Edit Shortcuts</button>
+				<button class="navigationButton" data-groupID="2">Extension Settings</button>
+				<button class="navigationButton" data-groupID="3">Help</button>
+			</div>
+
+			<main>
+
+
+                <div class="settingsGroup active" id="1">
+                    Group1
+                </div>
+
+                <div class="settingsGroup" id="2">
+
+				<div class="option-wrapper">
+					<div class="button-wrapper">
+						<p class="text">Delete all data</p>
+						<button class="clearAllDataButton redButton">
+							<i class="fa-solid fa-trash-can"></i>
+							<p>Delete</p>
+						</button>
+					</div>
+				</div>
+
+                </div>
+
+                <div class="settingsGroup" id="3">
+                    Group 3
+
+                </div>
+			</main>
+
+
+		</div>
+
+        <div class="saveButton-wrapper">
+            <button class="saveSettingsButton greenButton">Save Settings</button>
         </div>
-    </main>
-</body>
 
-<script src="script.js" type="module"></script>
+		<footer>
+			<div class="links-wrapper">
+				<a href="#">Report an Issue</a>
+				<a href="#">GitHub Repo</a>
+				<a href="#">Join Discord Server</a>
+			</div>
+		</footer>
+	</body>
 
+	<script src="script.js" type="module"></script>
 </html>
