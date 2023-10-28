@@ -20,9 +20,15 @@ body.flex {
 }
 
 .startSelectionButton {
-	/* background-color: transparent;
-	color: var(--dark-green); */
-	font-size: 2rem;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	text-align: center;
+
+	font-size: 1.5rem;
 
 	/* border: 2px solid var(--dark-green); */
 	border-radius: 100%;

@@ -5,6 +5,9 @@ import "./style.css"
 import { extractCoreUrl, qS, sendMsg, setEvent, setTextContent, setStorage, updateCSS, switchClass, getCompleteData, isObjEmpty, qSA } from "../modules/quickMethods"
 
 
+import "../assets/font-awesome/css/fontawesome.css"
+import "../assets/font-awesome/css/solid.css"
+
 const pop = {
     currentTab: "",
     currentTabURL: "",
