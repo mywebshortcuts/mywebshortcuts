@@ -66,6 +66,9 @@ body {
 	flex-direction: column;
 }
 
+
+/* BUTTONS STYLES */
+
 button {
 	background-color: var(--dark-green);
 
@@ -77,10 +80,14 @@ button {
 	user-select: none;
 
 	transition: 0.15s ease;
+
+	padding: .5rem;
 }
 button:hover {
 	/* transition: .15s ease; */
 	background-color: var(--light-green);
+    color: var(--dark-grey);
+
 }
 button:disabled{
   color: var(--grey) !important;
@@ -90,6 +97,9 @@ button:disabled{
 
   pointer-events: none !important;
 }
+
+
+
 
 .redButton {
 	background-color: transparent;
@@ -108,7 +118,7 @@ button:disabled{
 }
 .greenButton:hover {
 	background-color: var(--dark-green);
-	color: white;
+    color: var(--dark-grey);
 }
 
 
@@ -129,4 +139,16 @@ button:disabled{
 }
 .greenButtonFilled:hover {
 	background-color: var(--light-green);
+}
+
+
+
+/* LINK STYLES  */
+a{
+	text-decoration: none;
+	color: var(--light-green);
+}
+a:hover{
+	color: var(--dark-green);
+
 }
