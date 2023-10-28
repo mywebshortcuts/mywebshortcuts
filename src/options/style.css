@@ -1,25 +1,14 @@
-/* Import Google Fonts - Inter */
-@font-face {
-	font-family: 'Inter';
-	src: url('../assets/inter/Inter-Regular.woff2') format('woff2'),
-		url('../assets/inter/Inter-Regular.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
-}
+
 
 body {
-	font-family: 'Inter', sans-serif;
-	/* background-color: aqua; */
-
-	font-weight: 100;
+	/* font-family: var(--default-font); */
+	/* font-weight: 100; */
 
 	background-color: var(--dark-grey);
 	height: 100%;
 
 	display: flex;
 	align-items: center;
-	/* justify-content: center; */
 	flex-direction: column;
 }
 
@@ -111,7 +100,7 @@ main .button-wrapper {
 }
 
 main .button-wrapper .text {
-	font-size: 0.875rem;
+	font-size: .9rem;
 	color: rgba(255, 255, 255, 0.65);
 	margin-inline: 0.5rem;
 }
