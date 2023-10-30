@@ -1,11 +1,6 @@
-
-
 body {
-	/* font-family: var(--default-font); */
-	/* font-weight: 100; */
-
 	background-color: var(--dark-grey);
-	height: 100%;
+	/* height: 100%; */
 
 	display: flex;
 	align-items: center;
@@ -34,44 +29,35 @@ body {
 	/* border: rgba(255, 255, 255, 0.2) 2px solid; */
 }
 .settingsNavigation {
-    width: 100%;
+	width: 100%;
 
-    margin-left: 1.5rem;
+	margin-left: 1.5rem;
+    
 }
-
 .navigationButton {
-    background-color: transparent;
+    background-color: #1F1F1F;
+
 	color: var(--dark-green);
 
-	border: var(--dark-green) 2px solid;
 
 	border-radius: 0px;
 	border-bottom: none;
-    
+
 	padding: 1rem;
 
 	border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem;
-    
 }
 .navigationButton:hover {
-    color: var(--dark-grey);
-    background-color: var(--dark-green);
+	color: var(--dark-green);
+	background-color: #161616;
 }
-
 .navigationButton.active {
-    color: var(--dark-grey);
-    background-color: var(--light-green);
-}
-
-.settingsGroup{
-    display: none;
-}
-.settingsGroup.active{
-    display: flex;
-
+	color: var(--dark-grey);
+	background-color: var(--light-green);
 
 }
+
 
 
 main {
@@ -84,9 +70,79 @@ main {
 	border-radius: 1rem;
 
 	width: 100%;
-	height: 100%;
+	height: 95%;
+    background-color: #1F1F1F;
 }
 
+.settingsGroup {
+	display: none;
+
+    flex-direction: column;
+
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    padding: 1rem;
+
+}
+.settingsGroup.active {
+	display: flex;
+}
+
+
+
+/* ------------- GROUP 1 STYLES ------------- */
+
+.searchURLButton{
+    background-color: transparent;
+    color: var(--light-green);
+}
+
+
+
+/* URLS LIST */
+.urlsList-wrapper{
+    display:flex;
+    flex-direction:column;
+
+    width: 100%;
+
+    margin-block: 1rem;
+
+    padding: 1rem;
+
+	overflow-y: auto;
+	scroll-behavior: smooth;
+
+    max-height: 80%;
+    background-color: #272727;
+
+    border-radius: 1rem;
+}
+
+.url-wrapper{
+    display:flex;
+    background-color: #4E4E4E;
+    
+    color: var(--light-blue);
+    
+    width: 100%;
+    
+    padding: 1rem;
+    border-radius: 1rem;
+
+    margin-block: .3rem;
+}
+.url-wrapper:hover{
+    background-color: #3e3e3e;
+
+    cursor: pointer;
+}
+
+
+
+
+/* Delete All Data Button  */
 main .button-wrapper {
 	/* max-width: 400px; */
 	width: 100% !important;
@@ -98,13 +154,11 @@ main .button-wrapper {
 	border: 1px solid rgba(255, 255, 255, 0.2);
 	border-radius: 1rem;
 }
-
 main .button-wrapper .text {
-	font-size: .9rem;
+	font-size: 0.9rem;
 	color: rgba(255, 255, 255, 0.65);
 	margin-inline: 0.5rem;
 }
-
 main .button-wrapper .clearAllDataButton {
 	display: flex;
 	flex-direction: row;
@@ -113,11 +167,25 @@ main .button-wrapper .clearAllDataButton {
 	padding: 0.75rem 1rem;
 }
 
+
+.saveButton-wrapper{
+    display: flex;
+    width: 40%;
+
+    justify-content: center;
+
+    margin-block: 1rem;
+
+}
+
+
+
+/* FOOTER  */
 footer {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-    
+
 	flex-direction: column;
 	height: fit-content;
 
@@ -130,9 +198,9 @@ footer {
 	background-color: rgb(24, 24, 24);
 }
 
-.links-wrapper{
-    display: flex;
-    align-items: center;
-    justify-content: space-evenly;
-width: 100%;
+.links-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: space-evenly;
+	width: 100%;
 }

@@ -162,3 +162,27 @@ a:hover{
 	color: var(--dark-green);
 
 }
+
+
+
+
+/* INPUT STYLES */
+
+input{
+	background-color: transparent;
+	/* border: none; */
+	border: var(--light-green) 1px solid;
+	padding: .5rem;
+
+	border-radius: .5rem;
+
+	color: var(--light-green);
+}
+input:focus{
+	outline: var(--light-green) 2px solid;
+	
+}
+input::placeholder{
+	color: var(--light-green);
+	opacity: .5;
+}
