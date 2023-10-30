@@ -17,47 +17,64 @@
 		</h1>
 
 		<div class="settings">
-
-
 			<div class="settingsNavigation">
-				<button class="navigationButton active" data-groupID="1">Edit Shortcuts</button>
-				<button class="navigationButton" data-groupID="2">Extension Settings</button>
+				<button class="navigationButton active" data-groupID="1">
+					Edit Shortcuts
+				</button>
+				<button class="navigationButton" data-groupID="2">
+					Extension Settings
+				</button>
 				<button class="navigationButton" data-groupID="3">Help</button>
 			</div>
 
 			<main>
-
-
-                <div class="settingsGroup active" id="1">
-                    Group1
-                </div>
-
-                <div class="settingsGroup" id="2">
-
-				<div class="option-wrapper">
-					<div class="button-wrapper">
-						<p class="text">Delete all data</p>
-						<button class="clearAllDataButton redButton">
-							<i class="fa-solid fa-trash-can"></i>
-							<p>Delete</p>
+				<div class="settingsGroup active" id="1">
+					<div class="searchBar-wrapper">
+						<input
+							class="searchURLInput"
+							type="text"
+							placeholder="Search URL" />
+						<button class="searchURLButton">
+							<i class="fa-search fa-solid"></i>
 						</button>
+					</div>
+
+					<div class="urlsList-wrapper">
+
+                        <template class="urlWrapperTemplate">
+
+                            <div class="url-wrapper">
+                                <span class="urlSpan">www.</span>
+                            </div>
+                        </template>
+
+                        <div class="websiteSettingsDiv">
+                            
+
+                        </div>
+
 					</div>
 				</div>
 
-                </div>
+				<div class="settingsGroup" id="2">
+					<div class="option-wrapper">
+						<div class="button-wrapper">
+							<p class="text">Delete all data</p>
+							<button class="clearAllDataButton redButton">
+								<i class="fa-solid fa-trash-can"></i>
+								<p>Delete</p>
+							</button>
+						</div>
+					</div>
+				</div>
 
-                <div class="settingsGroup" id="3">
-                    Group 3
-
-                </div>
+				<div class="settingsGroup" id="3">Group 3</div>
 			</main>
-
-
 		</div>
 
-        <div class="saveButton-wrapper">
-            <button class="saveSettingsButton greenButton">Save Settings</button>
-        </div>
+		<div class="saveButton-wrapper">
+			<button class="saveSettingsButton greenButton">Save Settings</button>
+		</div>
 
 		<footer>
 			<div class="links-wrapper">
