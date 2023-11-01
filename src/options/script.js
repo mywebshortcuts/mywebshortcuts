@@ -34,6 +34,11 @@ const opt = {
             chrome.runtime.reload();
         });
     },
+    deleteWebsite:async (url)=>{
+        delete opt.completeData.websitesData[url]
+        await setStorage({ ...opt.completeData })
+
+    },
     updateDOM: (changeSpecified = "initialize") => {
 
 
