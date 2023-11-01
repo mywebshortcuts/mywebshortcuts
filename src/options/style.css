@@ -5,6 +5,8 @@ body {
 	display: flex;
 	align-items: center;
 	flex-direction: column;
+
+	position: relative;
 }
 
 .settings-header-text {
@@ -19,7 +21,7 @@ body {
 	/* justify-content: center; */
 
 	flex-direction: column;
-	height: 80vh;
+	height: 100vh;
 
 	margin: 1rem;
 
@@ -32,13 +34,11 @@ body {
 	width: 100%;
 
 	margin-left: 1.5rem;
-    
 }
 .navigationButton {
-    background-color: #1F1F1F;
+	background-color: #1f1f1f;
 
 	color: var(--dark-green);
-
 
 	border-radius: 0px;
 	border-bottom: none;
@@ -55,10 +55,7 @@ body {
 .navigationButton.active {
 	color: var(--dark-grey);
 	background-color: var(--light-green);
-
 }
-
-
 
 main {
 	display: flex;
@@ -70,75 +67,377 @@ main {
 	border-radius: 1rem;
 
 	width: 100%;
-	height: 95%;
-    background-color: #1F1F1F;
+	height: 100%;
+	background-color: #1f1f1f;
 }
 
 .settingsGroup {
 	display: none;
 
-    flex-direction: column;
+	flex-direction: column;
 
-    align-items: center;
-    width: 100%;
-    height: 100%;
-    padding: 1rem;
+	align-items: center;
 
+	width: 100%;
+	height: 100%;
+	padding: 1rem;
 }
 .settingsGroup.active {
 	display: flex;
 }
 
-
-
 /* ------------- GROUP 1 STYLES ------------- */
 
-.searchURLButton{
-    background-color: transparent;
-    color: var(--light-green);
+.searchURLButton {
+	background-color: transparent;
+	color: var(--light-green);
 }
 
-
-
 /* URLS LIST */
-.urlsList-wrapper{
-    display:flex;
-    flex-direction:column;
+.urlsList-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
 
-    width: 100%;
+	width: 100%;
 
-    margin-block: 1rem;
+	margin-block: 1rem;
 
-    padding: 1rem;
+	padding: 1rem;
 
 	overflow-y: auto;
 	scroll-behavior: smooth;
 
-    max-height: 80%;
-    background-color: #272727;
+	height: 100%;
+	background-color: #272727;
 
-    border-radius: 1rem;
+	border-radius: 1rem;
 }
 
-.url-wrapper{
-    display:flex;
-    background-color: #4E4E4E;
-    
-    color: var(--light-blue);
-    
-    width: 100%;
-    
-    padding: 1rem;
-    border-radius: 1rem;
+.url-wrapper {
+	display: flex;
+	background-color: #4e4e4e;
 
-    margin-block: .3rem;
+	color: var(--light-blue);
+
+	width: 100%;
+
+	padding: 1rem;
+	border-radius: 1rem;
+
+	margin-block: 0.3rem;
+
+	transition: 0.1s ease;
 }
-.url-wrapper:hover{
-    background-color: #3e3e3e;
+.url-wrapper:hover {
+	background-color: #3e3e3e;
 
-    cursor: pointer;
+	cursor: pointer;
 }
 
+.websiteSettingsDiv {
+	display: none;
+	flex-direction: column;
+
+	width: 100%;
+
+	margin-block: 1rem;
+
+	padding: 1rem;
+
+	overflow-y: auto;
+	scroll-behavior: smooth;
+
+	height: 100%;
+	background-color: #272727;
+	color: var(--light-green);
+
+	border-radius: 1rem;
+}
+.backToWebsitesListButton {
+	position: relative;
+	top: -0.8rem;
+	left: -0.8rem;
+
+	width: 2rem;
+	height: 2rem;
+
+	font-size: 1rem;
+
+	padding: 1.2rem;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	/* padding: 1rem; */
+
+	color: var(--light-green);
+	background-color: transparent;
+	border-radius: 100%;
+}
+.backToWebsitesListButton:hover {
+	color: var(--light-green);
+
+	background-color: #3e3e3e;
+}
+
+.shortcutsList-wrapper {
+	display: flex;
+	/* justify-content: space-between; */
+	flex-direction: column;
+
+	background-color: #1f1f1f;
+
+	border-radius: 1rem;
+	padding: 1rem;
+	margin-top: 1rem;
+
+	width: 100%;
+}
+
+.disableWebsite-wrapper {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+	background-color: #1f1f1f;
+	border-radius: 1rem;
+	padding: 1rem;
+
+	font-size: 1rem;
+
+	color: white;
+
+	width: 100%;
+}
+
+.shortcutsListHeader-wrapper {
+	background-color: #1f1f1f;
+
+	border-radius: 1rem;
+	display: flex;
+	width: 100%;
+	justify-content: space-between;
+	align-items: center;
+
+	margin-bottom: 1rem;
+}
+
+.shortcutSettings-wrapper {
+	display: flex;
+	width: 100%;
+	/* justify-content: space-evenly; */
+	align-items: center;
+	font-size: 1rem;
+
+	background-color: #4e4e4e;
+	border-radius: 1rem;
+	padding-block: 1rem;
+
+	position: relative;
+
+	transition: 0.2s ease;
+
+	margin-block: 0.2rem;
+
+	color: white;
+}	
+.shortcutSettings-wrapper:hover {
+	/* box-shadow: 0px 0px 10px 0px #000000; */
+	/* background-color: #3e3e3e; */
+	/* transform: scale(1.02); */
+	/* cursor: pointer; */
+}
+
+.shortcutName-wrapper{
+	margin-inline: 1rem;
+	width: 30%;
+}
+
+.shortcutKey-wrapper{
+	margin-inline: 0rem .5rem;
+	width: 20%;
+}
+.disableShortcutToggle-wrapper{
+	width: 20%;
+}
+
+.shortcutKeySpan {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	/* background-color: var(--dark-blue); */
+
+	background: rgb(118, 210, 226);
+	background: linear-gradient(
+		0deg,
+		rgb(0, 173, 204) 0%,
+		rgba(38, 188, 214, 1) 100%
+	);
+	width: 2rem;
+	height: 2rem;
+	/* padding: 1rem; */
+	border-radius: 0.3rem;
+
+	/* box-shadow: 0px 0px 5px 1px black; */
+	border: 2px solid var(--light-blue);
+}
+.shortcutKeySpan:hover {
+	background: rgb(118, 210, 226);
+	background: linear-gradient(
+		0deg,
+		rgb(96, 188, 204) 0%,
+		rgb(34, 174, 198) 100%
+	);
+}
+
+.moreOptionsButton-wrapper {
+	position: absolute;
+	right: 0px;
+	top: 0px;
+
+	border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+
+	display: flex;
+	justify-self: center;
+	/* align-items: flex-end; */
+
+	align-items: center;
+	justify-content: center;
+	width: 15%;
+	height: 100%;
+
+	/* border: 2px solid #161616; */
+}
+.moreOptionsButton {
+	background-color: transparent;
+	border-left: 3px solid #272727;
+	color: white;
+	font-size: 1rem;
+	/* padding: 1rem; */
+
+	width: 100%;
+	height: 100%;
+	/* flex: 1; */
+	border-radius: inherit;
+	/* border-top-right-radius: 1rem;
+	border-bottom-right-radius: 1rem; */
+	position: relative;
+}
+.moreOptionsButton:hover {
+	background-color: #3e3e3e;
+	color: white;
+}
+
+.moreOptions-wrapper {
+	display: none;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+
+	position: absolute;
+	top: 100%;
+
+
+	left: 5%;
+	z-index: 10000;
+	padding: 1rem;
+
+	background-color: #3e3e3e;
+	/* color: #272727; */
+	width: 90%;
+
+	border-bottom-right-radius: 1rem;
+	border-bottom-left-radius: 1rem;
+
+	box-shadow: 0px 0px 10px 0px #000000;
+
+
+}
+
+.moreOptions-wrapper .setActionSpan{
+	background-color: #575757;
+
+	border-radius: 1rem;
+	padding: .5rem;
+
+}
+
+
+
+
+/* Edit & Delete Shortcut Buttons */
+
+.editDeleteButtons-wrapper{
+	display: flex;
+	width: 50%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+	margin-block: 1rem;
+}
+.editShortcutButton-wrapper{
+	/* margin-inline: .5rem; */
+}
+
+
+.editShortcutSettingsDialog{
+	display: flex;
+	/* display: none; */
+	padding: 3rem;
+	font-size: 1rem;
+}
+
+.editShortcutSettingsDialog > div{
+	margin-bottom: 1rem;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.closeEditShortcutSettingsButton-wrapper{
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+}
+
+
+
+
+.selectAction-wrapper {
+	position: relative;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
+	margin-block: 1rem;
+}
+
+.selectAction-wrapper .select-wrapper {
+	margin-top: .5rem;
+	position: relative;
+	width: fit-content;
+}
+
+.selectArrowButton {
+	position: absolute;
+	right: 0rem;
+	height: 100%;
+	background-color: transparent;
+	color: white;
+	pointer-events: none;
+}
+.selectArrowButton:hover {
+	background-color: transparent;
+	color: white;
+}
 
 
 
@@ -157,7 +456,7 @@ main .button-wrapper {
 main .button-wrapper .text {
 	font-size: 0.9rem;
 	color: rgba(255, 255, 255, 0.65);
-	margin-inline: 0.5rem;
+	margin-inline: 1rem;
 }
 main .button-wrapper .clearAllDataButton {
 	display: flex;
@@ -167,18 +466,15 @@ main .button-wrapper .clearAllDataButton {
 	padding: 0.75rem 1rem;
 }
 
+.saveButton-wrapper {
+	display: flex;
+	position: fixed;
+	right: 1rem;
 
-.saveButton-wrapper{
-    display: flex;
-    width: 40%;
+	justify-content: center;
 
-    justify-content: center;
-
-    margin-block: 1rem;
-
+	margin-block: 1rem;
 }
-
-
 
 /* FOOTER  */
 footer {

@@ -38,25 +38,104 @@
 							<i class="fa-search fa-solid"></i>
 						</button>
 					</div>
-
 					<div class="urlsList-wrapper">
+						<template class="urlWrapperTemplate">
+							<div class="url-wrapper" tabindex="0">
+								<span class="urlSpan">www.</span>
+							</div>
+						</template>
+					</div>
+					<div class="websiteSettingsDiv">
+						<button class="backToWebsitesListButton">
+							<i class="fa-arrow-left fa-solid"></i>
+						</button>
+						<!-- Websites Shortcuts -->
 
-                        <template class="urlWrapperTemplate">
+						<div class="disableWebsite-wrapper">
+							<span class="disableWebsiteSpan">Disable for this Website</span>
+							<!-- <button class="disableWebsiteButton"></button> -->
 
-                            <div class="url-wrapper">
-                                <span class="urlSpan">www.</span>
-                            </div>
-                        </template>
+							<div class="disableWebsiteToggle-wrapper">
+								<label class="toggleSwitchLabel">
+									<input type="checkbox" class="toggleSwitchInput redToggle" />
+									<span class="toggleSwitchSpan redToggle"></span>
+								</label>
+							</div>
+						</div>
 
-                        <div class="websiteSettingsDiv">
-                            
+						<div class="shortcutsList-wrapper">
+							<div class="shortcutsListHeader-wrapper">
+								<h2 class="shortcutListHeading">
+									Shortcuts (<span class="numberOfShortcutsSpan"></span>)
+								</h2>
 
-                        </div>
+								<div class="searchBar-wrapper">
+									<input
+										class="searchShortcutInput"
+										type="text"
+										placeholder="Search Shortcut" />
+									<button class="searchShortcutButton">
+										<i class="fa-search fa-solid"></i>
+									</button>
+								</div>
+							</div>
 
+							<template class="shortcutSettingsWrapperTemplate">
+								<div
+									class="shortcutSettings-wrapper"
+									data-shortcutName="Home Tab"
+									data-shortcutKey="K"
+									data-shortcutAction="click"
+									data-shortcutEnabled="true">
+									<div class="shortcutName-wrapper">
+										<span class="shortcutNameSpan">Home Tab</span>
+									</div>
+
+									<div class="shortcutKey-wrapper">
+										<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
+									</div>
+
+									<div class="disableShortcutToggle-wrapper">
+										<label class="toggleSwitchLabel">
+											<input
+												checked
+												type="checkbox"
+												class="toggleSwitchInput greenToggle" />
+											<span class="toggleSwitchSpan greenToggle"></span>
+										</label>
+									</div>
+
+									<div class="moreOptionsButton-wrapper">
+										<button class="moreOptionsButton">
+											<i class="fa-angle-down fa-solid"></i>
+										</button>
+									</div>
+									<div class="moreOptions-wrapper">
+										<span class="actionSpan">
+											Action on Shortcut Press:
+											<span class="setActionSpan">Click</span>
+										</span>
+										<div class="editDeleteButtons-wrapper">
+											<div class="editShortcutButton-wrapper">
+												<button class="editShortcutButton greenButton">
+													Edit <i class="fa-pencil fa-solid"></i>
+												</button>
+											</div>
+											<div class="deleteShortcutButton-wrapper">
+												<button class="deleteShortcutButton redButton">
+													Delete <i class="fa-trash fa-solid"></i>
+												</button>
+											</div>
+										</div>
+									</div>
+								</div>
+							</template>
+						</div>
 					</div>
 				</div>
 
 				<div class="settingsGroup" id="2">
+
 					<div class="option-wrapper">
 						<div class="button-wrapper">
 							<p class="text">Delete all data</p>
@@ -66,9 +145,12 @@
 							</button>
 						</div>
 					</div>
+
+
 				</div>
 
 				<div class="settingsGroup" id="3">Group 3</div>
+				
 			</main>
 		</div>
 
@@ -83,6 +165,66 @@
 				<a href="#">Join Discord Server</a>
 			</div>
 		</footer>
+
+		<!-- <dialog class="editShortcutSettingsDialog">
+			<div class="closeEditShortcutSettingsButton-wrapper">
+				<button class="closeEditShortcutSettingsButton actionButton">
+					<i class="fa-close fa-solid"></i>
+				</button>
+			</div>
+
+			<div class="shortnameEdit-wrapper">
+				<label for="shortcutNameEditInput" class="shortcutNameEditLabel"
+					>Shortcut Name</label
+				>
+				<input type="text" class="shortcutNameInput" id="shortcutNameInput" />
+			</div>
+
+			<div class="shortcutKeyEdit-wrapper">
+				<span class="shortcutKeyEditSpan">Edit Shortcut</span>
+				<kbd tabindex="0" class="shortcutKeyEditKbd">K</kbd>
+			</div>
+
+			<div class="selectAction-wrapper">
+				<label for="selectAction" class="selectActionLabel"
+					>Select Action on Shortcut Press</label
+				>
+				<div class="select-wrapper">
+					<select id="selectAction">
+						<option value="click">Click</option>
+						<option disabled value="focus">Focus</option>
+						<option disabled value="highlight">Highlight</option>
+						<option disabled value="scrollto">Scroll To</option>
+					</select>
+					<button class="selectArrowButton" tabindex="-1">
+						<i class="fa-angle-down fa-solid"></i>
+					</button>
+				</div>
+			</div>
+
+			<div class="confirmEditedSettingsButton-wrapper">
+				<button disabled class="confirmEditedSettingsButton greenButtonFilled">
+					Confirm <i class="fa-check fa-solid"></i>
+				</button>
+			</div>
+		</dialog> -->
+
+		<!-- <dialog class="confirmationDialog">
+			<div class="closeConfirmationDialogButton-wrapper">
+				<button class="closeConfirmationDialogButton actionButton">
+					<i class="fa-close fa-solid"></i>
+				</button>
+			</div>
+
+			<div class="confirmationTextSpan-wrapper">
+				<span class="confirmationTextSpan">Are you sure you wanna delete the shortcut?</span>
+			</div>
+			<div class="buttons-wrapper">
+				<button class="confirmationButton greenButtonFilled">Yes</button>
+				<button class="notConfirmButton redButtonFilled">No</button>
+			</div>
+		</dialog> -->
+
 	</body>
 
 	<script src="script.js" type="module"></script>

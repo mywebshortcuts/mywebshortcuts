@@ -147,7 +147,7 @@ const mws = {
             // We will use mws.getSelectedType() once other types are added
             type: "singleElement",
             properties: {
-                todo: 'click'
+                action: 'click'
             },
 
             selected: toJSON(mws.currentElement),

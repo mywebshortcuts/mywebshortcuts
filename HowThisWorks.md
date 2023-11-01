@@ -62,7 +62,7 @@ const completeDataMap = {
 
                     // Will be updated when other types are added
                     properties: {
-                        todo: "click" // click, focus, highlight(add bright borders), scrollTo 
+                        action: "click" // click, focus, highlight(add bright borders), scrollTo 
                     },
 
                     // Data about the element to be selected
