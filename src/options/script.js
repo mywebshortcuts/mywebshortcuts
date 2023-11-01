@@ -517,6 +517,20 @@ const opt = {
                     const urlHeading = qS('.urlHeading')
                     urlHeading.innerText = url
 
+                    // Delete a website
+                    const deleteWebsiteButton = qS('.deleteWebsiteButton')
+                    setEvent(deleteWebsiteButton, 'click', async (e)=>{
+                        console.log("Delete button clicked");
+                        confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response=>{
+                            if (response) {
+                                opt.deleteWebsite(url)
+                                opt.currentState.websiteSelected = null
+                                opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
+                            }
+
+                        })
+
+                    })
 
                     // ------------------------- Enable/Disable Website -------------------------
                     const toggleSwitchInput = qS('.disableWebsiteToggle-wrapper .toggleSwitchInput')
