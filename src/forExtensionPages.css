@@ -235,8 +235,8 @@ input:not(.toggleSwitchInput) ::placeholder {
 	right: 0;
 	bottom: 0;
 	background-color: #ccc;
-	/* -webkit-transition: .4s; */
-	/* transition: .4s; */
+	-webkit-transition: .4s;
+	transition: .4s;
 
 	/* Round */
 	border-radius: 34px;
@@ -259,10 +259,16 @@ input:not(.toggleSwitchInput) ::placeholder {
 	border-radius: 50%;
 }
 
+.toggleSwitchInput:checked + .toggleSwitchSpan:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
 .toggleSwitchInput.greenToggle:checked + .toggleSwitchSpan.greenToggle {
 	background-color: var(--light-green);
 }
-.toggleSwitchInput.greenToggle:checked  + .toggleSwitchSpan.greenToggle:hover{
+.toggleSwitchInput.greenToggle:checked:hover  + .toggleSwitchSpan.greenToggle{
 	background-color: var(--dark-green);
 }
 
@@ -274,15 +280,14 @@ input:not(.toggleSwitchInput) ::placeholder {
 	background-color: var(--red);
 }
 
+.toggleSwitchInput.redToggle:checked:hover  + .toggleSwitchSpan.redToggle{
+	background-color: #aa3c3c;
+}
+
 .toggleSwitchInput.redToggle:focus + .toggleSwitchSpan.redToggle {
 	box-shadow: 0 0 1px var(--red);
 }
 
-.toggleSwitchInput:checked + .toggleSwitchSpan:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
-}
 
 /* Custom Select Menu Styles  */
 select {
