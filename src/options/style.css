@@ -67,7 +67,7 @@ main {
 	border-radius: 1rem;
 
 	width: 100%;
-	height: 100%;
+	height: 90%;
 	background-color: #1f1f1f;
 }
 
@@ -160,6 +160,7 @@ main {
 .websiteSettingsDiv {
 	display: none;
 	flex-direction: column;
+	align-items: center;
 
 	width: 100%;
 
@@ -175,14 +176,16 @@ main {
 	color: var(--light-green);
 
 	border-radius: 1rem;
+
+	position: relative;
 }
 .backToWebsitesListButton {
-	position: relative;
-	top: -0.8rem;
-	left: -0.8rem;
+	position: absolute;
+	top: 0rem;
+	left: 0rem;
 
-	width: 2rem;
-	height: 2rem;
+	width: 3rem;
+	height: 3rem;
 
 	font-size: 1rem;
 
@@ -206,6 +209,13 @@ main {
 
 .urlHeading-wrapper{
 	margin: 1rem;
+}
+.websiteSettingsDiv .toggleWithText-wrapper{
+	width: 70%;
+}
+.deleteWebsiteButtonWithText-wrapper{
+	width: 70%;
+	margin-block: 1rem 0rem;
 }
 
 .shortcutsListHeader-wrapper {
@@ -456,33 +466,6 @@ main {
 
 
 
-/* Delete All Data Button  */
- .clearAllDataButton-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0.5rem;
-	/* border: 1px solid rgba(255, 255, 255, 0.2); */
-	border: 1px solid var(--red);
-	border-radius: 1rem;
-
-	background-color: #1f1f1f;
-
-}
- .clearAllDataButton-wrapper .text {
-	font-size: 0.9rem;
-	/* color: rgba(255, 2	55, 255, 0.65); */
-	color: var(--red);
-	margin-inline: 1rem;
-}
- .clearAllDataButton-wrapper .clearAllDataButton {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 0.5rem;
-	padding: 0.75rem 1rem;
-}
 
 .saveButton-wrapper {
 	display: flex;
