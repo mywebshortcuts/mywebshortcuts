@@ -20,6 +20,7 @@ const ucs = {
     },
     turnOn: function () {
         if (ucs.completeData.globalSettings.extensionEnabled && ucs.completeData.websitesData[ucs.websiteURL] && ucs.completeData.websitesData[ucs.websiteURL].settings.enabled) {
+            console.log(ucs.completeData.websitesData[ucs.websiteURL].settings.enabled);
             console.log("UCS is Enabled");
 
             document.addEventListener('keypress', ucs.onShortcutClicker)
@@ -186,6 +187,10 @@ const ucs = {
                             // }
                         }
                     );
+                }
+                else{
+                    console.log("Not enabled");
+                    ucs.turnOff()
                 }
 
             }
