@@ -38,12 +38,13 @@
 							<i class="fa-search fa-solid"></i>
 						</button>
 					</div>
+
+					<template class="urlWrapperTemplate">
+						<div class="url-wrapper" tabindex="0">
+							<span class="urlSpan">www.github.com/prakhartiwari0</span>
+						</div>
+					</template>
 					<div class="urlsList-wrapper">
-						<template class="urlWrapperTemplate">
-							<div class="url-wrapper" tabindex="0">
-								<span class="urlSpan">www.</span>
-							</div>
-						</template>
 					</div>
 					<div class="websiteSettingsDiv">
 						<button class="backToWebsitesListButton">
@@ -63,74 +64,74 @@
 							</div>
 						</div>
 
-						<div class="shortcutsList-wrapper">
-							<div class="shortcutsListHeader-wrapper">
-								<h2 class="shortcutListHeading">
-									Shortcuts (<span class="numberOfShortcutsSpan"></span>)
-								</h2>
+						<div class="shortcutsListHeader-wrapper">
+							<h2 class="shortcutListHeading">
+								Shortcuts (<span class="numberOfShortcutsSpan"></span>)
+							</h2>
 
-								<div class="searchBar-wrapper">
-									<input
-										class="searchShortcutInput"
-										type="text"
-										placeholder="Search Shortcut" />
-									<button class="searchShortcutButton">
-										<i class="fa-search fa-solid"></i>
+							<div class="searchBar-wrapper">
+								<input
+									class="searchShortcutInput"
+									type="text"
+									placeholder="Search Shortcut" />
+								<button class="searchShortcutButton">
+									<i class="fa-search fa-solid"></i>
+								</button>
+							</div>
+						</div>
+						<div class="shortcutsList-wrapper">
+
+						</div>
+						<template class="shortcutSettingsWrapperTemplate">
+							<div
+								class="shortcutSettings-wrapper"
+								data-shortcutName="Home Tab"
+								data-shortcutKey="K"
+								data-shortcutAction="click"
+								data-shortcutEnabled="true">
+								<div class="shortcutName-wrapper">
+									<span class="shortcutNameSpan">Home Tab</span>
+								</div>
+
+								<div class="shortcutKey-wrapper">
+									<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
+								</div>
+
+								<div class="disableShortcutToggle-wrapper">
+									<label class="toggleSwitchLabel">
+										<input
+											checked
+											type="checkbox"
+											class="toggleSwitchInput greenToggle" />
+										<span class="toggleSwitchSpan greenToggle"></span>
+									</label>
+								</div>
+
+								<div class="moreOptionsButton-wrapper">
+									<button class="moreOptionsButton">
+										<i class="fa-angle-down fa-solid"></i>
 									</button>
 								</div>
-							</div>
-
-							<template class="shortcutSettingsWrapperTemplate">
-								<div
-									class="shortcutSettings-wrapper"
-									data-shortcutName="Home Tab"
-									data-shortcutKey="K"
-									data-shortcutAction="click"
-									data-shortcutEnabled="true">
-									<div class="shortcutName-wrapper">
-										<span class="shortcutNameSpan">Home Tab</span>
-									</div>
-
-									<div class="shortcutKey-wrapper">
-										<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
-									</div>
-
-									<div class="disableShortcutToggle-wrapper">
-										<label class="toggleSwitchLabel">
-											<input
-												checked
-												type="checkbox"
-												class="toggleSwitchInput greenToggle" />
-											<span class="toggleSwitchSpan greenToggle"></span>
-										</label>
-									</div>
-
-									<div class="moreOptionsButton-wrapper">
-										<button class="moreOptionsButton">
-											<i class="fa-angle-down fa-solid"></i>
-										</button>
-									</div>
-									<div class="moreOptions-wrapper">
-										<span class="actionSpan">
-											Action on Shortcut Press:
-											<span class="setActionSpan">Click</span>
-										</span>
-										<div class="editDeleteButtons-wrapper">
-											<div class="editShortcutButton-wrapper">
-												<button class="editShortcutButton greenButton">
-													Edit <i class="fa-pencil fa-solid"></i>
-												</button>
-											</div>
-											<div class="deleteShortcutButton-wrapper">
-												<button class="deleteShortcutButton redButton">
-													Delete <i class="fa-trash fa-solid"></i>
-												</button>
-											</div>
+								<div class="moreOptions-wrapper">
+									<span class="actionSpan">
+										Action on Shortcut Press:
+										<span class="setActionSpan">Click</span>
+									</span>
+									<div class="editDeleteButtons-wrapper">
+										<div class="editShortcutButton-wrapper">
+											<button class="editShortcutButton greenButton">
+												Edit <i class="fa-pencil fa-solid"></i>
+											</button>
+										</div>
+										<div class="deleteShortcutButton-wrapper">
+											<button class="deleteShortcutButton redButton">
+												Delete <i class="fa-trash fa-solid"></i>
+											</button>
 										</div>
 									</div>
 								</div>
-							</template>
-						</div>
+							</div>
+						</template>
 					</div>
 				</div>
 
@@ -150,7 +151,7 @@
 				</div>
 
 				<div class="settingsGroup" id="3">Group 3</div>
-				
+
 			</main>
 		</div>
 

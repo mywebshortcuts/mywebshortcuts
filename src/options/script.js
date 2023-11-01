@@ -135,13 +135,15 @@ const opt = {
 
                                         moreOptionsWrapper.style.display = 'flex'
                                         switchClass(moreOptionsButtonFA, 'fa-angle-down', 'fa-angle-up')
-
+                                        shortcutSettingsWrapper.style.backgroundColor = '#3e3e3e'
+                                        
                                         opt.currentState.openMoreOptions.push(shortcutKey)
-
+                                        
                                     }
                                     else {
                                         moreOptionsWrapper.style.display = 'none'
                                         switchClass(moreOptionsButtonFA, 'fa-angle-up', 'fa-angle-down')
+                                        shortcutSettingsWrapper.style.backgroundColor = '#4e4e4e'
 
                                         let shortcutIndex = opt.currentState.openMoreOptions.indexOf(shortcutKey);
                                         opt.currentState.openMoreOptions.splice(shortcutIndex, 1);
@@ -200,7 +202,7 @@ const opt = {
 				<label for="shortcutNameEditInput" class="shortcutNameEditLabel"
 					>Shortcut Name</label
 				>
-				<input type="text" class="shortcutNameInput" id="shortcutNameInput" />
+				<input type="text" maxlength="20" class="shortcutNameInput" id="shortcutNameInput" />
 			</div>
 
 			<div class="shortcutKeyEdit-wrapper">
@@ -253,7 +255,7 @@ const opt = {
                                 function changeEditedState() {
                                     // console.log(editedProperties);
                                     // console.log(!editedProperties.key || !editedProperties.name);
-                                    if (editedProperties.key || editedProperties.name) {
+                                    if ((editedProperties.key && !shortcutSelectionEnabled) || editedProperties.name) {
                                         // console.log("Something changed");
                                         propertiesEdited = true;
                                         confirmEditedSettingsButton.disabled = false
@@ -307,7 +309,6 @@ const opt = {
                                     else {
                                         editedProperties.key = null
                                     }
-                                    changeEditedState()
                                 }
                                 let shortcutSelectionEnabled = false
                                 setEvent(shortcutKeyEditKbd, 'click', (e) => {
@@ -323,6 +324,8 @@ const opt = {
                                         document.removeEventListener('keypress', keyShortcutTracker)
                                         shortcutKeyEditSpan.innerText = 'Edit Shortcut'
                                     }
+                                    changeEditedState()
+
 
                                 })
 
@@ -558,32 +561,16 @@ const opt = {
                 },
 
                 updateWebsitesList: () => {
-                    // console.log("Updating list");
                     const templateElement = document.querySelector('.urlWrapperTemplate')
 
                     const urlsListWrapper = document.body.querySelector('.urlsList-wrapper')
-                    // console.log(urlsListWrapper);
-                    const childrenWithClass = document.body.querySelectorAll('.url-wrapper');
-                    // console.log(childrenWithClass);
-                    // console.log(childrenWithClass.length);
-                    if (childrenWithClass.length > 0) {
-                        // If children with the class are found, remove them
-                        childrenWithClass.forEach(child => {
-                            // console.log("Removing Child Bro: ");
-                            // console.log(child);
-                            document.body.removeChild(child);
-                        });
-                    }
 
 
                     opt.websitesList.forEach((websiteURL) => {
                         let urlWrapperNode = templateElement.content.cloneNode(true)
-                        // console.log(urlWrapperNode);
 
                         qS('span', urlWrapperNode).textContent = websiteURL
 
-
-                        // console.log(qS('.url-wrapper', urlWrapperNode));
                         const urlWrapperDiv = qS('.url-wrapper', urlWrapperNode)
                         urlWrapperDiv.setAttribute('data-url', websiteURL)
 

@@ -125,7 +125,7 @@ main {
 	padding: 1rem;
 	border-radius: 1rem;
 
-	margin-block: 0.3rem;
+	margin-block: 0.1rem;
 
 	transition: 0.1s ease;
 }
@@ -134,6 +134,24 @@ main {
 
 	cursor: pointer;
 }
+
+.url-wrapper:first-child{
+	border-radius: 0px;
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
+}
+.url-wrapper:last-child{
+	border-radius: 0px;
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+}
+.url-wrapper:only-child {
+	border-radius: 0px;
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
+}
+
+
 
 .websiteSettingsDiv {
 	display: none;
@@ -182,19 +200,6 @@ main {
 	background-color: #3e3e3e;
 }
 
-.shortcutsList-wrapper {
-	display: flex;
-	/* justify-content: space-between; */
-	flex-direction: column;
-
-	background-color: #1f1f1f;
-
-	border-radius: 1rem;
-	padding: 1rem;
-	margin-top: 1rem;
-
-	width: 100%;
-}
 
 .disableWebsite-wrapper {
 	display: flex;
@@ -215,13 +220,30 @@ main {
 .shortcutsListHeader-wrapper {
 	background-color: #1f1f1f;
 
-	border-radius: 1rem;
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
 	display: flex;
 	width: 100%;
 	justify-content: space-between;
 	align-items: center;
 
-	margin-bottom: 1rem;
+	margin-top: 1rem;
+	padding: 1rem;
+}
+
+.shortcutsList-wrapper {
+	display: flex;
+	/* justify-content: space-between; */
+	flex-direction: column;
+
+	background-color: #1f1f1f;
+
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+	padding: 1rem;
+	/* margin-top: 1rem; */
+
+	width: 100%;
 }
 
 .shortcutSettings-wrapper {
@@ -232,22 +254,41 @@ main {
 	font-size: 1rem;
 
 	background-color: #4e4e4e;
-	border-radius: 1rem;
 	padding-block: 1rem;
-
+	
 	position: relative;
-
-	transition: 0.2s ease;
-
-	margin-block: 0.2rem;
-
+	
+	/* transition: 0.2s ease; */
+	
+	margin-block: 0.1rem;
+	
 	color: white;
+
+
 }	
 .shortcutSettings-wrapper:hover {
 	/* box-shadow: 0px 0px 10px 0px #000000; */
 	/* background-color: #3e3e3e; */
 	/* transform: scale(1.02); */
 	/* cursor: pointer; */
+}
+
+.shortcutSettings-wrapper:first-child{
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem;
+}
+.shortcutSettings-wrapper:last-child{
+	border-bottom-left-radius: 1rem;
+	border-bottom-right-radius: 1rem;
+}
+.shortcutSettings-wrapper:only-child .moreOptions-wrapper{
+	/* border-radius: 0px;
+	border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem; */
+	/* background-color: #fff; */
+
+	left: 5%;
+	width: 90%;
 }
 
 .shortcutName-wrapper{
@@ -263,43 +304,17 @@ main {
 	width: 20%;
 }
 
-.shortcutKeySpan {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	/* background-color: var(--dark-blue); */
-
-	background: rgb(118, 210, 226);
-	background: linear-gradient(
-		0deg,
-		rgb(0, 173, 204) 0%,
-		rgba(38, 188, 214, 1) 100%
-	);
-	width: 2rem;
-	height: 2rem;
-	/* padding: 1rem; */
-	border-radius: 0.3rem;
-
-	/* box-shadow: 0px 0px 5px 1px black; */
-	border: 2px solid var(--light-blue);
-}
-.shortcutKeySpan:hover {
-	background: rgb(118, 210, 226);
-	background: linear-gradient(
-		0deg,
-		rgb(96, 188, 204) 0%,
-		rgb(34, 174, 198) 100%
-	);
-}
-
 .moreOptionsButton-wrapper {
 	position: absolute;
 	right: 0px;
 	top: 0px;
-
+/* 
 	border-top-right-radius: 1rem;
-	border-bottom-right-radius: 1rem;
+	border-bottom-right-radius: 1rem; */
 
+	border-radius: inherit;
+	border-top-left-radius: 0rem;
+	border-bottom-left-radius: 0rem;
 	display: flex;
 	justify-self: center;
 	/* align-items: flex-end; */
@@ -341,18 +356,18 @@ main {
 	top: 100%;
 
 
-	left: 5%;
+	/* left: 5%; */
 	z-index: 10000;
 	padding: 1rem;
 
 	background-color: #3e3e3e;
 	/* color: #272727; */
-	width: 90%;
+	width: 100%;
 
 	border-bottom-right-radius: 1rem;
 	border-bottom-left-radius: 1rem;
 
-	box-shadow: 0px 0px 10px 0px #000000;
+	box-shadow: 0px 5px 10px 0px #000000;
 
 
 }
