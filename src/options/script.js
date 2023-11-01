@@ -1,6 +1,6 @@
 
 import "../forExtensionPages.css"
-import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage } from "../modules/quickMethods";
+import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, rmEvent } from "../modules/quickMethods";
 import "./style.css"
 
 // Import Font Awesome
@@ -41,6 +41,13 @@ const opt = {
     },
     updateDOM: (changeSpecified = "initialize") => {
 
+
+        function removeAllEventListenersOfElements(elementsArray=[]) {
+            elementsArray.forEach(element=>{
+                const clonedElement = element.cloneNode(true);
+                element.parentNode.replaceChild(clonedElement, element);
+            })
+        }
 
 
         const domUpdaterFunctions = {
@@ -501,25 +508,42 @@ const opt = {
                 },
 
                 openWebsiteSettings: (url) => {
+
+
+
                     const openedWebsiteSettings = opt.websitesData[url]
                     opt.currentState.websiteSelected = url
 
                     // Hide Websites List and Show Website Settings
                     const websiteSettingsDiv = qS('.websiteSettingsDiv')
                     websiteSettingsDiv.style.display = 'flex'
+                    setAttr(websiteSettingsDiv, 'data-url', url)
+                    
                     const urlsListWrapper = qS('.urlsList-wrapper')
                     urlsListWrapper.style.display = 'none'
                     const searchBarWrapper = qS('.searchBar-wrapper')
                     searchBarWrapper.style.display = 'none'
-
+                    
                     
                     // URL Heading
                     const urlHeading = qS('.urlHeading')
                     urlHeading.innerText = url
 
+
+
+
+                    // Removing existing event listeners
+                    let deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
+                    let toggleSwitchInput = qS('.disableWebsiteToggle-wrapper .toggleSwitchInput')
+
+
+
+
+                    removeAllEventListenersOfElements([deleteWebsiteButton, toggleSwitchInput])
+
                     // Delete a website
-                    const deleteWebsiteButton = qS('.deleteWebsiteButton')
-                    setEvent(deleteWebsiteButton, 'click', async (e)=>{
+                    deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
+                    async function deleteWebsiteButtonFunction(){
                         console.log("Delete button clicked");
                         confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response=>{
                             if (response) {
@@ -527,15 +551,19 @@ const opt = {
                                 opt.currentState.websiteSelected = null
                                 opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
                             }
-
+    
                         })
 
-                    })
+                    }
+                    setEvent(deleteWebsiteButton, 'click', deleteWebsiteButtonFunction)
+
+
+
 
                     // ------------------------- Enable/Disable Website -------------------------
-                    const toggleSwitchInput = qS('.disableWebsiteToggle-wrapper .toggleSwitchInput')
+                    toggleSwitchInput = qS('.disableWebsiteToggle-wrapper .toggleSwitchInput')
                     toggleSwitchInput.checked = !openedWebsiteSettings.settings.enabled
-                    toggleSwitchInput.addEventListener('change', async (e) => {
+                    async function toggleSwitchInputFunction(e) {
                         if (e.target.checked) {
                             console.log('Website Disabled');
                             opt.completeData.websitesData[url].settings.enabled = false
@@ -545,7 +573,8 @@ const opt = {
                         }
                         await setStorage({ ...opt.completeData })
 
-                    })
+                    }
+                    toggleSwitchInput.addEventListener('change', toggleSwitchInputFunction)
 
 
                     // Back Button
@@ -615,9 +644,13 @@ const opt = {
                 },
 
                 group2Activated: ()=>{
-
+                    let toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
+                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), toggleSwitchInput])
+                    
+                    
+                    
                     // ------------------------- Enable/Disable Website -------------------------
-                    const toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
+                    toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
                     toggleSwitchInput.checked = !opt.completeData.globalSettings.extensionEnabled
                     toggleSwitchInput.addEventListener('change', async (e) => {
                         if (e.target.checked) {
