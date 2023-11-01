@@ -116,14 +116,16 @@ main {
 
 .url-wrapper {
 	display: flex;
-	background-color: #4e4e4e;
+	background-color: #1f1f1f;
 
 	color: var(--light-blue);
 
 	width: 100%;
 
 	padding: 1rem;
-	border-radius: 1rem;
+	/* border-radius: 1rem; */
+
+	font-size: 1rem;
 
 	margin-block: 0.1rem;
 
@@ -281,12 +283,7 @@ main {
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;
 }
-.shortcutSettings-wrapper:only-child .moreOptions-wrapper{
-	/* border-radius: 0px;
-	border-top-right-radius: 1rem;
-	border-top-left-radius: 1rem; */
-	/* background-color: #fff; */
-
+.shortcutSettings-wrapper:last-child .moreOptions-wrapper{
 	left: 5%;
 	width: 90%;
 }
