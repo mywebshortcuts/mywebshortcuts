@@ -579,8 +579,7 @@ const opt = {
                     const templateElement = document.querySelector('.urlWrapperTemplate')
 
                     const urlsListWrapper = document.body.querySelector('.urlsList-wrapper')
-                    urlsListWrapper.innerHTML = '' // LOL Is it a good approach?
-
+                    urlsListWrapper.innerHTML = '' // Why is this not working?
 
                     opt.websitesList.forEach((websiteURL) => {
                         let urlWrapperNode = templateElement.content.cloneNode(true)
@@ -728,7 +727,6 @@ const opt = {
     init: async function () {
 
         await opt.getCompleteData()
-        // A break... 
 
 
         chrome.storage.onChanged.addListener(async (changes) => {
