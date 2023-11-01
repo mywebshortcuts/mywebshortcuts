@@ -203,23 +203,10 @@ main {
 
 	background-color: #3e3e3e;
 }
-/* 
 
-.disableWebsite-wrapper {
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
-
-	background-color: #1f1f1f;
-	border-radius: 1rem;
-	padding: 1rem;
-
-	font-size: 1rem;
-
-	color: white;
-
-	width: 100%;
-} */
+.urlHeading-wrapper{
+	margin: 1rem;
+}
 
 .shortcutsListHeader-wrapper {
 	background-color: #1f1f1f;

@@ -512,6 +512,11 @@ const opt = {
                     const searchBarWrapper = qS('.searchBar-wrapper')
                     searchBarWrapper.style.display = 'none'
 
+                    
+                    // URL Heading
+                    const urlHeading = qS('.urlHeading')
+                    urlHeading.innerText = url
+
 
                     // ------------------------- Enable/Disable Website -------------------------
                     const toggleSwitchInput = qS('.disableWebsiteToggle-wrapper .toggleSwitchInput')
