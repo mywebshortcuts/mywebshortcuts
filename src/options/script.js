@@ -696,7 +696,8 @@ const opt = {
     updateDataVariables: () => {
         opt.websitesData = opt.completeData.websitesData
         opt.globalSettings = opt.completeData.globalSettings
-
+        
+        opt.websitesList = []
         for (const website in opt.websitesData) {
             if (Object.hasOwnProperty.call(opt.websitesData, website)) {
                 // const element = opt.websitesData[website];
