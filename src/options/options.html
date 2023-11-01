@@ -18,17 +18,17 @@
 
 		<div class="settings">
 			<div class="settingsNavigation">
-				<button class="navigationButton active" data-groupID="1">
+				<button class="navigationButton active" data-groupID="g1">
 					Edit Shortcuts
 				</button>
-				<button class="navigationButton" data-groupID="2">
+				<button class="navigationButton" data-groupID="g2">
 					Extension Settings
 				</button>
-				<button class="navigationButton" data-groupID="3">Help</button>
+				<button class="navigationButton" data-groupID="g3">About</button>
 			</div>
 
 			<main>
-				<div class="settingsGroup active" id="1">
+				<div class="settingsGroup active" id="g1">
 					<div class="searchBar-wrapper">
 						<input
 							class="searchURLInput"
@@ -44,15 +44,14 @@
 							<span class="urlSpan">www.github.com/prakhartiwari0</span>
 						</div>
 					</template>
-					<div class="urlsList-wrapper">
-					</div>
+					<div class="urlsList-wrapper"></div>
 					<div class="websiteSettingsDiv">
 						<button class="backToWebsitesListButton">
 							<i class="fa-arrow-left fa-solid"></i>
 						</button>
 						<!-- Websites Shortcuts -->
 
-						<div class="disableWebsite-wrapper">
+						<div class="toggleWithText-wrapper">
 							<span class="disableWebsiteSpan">Disable for this Website</span>
 							<!-- <button class="disableWebsiteButton"></button> -->
 
@@ -79,9 +78,7 @@
 								</button>
 							</div>
 						</div>
-						<div class="shortcutsList-wrapper">
-
-						</div>
+						<div class="shortcutsList-wrapper"></div>
 						<template class="shortcutSettingsWrapperTemplate">
 							<div
 								class="shortcutSettings-wrapper"
@@ -135,23 +132,28 @@
 					</div>
 				</div>
 
-				<div class="settingsGroup" id="2">
+				<div class="settingsGroup" id="g2">
 
-					<div class="option-wrapper">
-						<div class="button-wrapper">
-							<p class="text">Delete all data</p>
-							<button class="clearAllDataButton redButton">
-								<i class="fa-solid fa-trash-can"></i>
-								<p>Delete</p>
-							</button>
+					<div class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper">
+						<span class="disableEverywhereSpan">Disable Extension Everywhere</span>
+						<div class="disableEverywhereToggle-wrapper">
+							<label class="toggleSwitchLabel">
+								<input type="checkbox" class="toggleSwitchInput redToggle" />
+								<span class="toggleSwitchSpan redToggle"></span>
+							</label>
 						</div>
 					</div>
 
-
+					<div class="clearAllDataButton-wrapper">
+						<p class="text">Delete all data</p>
+						<button class="clearAllDataButton redButton">
+							<i class="fa-solid fa-trash-can"></i>
+							<p>Delete</p>
+						</button>
+					</div>
 				</div>
 
-				<div class="settingsGroup" id="3">Group 3</div>
-
+				<div class="settingsGroup" id="g3">Group 3</div>
 			</main>
 		</div>
 
@@ -225,7 +227,6 @@
 				<button class="notConfirmButton redButtonFilled">No</button>
 			</div>
 		</dialog> -->
-
 	</body>
 
 	<script src="script.js" type="module"></script>

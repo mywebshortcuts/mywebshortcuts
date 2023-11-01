@@ -81,6 +81,8 @@ main {
 	width: 100%;
 	height: 100%;
 	padding: 1rem;
+
+	border-radius: inherit;
 }
 .settingsGroup.active {
 	display: flex;
@@ -129,7 +131,7 @@ main {
 
 	margin-block: 0.1rem;
 
-	transition: 0.1s ease;
+	transition: 0.2s ease;
 }
 .url-wrapper:hover {
 	background-color: #3e3e3e;
@@ -148,9 +150,9 @@ main {
 	border-bottom-right-radius: 1rem;
 }
 .url-wrapper:only-child {
-	border-radius: 0px;
-	border-top-right-radius: 1rem;
-	border-top-left-radius: 1rem;
+	border-radius: 1rem;
+	/* border-top-right-radius: 1rem;
+	border-top-left-radius: 1rem; */
 }
 
 
@@ -201,7 +203,7 @@ main {
 
 	background-color: #3e3e3e;
 }
-
+/* 
 
 .disableWebsite-wrapper {
 	display: flex;
@@ -217,7 +219,7 @@ main {
 	color: white;
 
 	width: 100%;
-}
+} */
 
 .shortcutsListHeader-wrapper {
 	background-color: #1f1f1f;
@@ -452,25 +454,42 @@ main {
 }
 
 
+/* --------------------------- GROUP 2 --------------------------- */
+.settingsGroup#g2{
+	background-color: #272727;
+	
+	
+}
+.disableEverywhereToggleWithText-wrapper{
+	/* width: 90%; */
+	margin-block: 1rem;
+
+}
+
+
+
 
 /* Delete All Data Button  */
-main .button-wrapper {
-	/* max-width: 400px; */
-	width: 100% !important;
+ .clearAllDataButton-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.5rem;
-	border: 1px solid rgba(255, 255, 255, 0.2);
+	/* border: 1px solid rgba(255, 255, 255, 0.2); */
+	border: 1px solid var(--red);
 	border-radius: 1rem;
+
+	background-color: #1f1f1f;
+
 }
-main .button-wrapper .text {
+ .clearAllDataButton-wrapper .text {
 	font-size: 0.9rem;
-	color: rgba(255, 255, 255, 0.65);
+	/* color: rgba(255, 2	55, 255, 0.65); */
+	color: var(--red);
 	margin-inline: 1rem;
 }
-main .button-wrapper .clearAllDataButton {
+ .clearAllDataButton-wrapper .clearAllDataButton {
 	display: flex;
 	flex-direction: row;
 	align-items: center;

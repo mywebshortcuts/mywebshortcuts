@@ -7,12 +7,16 @@ import "./style.css"
 import "../assets/font-awesome/css/fontawesome.css"
 import "../assets/font-awesome/css/solid.css"
 import elementCreator from '../modules/elementCreator'
-import createElement from "../modules/elementCreator";
+import createElement from "../modules/elementCreator"
+
+import {confirmationDialogOpener} from '../modules/domElements'
+
+
 
 const opt = {
     currentState: {
 
-        activeGroup: 1,
+        activeGroup: '',
         websiteSelected: null,
 
         openMoreOptions: [],
@@ -30,7 +34,9 @@ const opt = {
             chrome.runtime.reload();
         });
     },
-    updateDOM: (changeSpecified = "everything") => {
+    updateDOM: (changeSpecified = "initialize") => {
+
+
 
         const domUpdaterFunctions = {
 
@@ -53,7 +59,6 @@ const opt = {
                 },
 
                 loadShortcuts: (websiteShortcuts) => {
-                    console.log("Shortcuts load hore hain vro");
 
                     opt.currentState.openMoreOptions = []
 
@@ -104,7 +109,7 @@ const opt = {
                                     console.log('Extension Enabled');
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = true
                                 } else {
-                                    
+
                                     console.log('Extension Disabled');
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = false
                                 }
@@ -136,9 +141,9 @@ const opt = {
                                         moreOptionsWrapper.style.display = 'flex'
                                         switchClass(moreOptionsButtonFA, 'fa-angle-down', 'fa-angle-up')
                                         shortcutSettingsWrapper.style.backgroundColor = '#3e3e3e'
-                                        
+
                                         opt.currentState.openMoreOptions.push(shortcutKey)
-                                        
+
                                     }
                                     else {
                                         moreOptionsWrapper.style.display = 'none'
@@ -180,7 +185,7 @@ const opt = {
                             const editShortcutButton = qS('.editShortcutButton', shortcutSettingsWrapper)
                             setEvent(editShortcutButton, 'click', () => {
 
-                                
+
                                 const dialogElementData = {
 
                                     tagName: "dialog",
@@ -255,7 +260,7 @@ const opt = {
                                 function changeEditedState() {
                                     // console.log(editedProperties);
                                     // console.log(!editedProperties.key || !editedProperties.name);
-                                    if ((editedProperties.key && !shortcutSelectionEnabled) || editedProperties.name) {
+                                    if ((editedProperties.key || editedProperties.name) && !shortcutSelectionEnabled) {
                                         // console.log("Something changed");
                                         propertiesEdited = true;
                                         confirmEditedSettingsButton.disabled = false
@@ -309,6 +314,8 @@ const opt = {
                                     else {
                                         editedProperties.key = null
                                     }
+                                    changeEditedState()
+
                                 }
                                 let shortcutSelectionEnabled = false
                                 setEvent(shortcutKeyEditKbd, 'click', (e) => {
@@ -361,7 +368,7 @@ const opt = {
                                     console.log("After changes:");
                                     console.log(opt.completeData.websitesData[url].shortcuts);
 
-                                        await setStorage({ ...opt.completeData })
+                                    await setStorage({ ...opt.completeData })
 
                                     closeEditShortcutSettings()
 
@@ -505,14 +512,14 @@ const opt = {
                     const toggleSwitchInput = qS('.disableWebsiteToggle-wrapper .toggleSwitchInput')
                     toggleSwitchInput.checked = !openedWebsiteSettings.settings.enabled
                     toggleSwitchInput.addEventListener('change', async (e) => {
-                            if (e.target.checked) {
-                                console.log('Website Disabled');
-                                opt.completeData.websitesData[url].settings.enabled = false
-                            } else {
-                                console.log('Website Enabled');
-                                opt.completeData.websitesData[url].settings.enabled = true
-                            }
-                            await setStorage({ ...opt.completeData })
+                        if (e.target.checked) {
+                            console.log('Website Disabled');
+                            opt.completeData.websitesData[url].settings.enabled = false
+                        } else {
+                            console.log('Website Enabled');
+                            opt.completeData.websitesData[url].settings.enabled = true
+                        }
+                        await setStorage({ ...opt.completeData })
 
                     })
 
@@ -535,16 +542,11 @@ const opt = {
 
 
                 },
-            },
-
-            initFunctions: {
-
 
                 changeActiveGroup: () => {
 
                     qSA('.settingsGroup').forEach((settingsGroup) => {
                         if (settingsGroup.id == opt.currentState.activeGroup) {
-                            // Remove old styles
                             const previousGroup = qS('.settingsGroup.active')
                             rmClass(previousGroup, ['active'])
 
@@ -558,12 +560,16 @@ const opt = {
                             addClass(activeGroupButton, ['active'])
                         }
                     })
+                    opt.updateDOM()
+
                 },
 
                 updateWebsitesList: () => {
+
                     const templateElement = document.querySelector('.urlWrapperTemplate')
 
                     const urlsListWrapper = document.body.querySelector('.urlsList-wrapper')
+                    urlsListWrapper.innerHTML = '' // LOL Is it a good approach?
 
 
                     opt.websitesList.forEach((websiteURL) => {
@@ -583,30 +589,106 @@ const opt = {
 
                     })
 
+                },
+
+                group2Activated: ()=>{
+
+                    // ------------------------- Enable/Disable Website -------------------------
+                    const toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
+                    toggleSwitchInput.checked = !opt.completeData.globalSettings.extensionEnabled
+                    toggleSwitchInput.addEventListener('change', async (e) => {
+                        if (e.target.checked) {
+                            console.log('Extension Disabled');
+                            opt.completeData.globalSettings.extensionEnabled = false
+                        } else {
+                            console.log('Extension Enabled');
+                            opt.completeData.globalSettings.extensionEnabled = true
+                        }
+                        await setStorage({ ...opt.completeData })
+
+                    })
+
+                    // Clear All Data Button
+                    setEvent(qS('.clearAllDataButton'), 'click', async (e)=>{
+                        if (await confirmationDialogOpener('Warning: Deleting all data. Are you sure you want to proceed?')){
+                            opt.clearAllData()
+                        }
+
+                    })
+
+
+                },
+
+
+                group3Activated: ()=>{
+
                 }
 
+            },
+
+            init: function () {
+                console.log("Initializing...");
+
+                qSA('.navigationButton').forEach((navigationButton) => {
+                    setEvent(navigationButton, 'click', () => {
+                        const groupID = getAttr(navigationButton, 'data-groupID')
+                        opt.currentState.activeGroup = groupID
+                        opt.updateDOM('changeActiveGroup')
+                    })
+                })
+                opt.currentState.activeGroup = 'g1'
+                opt.updateDOM('changeActiveGroup')
             },
 
 
         }
 
-        if (changeSpecified == "everything") {
-            // changeActiveGroup()
-            // console.log("Update Everything");
-            // console.log(opt.currentState.websiteSelected);
-            for (const eachFunc in domUpdaterFunctions.initFunctions) {
+        if (changeSpecified == "initialize") {
+
+            // Check For States, and if none found, run the initial functions
+
+            // GROUP 1 
+            if (opt.currentState.activeGroup == 'g1') {
                 if (opt.currentState.websiteSelected) {
-                    // console.log("website settings opened");
                     domUpdaterFunctions.actionFuncs.loadShortcuts(opt.websitesData[opt.currentState.websiteSelected].shortcuts)
                 }
-                else if (Object.hasOwnProperty.call(domUpdaterFunctions.initFunctions, eachFunc)) {
-                    domUpdaterFunctions.initFunctions[eachFunc]();
+                else{
+                    domUpdaterFunctions.actionFuncs.updateWebsitesList()
                 }
+            }
+            // GROUP 2
+            else if (opt.currentState.activeGroup == 'g2') {
+                console.log("This is group2 right?");
+                domUpdaterFunctions.actionFuncs.group2Activated()
+
+                
+            }
+            // GROUP 3
+            else if (opt.currentState.activeGroup == 'g3') {
+                console.log("This is group3 right?");
+                domUpdaterFunctions.actionFuncs.group3Activated()
+
+                
+            }
+            else {
+                console.log("Hiiii");
+                domUpdaterFunctions.init()
             }
         }
         else {
-            domUpdaterFunctions.initFunctions[changeSpecified]()
+            domUpdaterFunctions.actionFuncs[changeSpecified]()
 
+            // const functionsListOfInit = Object.keys(domUpdaterFunctions.initFunctions)
+            // const functionsListOfActionFuncs = Object.keys(domUpdaterFunctions.actionFuncs)
+            // if (functionsListOfInit.includes(changeSpecified)) {
+            //     domUpdaterFunctions.initFunctions[changeSpecified]()
+            // }
+            // else if (functionsListOfActionFuncs.includes(changeSpecified)){
+            //     domUpdaterFunctions.actionFuncs[changeSpecified]()
+            // }
+            // else{
+            //     console.log("No Function like that Exists");
+            // }
         }
 
     },
@@ -633,29 +715,17 @@ const opt = {
 
 
     init: async function () {
-        qS('.clearAllDataButton').addEventListener('click', opt.clearAllData)
 
         await opt.getCompleteData()
-        // opt.updateDOM()
-
+        // A break... 
 
 
         chrome.storage.onChanged.addListener(async (changes) => {
             console.log("Options Page, Data updating");
+            console.log(changes);
+            
             await opt.getCompleteData()
         })
-        // console.log(opt.completeData);
-
-        qSA('.navigationButton').forEach((navigationButton) => {
-            setEvent(navigationButton, 'click', () => {
-                const groupID = getAttr(navigationButton, 'data-groupID')
-                opt.currentState.activeGroup = groupID
-                opt.updateDOM('changeActiveGroup')
-            })
-        })
-        // setEvent('click', qS('.clearAllDataButton'), opt.clearAllData)
-
-
 
     }
 }

@@ -395,3 +395,26 @@ background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(135,135,135,1) 
 kbd:hover, kbd:focus {
 	transform: scale(.9);
 }
+
+
+
+/* Toggle with Text Wrapper */
+
+
+.toggleWithText-wrapper {
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+
+	background-color: #1f1f1f;
+	border-radius: 1rem;
+	padding: 1rem;
+	
+	font-size: 1rem;
+	
+	color: white;
+	
+}
+.toggleWithText-wrapper > div {
+	margin-inline: 1rem;
+}
