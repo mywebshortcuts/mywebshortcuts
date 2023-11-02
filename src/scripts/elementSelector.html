@@ -15,18 +15,74 @@
 	</button>
 </div>
 
-
 <div class="mws-elementSelectorActions-wrapper">
 	<!-- <button class="mws-elementSelectionEnableDisableButton mws-greenButton">On</button> -->
 
 	<div class="toggleWithText-wrapper">
-		<span class="disableElementSelectionSpan">Element Selection</span>
+		<div class="mws-disableElementSelectionSpan-wrapper">
+			<span class="mws-disableElementSelectionSpan">Element Selection</span>
+		</div>
 		<div class="mws-disableElementSelectionToggle-wrapper">
 			<label class="toggleSwitchLabel">
-				<input type="checkbox" class="mws-toggleSwitchInput greenToggle" checked/>
+				<input
+					type="checkbox"
+					class="mws-toggleSwitchInput greenToggle"
+					checked />
 				<span class="toggleSwitchSpan greenToggle"></span>
 			</label>
 		</div>
 	</div>
 </div>
+
+<!-- 
+<div class="mws-elementSelectionOptionsWithHeading-wrapper">
+	<h3 class="mws-elementSelectionOptionsHeading">More Options</h3>
+
+	<div class="mws-elementSelectionOptions-wrapper">
+		<div class="mws-elementSelectionType-wrapper">
+			<label class="mws-singleElementLabel" for="typeOfSelection"
+				>Selection Type
+			</label>
+			<select
+				class="mws-select Type-single"
+				name="elementSelectionType"
+				id="typeOfSelection">
+				<option value="single" class="mws-option">Single Element</option>
+				<option value="multiple" class="mws-option" disabled="true">
+					Multiple Elements (Coming Soon)
+				</option>
+				<option value="location" class="mws-option" disabled="true">
+					Location on Page (Coming Soon)
+				</option>
+			</select>
+		</div>
+	</div>
+</div>
+ -->
+
+<div class="mws-collapsableSettings-wrapper">
+	<details>
+		<summary>More Options</summary>
+		<div class="mws-elementSelectionOptions-wrapper">
+			<div class="mws-elementSelectionType-wrapper">
+				<label class="mws-singleElementLabel" for="typeOfSelection"
+					>Selection Type
+				</label>
+				<select
+					class="mws-select Type-single"
+					name="elementSelectionType"
+					id="typeOfSelection">
+					<option value="single" class="mws-option">Single Element</option>
+					<option value="multiple" class="mws-option" disabled="true">
+						Multiple Elements (Coming Soon)
+					</option>
+					<option value="location" class="mws-option" disabled="true">
+						Location on Page (Coming Soon)
+					</option>
+				</select>
+			</div>
+		</div>
+	</details>
+</div>
+
 <!-- </div> -->

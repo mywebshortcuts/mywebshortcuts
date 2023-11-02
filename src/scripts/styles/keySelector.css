@@ -1,0 +1,200 @@
+
+
+
+
+
+
+
+
+
+
+
+
+/* ----------------------- KEY SELECTOR Styles ----------------------- */
+
+.mws-keyboardShortcutSelectionDialog.mws-element {
+	cursor: auto;
+	padding: calc(var(--mws-rem)*2);
+
+}
+.mws-keyboardShortcutSelectionDialog div {
+	/* cursor: auto; */
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+.mws-keyboardShortcutSelectionDialog .mws-closeKeyboardShortcutSelectionDialogButton {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+
+
+/* Shortcut Selector Styles */
+.mws-shortcutSelector-wrapper{
+	align-items: center;
+	justify-content: center;
+	
+	flex-direction: row;
+
+	/* margin-block: var(--mws-margin); */
+
+}
+
+.mws-selectShortcutText-wrapper{
+	flex-direction: row;
+	justify-content: center;
+	
+}
+
+
+.mws-selectShortcutText{
+	color: #bfbfbf;	
+}
+
+
+
+
+
+.mws-selectShortcutButtonAndKBD-wrapper.mws-element{
+	margin-top: var(--mws-margin);
+	flex-direction: row;
+	width: 100%;
+	justify-content: flex-start;
+}
+
+
+kbd {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	color: white;
+	font-weight:  500;
+	background-color: #1f1f1f;
+	/* width: calc(var(--mws-rem)*3); */
+	/* height: calc(var(--mws-rem)*3); */
+	font-size: var(--mws-fontSize-l);
+	padding: var(--mws-padding);
+	border-radius: var(--mws-borderRadius);
+	cursor: pointer;
+}
+
+.mws-kbd-wrapper.mws-element{
+	width: 50%;
+}
+.mws-selectedShortcutKBD{
+	width: 100%;
+	height: 100%;
+	/* padding: 1rem; */
+}
+.mws-selectedShortcutKBD.active{
+	border: 2px solid #26bcd6;
+}
+.mws-selectedShortcutKBD.shortcutExists{
+	border: 2px solid var(--mws-red);
+
+}
+
+.mws-selectShortcutButton-wrapper{
+	align-items: center;
+	margin-inline: var(--mws-margin-l);
+}
+.mws-shortcutSelectionDoneButton.mws-element{
+	padding: var(--mws-padding-l);
+	/* padding: 1rem; */
+	border-radius: var(--mws-borderRadius);	
+	width: 100%;
+}
+.mws-shortcutSelectionDoneButton .onSelection,
+.mws-shortcutSelectionDoneButton .editSelection {
+    display: none; /* Hide both spans by default */
+}
+
+.mws-shortcutSelectionDoneButton.onSelection .onSelection,
+.mws-shortcutSelectionDoneButton.editSelection .editSelection {
+    display: inline; /* Show the respective span when the class is present */
+}
+
+.mws-shortcutSelectionDoneButton.editSelection{
+	background-color: var(--mws-dark-green);
+}
+.mws-shortcutSelectionDoneButton.editSelection:hover{
+	background-color: #277422;
+}
+.mws-shortcutSelectionDoneButton.onSelection:focus{
+	outline: none;
+	pointer-events: none;
+}
+
+/* Shortcut Name styles */
+
+.mws-shortcutName-wrapper{
+	margin-block: var(--mws-margin-l);
+
+}
+
+.mws-shortcutNameLabel-wrapper{
+	color: #bfbfbf;
+}
+
+.mws-shortcutNameInput-wrapper{}
+
+
+
+/* Key Dialog Options */
+
+.mws-keyDialogOptionsWithHeading-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: #bfbfbf;
+}
+.mws-keyDialogOptionsHeading {
+}
+.mws-keyDialogOptions-wrapper {
+	display: flex;
+	flex-direction: column;
+
+	align-items: flex-start;
+	justify-content: flex-start;
+	background-color: var(--mws-dark-grey);
+	padding: var(--mws-padding-l);
+	border-radius: var(--mws-borderRadius);
+}
+.mws-keyDialogOptions-wrapper > div {
+	margin-block: var(--mws-margin);
+}
+
+
+
+/* Done Button */
+
+.mws-allDoneButton.mws-element{
+	margin-top: var(--mws-margin-l);
+	padding: var(--mws-padding-l);
+	width: 80%;
+}
+.mws-allDoneButton i{
+	margin-inline: var(--mws-margin);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

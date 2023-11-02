@@ -1,0 +1,191 @@
+
+
+
+
+
+
+
+/* -------------------- Element Selector Styles -------------------- */
+
+.mws-floating-wrapper {
+	display: flex;
+	flex-direction: column;
+
+	height: fit-content;
+	width: fit-content;
+	/* height: 300px; */
+	width: 300px;
+    
+	background-color: #2d2d2d;
+	padding: calc(var(--mws-rem)*2);
+
+	border-radius: var(--mws-borderRadius);
+
+	position: fixed;
+	bottom: 0px;
+	right: 0px;
+
+	box-shadow: 0px 0px 10px 2px var(--mws-black);
+	color: var(--mws-light-green);
+
+	z-index: 10000;
+
+	cursor: grab;
+    user-select: none;
+}
+.mws-floating-wrapper div {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+}
+
+.mws-floating-wrapper .mws-closeElementSelectorButton {
+	position: absolute;
+	top: 0px;
+	right: 0px;
+}
+.mws-selectedElement-wrapper {
+	width: 100%;
+
+	display: flex;
+	flex-direction: column;
+}
+.mws-selectedElementPara {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	align-items: flex-start;
+	justify-content: flex-start;
+
+	color: #bfbfbf;
+
+}
+.mws-currentElementSpan {
+    text-align: center;
+	color: var(--mws-light-green);
+	background-color: #1f1f1f;
+
+	padding: var(--mws-padding);
+	width: 100%;
+
+	border-radius: var(--mws-borderRadius);
+	font-weight: 500;
+	font-size: var(--mws-fontSize-l);
+}
+button.mws-selectElementButton {
+	margin-block: var(--mws-margin);
+
+	padding: var(--mws-padding-l);
+	border-radius: var(--mws-borderRadius);
+
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+}
+.mws-selectElementButton i {
+	margin-inline: var(--mws-margin);
+}
+
+/* Element Selection Enable/Disable Button */
+.mws-elementSelectorActions-wrapper {
+	flex-direction: row;
+	
+	background-color: #262626;
+	border-radius: var(--mws-borderRadius);
+
+	padding: var(--mws-padding-l);
+	
+}
+
+
+.mws-disableElementSelectionSpan-wrapper{
+	padding: var(--mws-padding-s);
+	text-align: center;
+	
+}
+.mws-disableElementSelectionSpan{
+
+}
+
+.mws-elementSelectorActions-wrapper .toggleWithText-wrapper {
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.mws-element .mws-disableElementSelectionToggle-wrapper {
+	margin-inline: var(--mws-margin);
+	width: fit-content;
+}
+
+
+/* Element Selector Options */
+
+
+.mws-collapsableSettings-wrapper{
+    
+	display: flex;
+	flex-direction: column;
+	/* align-items: flex-start; */
+	color: #bfbfbf;
+    width: 100%;
+
+    
+}
+.mws-collapsableSettings-wrapper summary{
+    background-color: var(--mws-dark-grey);
+
+    padding: var(--mws-padding-l);
+    
+    margin-top: var(--mws-margin);
+    border-radius: var(--mws-borderRadius);
+    
+    color: #bfbfbf;
+    
+}
+.mws-collapsableSettings-wrapper details[open] summary{
+    border-radius: 0px;
+    border-top-left-radius: var(--mws-borderRadius);
+    border-top-right-radius: var(--mws-borderRadius);
+    /* background-color: black; */
+
+    border-bottom: #2d2d2d 2px solid;
+
+
+}
+
+summary {
+  display: block;
+  position: relative;
+  user-select: none;
+
+}
+/* Create a new custom triangle on the right side */
+summary::after {
+  display: inline-block;
+  font-family: 'Font Awesome 6 Free';
+  content: '\f105';
+  transition: 0.3s ease;
+  position: absolute;
+  right: var(--mws-rem);
+}
+
+details[open] > summary::after {
+  transform: rotate(90deg);
+}
+
+.mws-elementSelectionOptions-wrapper {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: flex-start;
+	background-color: var(--mws-dark-grey);
+	padding: var(--mws-padding-l);
+
+    border-bottom-left-radius: var(--mws-borderRadius);
+    border-bottom-right-radius: var(--mws-borderRadius);
+}
+.mws-elementSelectionOptions-wrapper label {
+    margin-block: var(--mws-margin);
+}

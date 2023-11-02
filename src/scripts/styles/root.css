@@ -44,9 +44,7 @@
 	text-align: center;
 }
 
-
 /* UNIVERSAL Styles for all the Extension Generated Elements */
-
 
 @font-face {
 	font-family: 'Inter';
@@ -83,34 +81,29 @@
 	--mws-red: #d75454;
 	--mws-light-red: #d37070;
 
-
-	--mws-rem:16px;
-
+	--mws-rem: 16px;
 
 	--mws-borderRadius-s: calc(var(--mws-rem) / 2);
 	--mws-borderRadius: calc(var(--mws-rem));
-	--mws-borderRadius-l:calc(var(--mws-rem) * 2);
-	
-	--mws-border-s:calc(var(--mws-rem) / 16);
-	--mws-border-m:calc(var(--mws-rem) / 8);
-	--mws-border-l:calc(var(--mws-rem) / 4);
+	--mws-borderRadius-l: calc(var(--mws-rem) * 2);
 
-	--mws-fontSize-s:calc(var(--mws-rem)/1.2);
-	--mws-fontSize:calc(var(--mws-rem));
-	--mws-fontSize-l:calc(var(--mws-rem)*1.2);
-	
-	--mws-margin-s:calc(var(--mws-rem)/8);
-	--mws-margin:calc(var(--mws-rem)/2);
-	--mws-margin-l:calc(var(--mws-rem));
-	
-	--mws-padding-s:calc(var(--mws-rem)/8);
-	--mws-padding: calc(var(--mws-rem)/2);
+	--mws-border-s: calc(var(--mws-rem) / 16);
+	--mws-border-m: calc(var(--mws-rem) / 8);
+	--mws-border-l: calc(var(--mws-rem) / 4);
+
+	--mws-fontSize-s: calc(var(--mws-rem) / 1.2);
+	--mws-fontSize: calc(var(--mws-rem));
+	--mws-fontSize-l: calc(var(--mws-rem) * 1.2);
+
+	--mws-margin-s: calc(var(--mws-rem) / 8);
+	--mws-margin: calc(var(--mws-rem) / 2);
+	--mws-margin-l: calc(var(--mws-rem));
+
+	--mws-padding-s: calc(var(--mws-rem) / 8);
+	--mws-padding: calc(var(--mws-rem) / 2);
 	--mws-padding-l: calc(var(--mws-rem));
-	--mws-padding-xl: calc(var(--mws-rem)*1.5);
+	--mws-padding-xl: calc(var(--mws-rem) * 1.5);
 }
-
-
-
 
 /* Custom Dialog Box Styles  */
 
@@ -121,9 +114,9 @@ dialog.mws-element {
 	justify-content: center;
 	align-items: center;
 
-	background-color: #2D2D2D;
+	background-color: #2d2d2d;
 
-	border-radius: var(--mws-borderRadius-s );
+	border-radius: var(--mws-borderRadius-s);
 	padding: 1rem;
 	color: white;
 
@@ -135,7 +128,7 @@ dialog.mws-element {
 	bottom: 50%;
 	margin: auto;
 
-	font-size: 1rem;
+	font-size: 1rem;	
 }
 dialog.mws-element::backdrop {
 	background: #000000b1;
@@ -157,13 +150,12 @@ dialog.mws-element::backdrop {
 
 	padding: var(--mws-padding);
 
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
 .mws-element button:hover {
-/* transition: .15s ease; */
+	/* transition: .15s ease; */
 	background-color: var(--mws-light-green);
 	color: var(--dark-grey);
 }
@@ -171,18 +163,17 @@ dialog.mws-element::backdrop {
 	color: var(--mws-grey) !important;
 	border-color: var(--mws-grey) !important;
 	opacity: 0.7 !important;
-	background-color:  #4d4d4d !important;
+	background-color: #4d4d4d !important;
 	cursor: not-allowed;
 
 	/* pointer-events: none !important; */
 }
-
-
-.mws-element button.mws-actionButton{
+/* ACTION BUTTON */
+.mws-element button.mws-actionButton {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+
 	background-color: transparent;
 	/* color: var(--mws-light-green); */
 	color: white;
@@ -195,20 +186,19 @@ dialog.mws-element::backdrop {
 	border-radius: 100%;
 
 	user-select: none;
-	
+
 	width: 2rem;
 	height: 2rem;
 
 	transition: 0.15s ease;
 
 	padding: 1.5rem;
-	
 }
-.mws-element button.mws-actionButton:hover{
+.mws-element button.mws-actionButton:hover {
 	background-color: #88888834;
-
 }
 
+/* RED BUTTON */
 .mws-element .mws-redButton {
 	background-color: transparent;
 	border: var(--mws-border-s) solid var(--mws-red);
@@ -218,6 +208,7 @@ dialog.mws-element::backdrop {
 	background-color: var(--mws-red);
 	color: white;
 }
+/* GREEN BUTTON */
 
 .mws-element .mws-greenButton {
 	background-color: transparent;
@@ -229,6 +220,7 @@ dialog.mws-element::backdrop {
 	color: var(--mws-dark-grey);
 }
 
+/* RED BUTTON FILLED */
 .mws-element .mws-redButtonFilled {
 	background-color: var(--mws-red);
 	color: white;
@@ -236,9 +228,8 @@ dialog.mws-element::backdrop {
 .mws-element .mws-redButtonFilled:hover {
 	background-color: #a54040;
 	color: white;
-
 }
-
+/* GREEN BUTTON FILLED */
 .mws-element .mws-greenButtonFilled {
 	background-color: var(--mws-dark-green);
 	color: rgb(255, 255, 255);
@@ -247,10 +238,18 @@ dialog.mws-element::backdrop {
 	background-color: #277422;
 	color: white;
 }
-
+/* BLUE BUTTON FILLED */
+.mws-element .mws-blueButtonFilled {
+	background-color: var(--mws-dark-blue);
+	color: rgb(255, 255, 255);
+}
+.mws-element .mws-blueButtonFilled:hover {
+	background-color: #1597ae;
+	color: white;
+}
 
 /* Danger Button  */
-.mws-element  .mws-dangerButtonWithText-wrapper {
+.mws-element .mws-dangerButtonWithText-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
@@ -260,23 +259,20 @@ dialog.mws-element::backdrop {
 	border-radius: 1rem;
 
 	background-color: #1f1f1f;
-
 }
-.mws-element  .mws-dangerButtonWithText-wrapper .mws-text {
+.mws-element .mws-dangerButtonWithText-wrapper .mws-text {
 	font-size: 0.9rem;
 	/* color: rgba(255, 2	55, 255, 0.65); */
 	color: var(--mws-red);
 	margin-inline: 1rem;
 }
-.mws-element  .mws-dangerButtonWithText-wrapper .mws-dangerButton {
+.mws-element .mws-dangerButtonWithText-wrapper .mws-dangerButton {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0.75rem 1rem;
 }
-
-
 
 /* Toggle Switch Styles  */
 
@@ -304,8 +300,8 @@ dialog.mws-element::backdrop {
 	right: 0;
 	bottom: 0;
 	background-color: #ccc;
-	-webkit-transition: .4s;
-	transition: .4s;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
 
 	/* Round */
 	border-radius: 34px;
@@ -334,54 +330,69 @@ dialog.mws-element::backdrop {
 	transform: translateX(26px);
 }
 
-.mws-element .mws-toggleSwitchInput.greenToggle:checked + .toggleSwitchSpan.greenToggle {
+.mws-element
+	.mws-toggleSwitchInput.greenToggle:checked
+	+ .toggleSwitchSpan.greenToggle {
 	background-color: var(--mws-light-green);
 }
-.mws-element .mws-toggleSwitchInput.greenToggle:checked:hover  + .toggleSwitchSpan.greenToggle{
+.mws-element
+	.mws-toggleSwitchInput.greenToggle:checked:hover
+	+ .toggleSwitchSpan.greenToggle {
 	background-color: var(--mws-dark-green);
 }
 
-.mws-element .mws-toggleSwitchInput.greenToggle:focus + .toggleSwitchSpan.greenToggle {
+.mws-element
+	.mws-toggleSwitchInput.greenToggle:focus
+	+ .toggleSwitchSpan.greenToggle {
 	box-shadow: 0 0 1px var(--mws-light-green);
 }
 
-.mws-element .mws-toggleSwitchInput.redToggle:checked + .toggleSwitchSpan.redToggle {
+.mws-element
+	.mws-toggleSwitchInput.redToggle:checked
+	+ .toggleSwitchSpan.redToggle {
 	background-color: var(--mws-red);
 }
 
-.mws-element .mws-toggleSwitchInput.redToggle:checked:hover  + .toggleSwitchSpan.redToggle{
+.mws-element
+	.mws-toggleSwitchInput.redToggle:checked:hover
+	+ .toggleSwitchSpan.redToggle {
 	background-color: #aa3c3c;
 }
 
-.mws-element .mws-toggleSwitchInput.redToggle:focus + .toggleSwitchSpan.redToggle {
+.mws-element
+	.mws-toggleSwitchInput.redToggle:focus
+	+ .toggleSwitchSpan.redToggle {
 	box-shadow: 0 0 1px var(--mws-red);
 }
-
-
-
-
 
 /* INPUT STYLES */
 
 .mws-element input:not(.mws-toggleSwitchInput) {
-	background-color: transparent;
-	/* border: none; */
-	border: var(--mws-light-green) 1px solid;
+	background-color: white;
+	border: none;
+	/* border: var(--mws-light-black) 1px solid; */
 	padding: 0.5rem;
 
 	border-radius: 0.5rem;
 
-	color: var(--mws-light-green);
+	color: var(--mws-black);
 }
 .mws-element input:not(.mws-toggleSwitchInput):focus {
-	outline: var(--mws-light-green) 2px solid;
+	outline: var(--mws-black) 3px solid;
+}
+.mws-element input:disabled {
+	border-color: #575757;
+	background-color: #57575727;
+	color: #575757;
+	cursor: not-allowed;
 }
 .mws-element input:not(.mws-toggleSwitchInput)::placeholder {
-	color: var(--mws-light-green);
+	color: var(--mws-black);
 	opacity: 0.5;
 }
-
-
+.mws-element input:disabled::placeholder {
+	opacity: 0.2;
+}
 
 /* Custom Select Menu Styles  */
 .mws-element select {
@@ -391,9 +402,13 @@ dialog.mws-element::backdrop {
 	border-radius: var(--mws-borderRadius);
 
 	appearance: none;
-	padding: var(--mws-padding-l);
+	padding: var(--mws-padding);
 
-	padding-right: 1rem;
+	padding-left: var(--mws-padding-l);
+	padding-right: var(--mws-padding-l);
+
+
+	font-size: var(--mws-fontSize);
 
 	user-select: none;
 	color: white;
@@ -407,175 +422,4 @@ dialog.mws-element::backdrop {
 	background-color: #575757;
 	opacity: 0.5;
 	cursor: not-allowed;
-}
-
-
-
-
-
-/* -------------------- Element Selector Styles -------------------- */
-
-.mws-floating-wrapper {
-	display: flex;
-	flex-direction: column;
-
-	width: 300px;
-	height: fit-content;
-	height: 300px;
-
-	background-color: #2D2D2D;
-	padding: var(--mws-padding-xl);
-
-	border-radius: var(--mws-borderRadius);
-
-	position: fixed;
-	bottom: 0px;
-	right: 0px;
-
-	box-shadow: 0px 0px 10px 2px var(--mws-black);
-	color: var(--mws-light-green);
-
-	z-index: 10000;
-
-	cursor: grab;
-}
-.mws-floating-wrapper div{
-	display: flex;
-	flex-direction: column;
-	width: 100%;
-
-}
-
-.mws-floating-wrapper .mws-closeElementSelectorButton {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-}
-/* .mws-floating-wrapper .mws-closeElementSelectorButton:hover {
-	color: var(--mws-dark-grey);
-	background-color: var(--mws-red);
-} */
-
-
-
-.mws-selectedElement-wrapper{
-	width: 100%;
-	
-	display: flex;
-	flex-direction: column;
-
-	margin-block: var(--mws-margin-l);
-}
-.mws-selectedElementPara{
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-
-	align-items: flex-start;
-	justify-content: flex-start;
-
-	color: #BFBFBF;
-	
-}
-.mws-currentElementSpan{
-	
-	color: var(--mws-light-green);
-	background-color: #1F1F1F;
-
-	padding: var(--mws-padding-l);
-	width: 100%;
-
-	border-radius: var(--mws-borderRadius);
-	/* font-weight: 900; */
-	font-size: var(--mws-fontSize-l);
-}
-button.mws-selectElementButton{
-	margin-block: var(--mws-margin);
-
-	padding: var(--mws-padding-l);
-	border-radius: var(--mws-borderRadius);
-
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-}
-.mws-selectElementButton i{
-	/* margin-inline: 5px; */
-}
-
-
-
-/* Selection Options */
-.mws-selectionOptionsWithHeading-wrapper{
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	color: #BFBFBF;
-	
-}
-.mws-selectionOptionsHeading{
-
-}
-.mws-selectionOptions-wrapper{
-	display: flex;
-	flex-direction: column;
-	
-	align-items: flex-start;
-	justify-content: flex-start;
-	background-color: var(--mws-dark-grey);
-	padding: var(--mws-padding-l);
-	border-radius: var(--mws-borderRadius);
-	
-}
-.mws-selectionOptions-wrapper > div{
-	margin-block: var(--mws-margin);
-}
-
-
-
-
-/* Element Selection Enable/Disable Button */
-.mws-elementSelectorActions-wrapper{
-	flex-direction: row;
-
-	background-color: #262626;
-	border-radius: var(--mws-borderRadius);
-
-	padding: var(--mws-padding);
-
-	margin-block: var(--mws-margin);
-}
-
-.mws-elementSelectorActions-wrapper .toggleWithText-wrapper{
-	flex-direction: row;
-	justify-content: center;
-	align-items: center;
-
-
-}
-
-
-.mws-element .mws-disableElementSelectionToggle-wrapper {
-	margin-inline: var(--mws-margin);
-	width: fit-content;
-}
-
-/* KEY SELECTOR Styles */
-
-.mws-keyboardShortcutSelectionDialog {
-	cursor: auto;
-}
-.mws-keyboardShortcutSelectionDialog .mws-closeKeyboardShortcutSelectionDialogButton {
-	position: absolute;
-	top: 0px;
-	right: 0px;
-
-	
-}
-
-.mws-keyboardShortcutSelectionDialog .mws-shortcutNameInput{
-	padding: 5px 5px;
-	font-size: 15px;
-	border-radius: 10px;
-
 }
