@@ -139,12 +139,12 @@ main {
 	cursor: pointer;
 }
 
-.url-wrapper:first-child{
+.url-wrapper:first-child {
 	border-radius: 0px;
 	border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem;
 }
-.url-wrapper:last-child{
+.url-wrapper:last-child {
 	border-radius: 0px;
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;
@@ -154,8 +154,6 @@ main {
 	/* border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem; */
 }
-
-
 
 .websiteSettingsDiv {
 	display: none;
@@ -207,13 +205,13 @@ main {
 	background-color: #3e3e3e;
 }
 
-.urlHeading-wrapper{
+.urlHeading-wrapper {
 	margin: 1rem;
 }
-.websiteSettingsDiv .toggleWithText-wrapper{
+.websiteSettingsDiv .toggleWithText-wrapper {
 	width: 70%;
 }
-.deleteWebsiteButtonWithText-wrapper{
+.deleteWebsiteButtonWithText-wrapper {
 	width: 70%;
 	margin-block: 1rem 0rem;
 }
@@ -256,17 +254,15 @@ main {
 
 	background-color: #4e4e4e;
 	padding-block: 1rem;
-	
+
 	position: relative;
-	
+
 	/* transition: 0.2s ease; */
-	
+
 	margin-block: 0.1rem;
-	
+
 	color: white;
-
-
-}	
+}
 .shortcutSettings-wrapper:hover {
 	/* box-shadow: 0px 0px 10px 0px #000000; */
 	/* background-color: #3e3e3e; */
@@ -274,29 +270,29 @@ main {
 	/* cursor: pointer; */
 }
 
-.shortcutSettings-wrapper:first-child{
+.shortcutSettings-wrapper:first-child {
 	border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem;
 }
-.shortcutSettings-wrapper:last-child{
+.shortcutSettings-wrapper:last-child {
 	border-bottom-left-radius: 1rem;
 	border-bottom-right-radius: 1rem;
 }
-.shortcutSettings-wrapper:last-child .moreOptions-wrapper{
+.shortcutSettings-wrapper:last-child .moreOptions-wrapper {
 	left: 5%;
 	width: 90%;
 }
 
-.shortcutName-wrapper{
+.shortcutName-wrapper {
 	margin-inline: 1rem;
 	width: 30%;
 }
 
-.shortcutKey-wrapper{
-	margin-inline: 0rem .5rem;
+.shortcutKey-wrapper {
+	margin-inline: 0rem 0.5rem;
 	width: 20%;
 }
-.disableShortcutToggle-wrapper{
+.disableShortcutToggle-wrapper {
 	width: 20%;
 }
 
@@ -304,7 +300,7 @@ main {
 	position: absolute;
 	right: 0px;
 	top: 0px;
-/* 
+	/* 
 	border-top-right-radius: 1rem;
 	border-bottom-right-radius: 1rem; */
 
@@ -351,7 +347,6 @@ main {
 	position: absolute;
 	top: 100%;
 
-
 	/* left: 5%; */
 	z-index: 10000;
 	padding: 1rem;
@@ -364,24 +359,18 @@ main {
 	border-bottom-left-radius: 1rem;
 
 	box-shadow: 0px 5px 10px 0px #000000;
-
-
 }
 
-.moreOptions-wrapper .setActionSpan{
+.moreOptions-wrapper .setActionSpan {
 	background-color: #575757;
 
 	border-radius: 1rem;
-	padding: .5rem;
-
+	padding: 0.5rem;
 }
-
-
-
 
 /* Edit & Delete Shortcut Buttons */
 
-.editDeleteButtons-wrapper{
+.editDeleteButtons-wrapper {
 	display: flex;
 	width: 50%;
 	display: flex;
@@ -390,19 +379,18 @@ main {
 
 	margin-block: 1rem;
 }
-.editShortcutButton-wrapper{
+.editShortcutButton-wrapper {
 	/* margin-inline: .5rem; */
 }
 
-
-.editShortcutSettingsDialog{
+.editShortcutSettingsDialog {
 	display: flex;
 	/* display: none; */
 	padding: 3rem;
 	font-size: 1rem;
 }
 
-.editShortcutSettingsDialog > div{
+.editShortcutSettingsDialog > div {
 	margin-bottom: 1rem;
 
 	display: flex;
@@ -411,14 +399,11 @@ main {
 	flex-direction: column;
 }
 
-.closeEditShortcutSettingsButton-wrapper{
+.closeEditShortcutSettingsButton-wrapper {
 	position: absolute;
 	top: 0rem;
 	right: 0rem;
 }
-
-
-
 
 .selectAction-wrapper {
 	position: relative;
@@ -432,7 +417,7 @@ main {
 }
 
 .selectAction-wrapper .select-wrapper {
-	margin-top: .5rem;
+	margin-top: 0.5rem;
 	position: relative;
 	width: fit-content;
 }
@@ -450,22 +435,14 @@ main {
 	color: white;
 }
 
-
 /* --------------------------- GROUP 2 --------------------------- */
-.settingsGroup#g2{
+.settingsGroup#g2 {
 	background-color: #272727;
-	
-	
 }
-.disableEverywhereToggleWithText-wrapper{
+.disableEverywhereToggleWithText-wrapper {
 	/* width: 90%; */
 	margin-block: 1rem;
-
 }
-
-
-
-
 
 .saveButton-wrapper {
 	display: flex;
@@ -500,4 +477,97 @@ footer {
 	align-items: center;
 	justify-content: space-evenly;
 	width: 100%;
+}
+
+.animatedLogo-wrapper {
+	position: fixed;
+	left: 5rem;
+	top: 30%;
+	width: 15rem;
+
+	opacity: 0.2;
+
+	z-index: -1;
+}
+
+.animatedLogo {
+	width: 100%;
+}
+
+.globe {
+	animation: rotater 15s linear infinite;
+}
+.keyboard {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	animation: revolver-smooth 15s linear infinite;
+	transform: translate(45px, 45px);
+}
+
+@keyframes revolver {
+	0% {
+		transform: translate(8rem, 8rem) scale(1);
+		z-index: -1;
+	}
+	25% {
+		transform: translate(0px, 0px) scale(0.9);
+	}
+	50% {
+		transform: translate(-8rem, -8rem) scale(0.8);
+	}
+	75% {
+		transform: translate(0px, 0px) scale(0.9);
+	}
+	100% {
+		transform: translate(8rem, 8rem) scale(1);
+	}
+}
+
+
+@keyframes revolver-smooth {
+    0% {
+        transform: translate(8rem, 8rem) scale(1);
+        z-index: -1;
+    }
+    6.25% {
+        transform: translate(6rem, 6rem) scale(0.975);
+    }
+    12.5% {
+        transform: translate(4rem, 4rem) scale(0.95);
+    }
+    18.75% {
+        transform: translate(2rem, 2rem) scale(0.9625);
+    }
+    25% {
+        transform: translate(0px, 0px) scale(0.95);
+    }
+    50% {
+        transform: translate(-8rem, -8rem) scale(0.85);
+    }
+    75% {
+        transform: translate(0px, 0px) scale(0.95);
+    }
+    81.25% {
+        transform: translate(2rem, 2rem) scale(0.9625);
+    }
+    87.5% {
+        transform: translate(4rem, 4rem) scale(0.95);
+    }
+    93.75% {
+        transform: translate(6rem, 6rem) scale(0.975);
+    }
+    100% {
+        transform: translate(8rem, 8rem) scale(1);
+    }
+}
+
+@keyframes rotater {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+	
 }
