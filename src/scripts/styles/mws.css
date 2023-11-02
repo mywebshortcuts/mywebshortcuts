@@ -1,17 +1,17 @@
 /* STYLES THAT WILL BE USED IN THE WEBPAGE FOR ELEMENT SELECTION PURPOSES */
 
-.MWS-stylesForPage {
+.mws-stylesForPage {
 	cursor: pointer !important;
 	position: relative;
 }
 
-.MWS-bordered {
+.mws-bordered {
 	outline: 2px solid red !important;
 }
-.MWS-clicked {
+.mws-clicked {
 	position: relative;
 }
-.MWS-clicked::after {
+.mws-clicked::after {
 	content: attr(data-index); /* Display the data-index attribute as content */
 	position: absolute;
 	bottom: 5px;
@@ -28,7 +28,7 @@
 	align-items: center;
 	text-align: center;
 }
-.MWS-clicked::before {
+.mws-clicked::before {
 	content: attr(
 		data-keyboardShortcut
 	); /* Display the data-index attribute as content */
@@ -46,200 +46,534 @@
 
 
 /* UNIVERSAL Styles for all the Extension Generated Elements */
-*.MWS-element {
+
+
+@font-face {
+	font-family: 'Inter';
+	src: url('../assets/inter/Inter-Regular.woff2') format('woff2'),
+		url('../assets/inter/Inter-Regular.woff') format('woff');
+	font-weight: normal;
+	font-style: normal;
+	font-display: swap;
+}
+
+*.mws-element {
 	margin: 0px;
 	padding: 0px;
 	box-sizing: border-box;
 
 	/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
-	font-family: Ubuntu;
+	/* font-family: Ubuntu; */
+	font-family: 'Inter', sans-serif;
+
 	/* --default-font: 'Grandstander', cursive; */
 
-	--MWS-black: #000000;
+	--mws-black: #000000;
 
-	--MWS-light-green: #54b948;
-	--MWS-dark-green: #49a942;
+	--mws-light-green: #54b948;
+	--mws-dark-green: #49a942;
 
-	--MWS-dark-blue: #26bcd6;
-	--MWS-light-blue: #7ed0e0;
-	--MWS-lightest-blue: #cceaee;
+	--mws-dark-blue: #26bcd6;
+	--mws-light-blue: #7ed0e0;
+	--mws-lightest-blue: #cceaee;
 
-	--MWS-grey: #c0d3d8;
-	--MWS-dark-grey: #262626;
+	--mws-grey: #c0d3d8;
+	--mws-dark-grey: #262626;
 
-	--MWS-red: #d75454;
+	--mws-red: #d75454;
+	--mws-light-red: #d37070;
 
 
+	--mws-rem:16px;
 
+
+	--mws-borderRadius-s: calc(var(--mws-rem) / 2);
+	--mws-borderRadius: calc(var(--mws-rem));
+	--mws-borderRadius-l:calc(var(--mws-rem) * 2);
+	
+	--mws-border-s:calc(var(--mws-rem) / 16);
+	--mws-border-m:calc(var(--mws-rem) / 8);
+	--mws-border-l:calc(var(--mws-rem) / 4);
+
+	--mws-fontSize-s:calc(var(--mws-rem)/1.2);
+	--mws-fontSize:calc(var(--mws-rem));
+	--mws-fontSize-l:calc(var(--mws-rem)*1.2);
+	
+	--mws-margin-s:calc(var(--mws-rem)/8);
+	--mws-margin:calc(var(--mws-rem)/2);
+	--mws-margin-l:calc(var(--mws-rem));
+	
+	--mws-padding-s:calc(var(--mws-rem)/8);
+	--mws-padding: calc(var(--mws-rem)/2);
+	--mws-padding-l: calc(var(--mws-rem));
+	--mws-padding-xl: calc(var(--mws-rem)*1.5);
 }
-.MWS-element {
+
+
+
+
+/* Custom Dialog Box Styles  */
+
+dialog.mws-element {
+	display: flex;
+	flex-direction: column;
+
+	justify-content: center;
+	align-items: center;
+
+	background-color: #2D2D2D;
+
+	border-radius: var(--mws-borderRadius-s );
+	padding: 1rem;
+	color: white;
+
+	border: none;
+	box-shadow: 0px 0px 10px 0px black;
+
+	position: fixed;
+	top: 50%;
+	bottom: 50%;
+	margin: auto;
+
+	font-size: 1rem;
+}
+dialog.mws-element::backdrop {
+	background: #000000b1;
+}
+
+/* BUTTONS STYLES */
+
+.mws-element button {
+	background-color: var(--mws-dark-green);
+
+	border: none;
+
+	cursor: pointer;
+
+	border-radius: var(--mws-borderRadius-s);
+	user-select: none;
+
+	transition: 0.15s ease;
+
+	padding: var(--mws-padding);
+
+
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: column;
+}
+.mws-element button:hover {
+/* transition: .15s ease; */
+	background-color: var(--mws-light-green);
+	color: var(--dark-grey);
+}
+.mws-element button:disabled {
+	color: var(--mws-grey) !important;
+	border-color: var(--mws-grey) !important;
+	opacity: 0.7 !important;
+	background-color:  #4d4d4d !important;
+	cursor: not-allowed;
+
+	/* pointer-events: none !important; */
 }
 
-button.MWS-element {
+
+.mws-element button.mws-actionButton{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
 	background-color: transparent;
-	border:2px solid var(--MWS-dark-green);
-	color:var(--MWS-dark-green);
+	/* color: var(--mws-light-green); */
+	color: white;
+	font-size: 1.2rem;
+
+	border: none;
+
 	cursor: pointer;
-	border-radius: 0.5rem;
+
+	border-radius: 100%;
+
 	user-select: none;
-	padding: 1rem;
+	
+	width: 2rem;
+	height: 2rem;
+
 	transition: 0.15s ease;
+
+	padding: 1.5rem;
+	
 }
-button.MWS-element:hover {
-	transition: 0.15s ease;
-	background-color: var(--MWS-dark-green);
-	color:var(--MWS-dark-grey);
+.mws-element button.mws-actionButton:hover{
+	background-color: #88888834;
+
+}
+
+.mws-element .mws-redButton {
+	background-color: transparent;
+	border: var(--mws-border-s) solid var(--mws-red);
+	color: var(--mws-red);
+}
+.mws-element .mws-redButton:hover {
+	background-color: var(--mws-red);
+	color: white;
+}
+
+.mws-element .mws-greenButton {
+	background-color: transparent;
+	border: var(--mws-border) solid var(--mws-dark-green);
+	color: var(--mws-dark-green);
+}
+.mws-element .mws-greenButton:hover {
+	background-color: var(--mws-dark-green);
+	color: var(--mws-dark-grey);
+}
+
+.mws-element .mws-redButtonFilled {
+	background-color: var(--mws-red);
+	color: white;
+}
+.mws-element .mws-redButtonFilled:hover {
+	background-color: #a54040;
+	color: white;
+
+}
+
+.mws-element .mws-greenButtonFilled {
+	background-color: var(--mws-dark-green);
+	color: rgb(255, 255, 255);
+}
+.mws-element .mws-greenButtonFilled:hover {
+	background-color: #277422;
+	color: white;
+}
+
+
+/* Danger Button  */
+.mws-element  .mws-dangerButtonWithText-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	padding: 0.5rem;
+	border: var(--mws-border-s) solid var(--mws-red);
+	border-radius: 1rem;
+
+	background-color: #1f1f1f;
+
+}
+.mws-element  .mws-dangerButtonWithText-wrapper .mws-text {
+	font-size: 0.9rem;
+	/* color: rgba(255, 2	55, 255, 0.65); */
+	color: var(--mws-red);
+	margin-inline: 1rem;
+}
+.mws-element  .mws-dangerButtonWithText-wrapper .mws-dangerButton {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.75rem 1rem;
+}
+
+
+
+/* Toggle Switch Styles  */
+
+/* The switch - the box around the slider */
+.mws-element .toggleSwitchLabel {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.mws-element .toggleSwitchLabel .mws-toggleSwitchInput {
+	opacity: 0;
+	width: 0;
+	height: 0;
+}
+
+/* The slider */
+.mws-element .toggleSwitchSpan {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+
+	/* Round */
+	border-radius: 34px;
+}
+.mws-element .toggleSwitchSpan:hover {
+	background-color: #b2b2b2;
+}
+
+.mws-element .toggleSwitchSpan:before {
+	position: absolute;
+	content: '';
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+
+	border-radius: 50%;
+}
+
+.mws-element .mws-toggleSwitchInput:checked + .toggleSwitchSpan:before {
+	-webkit-transform: translateX(26px);
+	-ms-transform: translateX(26px);
+	transform: translateX(26px);
+}
+
+.mws-element .mws-toggleSwitchInput.greenToggle:checked + .toggleSwitchSpan.greenToggle {
+	background-color: var(--mws-light-green);
+}
+.mws-element .mws-toggleSwitchInput.greenToggle:checked:hover  + .toggleSwitchSpan.greenToggle{
+	background-color: var(--mws-dark-green);
+}
+
+.mws-element .mws-toggleSwitchInput.greenToggle:focus + .toggleSwitchSpan.greenToggle {
+	box-shadow: 0 0 1px var(--mws-light-green);
+}
+
+.mws-element .mws-toggleSwitchInput.redToggle:checked + .toggleSwitchSpan.redToggle {
+	background-color: var(--mws-red);
+}
+
+.mws-element .mws-toggleSwitchInput.redToggle:checked:hover  + .toggleSwitchSpan.redToggle{
+	background-color: #aa3c3c;
+}
+
+.mws-element .mws-toggleSwitchInput.redToggle:focus + .toggleSwitchSpan.redToggle {
+	box-shadow: 0 0 1px var(--mws-red);
 }
 
 
 
 
-/* Element Selector Styles */
 
-.MWS-floatingDiv {
+/* INPUT STYLES */
+
+.mws-element input:not(.mws-toggleSwitchInput) {
+	background-color: transparent;
+	/* border: none; */
+	border: var(--mws-light-green) 1px solid;
+	padding: 0.5rem;
+
+	border-radius: 0.5rem;
+
+	color: var(--mws-light-green);
+}
+.mws-element input:not(.mws-toggleSwitchInput):focus {
+	outline: var(--mws-light-green) 2px solid;
+}
+.mws-element input:not(.mws-toggleSwitchInput)::placeholder {
+	color: var(--mws-light-green);
+	opacity: 0.5;
+}
+
+
+
+/* Custom Select Menu Styles  */
+.mws-element select {
+	background-color: #575757;
+	border: none;
+
+	border-radius: var(--mws-borderRadius);
+
+	appearance: none;
+	padding: var(--mws-padding-l);
+
+	padding-right: 1rem;
+
+	user-select: none;
+	color: white;
+}
+.mws-element select:hover {
+	cursor: pointer;
+
+	background-color: #4d4d4d;
+}
+.mws-element select:disabled {
+	background-color: #575757;
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
+
+
+
+
+/* -------------------- Element Selector Styles -------------------- */
+
+.mws-floating-wrapper {
 	display: flex;
 	flex-direction: column;
-	/* align-items: flex-start; */
-
-
-	width: fit-content;
-	height: fit-content;
 
 	width: 300px;
-	height: 400px;
-	
-	/* min-width: 300px;
-	min-height: 100px; */
+	height: fit-content;
+	height: 300px;
 
-	background-color: var(--MWS-dark-grey);
-	padding: 20px;
+	background-color: #2D2D2D;
+	padding: var(--mws-padding-xl);
+
+	border-radius: var(--mws-borderRadius);
 
 	position: fixed;
 	bottom: 0px;
 	right: 0px;
 
-	border-radius: 10px;
-
-	box-shadow: 0px 0px 10px 2px var(--MWS-black);
-	color: var(--MWS-light-blue);
+	box-shadow: 0px 0px 10px 2px var(--mws-black);
+	color: var(--mws-light-green);
 
 	z-index: 10000;
 
 	cursor: grab;
 }
-.MWS-floatingDiv > div{
+.mws-floating-wrapper div{
 	display: flex;
-	align-items: center;
-	margin: 10px 0rem;
+	flex-direction: column;
 	width: 100%;
 
 }
 
-.MWS-floatingDiv .MWS-closeElementSelectorButton {
+.mws-floating-wrapper .mws-closeElementSelectorButton {
 	position: absolute;
 	top: 0px;
 	right: 0px;
+}
+/* .mws-floating-wrapper .mws-closeElementSelectorButton:hover {
+	color: var(--mws-dark-grey);
+	background-color: var(--mws-red);
+} */
+
+
+
+.mws-selectedElement-wrapper{
+	width: 100%;
 	
-	background-color: transparent;
-	color: var(--MWS-red);
-	border-color: var(--MWS-red);
+	display: flex;
+	flex-direction: column;
+
+	margin-block: var(--mws-margin-l);
 }
-.MWS-floatingDiv .MWS-closeElementSelectorButton:hover {
-	color: var(--MWS-dark-grey);
-	background-color: var(--MWS-red);
+.mws-selectedElementPara{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+
+	align-items: flex-start;
+	justify-content: flex-start;
+
+	color: #BFBFBF;
+	
 }
+.mws-currentElementSpan{
+	
+	color: var(--mws-light-green);
+	background-color: #1F1F1F;
 
+	padding: var(--mws-padding-l);
+	width: 100%;
 
+	border-radius: var(--mws-borderRadius);
+	/* font-weight: 900; */
+	font-size: var(--mws-fontSize-l);
+}
+button.mws-selectElementButton{
+	margin-block: var(--mws-margin);
 
-.MWS-selectedElementDiv{
+	padding: var(--mws-padding-l);
+	border-radius: var(--mws-borderRadius);
+
+	display: flex;
+	flex-direction: row;
 	width: 100%;
 }
-.MWS-currentElementSpan{
-	font-weight: 900;
-	font-size: 17px;
-}
-.MWS-selectElementButton{
-	margin: 5px 0px;
+.mws-selectElementButton i{
+	/* margin-inline: 5px; */
 }
 
 
-.MWS-selectionOptionsDiv{
-	background-color: var(--MWS-light-blue);
-	color: var(--MWS-dark-grey);
-	padding: 10px 10px;
-	border-radius: 10px;
-}
-.MWS-selectionOptionsDiv .MWS-select{
-	background-color: var(--MWS-dark-blue);
-	border-radius: 5px;
-	padding: 5px;
-	
-	cursor: pointer;
+
+/* Selection Options */
+.mws-selectionOptionsWithHeading-wrapper{
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	color: #BFBFBF;
 	
 }
-.MWS-selectionOptionsDiv .MWS-select option{
-	cursor: pointer;
+.mws-selectionOptionsHeading{
+
+}
+.mws-selectionOptions-wrapper{
+	display: flex;
+	flex-direction: column;
+	
+	align-items: flex-start;
+	justify-content: flex-start;
+	background-color: var(--mws-dark-grey);
+	padding: var(--mws-padding-l);
+	border-radius: var(--mws-borderRadius);
+	
+}
+.mws-selectionOptions-wrapper > div{
+	margin-block: var(--mws-margin);
 }
 
 
 
 
+/* Element Selection Enable/Disable Button */
+.mws-elementSelectorActions-wrapper{
+	flex-direction: row;
+
+	background-color: #262626;
+	border-radius: var(--mws-borderRadius);
+
+	padding: var(--mws-padding);
+
+	margin-block: var(--mws-margin);
+}
+
+.mws-elementSelectorActions-wrapper .toggleWithText-wrapper{
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 
 
+}
+
+
+.mws-element .mws-disableElementSelectionToggle-wrapper {
+	margin-inline: var(--mws-margin);
+	width: fit-content;
+}
 
 /* KEY SELECTOR Styles */
 
-.MWS-keyboardShortcutSelectionDialog {
-	background-color: var(--MWS-dark-grey);
-	color: var(--MWS-light-blue);
+.mws-keyboardShortcutSelectionDialog {
 	cursor: auto;
-
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	flex-direction: column;
-
-	padding: 2rem;
-
-	border-radius: 10px;
-
-	width: 50%;
-
-	box-shadow: 0px 0px 15px 5px black;
-	border: none;
-
-	margin: auto;
 }
-.MWS-keyboardShortcutSelectionDialog .MWS-keyboardShortcutSelectionDialog::backdrop {
-	/* display: flex;
-	justify-content: center;
-	align-items: center; */
-	background-color: rgba(0, 0, 0, 0.5);
-}
-.MWS-keyboardShortcutSelectionDialog .MWS-closeKeyboardShortcutSelectionDialogButton {
-	font-size: 20px;
+.mws-keyboardShortcutSelectionDialog .mws-closeKeyboardShortcutSelectionDialogButton {
 	position: absolute;
 	top: 0px;
 	right: 0px;
 
-	margin:10px;
-
-	background-color: transparent;
-	color: var(--MWS-red);
-	border-color: var(--MWS-red);
-}
-.MWS-keyboardShortcutSelectionDialog .MWS-closeKeyboardShortcutSelectionDialogButton:hover {
-	background-color: var(--MWS-red);
-	color: var(--MWS-dark-grey);
+	
 }
 
-
-.MWS-keyboardShortcutSelectionDialog .MWS-shortcutNameInput{
+.mws-keyboardShortcutSelectionDialog .mws-shortcutNameInput{
 	padding: 5px 5px;
 	font-size: 15px;
 	border-radius: 10px;

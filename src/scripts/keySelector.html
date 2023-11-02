@@ -1,0 +1,62 @@
+
+<!-- KEYBOARD SHORTCUT SELECTOR DIALOG  -->
+<!-- <dialog class="mws-element mws-keyboardShortcutSelectionDialog" open=""> -->
+	<button class="mws-element mws-closeKeyboardShortcutSelectionDialogButton mws-actionButton">
+		<i class="fa-close fa-solid"></i>
+	</button>
+	<p class="mws-element mws-shortcutShowupPara">
+		Selected Shortcut:
+		<span class="mws-element mws-selectedShortcutSpan">None</span>
+	</p>
+	<button class="mws-element mws-shortcutSelectionDoneButton">
+		Select Shortcut
+	</button>
+
+	<label for="shortcutName" class="mws-element mws-ShortcutNameLabel"
+		>Shortcut Name:
+	</label>
+	<input
+		type="text"
+		id="shortcutName"
+		maxlength="20"
+		class="mws-element mws-shortcutNameInput"
+		disabled="true" />
+
+
+<div class="mws-selectionOptionsWithHeading-wrapper">
+	<h3 class="mws-selectionOptionsHeading">Selection Options</h3>
+
+	<div class="mws-selectionOptions-wrapper">
+		<div class="mws-elementSelectionType-wrapper">
+			<label class="mws-singleElementLabel" for="typeOfSelection"
+				>Selection Type
+			</label>
+			<select
+				class="mws-select Type-single"
+				name="elementSelectionType"
+				id="typeOfSelection">
+				<option value="single" class="mws-option">Single Element</option>
+				<option value="multiple" class="mws-option" disabled="true">
+					Multiple Elements (Coming Soon)
+				</option>
+				<option value="location" class="mws-option" disabled="true">
+					Location on Page (Coming Soon)
+				</option>
+			</select>
+		</div>
+
+		<div class="mws-urlTypeSelection-wrapper">
+			<label class="mws-urlTypeSelectLabel" for="urlType">URL Type </label>
+
+			<select name="urlType" id="urlType" class="mws-urlTypeSelect">
+				<option value="domain" class="mws-option">Only Domain</option>
+				<option value="page" class="mws-option">With Page</option>
+				<option value="custom" class="mws-option">Custom</option>
+			</select>
+		</div>
+	</div>
+</div>
+
+
+	<button class="mws-element mws-allDoneButton">Done</button>
+<!-- </dialog> -->
