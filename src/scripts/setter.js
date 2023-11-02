@@ -12,6 +12,28 @@ import {
 
 import elementCreator from '../modules/elementCreator'
 
+// Import Font Awesome
+// import "../assets/font-awesome/css/fontawesome.css"
+// import "../assets/font-awesome/css/solid.css"
+// import "../assets/font-awesome/webfonts/fa-solid-900.woff2"
+
+// console.log("url");
+// console.log(chrome.runtime.getURL('src/assets/font-awesome/css/solid.css'));
+// console.log(chrome.runtime.getURL('src/assets/font-awesome/css/fontawesome.css'));
+
+let link = document.createElement('link');
+link.href = chrome.runtime.getURL('src/assets/font-awesome/css/fontawesome.css');
+link.rel = 'stylesheet';
+document.head.appendChild(link);
+
+let link2 = document.createElement('link');
+link2.href = chrome.runtime.getURL('src/assets/font-awesome/css/solid.css');
+link2.rel = 'stylesheet';
+document.head.appendChild(link2);
+
+
+
+
 
 const mws = {
 
@@ -46,70 +68,9 @@ const mws = {
 
 
     extensionElementsInnerHTML: {
-        elementSelectorDiv: `
-	<button class="MWS-element MWS-closeElementSelectorButton">Close</button>
+        elementSelectorDiv: null,
 
-	<div class="MWS-element MWS-selectedElementDiv">
-		<p class="MWS-element MWS-selectedElementPara">
-			Selected Element:-
-			<span class="MWS-element MWS-currentElementSpan">currentElement</span>
-		</p>
-
-		<button class="MWS-element MWS-selectElementButton">Select Element</button>
-	</div>
-
-	<div class="MWS-element MWS-selectionOptionsDiv">
-		<h3 class="MWS-element MWS-selectionOptionsHeading">Selection Options</h3>
-
-		<label class="MWS-element MWS-singleElementLabel" for="typeOfSelection"
-			>Selection Type:
-		</label>
-		<select
-			class="MWS-element MWS-select MWS-elementType-single"
-			name="elementSelectionType"
-			id="typeOfSelection">
-			<option value="single" class="MWS-element MWS-option">
-				Single Element
-			</option>
-			<option value="multiple" class="MWS-element MWS-option" disabled="true">
-				Multiple Elements (Coming Soon)
-			</option>
-			<option value="location" class="MWS-element MWS-option" disabled="true">
-				Location on Window (Coming Soon)
-			</option>
-		</select>
-	</div>
-
-	<div class="MWS-element MWS-elementSelectorActionsDiv">
-		<button class="MWS-element MWS-elementSelectionEnableDisableButton">
-			On
-		</button>
-	</div>
-        `,
-
-        keyboardShortcutSelectorDialog: `
-	<button class="MWS-element MWS-closeKeyboardShortcutSelectionDialogButton">
-		Close
-	</button>
-	<p class="MWS-element MWS-shortcutShowupPara">
-		Selected Shortcut:
-		<span class="MWS-element MWS-selectedShortcutSpan">None</span>
-	</p>
-	<button class="MWS-element MWS-shortcutSelectionDoneButton">Select Shortcut</button>
-
-	<label for="shortcutName" class="MWS-element MWS-ShortcutNameLabel"
-		>Shortcut Name:
-	</label>
-	<input
-		type="text"
-		id="shortcutName"
-		maxlength="20"
-		class="MWS-element MWS-shortcutNameInput"
-        disabled="true" />
-
-		
-		<button class="MWS-element MWS-allDoneButton">Done</button>
-            `,
+        keyboardShortcutSelectorDialog: null,
     },
 
     // DATA MANAGEMENT FUNCTIONS: These funcs get data from the storage, update the respective variable values, and update the storage 
@@ -169,7 +130,6 @@ const mws = {
     // This function will add or Remove a class to the hovered element that gives it a border 
     addRemoveborder: function (event) {
         let [x, y] = [event.x, event.y]
-        console.log(x, y);
 
 
         if (mws.currentState.keyboardShortcutSelectorOpen) {
@@ -181,21 +141,20 @@ const mws = {
 
         // If currentElement already exists then remove the class
         if (mws.currentElement) {
-            mws.currentElement.classList.remove('MWS-bordered')
+            mws.currentElement.classList.remove('mws-bordered')
         }
 
-        if (getElemAt(x, y).classList.contains('MWS-element')) {
+        if (getElemAt(x, y).classList.contains('mws-element')) {
             mws.currentElement = undefined
-            console.log("ignored");
             return
         }
         mws.currentElement = getElemAt(x, y);
 
 
-        // mws.currentElement.classList.add('MWS-bordered')
-        setTextContent(qS('.MWS-currentElementSpan'), finder(mws.currentElement))
+        // mws.currentElement.classList.add('mws-bordered')
+        setTextContent(qS('.mws-currentElementSpan'), finder(mws.currentElement))
 
-        addClass(mws.currentElement, ['MWS-bordered'])
+        addClass(mws.currentElement, ['mws-bordered'])
 
         // console.log(mws.currentElement);
         // console.log(finder(mws.currentElement));
@@ -212,7 +171,7 @@ const mws = {
             return
 
         }
-        if (clickedElement.classList.contains('MWS-element')) {
+        if (clickedElement.classList.contains('mws-element')) {
             return
         }
         // if (!mws.isElementFocusable(clickedElement)) {
@@ -224,7 +183,7 @@ const mws = {
         event.preventDefault()
         event.stopPropagation()
         if (!mws.currentState.keyboardShortcutSelectorOpen) {
-            rmClass(mws.currentElement, ['MWS-bordered'])
+            rmClass(mws.currentElement, ['mws-bordered'])
             mws.openKeyboardShortcutSelectionDialog()
         }
 
@@ -233,7 +192,7 @@ const mws = {
 
         // This code will be there when multiple click functionality is added
 
-        // clickedElement.classList.add("MWS-clicked")
+        // clickedElement.classList.add("mws-clicked")
         // if (!clickedElementsArray.contains(mws.currentElement)) {
         //     clickedElementsArray.push(mws.currentElement)
         //     mws.currentElement.setAttribute('data-index', `${clickedElementsArray.length}`)
@@ -258,7 +217,7 @@ const mws = {
 
                 e.preventDefault()
                 mws.selectedShortcut = pressedKey
-                setTextContent(qS('.MWS-selectedShortcutSpan'), `${mws.selectedShortcut}`)
+                setTextContent(qS('.mws-selectedShortcutSpan'), `${mws.selectedShortcut}`)
             }
         }
     },
@@ -345,7 +304,7 @@ const mws = {
     enableNameSetting: function () {
         mws.currentState.keyboardShortcutSelectionOn = false;
         // mws.turnOffKeyboardEvents()
-        const nameInput = qS('.MWS-shortcutNameInput')
+        const nameInput = qS('.mws-shortcutNameInput')
         nameInput.disabled = false
 
         setEvent(nameInput, "keyup", (e) => {
@@ -371,7 +330,7 @@ const mws = {
         let dialogElementData = {
             tagName: 'dialog',
             attributes: {
-                classes: ['MWS-element', 'MWS-keyboardShortcutSelectionDialog']
+                classes: ['mws-element', 'mws-keyboardShortcutSelectionDialog']
             },
             // childElements: [spanElement, buttonElement]
             innerHTML: mws.extensionElementsInnerHTML.keyboardShortcutSelectorDialog
@@ -379,7 +338,7 @@ const mws = {
         let dialogElement = elementCreator(dialogElementData)
         document.body.appendChild(dialogElement)
 
-        const selectionDoneButton = qS('.MWS-shortcutSelectionDoneButton')
+        const selectionDoneButton = qS('.mws-shortcutSelectionDoneButton')
 
         selectionDoneButton.addEventListener('click', (e) => {
             e.preventDefault()
@@ -391,20 +350,20 @@ const mws = {
             }
         })
 
-        qS('.MWS-allDoneButton').addEventListener('click', async (e) => {
+        qS('.mws-allDoneButton').addEventListener('click', async (e) => {
             e.preventDefault()
 
             // await mws.getExistingDataOfCurrentWebsite()
             await mws.setDataOfCurrentWebsite()
 
-            rmClass(mws.currentElement, ['MWS-bordered'])
+            rmClass(mws.currentElement, ['mws-bordered'])
             mws.currentElement = undefined;
 
             mws.closeKeyboardShortcutSelectionDialog()
         })
 
-        setEvent(qS('.MWS-closeKeyboardShortcutSelectionDialogButton'), 'click', (event) => {
-            rmClass(mws.currentElement, ['MWS-bordered'])
+        setEvent(qS('.mws-closeKeyboardShortcutSelectionDialogButton'), 'click', (event) => {
+            rmClass(mws.currentElement, ['mws-bordered'])
             mws.currentElement = undefined;
 
             mws.closeKeyboardShortcutSelectionDialog()
@@ -415,7 +374,7 @@ const mws = {
 
     closeKeyboardShortcutSelectionDialog: function () {
         // mws.switchOffSelector()
-        const dialogElement = qS('.MWS-keyboardShortcutSelectionDialog')
+        const dialogElement = qS('.mws-keyboardShortcutSelectionDialog')
         mws.currentState.keyboardShortcutSelectorOpen = false;
         mws.currentState.keyboardShortcutSelectionOn = false;
         document.body.removeChild(dialogElement)
@@ -446,19 +405,21 @@ const mws = {
 
     },
 
-    // This function changes the state variable provided to it AND  updates the DOM, content & CSS of Elements created by MWS(this extension) accordingly 
+    // This function changes the state variable provided to it AND  updates the DOM, content & CSS of Elements created by mws(this extension) accordingly 
     changeStateAndUpdateDOM: (changedStateVariable = "") => {
 
         // These are functions that will be executed on a specific state variable changes 
         const reactionForStateChange = {
             elementSelectionOn: () => {
-                setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), mws.currentState[changedStateVariable] ? "On" : "Off")
+                // setTextContent(qS('.mws-elementSelectionEnableDisableButton'), mws.currentState[changedStateVariable] ? "On" : "Off")
+                // console.log(qS('.mws-toggleSwitchInput'));
+                if (qS('.mws-disableElementSelectionToggle-wrapper .mws-toggleSwitchInput')) {
+                    qS('.mws-disableElementSelectionToggle-wrapper .mws-toggleSwitchInput').checked = mws.currentState[changedStateVariable] ? true : false
+                }
             }
         }
         if (changedStateVariable) {
-            console.log(mws.currentState[changedStateVariable]);
             mws.currentState[changedStateVariable] = !mws.currentState[changedStateVariable]
-            console.log(mws.currentState[changedStateVariable]);
             reactionForStateChange[changedStateVariable]()
         }
 
@@ -470,7 +431,7 @@ const mws = {
     // they enable/disable the hover and click events and add/remove the extension's CSS classes to/from the DOM.
     switchOffSelector: function () {
         mws.currentElement = undefined
-        rmClass(qS('html'), ['MWS-stylesForPage'])
+        rmClass(qS('html'), ['mws-stylesForPage'])
 
         window.removeEventListener('mouseover', mws.addRemoveborder);
         window.removeEventListener('click', mws.whenClicked);
@@ -478,7 +439,7 @@ const mws = {
         mws.changeStateAndUpdateDOM("elementSelectionOn")
     },
     switchOnSelector: function () {
-        addClass(qS('html'), ['MWS-stylesForPage'])
+        addClass(qS('html'), ['mws-stylesForPage'])
 
         window.addEventListener('mouseover', mws.addRemoveborder);
         window.addEventListener('click', mws.whenClicked);
@@ -497,7 +458,7 @@ const mws = {
     },
 
     closeFloatingDiv: () => {
-        document.body.removeChild(qS('.MWS-floatingDiv'))
+        document.body.removeChild(qS('.mws-floating-wrapper'))
     },
 
     makeElementDraggable: function (element) {
@@ -529,16 +490,44 @@ const mws = {
     },
 
 
-    openFloatingDiv: function () {
+    openFloatingDiv: async function () {
+
+
+
+        const elementSelectorHTMLFileURL = chrome.runtime.getURL('src/scripts/elementSelector.html');
+        await fetch(elementSelectorHTMLFileURL)
+            .then(response => response.text())
+            .then(html => {
+                mws.extensionElementsInnerHTML.elementSelectorDiv = html
+            });
+
+        const keySelectorHTMLFileURL = chrome.runtime.getURL('src/scripts/keySelector.html');
+        await fetch(keySelectorHTMLFileURL)
+            .then(response => response.text())
+            .then(html => {
+                mws.extensionElementsInnerHTML.keyboardShortcutSelectorDialog = html
+            });
 
         let floatingDivData = {
             tagName: 'div',
             attributes: {
-                classes: ['MWS-element', 'MWS-floatingDiv']
+                classes: ['mws-element', 'mws-floating-wrapper']
             },
             innerHTML: mws.extensionElementsInnerHTML.elementSelectorDiv
         }
         let floatingDiv = elementCreator(floatingDivData)
+
+        function addClassToChildElements(parentElement, className) {
+            // Get all child elements of the parent element
+            const childElements = parentElement.querySelectorAll('*');
+
+            // Add the specified class to each child element
+            childElements.forEach((child) => {
+                child.classList.add(className);
+            });
+        }
+        addClassToChildElements(floatingDiv, 'mws-element');
+
         document.body.appendChild(floatingDiv)
 
         mws.makeElementDraggable(floatingDiv)
@@ -548,31 +537,32 @@ const mws = {
         function enableDisableElementSelection() {
             if (mws.currentState.elementSelectionOn) {
                 // mws.currentState.elementSelectionOn = false
-                // setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), "Off")
+                // setTextContent(qS('.mws-elementSelectionEnableDisableButton'), "Off")
                 mws.switchOffSelector()
             }
             else {
-                // setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), "On")
+                // setTextContent(qS('.mws-elementSelectionEnableDisableButton'), "On")
                 // mws.currentState.elementSelectionOn = true
                 mws.switchOnSelector()
             }
-            // setTextContent(qS('.MWS-elementSelectionEnableDisableButton'), mws.currentState.elementSelectionOn ? "On" : "Off")
+            // setTextContent(qS('.mws-elementSelectionEnableDisableButton'), mws.currentState.elementSelectionOn ? "On" : "Off")
 
         }
+        console.log(qS('.mws-elementSelectionEnableDisableButton'));
 
-        setEvent(qS('.MWS-elementSelectionEnableDisableButton'), 'click', mws.switchSelector)
+        setEvent(qS('.mws-toggleSwitchInput'), 'change', mws.switchSelector)
 
         function closeElementSelectorAndTurnOffElementSelection() {
             mws.turnOffEverything()
             // mws.closeFloatingDiv()
 
         }
+        console.log(qS('.mws-closeElementSelectorButton'));
+        setEvent(qS('.mws-closeElementSelectorButton'), 'click', closeElementSelectorAndTurnOffElementSelection)
 
-        setEvent(qS('.MWS-closeElementSelectorButton'), 'click', closeElementSelectorAndTurnOffElementSelection)
-
-        setEvent(qS('.MWS-selectElementButton'), 'click', ()=>{
-
-            rmClass(mws.currentElement, ['MWS-bordered'])
+        console.log(qS('.mws-selectElementButton'));
+        setEvent(qS('.mws-selectElementButton'), 'click', ()=>{
+            rmClass(mws.currentElement, ['mws-bordered'])
             mws.openKeyboardShortcutSelectionDialog()
         })
 
@@ -589,7 +579,7 @@ const mws = {
         mws.turnOffKeyboardEvents()
 
         if (mws.currentElement) {
-            rmClass(mws.currentElement, ['MWS-bordered'])
+            rmClass(mws.currentElement, ['mws-bordered'])
         }
         // console.log(mws.currentState.elementSelectorOpen);
         if (mws.currentState.elementSelectorOpen) {
