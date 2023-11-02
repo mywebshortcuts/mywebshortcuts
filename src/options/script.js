@@ -6,6 +6,10 @@ import "./style.css"
 // Import Font Awesome
 import "../assets/font-awesome/css/fontawesome.css"
 import "../assets/font-awesome/css/solid.css"
+import "../assets/font-awesome/css/brands.css"
+import "../assets/font-awesome/css/regular.css"
+
+
 import elementCreator from '../modules/elementCreator'
 import createElement from "../modules/elementCreator"
 
