@@ -572,7 +572,9 @@ const mws = {
     },
 
 
-    turnOffEverything: function () {
+    turnOffEverything: async function () {
+        await sendMsg({ msg: "selectorDisabled", spread: true })
+
         mws.turnOffWindowUnloadStopper()
 
         mws.switchOffSelector()
@@ -586,12 +588,15 @@ const mws = {
             mws.closeFloatingDiv()
         }
 
-        sendMsg({ msg: "selectorDisabled", spread: true })
+
     },
     turnOnEverything: async function () {
         mws.websiteURL = extractCoreUrl(window.location.href)
-
         await mws.getExistingDataOfCurrentWebsite()
+
+        await sendMsg({ msg: "selectorEnabled", spread: true })
+
+
 
 
         // mws.turnOnWindowUnloadStopper()
@@ -601,7 +606,6 @@ const mws = {
 
         mws.openFloatingDiv()
 
-        sendMsg({ msg: "selectorEnabled", spread: true })
 
     },
 
@@ -635,12 +639,6 @@ const mws = {
                 console.log("Msg aaya to start hora huuuu");
                 mws.turnOnEverything()
             }
-
-            // if (message.msg = "dataUpdated") {
-            //     console.log("Okay bro setter update karlega apna data");
-            //     await mws.getExistingDataOfCurrentWebsite(message.data)
-
-            // }
         });
 
     }
@@ -651,5 +649,6 @@ mws.init()
 
 chrome.storage.onChanged.addListener(async (changes) => {
     console.log("Updating SETTER data");
+
     await mws.getExistingDataOfCurrentWebsite()
 })
