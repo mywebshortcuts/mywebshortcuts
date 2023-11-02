@@ -25,7 +25,9 @@
             "matches": [
                 "https://opensource.guide/*",
                 "https://www.google.com/*",
-                "https://www.heyprakhar.xyz/*"
+                "https://kresa.vercel.app/*",
+                "https://github.com/prakhartiwari0/*",
+                "https://docs.google.com/*"
             ],
             "all_frames": true,
             "js": [
@@ -33,12 +35,23 @@
             ]
         }
     ],
+    "web_accessible_resources": [
+    {
+        "resources": [
+            "src/assets/font-awesome/webfonts/fa-solid-900.woff2",
+            "src/scripts/elementSelector.html",
+            "src/scripts/keySelector.html"
+        ],
+        "matches": [
+            "<all_urls>"
+        ]
+    }
+    ],
     "options_page": "src/options/options.html",
     "permissions": [
         "tabs",
         "activeTab",
         "scripting",
-        "storage",
-        "nativeMessaging"
+        "storage"
     ]
 }
