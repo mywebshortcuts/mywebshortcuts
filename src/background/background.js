@@ -60,10 +60,10 @@ const bg = {
 
 
         chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-
+            
             if (request.spread) {
                 console.log("Spreading");
-                chrome.tabs.sendMessage(request.tab.id, request);
+                await chrome.tabs.sendMessage(sender.tab.id, request);
             }
             
             if (request.msg = "sendCompleteData") {
@@ -84,9 +84,7 @@ const bg = {
 }
 
 chrome.storage.onChanged.addListener(async (changes) => {
-    // console.log("Data updated");
     await bg.onDataUpdate()
 })
 
 bg.init()
-

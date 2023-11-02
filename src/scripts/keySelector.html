@@ -1,62 +1,74 @@
-
 <!-- KEYBOARD SHORTCUT SELECTOR DIALOG  -->
-<!-- <dialog class="mws-element mws-keyboardShortcutSelectionDialog" open=""> -->
-	<button class="mws-element mws-closeKeyboardShortcutSelectionDialogButton mws-actionButton">
-		<i class="fa-close fa-solid"></i>
-	</button>
-	<p class="mws-element mws-shortcutShowupPara">
-		Selected Shortcut:
-		<span class="mws-element mws-selectedShortcutSpan">None</span>
-	</p>
-	<button class="mws-element mws-shortcutSelectionDoneButton">
-		Select Shortcut
-	</button>
+<!-- <dialog class=" mws-keyboardShortcutSelectionDialog" open=""> -->
 
-	<label for="shortcutName" class="mws-element mws-ShortcutNameLabel"
-		>Shortcut Name:
-	</label>
-	<input
-		type="text"
-		id="shortcutName"
-		maxlength="20"
-		class="mws-element mws-shortcutNameInput"
-		disabled="true" />
+<button class="mws-closeKeyboardShortcutSelectionDialogButton mws-actionButton">
+	<i class="fa-close fa-solid"></i>
+</button>
 
+<div class="mws-shortcutSelector-wrapper">
+	<div class="mws-selectShortcutText-wrapper">
+		<span class="mws-selectShortcutText"> Being by Pressing a Key </span>
+	</div>
 
-<div class="mws-selectionOptionsWithHeading-wrapper">
-	<h3 class="mws-selectionOptionsHeading">Selection Options</h3>
-
-	<div class="mws-selectionOptions-wrapper">
-		<div class="mws-elementSelectionType-wrapper">
-			<label class="mws-singleElementLabel" for="typeOfSelection"
-				>Selection Type
-			</label>
-			<select
-				class="mws-select Type-single"
-				name="elementSelectionType"
-				id="typeOfSelection">
-				<option value="single" class="mws-option">Single Element</option>
-				<option value="multiple" class="mws-option" disabled="true">
-					Multiple Elements (Coming Soon)
-				</option>
-				<option value="location" class="mws-option" disabled="true">
-					Location on Page (Coming Soon)
-				</option>
-			</select>
+	<div class="mws-selectShortcutButtonAndKBD-wrapper">
+		<div class="mws-kbd-wrapper">
+			<kbd class="mws-selectedShortcutKBD active" tabindex="0"></kbd>
 		</div>
+		<div class="mws-selectShortcutButton-wrapper">
+			<button class="mws-shortcutSelectionDoneButton mws-blueButtonFilled onSelection">
+				<!-- <i class="fas fa-check-circle"></i> -->
+				<span class="onSelection">
+					<i class="fa-keyboard fa-solid"></i>
+					Press a Key
+				</span>
+				<span class="editSelection">
+					<i class="fa-pencil fa-solid"></i>
+					Edit Shortcut
+				</span>
+			</button>
+		</div>
+	</div>
+</div>
+
+<div class="mws-shortcutName-wrapper">
+	<div class="mws-shortcutNameLabel-wrapper">
+		<label for="shortcutName" class="mws-ShortcutNameLabel"
+			>Shortcut Name
+		</label>
+	</div>
+	<div class="mws-shortcutNameInput-wrapper">
+		<input
+			type="text"
+			id="shortcutName"
+			maxlength="20"
+			minlength="1"
+			class="mws-shortcutNameInput"
+			disabled="true"
+			value="My Web Shortcut"
+			placeholder="Enter Shortcut Name" />
+	</div>
+</div>
+
+
+
+<div class="mws-keyDialogOptionsWithHeading-wrapper">
+	<h3 class="mws-keyDialogOptionsHeading">Other Options</h3>
+
+	<div class="mws-keyDialogOptions-wrapper">
 
 		<div class="mws-urlTypeSelection-wrapper">
 			<label class="mws-urlTypeSelectLabel" for="urlType">URL Type </label>
 
 			<select name="urlType" id="urlType" class="mws-urlTypeSelect">
 				<option value="domain" class="mws-option">Only Domain</option>
-				<option value="page" class="mws-option">With Page</option>
-				<option value="custom" class="mws-option">Custom</option>
+				<option value="page" class="mws-option" disabled>With Page (Coming Soon)</option>
+				<option value="custom" class="mws-option" disabled>Custom (Comming Soon)</option>
 			</select>
 		</div>
 	</div>
 </div>
 
 
-	<button class="mws-element mws-allDoneButton">Done</button>
+
+<button class="mws-allDoneButton mws-greenButtonFilled" disabled>Add Shortcut <i class="fa-plus-circle fa-solid"></i></button>
 <!-- </dialog> -->

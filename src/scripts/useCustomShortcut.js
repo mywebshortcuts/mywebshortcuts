@@ -10,6 +10,7 @@ const ucs = {
 
     websiteURL: extractCoreUrl(window.location.href),
 
+    selectorEnabled:false,    
     extractAndSetCurrentWebsiteData: async function () {
         const data = ucs.completeData.websitesData
 
@@ -159,32 +160,20 @@ const ucs = {
 
                 // console.log(ucs.currentWebsiteData);
                 if (ucs.currentWebsiteData.settings.enabled) { // If current Website is enabled
-                    ucs.turnOn()
+
+                    if (!ucs.selectorEnabled) { // If selector is NOT enabled
+                        ucs.turnOn()
+                    }
                     chrome.runtime.onMessage.addListener(
                         async (request, sender, sendResponse) => {
-                            // console.log(sender);
-                            // console.log(request);
-                            if (request.spread) {
-                                // console.log("Hii you just spread something");
-                            }
-
                             if (request.msg === "selectorDisabled") {
+                                ucs.selectorEnabled = false
                                 ucs.turnOn()
                             }
                             else if (request.msg === "selectorEnabled") {
+                                ucs.selectorEnabled = true
                                 ucs.turnOff()
                             }
-                            // else if (request.msg === "extensionEnabledEverywhere" || ) {
-                            //     ucs.init()
-                            // }
-                            // else if (request.msg === "extensionDisabledEverywhere") {
-                            //     ucs.init()
-                            // }
-                            // else if (request.msg = "dataUpdated") {
-                            //     console.log("Okay bro UCS update karlega apna data");
-                            //     await ucs.updateData(request.data)
-
-                            // }
                         }
                     );
                 }
