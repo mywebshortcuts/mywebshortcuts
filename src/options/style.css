@@ -13,6 +13,7 @@ body {
 	margin: 1rem;
 	/* Text styling */
 	color: var(--light-green);
+	text-shadow: 0px 0px 0.5rem black;
 }
 
 .settings {
@@ -480,18 +481,21 @@ footer {
 }
 
 .animatedLogo-wrapper {
-	position: fixed;
-	left: 5rem;
-	top: 30%;
+	position: absolute;
+	left: 60%;
+	margin: auto;
+	top: 0%;
 	width: 15rem;
 
-	opacity: 0.2;
+	opacity: 0.5;
 
 	z-index: -1;
+	user-select: none;
 }
 
 .animatedLogo {
 	width: 100%;
+	pointer-events: none;
 }
 
 .globe {
@@ -501,73 +505,84 @@ footer {
 	position: absolute;
 	top: 0px;
 	left: 0px;
-	animation: revolver-smooth 15s linear infinite;
-	transform: translate(45px, 45px);
+	animation: revolver 15s linear infinite;
 }
 
 @keyframes revolver {
 	0% {
-		transform: translate(8rem, 8rem) scale(1);
+		transform: translate(8rem, 8rem) scale(0.5);
 		z-index: -1;
 	}
 	25% {
-		transform: translate(0px, 0px) scale(0.9);
+		transform: translate(0rem, 0rem) scale(0.2);
 	}
 	50% {
-		transform: translate(-8rem, -8rem) scale(0.8);
+		transform: translate(-8rem, -8rem) scale(0.5);
 	}
 	75% {
-		transform: translate(0px, 0px) scale(0.9);
+		transform: translate(0rem, 0rem) scale(1.2);
 	}
 	100% {
-		transform: translate(8rem, 8rem) scale(1);
+		transform: translate(8rem, 8rem) scale(0.5);
 	}
-}
-
-
-@keyframes revolver-smooth {
-    0% {
-        transform: translate(8rem, 8rem) scale(1);
-        z-index: -1;
-    }
-    6.25% {
-        transform: translate(6rem, 6rem) scale(0.975);
-    }
-    12.5% {
-        transform: translate(4rem, 4rem) scale(0.95);
-    }
-    18.75% {
-        transform: translate(2rem, 2rem) scale(0.9625);
-    }
-    25% {
-        transform: translate(0px, 0px) scale(0.95);
-    }
-    50% {
-        transform: translate(-8rem, -8rem) scale(0.85);
-    }
-    75% {
-        transform: translate(0px, 0px) scale(0.95);
-    }
-    81.25% {
-        transform: translate(2rem, 2rem) scale(0.9625);
-    }
-    87.5% {
-        transform: translate(4rem, 4rem) scale(0.95);
-    }
-    93.75% {
-        transform: translate(6rem, 6rem) scale(0.975);
-    }
-    100% {
-        transform: translate(8rem, 8rem) scale(1);
-    }
 }
 
 @keyframes rotater {
-    from {
-        transform: rotate(0deg);
-    }
-    to {
-        transform: rotate(360deg);
-    }
-	
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+.ceilingLight-wrapper {
+	position: fixed;
+	width: 5rem;
+	opacity: 1;
+	cursor: pointer;
+
+	user-select: none;
+
+	z-index: 5;
+}
+
+.ceilingLight-wrapper.active .circle {
+	box-shadow: 0px 4rem 9rem 5rem rgb(173, 173, 173);
+}
+
+.rightLight-wrapper {
+	right: 10rem;
+	top: 0rem;
+}
+.leftLight-wrapper {
+	left: 10rem;
+	top: 0rem;
+}
+
+.ceilingLight-wrapper img {
+	pointer-events: none;
+}
+
+.ceilingBulb {
+	width: 100%;
+}
+.circle {
+	position: absolute;
+	top: 50%;
+	z-index: -4;
+	left: 40%;
+	width: 1rem;
+	border-radius: 100%;
+	transition: 0.1s ease;
+}
+
+.overlay {
+	width: 100%;
+	height: 100%;	
+	background-color: #000000;
+	position: absolute;
+	opacity: 0.5;
+	pointer-events: none;
+	z-index: 1;
 }

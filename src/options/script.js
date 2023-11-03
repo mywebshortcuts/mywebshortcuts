@@ -13,7 +13,7 @@ import "../assets/font-awesome/css/regular.css"
 import elementCreator from '../modules/elementCreator'
 import createElement from "../modules/elementCreator"
 
-import {confirmationDialogOpener} from '../modules/domElements'
+import { confirmationDialogOpener } from '../modules/domElements'
 
 
 
@@ -24,6 +24,12 @@ const opt = {
         websiteSelected: null,
 
         openMoreOptions: [],
+
+        lights: {
+            overlayOpacity: 0,
+            leftCeilingLight: true,
+            rightCeilingLight: true,
+        },
     },
 
     completeData: {},
@@ -38,7 +44,7 @@ const opt = {
             chrome.runtime.reload();
         });
     },
-    deleteWebsite:async (url)=>{
+    deleteWebsite: async (url) => {
         delete opt.completeData.websitesData[url]
         await setStorage({ ...opt.completeData })
 
@@ -46,8 +52,8 @@ const opt = {
     updateDOM: (changeSpecified = "initialize") => {
 
 
-        function removeAllEventListenersOfElements(elementsArray=[]) {
-            elementsArray.forEach(element=>{
+        function removeAllEventListenersOfElements(elementsArray = []) {
+            elementsArray.forEach(element => {
                 const clonedElement = element.cloneNode(true);
                 element.parentNode.replaceChild(clonedElement, element);
             })
@@ -522,13 +528,13 @@ const opt = {
                     const websiteSettingsDiv = qS('.websiteSettingsDiv')
                     websiteSettingsDiv.style.display = 'flex'
                     setAttr(websiteSettingsDiv, 'data-url', url)
-                    
+
                     const urlsListWrapper = qS('.urlsList-wrapper')
                     urlsListWrapper.style.display = 'none'
                     const searchBarWrapper = qS('.searchBar-wrapper')
                     searchBarWrapper.style.display = 'none'
-                    
-                    
+
+
                     // URL Heading
                     const urlHeading = qS('.urlHeading')
                     urlHeading.innerText = url
@@ -547,15 +553,15 @@ const opt = {
 
                     // Delete a website
                     deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
-                    async function deleteWebsiteButtonFunction(){
+                    async function deleteWebsiteButtonFunction() {
                         console.log("Delete button clicked");
-                        confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response=>{
+                        confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response => {
                             if (response) {
                                 opt.deleteWebsite(url)
                                 opt.currentState.websiteSelected = null
                                 opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
                             }
-    
+
                         })
 
                     }
@@ -647,12 +653,12 @@ const opt = {
 
                 },
 
-                group2Activated: ()=>{
+                group2Activated: () => {
                     let toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
                     removeAllEventListenersOfElements([qS('.clearAllDataButton'), toggleSwitchInput])
-                    
-                    
-                    
+
+
+
                     // ------------------------- Enable/Disable Website -------------------------
                     toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
                     toggleSwitchInput.checked = !opt.completeData.globalSettings.extensionEnabled
@@ -669,8 +675,8 @@ const opt = {
                     })
 
                     // Clear All Data Button
-                    setEvent(qS('.clearAllDataButton'), 'click', async (e)=>{
-                        if (await confirmationDialogOpener('Warning: Deleting all data. Are you sure you want to proceed?')){
+                    setEvent(qS('.clearAllDataButton'), 'click', async (e) => {
+                        if (await confirmationDialogOpener('Warning: Deleting all data. Are you sure you want to proceed?')) {
                             opt.clearAllData()
                         }
 
@@ -680,7 +686,7 @@ const opt = {
                 },
 
 
-                group3Activated: ()=>{
+                group3Activated: () => {
 
                 }
 
@@ -698,6 +704,67 @@ const opt = {
                 })
                 opt.currentState.activeGroup = 'g1'
                 opt.updateDOM('changeActiveGroup')
+
+
+
+                function lightAffectedElementsStyleUpdater() {
+                    qS('.overlay').style.opacity = opt.currentState.lights.overlayOpacity
+                }
+
+                lightAffectedElementsStyleUpdater()
+
+                function keyboardShortcuts(e) {
+                    if (e.key == 'l') {
+                        qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
+                            switchLightState(ceilingLightWrapper)
+                            lightAffectedElementsStyleUpdater()
+                        })
+                        lightAffectedElementsStyleUpdater()
+                    }
+                }
+
+                window.addEventListener('keydown', keyboardShortcuts)
+
+                function switchLightState(ceilingLightWrapper) {
+                    const affectAmount = 0.45
+
+                    if (ceilingLightWrapper.classList.contains('rightLight-wrapper')) {
+                        if (opt.currentState.lights.rightCeilingLight) {
+                            opt.currentState.lights.rightCeilingLight = false
+                            rmClass(ceilingLightWrapper, ['active'])
+                            opt.currentState.lights.overlayOpacity += affectAmount
+
+                        }
+                        else {
+                            opt.currentState.lights.rightCeilingLight = true
+                            addClass(ceilingLightWrapper, ['active'])
+                            opt.currentState.lights.overlayOpacity -= affectAmount
+
+                        }
+                    }
+                    else {
+                        if (opt.currentState.lights.leftCeilingLight) {
+                            opt.currentState.lights.leftCeilingLight = false
+                            rmClass(ceilingLightWrapper, ['active'])
+                            opt.currentState.lights.overlayOpacity += affectAmount
+
+                        }
+                        else {
+                            opt.currentState.lights.leftCeilingLight = true
+                            addClass(ceilingLightWrapper, ['active'])
+                            opt.currentState.lights.overlayOpacity -= affectAmount
+
+                        }
+                    }
+                    // lightAffectedElementsStyleUpdater()                    
+                }
+
+                qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
+                    setEvent(ceilingLightWrapper, 'click', () => {
+                        switchLightState(ceilingLightWrapper)
+                        lightAffectedElementsStyleUpdater()
+                    })
+                })
             },
 
 
@@ -712,7 +779,7 @@ const opt = {
                 if (opt.currentState.websiteSelected) {
                     domUpdaterFunctions.actionFuncs.loadShortcuts(opt.websitesData[opt.currentState.websiteSelected].shortcuts)
                 }
-                else{
+                else {
                     domUpdaterFunctions.actionFuncs.updateWebsitesList()
                 }
             }
@@ -721,14 +788,14 @@ const opt = {
                 console.log("This is group2 right?");
                 domUpdaterFunctions.actionFuncs.group2Activated()
 
-                
+
             }
             // GROUP 3
             else if (opt.currentState.activeGroup == 'g3') {
                 console.log("This is group3 right?");
                 domUpdaterFunctions.actionFuncs.group3Activated()
 
-                
+
             }
             else {
                 console.log("Hiiii");
@@ -756,7 +823,7 @@ const opt = {
     updateDataVariables: () => {
         opt.websitesData = opt.completeData.websitesData
         opt.globalSettings = opt.completeData.globalSettings
-        
+
         opt.websitesList = []
         for (const website in opt.websitesData) {
             if (Object.hasOwnProperty.call(opt.websitesData, website)) {
@@ -783,7 +850,7 @@ const opt = {
         chrome.storage.onChanged.addListener(async (changes) => {
             console.log("Options Page, Data updating");
             console.log(changes);
-            
+
             await opt.getCompleteData()
         })
 
