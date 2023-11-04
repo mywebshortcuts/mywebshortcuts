@@ -122,8 +122,6 @@ const opt = {
                             qS('.shortcutKeyKbd', shortcutSettingsWrapper).innerText = shortcutKey
 
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).checked = shortcutKeyObject.enabled
-                            qS('.setActionSpan', shortcutSettingsWrapper).innerText = shortcutKeyObject.properties.action
-
 
                             // ------------------------- Enable/Disable Shortcut -------------------------
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).addEventListener('change', async function (event) {
@@ -139,63 +137,6 @@ const opt = {
 
                             });
 
-
-
-                            // ------------------------- Shortcut More Options Opener -------------------------
-                            const moreOptionsButton = qS('.moreOptionsButton', shortcutSettingsWrapper)
-
-
-                            const moreOptionsWrapper = qS('.moreOptions-wrapper', shortcutSettingsWrapper)
-                            moreOptionsWrapper.style.display = 'none'
-
-
-                            setEvent(moreOptionsButton, 'click', () => {
-
-                                const moreOptionsButtonFA = qS('.moreOptionsButton  i', shortcutSettingsWrapper)
-
-
-                                // More Options Hide/Unhide 
-                                function moreOptionsHideUnhide(moreOptionsWrapper, moreOptionsButtonFA) {
-                                    // If more options is not shown
-                                    if (moreOptionsWrapper.style.display == 'none') {
-                                        findAndCloseExistingOpenedMoreOptions()
-
-                                        moreOptionsWrapper.style.display = 'flex'
-                                        switchClass(moreOptionsButtonFA, 'fa-angle-down', 'fa-angle-up')
-                                        shortcutSettingsWrapper.style.backgroundColor = '#3e3e3e'
-
-                                        opt.currentState.openMoreOptions.push(shortcutKey)
-
-                                    }
-                                    else {
-                                        moreOptionsWrapper.style.display = 'none'
-                                        switchClass(moreOptionsButtonFA, 'fa-angle-up', 'fa-angle-down')
-                                        shortcutSettingsWrapper.style.backgroundColor = '#4e4e4e'
-
-                                        let shortcutIndex = opt.currentState.openMoreOptions.indexOf(shortcutKey);
-                                        opt.currentState.openMoreOptions.splice(shortcutIndex, 1);
-
-                                    }
-                                }
-
-                                function findAndCloseExistingOpenedMoreOptions() {
-
-                                    if (opt.currentState.openMoreOptions.length == 0 || !shortcutsListWrapper.querySelector(".shortcutSettings-wrapper")) {
-                                        return
-                                    }
-                                    opt.currentState.openMoreOptions.forEach(shortcutKey => {
-                                        const otherShortcutSettingsWrapper = qS(`.shortcutSettings-wrapper[data-shortcutKey="${shortcutKey}"]`)
-
-                                        const otherMoreOptionsButtonFA = qS('.moreOptionsButton  i', otherShortcutSettingsWrapper)
-                                        const otherMoreOptionsWrapper = qS('.moreOptions-wrapper', otherShortcutSettingsWrapper)
-                                        moreOptionsHideUnhide(otherMoreOptionsWrapper, otherMoreOptionsButtonFA)
-
-
-                                    })
-                                }
-                                moreOptionsHideUnhide(moreOptionsWrapper, moreOptionsButtonFA)
-
-                            })
 
                             // ------------------------- Edit Shortcut Settings Dialog Opener -------------------------
 

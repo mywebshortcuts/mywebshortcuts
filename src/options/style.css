@@ -251,7 +251,7 @@ main {
 	align-items: center;
 	font-size: 1rem;
 
-	background-color: #4e4e4e;
+	background-color: #404040;
 	padding-block: 1rem;
 
 	position: relative;
@@ -263,126 +263,61 @@ main {
 	color: white;
 
 	border-radius: 1rem;
+
+	position: relative;
 }
 .shortcutSettings-wrapper:hover {
-	/* box-shadow: 0px 0px 10px 0px #000000; */
-	/* background-color: #3e3e3e; */
-	/* transform: scale(1.02); */
+	box-shadow: 0px 0px 10px 0px #000000;
+	background-color: #464646;
+	transform: scale(1.02);
 	/* cursor: pointer; */
 }
 
-/* .shortcutSettings-wrapper:first-child {
-	border-top-right-radius: 1rem;
-	border-top-left-radius: 1rem;
-}
-.shortcutSettings-wrapper:last-child {
-	border-bottom-left-radius: 1rem;
-	border-bottom-right-radius: 1rem;
-}
-.shortcutSettings-wrapper:last-child .moreOptions-wrapper {
-	left: 5%;
-	width: 90%;
-} */
-
 .shortcutName-wrapper {
-	margin-inline: 1rem;
-	width: 30%;
+	margin-inline: 2rem;
+	/* width: 30%; */
+	flex: 1;
 }
 
 .shortcutKey-wrapper {
 	margin-inline: 0rem 0.5rem;
-	width: 20%;
+	/* width: 20%; */
+	flex: .6;
 }
 .disableShortcutToggle-wrapper {
-	width: 20%;
+	/* width: 20%; */
+	flex: .8;
 }
 
-.moreOptionsButton-wrapper {
-	position: absolute;
-	right: 0px;
-	top: 0px;
-	/* 
-	border-top-right-radius: 1rem;
-	border-bottom-right-radius: 1rem; */
 
-	border-radius: inherit;
-	border-top-left-radius: 0rem;
-	border-bottom-left-radius: 0rem;
-	display: flex;
-	justify-self: center;
-	/* align-items: flex-end; */
-
-	align-items: center;
-	justify-content: center;
-	width: 15%;
-	height: 100%;
-
-	/* border: 2px solid #161616; */
-}
-.moreOptionsButton {
-	background-color: transparent;
-	border-left: 3px solid #272727;
-	color: white;
-	font-size: 1rem;
-	/* padding: 1rem; */
-
-	width: 100%;
-	height: 100%;
-	/* flex: 1; */
-	border-radius: inherit;
-	/* border-top-right-radius: 1rem;
-	border-bottom-right-radius: 1rem; */
-	position: relative;
-}
-.moreOptionsButton:hover {
-	background-color: #3e3e3e;
-	color: white;
-}
-
-.moreOptions-wrapper {
-	display: none;
-	justify-content: center;
-	align-items: center;
-	flex-direction: column;
-
-	position: absolute;
-	top: 100%;
-
-	/* left: 5%; */
-	z-index: 10000;
-	padding: 1rem;
-
-	background-color: #3e3e3e;
-	/* color: #272727; */
-	width: 100%;
-
-	border-bottom-right-radius: 1rem;
-	border-bottom-left-radius: 1rem;
-
-	box-shadow: 0px 5px 10px 0px #000000;
-}
-
-.moreOptions-wrapper .setActionSpan {
-	background-color: #575757;
-
-	border-radius: 1rem;
-	padding: 0.5rem;
-}
 
 /* Edit & Delete Shortcut Buttons */
 
-.editDeleteButtons-wrapper {
-	display: flex;
-	width: 50%;
-	display: flex;
-	justify-content: space-evenly;
-	align-items: center;
+.editDeleteButtons-wrapper button {
 
-	margin-block: 1rem;
+	border-radius: 50%;
+	width: 2.5rem;
+	height: 2.5rem;
+}
+.editDeleteButtons-wrapper div {
+	position: absolute;
+	top: -1rem;
+	border-radius: 50%;
+	
+	display: none;
+}
+.shortcutSettings-wrapper:hover .editDeleteButtons-wrapper div {
+	display: flex;
 }
 .editShortcutButton-wrapper {
-	/* margin-inline: .5rem; */
+	right: -1rem;
 }
+
+.editDeleteButtons-wrapper .deleteShortcutButton-wrapper {
+	left: -1rem;
+}
+
+
 
 .editShortcutSettingsDialog {
 	display: flex;
