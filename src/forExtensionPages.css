@@ -244,8 +244,8 @@ input:not(.toggleSwitchInput) ::placeholder {
 .toggleSwitchLabel {
 	position: relative;
 	display: inline-block;
-	width: 60px;
-	height: 34px;
+	width: 50px;
+	height: 28px;
 }
 
 /* Hide default HTML checkbox */
@@ -263,7 +263,7 @@ input:not(.toggleSwitchInput) ::placeholder {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #ccc;
+	background-color: #4d4d4d;
 	-webkit-transition: .4s;
 	transition: .4s;
 
@@ -271,38 +271,41 @@ input:not(.toggleSwitchInput) ::placeholder {
 	border-radius: 34px;
 }
 .toggleSwitchSpan:hover {
-	background-color: #b2b2b2;
+	background-color: #696969;
 }
 
 .toggleSwitchSpan:before {
 	position: absolute;
 	content: '';
-	height: 26px;
-	width: 26px;
+	--same-size: 20px;
+	height: var(--same-size);
+	width: var(--same-size);
 	left: 4px;
 	bottom: 4px;
 	background-color: white;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 
 	border-radius: 50%;
 }
 
 .toggleSwitchInput:checked + .toggleSwitchSpan:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
+	--transformX-value: 22px;
+	-webkit-transform: translateX(var(--transformX-value));
+	-ms-transform: translateX(var(--transformX-value));
+	transform: translateX(var(--transformX-value));
 }
+.toggleSwitchInput:focus + .toggleSwitchSpan {
+	outline: 2px solid black;
+}
+
+
 
 .toggleSwitchInput.greenToggle:checked + .toggleSwitchSpan.greenToggle {
 	background-color: var(--light-green);
 }
 .toggleSwitchInput.greenToggle:checked:hover  + .toggleSwitchSpan.greenToggle{
 	background-color: var(--dark-green);
-}
-
-.toggleSwitchInput.greenToggle:focus + .toggleSwitchSpan.greenToggle {
-	box-shadow: 0 0 1px var(--light-green);
 }
 
 .toggleSwitchInput.redToggle:checked + .toggleSwitchSpan.redToggle {
@@ -312,11 +315,6 @@ input:not(.toggleSwitchInput) ::placeholder {
 .toggleSwitchInput.redToggle:checked:hover  + .toggleSwitchSpan.redToggle{
 	background-color: #aa3c3c;
 }
-
-.toggleSwitchInput.redToggle:focus + .toggleSwitchSpan.redToggle {
-	box-shadow: 0 0 1px var(--red);
-}
-
 
 /* Custom Select Menu Styles  */
 select {
