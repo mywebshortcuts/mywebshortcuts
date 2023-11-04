@@ -15,6 +15,10 @@ const bg = {
         }
     },
 
+    currentState:{
+        selectorEnabledTabsIDArray:[],
+    },
+
 
     turnOffSelector: function (tab) {
         chrome.tabs.sendMessage(tab.id, { action: "turnOffSelector" })
@@ -60,7 +64,23 @@ const bg = {
 
 
         chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-            
+
+            if (request.msg === "selectorDisabled") {
+                console.log("selector Disabled");
+                console.log(request);
+                console.log(sender);
+
+                let shortcutIndex = bg.currentState.selectorEnabledTabsIDArray.indexOf(sender.tab.id);
+                bg.currentState.selectorEnabledTabsIDArray.splice(shortcutIndex, 1);
+            }
+            else if (request.msg === "selectorEnabled") {
+                console.log("selector enabled");
+                console.log(request);
+                console.log(sender);
+                
+                bg.currentState.selectorEnabledTabsIDArray.push(sender.tab.id)
+
+            }
             if (request.spread) {
                 console.log("Spreading");
                 await chrome.tabs.sendMessage(sender.tab.id, request);
@@ -75,7 +95,9 @@ const bg = {
                 bg.turnOffSelector(request.tab)
             }
             else if (request.action == "turnOnSelector") {
-                bg.turnOnSelector(request.tab)
+                if (!bg.currentState.selectorEnabledTabsIDArray.includes(request.tab.id)) {
+                    bg.turnOnSelector(request.tab)
+                }
             }
         }
         )
