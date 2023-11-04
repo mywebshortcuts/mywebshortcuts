@@ -91,10 +91,10 @@ main {
 
 /* ------------- GROUP 1 STYLES ------------- */
 
-.searchURLButton {
+/* .searchURLButton {
 	background-color: transparent;
 	color: var(--light-green);
-}
+} */
 
 /* URLS LIST */
 .urlsList-wrapper {
@@ -126,7 +126,7 @@ main {
 	width: 100%;
 
 	padding: 1rem;
-	/* border-radius: 1rem; */
+	border-radius: 1rem;
 
 	font-size: 1rem;
 
@@ -140,7 +140,7 @@ main {
 	cursor: pointer;
 }
 
-.url-wrapper:first-child {
+/* .url-wrapper:first-child {
 	border-radius: 0px;
 	border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem;
@@ -152,9 +152,7 @@ main {
 }
 .url-wrapper:only-child {
 	border-radius: 1rem;
-	/* border-top-right-radius: 1rem;
-	border-top-left-radius: 1rem; */
-}
+} */
 
 .websiteSettingsDiv {
 	display: none;
@@ -260,9 +258,11 @@ main {
 
 	/* transition: 0.2s ease; */
 
-	margin-block: 0.1rem;
+	margin-block: 0.12rem;
 
 	color: white;
+
+	border-radius: 1rem;
 }
 .shortcutSettings-wrapper:hover {
 	/* box-shadow: 0px 0px 10px 0px #000000; */
@@ -271,7 +271,7 @@ main {
 	/* cursor: pointer; */
 }
 
-.shortcutSettings-wrapper:first-child {
+/* .shortcutSettings-wrapper:first-child {
 	border-top-right-radius: 1rem;
 	border-top-left-radius: 1rem;
 }
@@ -282,7 +282,7 @@ main {
 .shortcutSettings-wrapper:last-child .moreOptions-wrapper {
 	left: 5%;
 	width: 90%;
-}
+} */
 
 .shortcutName-wrapper {
 	margin-inline: 1rem;
