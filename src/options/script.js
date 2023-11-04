@@ -705,6 +705,23 @@ const opt = {
                 opt.currentState.activeGroup = 'g1'
                 opt.updateDOM('changeActiveGroup')
 
+                // Making all elements with tabindex="0" clickable using enter button
+                document.querySelectorAll('[tabindex="0"]').forEach(accessibleElement=>{
+
+                    accessibleElement.addEventListener('keydown', function (event) {
+                        console.log(accessibleElement);
+                        // Check if the Enter key was pressed (key code 13) or the Space key (key code 32)
+                        if (event.keyCode === 13 || event.keyCode === 32) {
+                            if (accessibleElement.classList.contains('toggleSwitchInput')) {
+                                console.log("hi");
+                                accessibleElement.checked = !accessibleElement.checked                            
+                            }
+                            this.click();
+                            event.preventDefault();
+                        }
+                    });
+                })
+
 
 
                 function lightAffectedElementsStyleUpdater() {
