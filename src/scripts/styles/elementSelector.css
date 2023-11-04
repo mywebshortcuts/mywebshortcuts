@@ -155,14 +155,14 @@ button.mws-selectElementButton {
 
 }
 
-summary {
+.mws-collapsableSettings-wrapper summary {
   display: block;
   position: relative;
   user-select: none;
 
 }
 /* Create a new custom triangle on the right side */
-summary::after {
+.mws-collapsableSettings-wrapper summary::after {
   display: inline-block;
   font-family: 'Font Awesome 6 Free';
   content: '\f105';
@@ -171,7 +171,7 @@ summary::after {
   right: var(--mws-rem);
 }
 
-details[open] > summary::after {
+.mws-collapsableSettings-wrapper details[open] > .mws-collapsableSettings-wrapper summary::after {
   transform: rotate(90deg);
 }
 

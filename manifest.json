@@ -39,6 +39,9 @@
     {
         "resources": [
             "src/assets/font-awesome/webfonts/fa-solid-900.woff2",
+            "src/assets/font-awesome/css/fontawesome.css",
+            "src/assets/font-awesome/css/solid.css",
+            "src/assets/font-awesome/css/regular.css",
             "src/scripts/elementSelector.html",
             "src/scripts/keySelector.html"
         ],
