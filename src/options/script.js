@@ -600,8 +600,73 @@ const opt = {
                     const numberOfShortcutsSpan = qS('.numberOfShortcutsSpan')
                     numberOfShortcutsSpan.textContent = Object.keys(websiteShortcuts).length
 
+
                     // Shortcuts Loader
                     domUpdaterFunctions.actionFuncs.loadShortcuts(websiteShortcuts)
+
+
+                    // Search Shortcut
+
+                    console.log(qS('.shortcutsListHeader-wrapper .searchShortcutInput'));
+                    setEvent(qS('.shortcutsListHeader-wrapper .searchShortcutInput'), 'input', (e) => {
+                        const searchedText = e.srcElement.value
+                        let searchedText2 = searchedText.replace(/\s/g, "").toLowerCase()
+                        let searchedText2Array = searchedText2.split('')
+
+
+                        let termMatchedElementsArray = []
+                        let charsMatchedElementsArray = []
+                        qSA(`.shortcutSettings-wrapper`).forEach(element => {
+                            if (!(searchedText2.length > 0)) {
+                                element.style.display = 'flex'
+                                return
+                            }
+
+                            let spanText = getAttr(element, 'data-shortcutname')
+                            spanText = (spanText.replace(/\s/g, "")).toLowerCase()
+                            let spanTextArray = spanText.split('')
+
+                            element.style.display = 'none'
+
+
+                            if (spanText.includes(searchedText2)) {
+                                termMatchedElementsArray.push(element)
+                            }
+                            else if (!(termMatchedElementsArray.length > 0)) {
+
+
+                                searchedText2Array.forEach(char => {
+                                    if (spanTextArray.includes(char)) {
+                                        charsMatchedElementsArray.push(element)
+                                    }
+                                })
+
+                            }
+                        })
+
+
+                        if (termMatchedElementsArray.length > 0) {
+                            termMatchedElementsArray.forEach(termMatchedElement => {
+                                termMatchedElement.style.display = 'flex'
+                            })
+                            console.log("Showing Terms Matched Elements");
+
+                        }
+                        else if (charsMatchedElementsArray.length > 0) {
+                            charsMatchedElementsArray.forEach(charsMatchedElement => {
+                                charsMatchedElement.style.display = 'flex'
+                            })
+                            console.log("Showing Characters Matched Elements");
+                        }
+                        else {
+                            console.log("Nothing like that");
+                        }
+
+                        console.log("-------------");
+                        // console.log(results);
+
+                    })
+
 
 
                 },
@@ -706,7 +771,7 @@ const opt = {
                 opt.updateDOM('changeActiveGroup')
 
                 // Making all elements with tabindex="0" clickable using enter button
-                document.querySelectorAll('[tabindex="0"]').forEach(accessibleElement=>{
+                document.querySelectorAll('[tabindex="0"]').forEach(accessibleElement => {
 
                     accessibleElement.addEventListener('keydown', function (event) {
                         console.log(accessibleElement);
@@ -714,7 +779,7 @@ const opt = {
                         if (event.keyCode === 13 || event.keyCode === 32) {
                             if (accessibleElement.classList.contains('toggleSwitchInput')) {
                                 console.log("hi");
-                                accessibleElement.checked = !accessibleElement.checked                            
+                                accessibleElement.checked = !accessibleElement.checked
                             }
                             this.click();
                             event.preventDefault();
@@ -723,6 +788,7 @@ const opt = {
                 })
 
 
+                // Lights Functionality
 
                 function lightAffectedElementsStyleUpdater() {
                     qS('.overlay').style.opacity = opt.currentState.lights.overlayOpacity
@@ -789,6 +855,67 @@ const opt = {
                         lightAffectedElementsStyleUpdater()
                     })
                 })
+
+
+                // Search Websites Functionality
+                setEvent(qS('.settingsGroup > .searchBar-wrapper .searchURLInput'), 'input', (e) => {
+                    const searchedText = e.srcElement.value
+                    let searchedText2 = searchedText.replace(/\s/g, "")
+                    let searchedText2Array = searchedText2.split('')
+
+
+                    let termMatchedElementsArray = []
+                    let charsMatchedElementsArray = []
+                    qSA(`.url-wrapper`).forEach(urlElement => {
+                        if (!(searchedText2.length > 0)) {
+                            urlElement.style.display = 'flex'
+                            return
+                        }
+
+                        let spanText = getAttr(urlElement, 'data-url')
+                        let spanTextArray = spanText.split('')
+
+                        urlElement.style.display = 'none'
+
+
+                        if (spanText.includes(searchedText2)) {
+                            termMatchedElementsArray.push(urlElement)
+                        }
+                        else if (!(termMatchedElementsArray.length > 0)) {
+
+
+                            searchedText2Array.forEach(char => {
+                                if (spanTextArray.includes(char)) {
+                                    charsMatchedElementsArray.push(urlElement)
+                                }
+                            })
+
+                        }
+                    })
+
+
+                    if (termMatchedElementsArray.length > 0) {
+                        termMatchedElementsArray.forEach(termMatchedElement => {
+                            termMatchedElement.style.display = 'flex'
+                        })
+                        console.log("Showing Terms Matched Elements");
+
+                    }
+                    else if (charsMatchedElementsArray.length > 0) {
+                        charsMatchedElementsArray.forEach(charsMatchedElement => {
+                            charsMatchedElement.style.display = 'flex'
+                        })
+                        console.log("Showing Characters Matched Elements");
+                    }
+                    else {
+                        console.log("Nothing like that");
+                    }
+
+                    console.log("-------------");
+                    // console.log(results);
+
+                })
+
             },
 
 
