@@ -731,6 +731,13 @@ const opt = {
                 lightAffectedElementsStyleUpdater()
 
                 function keyboardShortcuts(e) {
+
+                    let activeElement = document.activeElement
+                    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+                        // An input element is focused; don't execute your shortcut
+                        return;
+                    }
+
                     if (e.key == 'l') {
                         qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
                             switchLightState(ceilingLightWrapper)
