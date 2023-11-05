@@ -415,14 +415,31 @@ const opt = {
                             })
                             shortcutsListWrapper.appendChild(shortcutSettingsWrapper)
 
+
+                            // qSA('button:not(.backToWebsitesListButton)', shortcutSettingsWrapper).forEach((button) => {
+                            //     // console.log(button);
+                            //     setEvent(button, 'click', () => { playSoundEffect('click', 0.5) })
+                            // })
+
                         }
                     }
+
+                    const hoverAudio = new Audio('../assets/quick_bass_effect2.mp3')
+                    qSA('.shortcutSettings-wrapper').forEach((shortcutSettingsWrapper) => {
+                        setEvent(shortcutSettingsWrapper, 'mouseenter', () => {
+
+                            // console.log(shortcutSettingsWrapper.classList.contains('hovered'));
+                            if (shortcutSettingsWrapper.classList.contains('hovered')) {
+                                shortcutSettingsWrapper.classList.remove('hovered')
+                                
+                            }
+                            
+                                hoverAudio.currentTime = 0; // Reset the audio to the beginning
+                                hoverAudio.volume = 1
+                                hoverAudio.play(); // Play the audio file
+                        })
+                    })
                 },
-
-                openWebsiteSettings: (url) => {
-
-
-
                     const openedWebsiteSettings = opt.websitesData[url]
                     opt.currentState.websiteSelected = url
 
@@ -662,11 +679,17 @@ const opt = {
             init: function () {
                 console.log("Initializing...");
 
+
+                const selectAudio = new Audio('../assets/select_sound.mp3')
                 qSA('.navigationButton').forEach((navigationButton) => {
                     setEvent(navigationButton, 'click', () => {
                         const groupID = getAttr(navigationButton, 'data-groupID')
                         opt.currentState.activeGroup = groupID
                         opt.updateDOM('changeActiveGroup')
+
+                        selectAudio.currentTime = 0; // Reset the audio to the beginning
+                        selectAudio.volume = .5
+                        selectAudio.play(); // Play the audio file
                     })
                 })
                 opt.currentState.activeGroup = 'g1'
@@ -717,6 +740,10 @@ const opt = {
 
                 window.addEventListener('keydown', keyboardShortcuts)
 
+
+
+                const audioElementSwitchOff = new Audio("../assets/lightsOff.mp3");
+                const audioElementSwitchOn = new Audio("../assets/lightsOn.mp3");
                 function switchLightState(ceilingLightWrapper) {
                     const affectAmount = 0.45
 
@@ -725,13 +752,23 @@ const opt = {
                             opt.currentState.lights.rightCeilingLight = false
                             rmClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity += affectAmount
+                            // playSoundEffect('lightsOff', 0.5, 'right')
 
+
+
+                            audioElementSwitchOff.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOff.volume = .5
+                            audioElementSwitchOff.play(); // Play the audio file
                         }
                         else {
                             opt.currentState.lights.rightCeilingLight = true
                             addClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity -= affectAmount
+                            // playSoundEffect('lightsOn', 0.5, 'right')
 
+                            audioElementSwitchOn.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOn.volume = .5
+                            audioElementSwitchOn.play(); // Play the audio file
                         }
                     }
                     else {
@@ -739,18 +776,27 @@ const opt = {
                             opt.currentState.lights.leftCeilingLight = false
                             rmClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity += affectAmount
+                            // playSoundEffect('lightsOff', 0.5, 'left')
+
+                            audioElementSwitchOff.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOff.volume = .5
+                            audioElementSwitchOff.play(); // Play the audio file
 
                         }
                         else {
                             opt.currentState.lights.leftCeilingLight = true
                             addClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity -= affectAmount
+                            // playSoundEffect('lightsOn', 0.5, 'left')
 
+
+                            audioElementSwitchOn.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOn.volume = .5
+                            audioElementSwitchOn.play(); // Play the audio file
                         }
                     }
                     // lightAffectedElementsStyleUpdater()                    
                 }
-
                 qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
                     setEvent(ceilingLightWrapper, 'click', () => {
                         switchLightState(ceilingLightWrapper)
