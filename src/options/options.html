@@ -48,6 +48,7 @@
 							<span class="noWebsiteAddedMessage">No Websites Added :&#40;</span>
 						</div>
 					</div>
+					<div class="websiteSettingsHeader">
 						<button class="backToWebsitesListButton">
 							<i class="fa-arrow-left fa-solid"></i>
 						</button>
@@ -55,7 +56,12 @@
 						<div class="urlHeading-wrapper">
 							<h1 class="urlHeading">www.github.com</h1>
 						</div>
+					</div>
 
+
+					<div class="websiteSettingsDiv">
+
+						<div class="websiteSettingsContent-wrapper">
 						<div class="toggleWithText-wrapper">
 							<span class="disableWebsiteSpan">Disable for this Website</span>
 							<div class="disableWebsiteToggle-wrapper">
@@ -75,57 +81,59 @@
 							</button>
 						</div>
 
-						<div class="shortcutsListHeader-wrapper">
-							<h2 class="shortcutListHeading">
-								Shortcuts (<span class="numberOfShortcutsSpan"></span>)
-							</h2>
+						<!-- <div class="shortcuts-wrapper"> -->
+							<div class="shortcutsListHeader-wrapper">
+								<h2 class="shortcutListHeading">
+									Shortcuts (<span class="numberOfShortcutsSpan"></span>)
+								</h2>
 
-							<div class="searchBar-wrapper">
-								<input
-									class="searchShortcutInput"
-									type="text"
-									placeholder="Search Shortcut" />
+								<div class="searchBar-wrapper">
+									<input
+										class="searchShortcutInput"
+										type="text"
+										placeholder="Search Shortcut" />
+								</div>
 							</div>
+							<div class="shortcutsList-wrapper"></div>
+							<template class="shortcutSettingsWrapperTemplate">
+								<div
+									class="shortcutSettings-wrapper"
+									data-shortcutName="Home Tab"
+									data-shortcutKey="K"
+									data-shortcutAction="click"
+									data-shortcutEnabled="true">
+									<div class="shortcutName-wrapper">
+										<span class="shortcutNameSpan">Home Tab</span>
+									</div>
+
+									<div class="shortcutKey-wrapper">
+										<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
+									</div>
+
+									<div class="disableShortcutToggle-wrapper">
+										<label class="toggleSwitchLabel">
+											<input
+												checked
+												type="checkbox"
+												class="toggleSwitchInput greenToggle" />
+											<span class="toggleSwitchSpan greenToggle"></span>
+										</label>
+									</div>
+									<div class="editDeleteButtons-wrapper">
+										<div class="editShortcutButton-wrapper">
+											<button class="editShortcutButton greenButtonFilled">
+												<i class="fa-pencil fa-solid"></i>
+											</button>
+										</div>
+										<div class="deleteShortcutButton-wrapper">
+											<button class="deleteShortcutButton redButtonFilled">
+												<i class="fa-trash fa-solid"></i>
+											</button>
+										</div>
+									</div>
+								</div>
+							</template>
 						</div>
-						<div class="shortcutsList-wrapper"></div>
-						<template class="shortcutSettingsWrapperTemplate">
-							<div
-								class="shortcutSettings-wrapper"
-								data-shortcutName="Home Tab"
-								data-shortcutKey="K"
-								data-shortcutAction="click"
-								data-shortcutEnabled="true">
-								<div class="shortcutName-wrapper">
-									<span class="shortcutNameSpan">Home Tab</span>
-								</div>
-
-								<div class="shortcutKey-wrapper">
-									<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
-								</div>
-
-								<div class="disableShortcutToggle-wrapper">
-									<label class="toggleSwitchLabel">
-										<input
-											checked
-											type="checkbox"
-											class="toggleSwitchInput greenToggle" />
-										<span class="toggleSwitchSpan greenToggle"></span>
-									</label>
-								</div>
-								<div class="editDeleteButtons-wrapper">
-									<div class="editShortcutButton-wrapper">
-										<button class="editShortcutButton greenButtonFilled">
-											<i class="fa-pencil fa-solid"></i>
-										</button>
-									</div>
-									<div class="deleteShortcutButton-wrapper">
-										<button class="deleteShortcutButton redButtonFilled">
-											<i class="fa-trash fa-solid"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</template>
 					</div>
 				</div>
 

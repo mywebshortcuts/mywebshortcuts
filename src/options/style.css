@@ -166,67 +166,147 @@ main {
 } */
 
 .websiteSettingsDiv {
+	
 	display: none;
 	flex-direction: column;
 	align-items: center;
+	/* justify-content: center; */
 
 	width: 100%;
 
-	margin-block: 1rem;
+	/* margin-block: 1rem; */
 
-	padding: 1rem;
-
+	/* padding: 1rem; */
+	padding-top: 0rem;
+	
 	overflow-y: auto;
+	overflow-x:hidden;
 	scroll-behavior: smooth;
-
+	
 	height: 100%;
 	background-color: #272727;
 	color: var(--light-green);
-
+	color: #bfbfbf;
+	
+	
 	border-radius: 1rem;
-
+	border-top-right-radius: 0rem;
+	border-top-left-radius: 0rem;
+	
 	position: relative;
+	/* box-shadow: 0px 2px 5px 0px black; */
+}
+.websiteSettingsDiv::-webkit-scrollbar-track-piece {
+	/* margin: 1rem; */
+}
+
+.websiteSettingsDiv::-webkit-scrollbar-track {
+	/* background-color: #161616; */
+	border-radius: inherit;
+	/* border-top-right-radius: 1rem; */
+	border-top-left-radius: 0rem;
+	border-bottom-left-radius: 0rem;
+}
+.websiteSettingsHeader {
+
+	display: none;
+	position: relative;
+	/* position: sticky;
+	top: 0rem;
+	left: 0rem;
+	right: 0rem; */
+
+	width: 100%;
+	padding: .2rem;
+
+	justify-content: center;
+	align-items: center;
+
+	background-color: #272727	;
+	/* box-shadow: 0px 2px 5px 0px black; */
+	border-bottom: 2px solid #161616;
+
+	border-radius: inherit;
+	border-bottom-left-radius: 0rem;
+	border-bottom-right-radius: 0rem;
+
+	z-index: 1;
 }
 .backToWebsitesListButton {
 	position: absolute;
 	top: 0rem;
 	left: 0rem;
 
-	width: 3rem;
-	height: 3rem;
+	width: 15%;
+	height: 100%;
 
-	font-size: 1rem;
+	font-size: 1.2rem;
 
-	padding: 1.2rem;
+	/* padding: 1.2rem; */
 
 	display: flex;
 	justify-content: center;
 	align-items: center;
 
-	/* padding: 1rem; */
-
 	color: var(--light-green);
+
 	background-color: transparent;
-	border-radius: 100%;
+
+	border-radius: 0rem;
+	border-top-left-radius: inherit;
+
+
 }
 .backToWebsitesListButton:hover {
 	color: var(--light-green);
 
-	background-color: #3e3e3e;
+	background-color: #3e3e3e66;
+	background-color: #1e1e1e8a;
+
+}
+.urlHeading-wrapper {
+	color: var(--light-green);
+	
+	width: 100%;
+	margin: 1rem;
+	font-size: 0.6rem;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 
-.urlHeading-wrapper {
-	margin: 1rem;
+.websiteSettingsContent-wrapper{
+
+	width: 100%;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
 }
+
 .websiteSettingsDiv .toggleWithText-wrapper {
 	width: 70%;
+	
 }
 .deleteWebsiteButtonWithText-wrapper {
 	width: 70%;
 	margin-block: 1rem 0rem;
+	
 }
 
+.shortcuts-wrapper {
+	width: 100%;
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
 .shortcutsListHeader-wrapper {
+	display: flex;
+
 	background-color: #1f1f1f;
 
 	border-top-right-radius: 1rem;
@@ -237,6 +317,7 @@ main {
 	align-items: center;
 
 	margin-top: 1rem;
+	/* margin-inline: 1rem; */
 	padding: 1rem;
 }
 
@@ -251,6 +332,7 @@ main {
 	border-bottom-right-radius: 1rem;
 	padding: 1rem;
 	/* margin-top: 1rem; */
+	/* margin-inline: 2rem; */
 
 	width: 100%;
 }
@@ -277,35 +359,31 @@ main {
 
 	position: relative;
 }
-.shortcutSettings-wrapper:hover {
+.shortcutSettings-wrapper:hover, .shortcutSettings-wrapper.hovered {
 	box-shadow: 0px 0px 10px 0px #000000;
 	background-color: #464646;
 	transform: scale(1.02);
-	/* cursor: pointer; */
 }
 
 .shortcutName-wrapper {
 	margin-inline: 2rem;
-	/* width: 30%; */
 	flex: 1;
 }
 
-.shortcutKey-wrapper {
-	margin-inline: 0rem 0.5rem;
-	/* width: 20%; */
-	flex: .6;
+.shortcutKeyKbd {
+	margin-inline: 0rem 1rem;
+	padding-inline: 1rem;
+	flex: 1;
 }
+
 .disableShortcutToggle-wrapper {
-	/* width: 20%; */
-	flex: .8;
+	text-align: center;
+	flex: 1;
 }
-
-
 
 /* Edit & Delete Shortcut Buttons */
 
 .editDeleteButtons-wrapper button {
-
 	border-radius: 50%;
 	width: 2.5rem;
 	height: 2.5rem;
@@ -314,10 +392,11 @@ main {
 	position: absolute;
 	top: -1rem;
 	border-radius: 50%;
-	
+
 	display: none;
 }
-.shortcutSettings-wrapper:hover .editDeleteButtons-wrapper div {
+.shortcutSettings-wrapper:hover .editDeleteButtons-wrapper div,
+ .shortcutSettings-wrapper.hovered  .editDeleteButtons-wrapper div{
 	display: flex;
 }
 .editShortcutButton-wrapper {
@@ -329,27 +408,125 @@ main {
 }
 
 
+/* Edit Shortcut Dialog */
+
 
 .editShortcutSettingsDialog {
 	display: flex;
 	/* display: none; */
-	padding: 3rem;
-	font-size: 1rem;
+	justify-content: flex-start;
+	align-items: flex-start;
+	padding: 2rem;
+	font-size: var(--fontSize-l);
+
+	color: #bfbfbf;
+
 }
 
 .editShortcutSettingsDialog > div {
-	margin-bottom: 1rem;
-
+	margin-block: 1rem;
 	display: flex;
-	justify-content: center;
-	align-items: center;
+	/* justify-content: center; */
+	/* align-items: center; */
 	flex-direction: column;
 }
-
+.editShortcutSettingsDialog label{
+	/* font-weight: 600; */
+}
 .closeEditShortcutSettingsButton-wrapper {
 	position: absolute;
 	top: 0rem;
 	right: 0rem;
+}
+button.closeEditShortcutSettingsButton{
+	color: white;
+}
+
+.shortcutNameEditLabel{
+margin-block: .5rem;
+}
+.shortcutNameInput{
+	font-size: var(--fontSize);
+}
+
+
+
+
+dialog .selectShortcutButtonAndKBD-wrapper {
+	margin-top: var(--margin);
+	flex-direction: row;
+	width: 100%;
+	/* justify-content: ; */
+	/* align-items: center; */
+	/* text-align: center; */
+
+	/* border: 1px solid red; */
+}
+
+.selectShortcutButtonAndKBD-wrapper kbd {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	color: white;
+	font-weight: 500;
+	background-color: #1f1f1f;
+	font-size: var(--fontSize-l);
+	padding: var(--padding-l);
+	border-radius: var(--borderRadius);
+	cursor: pointer;
+	/* width: 100%; */
+
+}
+
+.kbd-wrapper {
+	/* width: 100%; */
+	flex: 0.5;
+}
+.selectShortcutButtonAndKBD-wrapper .selectedShortcutKBD {
+	/* padding: 2rem; */
+	border: 2px solid transparent;
+}
+.selectedShortcutKBD.active {
+	border: 2px solid #26bcd6;
+}
+.selectedShortcutKBD.shortcutExists {
+	border: 2px solid var(--red);
+}
+
+.selectShortcutButton-wrapper {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-inline: var(--margin-l);
+	width: 100%;
+	flex: 1;
+}
+.shortcutSelectionDoneButton {
+	font-size: var(--fontSize);
+	padding: 1.1rem;
+	border-radius: var(--borderRadius);
+	width: 100%;
+}
+.shortcutSelectionDoneButton .onSelection,
+.shortcutSelectionDoneButton .editSelection {
+	display: none; /* Hide both spans by default */
+}
+
+.shortcutSelectionDoneButton.onSelection .onSelection,
+.shortcutSelectionDoneButton.editSelection .editSelection {
+	display: inline; /* Show the respective span when the class is present */
+}
+
+.shortcutSelectionDoneButton.editSelection {
+	background-color: var(--dark-green);
+}
+.shortcutSelectionDoneButton.editSelection:hover {
+	background-color: #277422;
+}
+.shortcutSelectionDoneButton.onSelection:focus {
+	outline: none;
+	pointer-events: none;
 }
 
 .selectAction-wrapper {
@@ -357,16 +534,24 @@ main {
 
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	/* align-items: center; */
+	/* justify-content: center; */
 
 	margin-block: 1rem;
+	width: 100%;
+
 }
 
 .selectAction-wrapper .select-wrapper {
 	margin-top: 0.5rem;
 	position: relative;
-	width: fit-content;
+	width: 100%;
+
+}
+.select-wrapper select{
+	font-size: var(--fontSize);
+	width: 100%;
+
 }
 
 .selectArrowButton {
@@ -382,22 +567,29 @@ main {
 	color: white;
 }
 
+
+.confirmEditedSettingsButton-wrapper{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 100%;
+	margin-top: 1rem;
+	
+}
+.confirmEditedSettingsButton{
+	font-size: var(--fontSize-l);
+	padding: var(--padding-l);
+}
+.confirmEditedSettingsButton i{
+	margin-inline: .2rem;
+}
+
 /* --------------------------- GROUP 2 --------------------------- */
 .settingsGroup#g2 {
 	background-color: #272727;
 }
 .disableEverywhereToggleWithText-wrapper {
 	/* width: 90%; */
-	margin-block: 1rem;
-}
-
-.saveButton-wrapper {
-	display: flex;
-	position: fixed;
-	right: 1rem;
-
-	justify-content: center;
-
 	margin-block: 1rem;
 }
 
@@ -525,7 +717,7 @@ footer {
 
 .overlay {
 	width: 100%;
-	height: 100%;	
+	height: 100%;
 	background-color: #000000;
 	position: absolute;
 	opacity: 0.5;
