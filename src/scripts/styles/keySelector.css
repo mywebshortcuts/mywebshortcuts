@@ -64,7 +64,7 @@
 }
 
 
-kbd {
+kbd.mws-element {
 	display: flex;
 	justify-content: center;
 	align-items: center;
