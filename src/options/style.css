@@ -117,6 +117,17 @@ main {
 	border-radius: 1rem;
 }
 
+.noWebsiteAddedMessage-wrapper{
+	display: flex;
+
+}
+.noWebsiteAddedMessage{
+	color: #bfbfbf;
+	font-size: 1rem;
+
+}
+
+
 .url-wrapper {
 	display: flex;
 	background-color: #1f1f1f;
