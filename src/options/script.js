@@ -78,6 +78,7 @@ const opt = {
                     const searchBarWrapper = qS('.searchBar-wrapper')
                     searchBarWrapper.style.display = 'flex'
 
+                    domUpdaterFunctions.actionFuncs.updateWebsitesList()
                 },
 
                 loadShortcuts: (websiteShortcuts) => {
@@ -893,9 +894,12 @@ const opt = {
                 console.log("Hiiii");
                 domUpdaterFunctions.init()
             }
+
         }
         else {
-            domUpdaterFunctions.actionFuncs[changeSpecified]()
+            console.log(changeSpecified);
+            console.log(args);
+            domUpdaterFunctions.actionFuncs[changeSpecified](args)
 
             // const functionsListOfInit = Object.keys(domUpdaterFunctions.initFunctions)
             // const functionsListOfActionFuncs = Object.keys(domUpdaterFunctions.actionFuncs)
@@ -935,8 +939,51 @@ const opt = {
 
 
     init: async function () {
-
         await opt.getCompleteData()
+
+        let currentURL = window.location.href
+        let hash = window.location.hash
+        
+        // Use the URL constructor to parse the URL
+        const url = new URL(currentURL);
+        
+        // Access the value of the 'url' query parameter
+        const urlParameter = url.searchParams.get('url');
+        if (urlParameter && opt.websitesList.includes(urlParameter)) {
+            console.log(urlParameter);
+            opt.currentState.websiteSelected = urlParameter   
+            opt.updateDOM('openWebsiteSettings', urlParameter)
+            
+            // Check if there is a hash in the URL
+            if (window.location.hash) {
+                const hash = window.location.hash;
+                const targetElement = document.getElementById(hash.substring(1)); // Remove the leading '#'
+
+                // Add a class to the target element to trigger the hover effect
+                targetElement.classList.add('hovered'); // Replace 'hover-effect' with your desired class
+
+                if (targetElement) {
+                    // Get the parent div with the scrollbar
+                    const parentDiv = targetElement.closest('.websiteSettingsDiv'); // Replace '.scrollable-div' with your actual class or selector
+
+                    if (parentDiv) {
+                        // Calculate the offset relative to the parent div
+                        const offset = targetElement.offsetTop - parentDiv.offsetTop;
+
+                        // Scroll the parent div to the target element
+                        parentDiv.scrollTo({
+                            top: offset,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+
+        }
+
+        console.log(hash);
+
+
 
 
         chrome.storage.onChanged.addListener(async (changes) => {

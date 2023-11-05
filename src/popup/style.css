@@ -135,6 +135,7 @@ body.flex {
 
 	min-height: 3rem;
 
+
 }
 .shortcutDiv.flex:hover {
 	transform: scale(1.01);
@@ -157,6 +158,8 @@ body.flex {
 
 .shortcutNameDiv.flex {
 	flex: 1;
+	cursor: pointer;
+
 }
 .shortcutName{
 	/* Tried to wrap the text which is long and have no spaces, but nothing seems to work */
@@ -174,12 +177,15 @@ body.flex {
 
 }
 .shortcutKeyDiv.flex {
-	flex: .7;
+	flex: .3;
+	margin-inline: 1em;
 	background-color: #1f1f1f;
 	border-radius: 1rem;
 
 	align-items: center;
 	color: var(--dark-blue);
+	cursor: pointer;
+
 }
 
 
