@@ -147,62 +147,22 @@ const opt = {
                                 name: null,
                             }
                             const editShortcutButton = qS('.editShortcutButton', shortcutSettingsWrapper)
-                            setEvent(editShortcutButton, 'click', () => {
+                            setEvent(editShortcutButton, 'click', async () => {
 
+
+                                const editShortcutDialogHTMLFileURL = chrome.runtime.getURL('src/options/editShortcutDialog.html');
+                                let editShortcutDialogInnerHTML = ``;
+                                await fetch(editShortcutDialogHTMLFileURL).then(response => response.text()).then(html => {
+                                    editShortcutDialogInnerHTML = html
+                                });
 
                                 const dialogElementData = {
 
                                     tagName: "dialog",
                                     attributes: {
                                         classes: ['editShortcutSettingsDialog'],
-                                        // id: undefined,
-                                        // otherAttributes: []
                                     },
-                                    // textContent: "No",
-                                    innerHTML: `
-
-			<div class="closeEditShortcutSettingsButton-wrapper">
-				<button class="closeEditShortcutSettingsButton actionButton">
-					<i class="fa-close fa-solid"></i>
-				</button>
-			</div>
-
-			<div class="shortnameEdit-wrapper">
-				<label for="shortcutNameEditInput" class="shortcutNameEditLabel"
-					>Shortcut Name</label
-				>
-				<input type="text" maxlength="20" class="shortcutNameInput" id="shortcutNameInput" />
-			</div>
-
-			<div class="shortcutKeyEdit-wrapper">
-				<span class="shortcutKeyEditSpan">Edit Shortcut</span>
-				<kbd tabindex="0" class="shortcutKeyEditKbd">K</kbd>
-			</div>
-
-			<div class="selectAction-wrapper">
-				<label for="selectAction" class="selectActionLabel"
-					>Select Action on Shortcut Press</label
-				>
-				<div class="select-wrapper">
-					<select id="selectAction">
-						<option value="click">Click</option>
-						<option disabled value="focus">Focus</option>
-						<option disabled value="highlight">Highlight</option>
-						<option disabled value="scrollto">Scroll To</option>
-					</select>
-					<button class="selectArrowButton" tabindex="-1">
-						<i class="fa-angle-down fa-solid"></i>
-					</button>
-				</div>
-			</div>
-
-			<div class="confirmEditedSettingsButton-wrapper">
-				<button disabled class="confirmEditedSettingsButton greenButtonFilled">
-					Confirm <i class="fa-check fa-solid"></i>
-				</button>
-			</div>
-                                        `,
-                                    // childElements: [confirmationTextSpan, greenButton, redButton]
+                                    innerHTML: editShortcutDialogInnerHTML,
                                 }
 
                                 let editShortcutSettingsDialog = createElement(dialogElementData)
