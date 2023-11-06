@@ -454,7 +454,7 @@ const mws = {
 
         qS('.mws-allDoneButton').addEventListener('click', async (e) => {
             e.preventDefault()
-
+            qS('.mws-allDoneButton').innerText = "Adding Shortcut..."
             // await mws.getExistingDataOfCurrentWebsite()
             mws.currentElement = el
             await mws.setDataOfCurrentWebsite()

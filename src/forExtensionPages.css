@@ -30,6 +30,30 @@
 
 	--red: #d75454;
 	--light-red: #d37070;
+
+
+	--rem: 16px;
+
+	--borderRadius-s: calc(var(--rem) / 2);
+	--borderRadius: calc(var(--rem));
+	--borderRadius-l: calc(var(--rem) * 2);
+
+	--border-s: calc(var(--rem) / 16);
+	--border-m: calc(var(--rem) / 8);
+	--border-l: calc(var(--rem) / 4);
+
+	--fontSize-s: calc(var(--rem) / 1.2);
+	--fontSize: calc(var(--rem));
+	--fontSize-l: calc(var(--rem) * 1.2);
+
+	--margin-s: calc(var(--rem) / 8);
+	--margin: calc(var(--rem) / 2);
+	--margin-l: calc(var(--rem));
+
+	--padding-s: calc(var(--rem) / 8);
+	--padding: calc(var(--rem) / 2);
+	--padding-l: calc(var(--rem));
+	--padding-xl: calc(var(--rem) * 1.5);
 }
 
 * {
@@ -173,7 +197,15 @@ button.actionButton:hover{
 	background-color: #277422;
 	color: white;
 }
-
+/* BLUE BUTTON FILLED */
+ .blueButtonFilled {
+	background-color: var(--dark-blue);
+	color: rgb(255, 255, 255);
+}
+ .blueButtonFilled:hover {
+	background-color: #1597ae;
+	color: white;
+}
 
 /* Danger Button  */
  .dangerButtonWithText-wrapper {
@@ -236,6 +268,32 @@ input:not(.toggleSwitchInput) ::placeholder {
 	opacity: 0.5;
 }
 
+ input:not(.toggleSwitchInput) {
+	background-color: white;
+	border: none;
+	/* border: var(--light-black) 1px solid; */
+	padding: 0.5rem;
+
+	border-radius: 0.5rem;
+
+	color: var(--black);
+}
+ input:not(.toggleSwitchInput):focus {
+	outline: var(--black) 3px solid;
+}
+ input:disabled {
+	border-color: #575757;
+	background-color: #57575727;
+	color: #575757;
+	cursor: not-allowed;
+}
+ input:not(.toggleSwitchInput)::placeholder {
+	color: var(--black);
+	opacity: 0.5;
+}
+ input:disabled::placeholder {
+	opacity: 0.2;
+}
 
 
 /* Toggle Switch Styles  */
@@ -393,37 +451,56 @@ dialog.confirmationDialog .buttons-wrapper > button{
 }
 
 /* Custom kbd element for Keyboard shortcut */
-kbd {
+/* kbd {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	/* background-color: var(--dark-blue); */
 
 	color: var(--black);
 	font-weight: 900;
-	/* background: rgb(118, 210, 226);
-	background: linear-gradient(
-		0deg,
-		rgb(243, 243, 243) 0%,
-		rgb(176, 176, 176) 100%
-	); */
-
 	background: rgb(255,255,255);
 background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(135,135,135,1) 100%, rgba(0,0,0,1) 100%);
 	width: 2rem;
 	height: 2rem;
 	padding: 1rem;
 	border-radius: 0.3rem;
-
-	/* box-shadow: 0px 0px 5px 1px black; */
 	border: 2px solid var(--black);
 	cursor: pointer;
 }
 kbd:hover, kbd:focus {
 	transform: scale(.9);
 }
+ */
 
+kbd {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+	color: white;
+	font-weight:  500;
+	background-color: #1f1f1f;
+	font-size: var(--fontSize-l);
+	padding: var(--padding);
+	border-radius: var(--borderRadius);
+	cursor: pointer;
+}
 
+.kbd-wrapper{
+	width: 50%;
+}
+.selectedShortcutKBD{
+	width: 100%;
+	height: 100%;
+	/* padding: 1rem; */
+}
+.selectedShortcutKBD.active{
+	border: 2px solid #26bcd6;
+}
+.selectedShortcutKBD.shortcutExists{
+	border: 2px solid var(--red);
+
+}
 
 /* Toggle with Text Wrapper */
 

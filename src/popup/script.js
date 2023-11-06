@@ -2,7 +2,7 @@ import "../forExtensionPages.css"
 import "./style.css"
 
 
-import { extractCoreUrl, qS, sendMsg, setEvent, setTextContent, setStorage, updateCSS, switchClass, getCompleteData, isObjEmpty, qSA } from "../modules/quickMethods"
+import { extractCoreUrl, qS, sendMsg, setEvent, setTextContent, setStorage, updateCSS, switchClass, getCompleteData, isObjEmpty, qSA, setAttr } from "../modules/quickMethods"
 
 
 import "../assets/font-awesome/css/fontawesome.css"
@@ -149,8 +149,27 @@ const pop = {
                 shortcutDiv.querySelector(".shortcutEnableDisableToggle-wrapper .toggleSwitchInput").checked = eachShortcutData.enabled
 
 
-                shortcutsListDiv.appendChild(shortcutDiv)
+                const optionsPageURL = chrome.runtime.getURL('src/options/options.html');
+                const shortcutSettingsURL = `${optionsPageURL}?url=${pop.currentTabURL}#${key}`
+                
+                const shortcutDivElement = qS('.shortcutDiv', shortcutDiv)
+                setAttr(shortcutDivElement, 'data-shortcutSettingsURL', shortcutSettingsURL)
 
+                const shortcutNameElement = qS('.shortcutName', shortcutDiv)
+                const shortcutKeyDivElement = qS('.shortcutKeyDiv', shortcutDiv)
+
+                setEvent(shortcutNameElement, "click", (e) => {
+                    chrome.tabs.create({ url: shortcutSettingsURL }, (newTab) => {
+                        console.log("New tab created with ID:", newTab.id);
+                    });
+                })
+                setEvent(shortcutKeyDivElement, "click", (e) => {
+                    chrome.tabs.create({ url: shortcutSettingsURL }, (newTab) => {
+                        console.log("New tab created with ID:", newTab.id);
+                    });
+                })
+
+                shortcutsListDiv.appendChild(shortcutDiv)
                 let shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutKey='${key}']`)
 
                 setEvent(shortcutEnableDisableToggle, "click", (e) => {
@@ -171,7 +190,7 @@ const pop = {
         else {
             qS('.disableEverywhereToggle-wrapper .toggleSwitchInput').checked = !pop.globalSettings.extensionEnabled
         }
-        
+
         if (!isObjEmpty(pop.currentWebsiteData)) {
             if (!pop.currentWebsiteData.settings.enabled) {
                 qS('.disableWebsiteToggle-wrapper .toggleSwitchInput').checked = !pop.currentWebsiteData.settings.enabled

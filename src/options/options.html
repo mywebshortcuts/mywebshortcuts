@@ -28,8 +28,6 @@
 			</div>
 
 			<main>
-
-
 				<!-- ------------------------------------- GROUP 1 ------------------------------------- -->
 				<div class="settingsGroup active" id="g1">
 					<div class="searchBar-wrapper">
@@ -37,9 +35,6 @@
 							class="searchURLInput"
 							type="text"
 							placeholder="Search URL" />
-						<!-- <button class="searchURLButton">
-							<i class="fa-search fa-solid"></i>
-						</button> -->
 					</div>
 
 					<template class="urlWrapperTemplate">
@@ -47,9 +42,13 @@
 							<span class="urlSpan">www.github.com/prakhartiwari0</span>
 						</div>
 					</template>
-					<div class="urlsList-wrapper"></div>
-					<div class="websiteSettingsDiv">
+					<div class="urlsList-wrapper">
 
+						<div class="noWebsiteAddedMessage-wrapper">
+							<span class="noWebsiteAddedMessage">No Websites Added :&#40;</span>
+						</div>
+					</div>
+					<div class="websiteSettingsHeader">
 						<button class="backToWebsitesListButton">
 							<i class="fa-arrow-left fa-solid"></i>
 						</button>
@@ -57,8 +56,12 @@
 						<div class="urlHeading-wrapper">
 							<h1 class="urlHeading">www.github.com</h1>
 						</div>
+					</div>
 
 
+					<div class="websiteSettingsDiv">
+
+						<div class="websiteSettingsContent-wrapper">
 						<div class="toggleWithText-wrapper">
 							<span class="disableWebsiteSpan">Disable for this Website</span>
 							<div class="disableWebsiteToggle-wrapper">
@@ -69,90 +72,79 @@
 							</div>
 						</div>
 
-					<div class="dangerButtonWithText-wrapper deleteWebsiteButtonWithText-wrapper">
-						<p class="text">Delete this Website</p>
-						<button class="dangerButton deleteWebsiteButton redButton">
-							<i class="fa-solid fa-trash-can"></i>
-							<p>Delete</p>
-						</button>
-					</div>
-
-						<div class="shortcutsListHeader-wrapper">
-							<h2 class="shortcutListHeading">
-								Shortcuts (<span class="numberOfShortcutsSpan"></span>)
-							</h2>
-
-							<div class="searchBar-wrapper">
-								<input
-									class="searchShortcutInput"
-									type="text"
-									placeholder="Search Shortcut" />
-								<!-- <button class="searchShortcutButton">
-									<i class="fa-search fa-solid"></i>
-								</button> -->
-							</div>
+						<div
+							class="dangerButtonWithText-wrapper deleteWebsiteButtonWithText-wrapper">
+							<p class="text">Delete this Website</p>
+							<button class="dangerButton deleteWebsiteButton redButton">
+								<i class="fa-solid fa-trash-can"></i>
+								<p>Delete</p>
+							</button>
 						</div>
-						<div class="shortcutsList-wrapper"></div>
-						<template class="shortcutSettingsWrapperTemplate">
-							<div
-								class="shortcutSettings-wrapper"
-								data-shortcutName="Home Tab"
-								data-shortcutKey="K"
-								data-shortcutAction="click"
-								data-shortcutEnabled="true">
-								<div class="shortcutName-wrapper">
-									<span class="shortcutNameSpan">Home Tab</span>
-								</div>
 
-								<div class="shortcutKey-wrapper">
-									<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
-								</div>
+						<!-- <div class="shortcuts-wrapper"> -->
+							<div class="shortcutsListHeader-wrapper">
+								<h2 class="shortcutListHeading">
+									Shortcuts (<span class="numberOfShortcutsSpan"></span>)
+								</h2>
 
-								<div class="disableShortcutToggle-wrapper">
-									<label class="toggleSwitchLabel">
-										<input
-											checked
-											type="checkbox"
-											class="toggleSwitchInput greenToggle" />
-										<span class="toggleSwitchSpan greenToggle"></span>
-									</label>
+								<div class="searchBar-wrapper">
+									<input
+										class="searchShortcutInput"
+										type="text"
+										placeholder="Search Shortcut" />
 								</div>
+							</div>
+							<div class="shortcutsList-wrapper"></div>
+							<template class="shortcutSettingsWrapperTemplate">
+								<div
+									class="shortcutSettings-wrapper"
+									data-shortcutName="Home Tab"
+									data-shortcutKey="K"
+									data-shortcutAction="click"
+									data-shortcutEnabled="true">
+									<div class="shortcutName-wrapper">
+										<span class="shortcutNameSpan">Home Tab</span>
+									</div>
 
-								<div class="moreOptionsButton-wrapper">
-									<button class="moreOptionsButton">
-										<i class="fa-angle-down fa-solid"></i>
-									</button>
-								</div>
-								<div class="moreOptions-wrapper">
-									<span class="actionSpan">
-										Action on Shortcut Press:
-										<span class="setActionSpan">Click</span>
-									</span>
+									<div class="shortcutKey-wrapper">
+										<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
+									</div>
+
+									<div class="disableShortcutToggle-wrapper">
+										<label class="toggleSwitchLabel">
+											<input
+												checked
+												type="checkbox"
+												class="toggleSwitchInput greenToggle" />
+											<span class="toggleSwitchSpan greenToggle"></span>
+										</label>
+									</div>
 									<div class="editDeleteButtons-wrapper">
 										<div class="editShortcutButton-wrapper">
-											<button class="editShortcutButton greenButton">
-												Edit <i class="fa-pencil fa-solid"></i>
+											<button class="editShortcutButton greenButtonFilled">
+												<i class="fa-pencil fa-solid"></i>
 											</button>
 										</div>
 										<div class="deleteShortcutButton-wrapper">
-											<button class="deleteShortcutButton redButton">
-												Delete <i class="fa-trash fa-solid"></i>
+											<button class="deleteShortcutButton redButtonFilled">
+												<i class="fa-trash fa-solid"></i>
 											</button>
 										</div>
 									</div>
 								</div>
-							</div>
-						</template>
+							</template>
+						</div>
 					</div>
 				</div>
-
 
 				<!-- ------------------------------------- GROUP 2 ------------------------------------- -->
 
 				<div class="settingsGroup" id="g2">
-
-					<div class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper">
-						<span class="disableEverywhereSpan">Disable Extension Everywhere</span>
+					<div
+						class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper">
+						<span class="disableEverywhereSpan"
+							>Disable Extension Everywhere</span
+						>
 						<div class="disableEverywhereToggle-wrapper">
 							<label class="toggleSwitchLabel">
 								<input type="checkbox" class="toggleSwitchInput redToggle" />
@@ -161,7 +153,8 @@
 						</div>
 					</div>
 
-					<div class="dangerButtonWithText-wrapper clearAllDataButtonWithText-wrapper">
+					<div
+						class="dangerButtonWithText-wrapper clearAllDataButtonWithText-wrapper">
 						<p class="text">Delete all data</p>
 						<button class="dangerButton clearAllDataButton redButton">
 							<i class="fa-solid fa-trash-can"></i>
@@ -170,16 +163,11 @@
 					</div>
 				</div>
 
-
 				<!-- ------------------------------------- GROUP 3 ------------------------------------- -->
 
 				<div class="settingsGroup" id="g3">Group 3</div>
 			</main>
 		</div>
-
-		<!-- <div class="saveButton-wrapper">
-			<button class="saveSettingsButton greenButton">Save Settings</button>
-		</div> -->
 
 		<footer class="lightAffected">
 			<div class="links-wrapper">
@@ -189,24 +177,26 @@
 			</div>
 		</footer>
 
-
 		<div class="animatedLogo-wrapper">
-			<img src="../assets/globe.png" alt="" class="animatedLogo globe">
-			<img src="../assets/keyboard.png" alt="" class="animatedLogo keyboard">
+			<img src="../assets/globe.png" alt="" class="animatedLogo globe" />
+			<img src="../assets/keyboard.png" alt="" class="animatedLogo keyboard" />
 		</div>
 
-		<div class="ceilingLight-wrapper rightLight-wrapper active" title="Light (Click or Press l)" tabindex="0">
-			<img src="../assets/ceiling.svg" alt="" class="ceilingBulb">
-			<img src="../assets/circle_trans.png" alt="" class="circle">
+		<div
+			class="ceilingLight-wrapper rightLight-wrapper active"
+			title="Light (Click or Press l)"
+			tabindex="0">
+			<img src="../assets/ceiling.svg" alt="" class="ceilingBulb" />
+			<img src="../assets/circle_trans.png" alt="" class="circle" />
 		</div>
 
-		<div class="ceilingLight-wrapper leftLight-wrapper active" title="Light (Click or Press l)" tabindex="0">
-			<img src="../assets/ceiling.svg" alt="" class="ceilingBulb">
-			<img src="../assets/circle_trans.png" alt="" class="circle">
+		<div
+			class="ceilingLight-wrapper leftLight-wrapper active"
+			title="Light (Click or Press l)"
+			tabindex="0">
+			<img src="../assets/ceiling.svg" alt="" class="ceilingBulb" />
+			<img src="../assets/circle_trans.png" alt="" class="circle" />
 		</div>
-
-
-
 
 		<div class="overlay"></div>
 		<!-- <dialog class="editShortcutSettingsDialog">

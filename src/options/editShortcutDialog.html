@@ -1,0 +1,66 @@
+<div class="closeEditShortcutSettingsButton-wrapper">
+    <button class="closeEditShortcutSettingsButton actionButton">
+        <i class="fa-close fa-solid"></i>
+    </button>
+</div>
+
+<div class="shortnameEdit-wrapper">
+    <label for="shortcutNameInput"
+           class="shortcutNameEditLabel">Shortcut Name</label>
+    <input type="text"
+           maxlength="20"
+           class="shortcutNameInput"
+           id="shortcutNameInput" />
+</div>
+<!-- 
+<div class="kbd-wrapper">
+    <span class="shortcutKeyEditSpan">Edit Shortcut</span>
+    <kbd tabindex="0"
+         class="shortcutKeyEditKbd">K</kbd>
+</div> -->
+<div class="selectShortcutButtonAndKBD-wrapper">
+    <div class="kbd-wrapper">
+        <kbd class="selectedShortcutKBD"
+             tabindex="0"> </kbd>
+    </div>
+    <div class="selectShortcutButton-wrapper">
+        <button class="shortcutSelectionDoneButton blueButtonFilled editSelection">
+            <!-- <i class="fas fa-check-circle"></i> -->
+            <span class="onSelection">
+                <i class="fa-keyboard fa-solid"></i>
+                Press a Key
+            </span>
+            <span class="editSelection">
+                <i class="fa-pencil fa-solid"></i>
+                Edit Shortcut
+            </span>
+        </button>
+    </div>
+</div>
+
+<div class="selectAction-wrapper">
+    <label for="selectAction"
+           class="selectActionLabel">Action</label>
+    <div class="select-wrapper">
+        <select id="selectAction">
+            <option value="click">Click</option>
+            <option disabled
+                    value="focus">Focus</option>
+            <option disabled
+                    value="highlight">Highlight</option>
+            <option disabled
+                    value="scrollto">Scroll To</option>
+        </select>
+        <button class="selectArrowButton"
+                tabindex="-1">
+            <i class="fa-angle-down fa-solid"></i>
+        </button>
+    </div>
+</div>
+
+<div class="confirmEditedSettingsButton-wrapper">
+    <button disabled
+            class="confirmEditedSettingsButton greenButtonFilled">
+        Confirm <i class="fa-check-circle fa-solid"></i>
+    </button>
+</div>

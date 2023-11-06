@@ -68,8 +68,8 @@ export function qS(selector, parentElement = document) {
 }
 
 
-export const qSA = (selector) => {
-    return document.querySelectorAll(selector)
+export const qSA = (selector, parentElement = document) => {
+    return parentElement.querySelectorAll(selector)
 }
 export const apCh = (child) => {
     document.body.appendChild(child)

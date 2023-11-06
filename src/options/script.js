@@ -1,6 +1,6 @@
 
 import "../forExtensionPages.css"
-import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, rmEvent } from "../modules/quickMethods";
+import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, rmEvent, isObjEmpty } from "../modules/quickMethods";
 import "./style.css"
 
 // Import Font Awesome
@@ -22,8 +22,6 @@ const opt = {
 
         activeGroup: '',
         websiteSelected: null,
-
-        openMoreOptions: [],
 
         lights: {
             overlayOpacity: 0,
@@ -49,7 +47,7 @@ const opt = {
         await setStorage({ ...opt.completeData })
 
     },
-    updateDOM: (changeSpecified = "initialize") => {
+    updateDOM: (changeSpecified = "initialize", ...args) => {
 
 
         function removeAllEventListenersOfElements(elementsArray = []) {
@@ -59,17 +57,17 @@ const opt = {
             })
         }
 
-
         const domUpdaterFunctions = {
 
             actionFuncs: {
 
                 closeWebsiteSettingsAndBackToWebsitesList: () => {
                     opt.currentState.websiteSelected = null
-                    opt.currentState.openMoreOptions = []
 
                     const websiteSettingsDiv = qS('.websiteSettingsDiv')
                     websiteSettingsDiv.style.display = 'none'
+                    const websiteSettingsHeader = qS('.websiteSettingsHeader')
+                    websiteSettingsHeader.style.display = 'none'
 
                     const urlsListWrapper = qS('.urlsList-wrapper')
                     urlsListWrapper.style.display = 'flex'
@@ -78,11 +76,11 @@ const opt = {
                     const searchBarWrapper = qS('.searchBar-wrapper')
                     searchBarWrapper.style.display = 'flex'
 
+                    domUpdaterFunctions.actionFuncs.updateWebsitesList()
                 },
 
                 loadShortcuts: (websiteShortcuts) => {
 
-                    opt.currentState.openMoreOptions = []
 
 
                     const numberOfShortcutsSpan = qS('.numberOfShortcutsSpan')
@@ -122,8 +120,6 @@ const opt = {
                             qS('.shortcutKeyKbd', shortcutSettingsWrapper).innerText = shortcutKey
 
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).checked = shortcutKeyObject.enabled
-                            qS('.setActionSpan', shortcutSettingsWrapper).innerText = shortcutKeyObject.properties.action
-
 
                             // ------------------------- Enable/Disable Shortcut -------------------------
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).addEventListener('change', async function (event) {
@@ -140,63 +136,6 @@ const opt = {
                             });
 
 
-
-                            // ------------------------- Shortcut More Options Opener -------------------------
-                            const moreOptionsButton = qS('.moreOptionsButton', shortcutSettingsWrapper)
-
-
-                            const moreOptionsWrapper = qS('.moreOptions-wrapper', shortcutSettingsWrapper)
-                            moreOptionsWrapper.style.display = 'none'
-
-
-                            setEvent(moreOptionsButton, 'click', () => {
-
-                                const moreOptionsButtonFA = qS('.moreOptionsButton  i', shortcutSettingsWrapper)
-
-
-                                // More Options Hide/Unhide 
-                                function moreOptionsHideUnhide(moreOptionsWrapper, moreOptionsButtonFA) {
-                                    // If more options is not shown
-                                    if (moreOptionsWrapper.style.display == 'none') {
-                                        findAndCloseExistingOpenedMoreOptions()
-
-                                        moreOptionsWrapper.style.display = 'flex'
-                                        switchClass(moreOptionsButtonFA, 'fa-angle-down', 'fa-angle-up')
-                                        shortcutSettingsWrapper.style.backgroundColor = '#3e3e3e'
-
-                                        opt.currentState.openMoreOptions.push(shortcutKey)
-
-                                    }
-                                    else {
-                                        moreOptionsWrapper.style.display = 'none'
-                                        switchClass(moreOptionsButtonFA, 'fa-angle-up', 'fa-angle-down')
-                                        shortcutSettingsWrapper.style.backgroundColor = '#4e4e4e'
-
-                                        let shortcutIndex = opt.currentState.openMoreOptions.indexOf(shortcutKey);
-                                        opt.currentState.openMoreOptions.splice(shortcutIndex, 1);
-
-                                    }
-                                }
-
-                                function findAndCloseExistingOpenedMoreOptions() {
-
-                                    if (opt.currentState.openMoreOptions.length == 0 || !shortcutsListWrapper.querySelector(".shortcutSettings-wrapper")) {
-                                        return
-                                    }
-                                    opt.currentState.openMoreOptions.forEach(shortcutKey => {
-                                        const otherShortcutSettingsWrapper = qS(`.shortcutSettings-wrapper[data-shortcutKey="${shortcutKey}"]`)
-
-                                        const otherMoreOptionsButtonFA = qS('.moreOptionsButton  i', otherShortcutSettingsWrapper)
-                                        const otherMoreOptionsWrapper = qS('.moreOptions-wrapper', otherShortcutSettingsWrapper)
-                                        moreOptionsHideUnhide(otherMoreOptionsWrapper, otherMoreOptionsButtonFA)
-
-
-                                    })
-                                }
-                                moreOptionsHideUnhide(moreOptionsWrapper, moreOptionsButtonFA)
-
-                            })
-
                             // ------------------------- Edit Shortcut Settings Dialog Opener -------------------------
 
 
@@ -205,74 +144,33 @@ const opt = {
                                 name: null,
                             }
                             const editShortcutButton = qS('.editShortcutButton', shortcutSettingsWrapper)
-                            setEvent(editShortcutButton, 'click', () => {
+                            setEvent(editShortcutButton, 'click', async () => {
 
+
+                                const editShortcutDialogHTMLFileURL = chrome.runtime.getURL('src/options/editShortcutDialog.html');
+                                let editShortcutDialogInnerHTML = ``;
+                                await fetch(editShortcutDialogHTMLFileURL).then(response => response.text()).then(html => {
+                                    editShortcutDialogInnerHTML = html
+                                });
 
                                 const dialogElementData = {
 
                                     tagName: "dialog",
                                     attributes: {
                                         classes: ['editShortcutSettingsDialog'],
-                                        // id: undefined,
-                                        // otherAttributes: []
                                     },
-                                    // textContent: "No",
-                                    innerHTML: `
-
-			<div class="closeEditShortcutSettingsButton-wrapper">
-				<button class="closeEditShortcutSettingsButton actionButton">
-					<i class="fa-close fa-solid"></i>
-				</button>
-			</div>
-
-			<div class="shortnameEdit-wrapper">
-				<label for="shortcutNameEditInput" class="shortcutNameEditLabel"
-					>Shortcut Name</label
-				>
-				<input type="text" maxlength="20" class="shortcutNameInput" id="shortcutNameInput" />
-			</div>
-
-			<div class="shortcutKeyEdit-wrapper">
-				<span class="shortcutKeyEditSpan">Edit Shortcut</span>
-				<kbd tabindex="0" class="shortcutKeyEditKbd">K</kbd>
-			</div>
-
-			<div class="selectAction-wrapper">
-				<label for="selectAction" class="selectActionLabel"
-					>Select Action on Shortcut Press</label
-				>
-				<div class="select-wrapper">
-					<select id="selectAction">
-						<option value="click">Click</option>
-						<option disabled value="focus">Focus</option>
-						<option disabled value="highlight">Highlight</option>
-						<option disabled value="scrollto">Scroll To</option>
-					</select>
-					<button class="selectArrowButton" tabindex="-1">
-						<i class="fa-angle-down fa-solid"></i>
-					</button>
-				</div>
-			</div>
-
-			<div class="confirmEditedSettingsButton-wrapper">
-				<button disabled class="confirmEditedSettingsButton greenButtonFilled">
-					Confirm <i class="fa-check fa-solid"></i>
-				</button>
-			</div>
-                                        `,
-                                    // childElements: [confirmationTextSpan, greenButton, redButton]
+                                    innerHTML: editShortcutDialogInnerHTML,
                                 }
 
                                 let editShortcutSettingsDialog = createElement(dialogElementData)
 
                                 const shortcutNameInput = qS('.shortcutNameInput', editShortcutSettingsDialog)
                                 shortcutNameInput.value = shortcutKeyObject.name
-                                const shortcutKeyEditKbd = qS('.shortcutKeyEditKbd', editShortcutSettingsDialog)
+
+                                const shortcutKeyEditKbd = qS('.selectedShortcutKBD', editShortcutSettingsDialog)
                                 shortcutKeyEditKbd.innerText = shortcutKey
 
-
-                                const shortcutKeyEditSpan = qS('.shortcutKeyEditSpan', editShortcutSettingsDialog)
-                                shortcutKeyEditSpan.innerText = 'Edit Shortcut'
+                                const shortcutKeyEditButton = qS('.shortcutSelectionDoneButton', editShortcutSettingsDialog)
 
 
                                 let propertiesEdited = false;
@@ -280,10 +178,7 @@ const opt = {
                                 confirmEditedSettingsButton.disabled = true
 
                                 function changeEditedState() {
-                                    // console.log(editedProperties);
-                                    // console.log(!editedProperties.key || !editedProperties.name);
                                     if ((editedProperties.key || editedProperties.name) && !shortcutSelectionEnabled) {
-                                        // console.log("Something changed");
                                         propertiesEdited = true;
                                         confirmEditedSettingsButton.disabled = false
                                     }
@@ -292,7 +187,6 @@ const opt = {
                                         propertiesEdited = false;
                                         confirmEditedSettingsButton.disabled = true
                                     }
-
                                 }
 
                                 setEvent(shortcutNameInput, 'keyup', () => {
@@ -306,9 +200,9 @@ const opt = {
 
                                 })
 
+                                let shortcutSelectionEnabled = false
 
                                 function keyShortcutTracker(e) {
-                                    console.log("Myself keyboard event vmro");
                                     if (!shortcutSelectionEnabled) {
                                         return
                                     }
@@ -317,45 +211,57 @@ const opt = {
                                         console.log("Input h bhai");
                                         return;
                                     }
+
+
+                                    const keyCode = e.keyCode || e.which;
+                                    const pressedKey = e.key
+                                    if (keyCode == 13) {
+                                        // If it's an Enter key
+                                        // console.log(e);
+                                        return
+
+                                    }
                                     let existingShortcutKeys = Object.keys(opt.websitesData[url].shortcuts)
-
-
                                     let shortcutIndex = existingShortcutKeys.indexOf(shortcutKey);
                                     existingShortcutKeys.splice(shortcutIndex, 1);
 
-                                    if (existingShortcutKeys.includes(e.key)) {
+                                    shortcutKeyEditKbd.innerText = pressedKey
+                                    if (existingShortcutKeys.includes(pressedKey)) {
                                         console.log("Already exists");
+                                        addClass(shortcutKeyEditKbd, ['shortcutExists'])
                                         return;
-
                                     }
-                                    shortcutKeyEditKbd.innerText = e.key
+                                    else {
+                                        rmClass(shortcutKeyEditKbd, ['shortcutExists'])
+                                    }
+                                    // shortcutKeyEditKbd.innerText = e.key
+                                    addClass(shortcutKeyEditKbd, ['active'])
 
                                     if (e.key != shortcutKey) {
-                                        editedProperties.key = e.key
+                                        editedProperties.key = pressedKey
                                     }
                                     else {
                                         editedProperties.key = null
                                     }
+                                    rmClass(shortcutKeyEditKbd, ['active'])
+                                    shortcutSelectionEnabled = false
+                                    // document.removeEventListener('keypress', keyShortcutTracker)
+                                    switchClass(shortcutKeyEditButton, 'onSelection', 'editSelection')
                                     changeEditedState()
 
                                 }
-                                let shortcutSelectionEnabled = false
-                                setEvent(shortcutKeyEditKbd, 'click', (e) => {
-                                    // console.log(e.key);
+                                setEvent(shortcutKeyEditButton, 'click', (e) => {
                                     if (!shortcutSelectionEnabled) {
                                         shortcutSelectionEnabled = true
-                                        shortcutKeyEditSpan.innerText = 'Press Shortcut Key & Click below to Select it'
+                                        switchClass(shortcutKeyEditButton, 'editSelection', 'onSelection')
+                                        addClass(shortcutKeyEditKbd, ['active'])
 
                                         document.addEventListener('keypress', keyShortcutTracker)
                                     }
                                     else {
-                                        shortcutSelectionEnabled = false
-                                        document.removeEventListener('keypress', keyShortcutTracker)
-                                        shortcutKeyEditSpan.innerText = 'Edit Shortcut'
+                                        // document.removeEventListener('keypress', keyShortcutTracker)
                                     }
                                     changeEditedState()
-
-
                                 })
 
                                 async function confirmEditedPropertiesAndSaveData() {
@@ -442,7 +348,6 @@ const opt = {
                                 editShortcutSettingsDialog.showModal()
                             })
 
-
                             function confirmationDialog(confirmationText) {
 
                                 return new Promise((resolve, reject) => {
@@ -503,24 +408,58 @@ const opt = {
                                     delete opt.completeData.websitesData[url].shortcuts[shortcutKey]
                                     await setStorage({ ...opt.completeData })
 
-                                    let shortcutIndex = opt.currentState.openMoreOptions.indexOf(shortcutKey);
-                                    opt.currentState.openMoreOptions.splice(shortcutIndex, 1);
+                                    if (isObjEmpty(opt.completeData.websitesData[url].shortcuts)) {
+                                        // opt.updateDOM 
 
+                                        console.log("Delete button clicked");
+                                        confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response => {
+                                            if (response) {
+                                                opt.deleteWebsite(url)
+                                                opt.currentState.websiteSelected = null
+                                                opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
+                                            }
 
-                                    domUpdaterFunctions.actionFuncs.loadShortcuts(websiteShortcuts)
-                                    // location.reload()
+                                        })
+                                        
+                                    }
+                                    else{
+                                        domUpdaterFunctions.actionFuncs.loadShortcuts(websiteShortcuts)
+
+                                    }
                                 }
                             })
+
+
+                            shortcutSettingsWrapper.id = shortcutKey
                             shortcutsListWrapper.appendChild(shortcutSettingsWrapper)
+
+
+                            // qSA('button:not(.backToWebsitesListButton)', shortcutSettingsWrapper).forEach((button) => {
+                            //     // console.log(button);
+                            //     setEvent(button, 'click', () => { playSoundEffect('click', 0.5) })
+                            // })
 
                         }
                     }
+
+                    const hoverAudio = new Audio('../assets/quick_bass_effect2.mp3')
+                    qSA('.shortcutSettings-wrapper').forEach((shortcutSettingsWrapper) => {
+                        setEvent(shortcutSettingsWrapper, 'mouseenter', () => {
+
+                            // console.log(shortcutSettingsWrapper.classList.contains('hovered'));
+                            if (shortcutSettingsWrapper.classList.contains('hovered')) {
+                                shortcutSettingsWrapper.classList.remove('hovered')
+                                
+                            }
+                            
+                                hoverAudio.currentTime = 0; // Reset the audio to the beginning
+                                hoverAudio.volume = 1
+                                hoverAudio.play(); // Play the audio file
+                        })
+                    })
                 },
 
                 openWebsiteSettings: (url) => {
-
-
-
                     const openedWebsiteSettings = opt.websitesData[url]
                     opt.currentState.websiteSelected = url
 
@@ -528,6 +467,8 @@ const opt = {
                     const websiteSettingsDiv = qS('.websiteSettingsDiv')
                     websiteSettingsDiv.style.display = 'flex'
                     setAttr(websiteSettingsDiv, 'data-url', url)
+                    const websiteSettingsHeader = qS('.websiteSettingsHeader')
+                    websiteSettingsHeader.style.display = 'flex'
 
                     const urlsListWrapper = qS('.urlsList-wrapper')
                     urlsListWrapper.style.display = 'none'
@@ -667,8 +608,6 @@ const opt = {
 
                     })
 
-
-
                 },
 
                 changeActiveGroup: () => {
@@ -696,6 +635,9 @@ const opt = {
 
                     const templateElement = document.querySelector('.urlWrapperTemplate')
 
+                    if (opt.websitesList.length == 0) {
+                        return                        
+                    }
                     const urlsListWrapper = document.body.querySelector('.urlsList-wrapper')
                     urlsListWrapper.innerHTML = '' // Why is this not working?
 
@@ -711,7 +653,12 @@ const opt = {
                             domUpdaterFunctions.actionFuncs.openWebsiteSettings(websiteURL)
 
                         })
+                        // urlWrapperDiv.addEventListener('mouseenter', (e) => {
+                        //     playSoundEffect('hover')
+                        // })
+                        urlsListWrapper.id = websiteURL
 
+                        
                         urlsListWrapper.appendChild(urlWrapperNode)
 
                     })
@@ -760,11 +707,17 @@ const opt = {
             init: function () {
                 console.log("Initializing...");
 
+
+                const selectAudio = new Audio('../assets/select_sound.mp3')
                 qSA('.navigationButton').forEach((navigationButton) => {
                     setEvent(navigationButton, 'click', () => {
                         const groupID = getAttr(navigationButton, 'data-groupID')
                         opt.currentState.activeGroup = groupID
                         opt.updateDOM('changeActiveGroup')
+
+                        selectAudio.currentTime = 0; // Reset the audio to the beginning
+                        selectAudio.volume = .5
+                        selectAudio.play(); // Play the audio file
                     })
                 })
                 opt.currentState.activeGroup = 'g1'
@@ -815,6 +768,10 @@ const opt = {
 
                 window.addEventListener('keydown', keyboardShortcuts)
 
+
+
+                const audioElementSwitchOff = new Audio("../assets/lightsOff.mp3");
+                const audioElementSwitchOn = new Audio("../assets/lightsOn.mp3");
                 function switchLightState(ceilingLightWrapper) {
                     const affectAmount = 0.45
 
@@ -823,13 +780,23 @@ const opt = {
                             opt.currentState.lights.rightCeilingLight = false
                             rmClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity += affectAmount
+                            // playSoundEffect('lightsOff', 0.5, 'right')
 
+
+
+                            audioElementSwitchOff.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOff.volume = .5
+                            audioElementSwitchOff.play(); // Play the audio file
                         }
                         else {
                             opt.currentState.lights.rightCeilingLight = true
                             addClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity -= affectAmount
+                            // playSoundEffect('lightsOn', 0.5, 'right')
 
+                            audioElementSwitchOn.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOn.volume = .5
+                            audioElementSwitchOn.play(); // Play the audio file
                         }
                     }
                     else {
@@ -837,24 +804,36 @@ const opt = {
                             opt.currentState.lights.leftCeilingLight = false
                             rmClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity += affectAmount
+                            // playSoundEffect('lightsOff', 0.5, 'left')
+
+                            audioElementSwitchOff.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOff.volume = .5
+                            audioElementSwitchOff.play(); // Play the audio file
 
                         }
                         else {
                             opt.currentState.lights.leftCeilingLight = true
                             addClass(ceilingLightWrapper, ['active'])
                             opt.currentState.lights.overlayOpacity -= affectAmount
+                            // playSoundEffect('lightsOn', 0.5, 'left')
 
+
+                            audioElementSwitchOn.currentTime = 0; // Reset the audio to the beginning
+                            audioElementSwitchOn.volume = .5
+                            audioElementSwitchOn.play(); // Play the audio file
                         }
                     }
                     // lightAffectedElementsStyleUpdater()                    
                 }
-
                 qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
                     setEvent(ceilingLightWrapper, 'click', () => {
                         switchLightState(ceilingLightWrapper)
                         lightAffectedElementsStyleUpdater()
                     })
                 })
+
+
+
 
 
                 // Search Websites Functionality
@@ -949,12 +928,12 @@ const opt = {
 
             }
             else {
-                console.log("Hiiii");
                 domUpdaterFunctions.init()
             }
+
         }
         else {
-            domUpdaterFunctions.actionFuncs[changeSpecified]()
+            domUpdaterFunctions.actionFuncs[changeSpecified](args)
 
             // const functionsListOfInit = Object.keys(domUpdaterFunctions.initFunctions)
             // const functionsListOfActionFuncs = Object.keys(domUpdaterFunctions.actionFuncs)
@@ -994,8 +973,51 @@ const opt = {
 
 
     init: async function () {
-
         await opt.getCompleteData()
+
+        let currentURL = window.location.href
+        let hash = window.location.hash
+        
+        // Use the URL constructor to parse the URL
+        const url = new URL(currentURL);
+        
+        // Access the value of the 'url' query parameter
+        const urlParameter = url.searchParams.get('url');
+        if (urlParameter && opt.websitesList.includes(urlParameter)) {
+            console.log(urlParameter);
+            opt.currentState.websiteSelected = urlParameter   
+            opt.updateDOM('openWebsiteSettings', urlParameter)
+            
+            // Check if there is a hash in the URL
+            if (window.location.hash) {
+                const hash = window.location.hash;
+                const targetElement = document.getElementById(hash.substring(1)); // Remove the leading '#'
+
+                // Add a class to the target element to trigger the hover effect
+                targetElement.classList.add('hovered'); // Replace 'hover-effect' with your desired class
+
+                if (targetElement) {
+                    // Get the parent div with the scrollbar
+                    const parentDiv = targetElement.closest('.websiteSettingsDiv'); // Replace '.scrollable-div' with your actual class or selector
+
+                    if (parentDiv) {
+                        // Calculate the offset relative to the parent div
+                        const offset = targetElement.offsetTop - parentDiv.offsetTop;
+
+                        // Scroll the parent div to the target element
+                        parentDiv.scrollTo({
+                            top: offset,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            }
+
+        }
+
+        console.log(hash);
+
+
 
 
         chrome.storage.onChanged.addListener(async (changes) => {
