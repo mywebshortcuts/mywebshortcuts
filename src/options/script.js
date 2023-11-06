@@ -1,6 +1,6 @@
 
 import "../forExtensionPages.css"
-import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, rmEvent, isObjEmpty } from "../modules/quickMethods";
+import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, rmEvent, isObjEmpty, getElemAt } from "../modules/quickMethods";
 import "./style.css"
 
 // Import Font Awesome
@@ -28,6 +28,7 @@ const opt = {
             leftCeilingLight: true,
             rightCeilingLight: true,
         },
+
     },
 
     completeData: {},
@@ -99,12 +100,8 @@ const opt = {
                 },
 
                 loadShortcuts: (websiteShortcuts) => {
-
-
-
                     const numberOfShortcutsSpan = qS('.numberOfShortcutsSpan')
                     numberOfShortcutsSpan.textContent = Object.keys(websiteShortcuts).length
-
 
                     const shortcutsListWrapper = qS('.shortcutsList-wrapper')
 
@@ -646,7 +643,7 @@ const opt = {
                     const templateElement = document.querySelector('.urlWrapperTemplate')
 
                     if (opt.websitesList.length == 0) {
-                        return                        
+                        return
                     }
                     const urlsListWrapper = document.body.querySelector('.urlsList-wrapper')
                     urlsListWrapper.innerHTML = '' // Why is this not working?
@@ -750,7 +747,27 @@ const opt = {
                 console.log("Initializing...");
 
 
-                const selectAudio = new Audio('../assets/select_sound.mp3')
+                function keyboardShortcuts(e) {
+
+                    let activeElement = document.activeElement
+                    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+                        // An input element is focused; don't execute your shortcut
+                        return;
+                    }
+
+                    if (e.key == 'l') {
+                        qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
+                            switchLightState(ceilingLightWrapper)
+                            overlayOpacityUpdater()
+                        })
+                        overlayOpacityUpdater()
+                    }
+                }
+
+                window.addEventListener('keydown', keyboardShortcuts)
+
+
+
                 qSA('.navigationButton').forEach((navigationButton) => {
                     setEvent(navigationButton, 'click', () => {
                         const groupID = getAttr(navigationButton, 'data-groupID')
@@ -783,49 +800,62 @@ const opt = {
 
                 // Lights Functionality
 
-                function lightAffectedElementsStyleUpdater() {
-                    qS('.overlay').style.opacity = opt.currentState.lights.overlayOpacity
+                function overlayOpacityUpdater() {
+                    // qS('.overlay').style.opacity = opt.currentState.lights.overlayOpacity
+
+                    let opacity;
+                    let leftLightEnabled = opt.globalSettings.optionsPageSettings.optionsPageLights.left
+                    let rightLightEnabled = opt.globalSettings.optionsPageSettings.optionsPageLights.right
+                    if (leftLightEnabled && rightLightEnabled) {
+                        opacity = 0
+                    }
+                    else if (leftLightEnabled || rightLightEnabled) {
+                        opacity = 0.45
+                    }
+                    else{
+
+                        opacity = 9
+                    }
+                    
+                    qS('.overlay').style.opacity = opacity
                 }
 
-                lightAffectedElementsStyleUpdater()
+                overlayOpacityUpdater()
 
-                function keyboardShortcuts(e) {
-
-                    let activeElement = document.activeElement
-                    if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
-                        // An input element is focused; don't execute your shortcut
-                        return;
-                    }
-
-                    if (e.key == 'l') {
-                        qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
-                            switchLightState(ceilingLightWrapper)
-                            lightAffectedElementsStyleUpdater()
-                        })
-                        lightAffectedElementsStyleUpdater()
-                    }
-                }
-
-                window.addEventListener('keydown', keyboardShortcuts)
-
-
-
-                const audioElementSwitchOff = new Audio("../assets/lightsOff.mp3");
-                const audioElementSwitchOn = new Audio("../assets/lightsOn.mp3");
-                function switchLightState(ceilingLightWrapper) {
+                async function switchLightState(ceilingLightWrapper) {
                     const affectAmount = 0.45
 
                     if (ceilingLightWrapper.classList.contains('rightLight-wrapper')) {
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right = !opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right
+
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
+                        
+                    }
+                    else {
+                        
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left = !opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
+                    }
+                    await setStorage({ ...opt.completeData })
+
                 }
                 qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
+
+                    if (ceilingLightWrapper.classList.contains('rightLight-wrapper')) {
+                        // opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
+                    }
+                    else {
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
+
+                    }
                     setEvent(ceilingLightWrapper, 'click', () => {
                         switchLightState(ceilingLightWrapper)
-                        lightAffectedElementsStyleUpdater()
+                        overlayOpacityUpdater()
                     })
                 })
-
 
 
 
@@ -971,17 +1001,17 @@ const opt = {
 
         let currentURL = window.location.href
         let hash = window.location.hash
-        
+
         // Use the URL constructor to parse the URL
         const url = new URL(currentURL);
-        
+
         // Access the value of the 'url' query parameter
         const urlParameter = url.searchParams.get('url');
         if (urlParameter && opt.websitesList.includes(urlParameter)) {
             console.log(urlParameter);
-            opt.currentState.websiteSelected = urlParameter   
+            opt.currentState.websiteSelected = urlParameter
             opt.updateDOM('openWebsiteSettings', urlParameter)
-            
+
             // Check if there is a hash in the URL
             if (window.location.hash) {
                 const hash = window.location.hash;

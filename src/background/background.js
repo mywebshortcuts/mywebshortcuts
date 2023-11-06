@@ -11,7 +11,10 @@ const bg = {
         globalSettings: {
             extensionEnabled: true,
             darkMode: true,
+            optionsPageSettings:{
                 optionsPageSoundsEnabled: true,
+                optionsPageLights:{overlayOpactiy:0, left:true, right:true}
+            },
         }
     },
 
