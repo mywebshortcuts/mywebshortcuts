@@ -416,15 +416,16 @@ main {
 	/* display: none; */
 	justify-content: flex-start;
 	align-items: flex-start;
-	padding: 2rem;
+	padding: var(--padding-xl);
 	font-size: var(--fontSize-l);
 
 	color: #bfbfbf;
+	position: fixed;
 
 }
 
 .editShortcutSettingsDialog > div {
-	margin-block: 1rem;
+	margin-block: .5rem;
 	display: flex;
 	/* justify-content: center; */
 	/* align-items: center; */
@@ -433,10 +434,11 @@ main {
 .editShortcutSettingsDialog label{
 	/* font-weight: 600; */
 }
-.closeEditShortcutSettingsButton-wrapper {
+div.closeEditShortcutSettingsButton-wrapper {
 	position: absolute;
 	top: 0rem;
 	right: 0rem;
+	margin: 0rem;
 }
 button.closeEditShortcutSettingsButton{
 	color: white;
@@ -586,12 +588,20 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 
 /* --------------------------- GROUP 2 --------------------------- */
 .settingsGroup#g2 {
+	width: 100%;
 	background-color: #272727;
 }
-.disableEverywhereToggleWithText-wrapper {
-	/* width: 90%; */
-	margin-block: 1rem;
+#g2 > div {
+	width: 70%;
+	margin-block: .5rem;
+	/* margin-block: 1rem; */
 }
+#g2 .toggleWithText-wrapper {
+	/* width: 70%; */
+}
+
+
+
 
 /* FOOTER  */
 footer {
