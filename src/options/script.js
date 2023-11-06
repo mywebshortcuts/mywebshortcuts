@@ -57,6 +57,25 @@ const opt = {
             })
         }
 
+        let prevAudio;
+        function playSoundEffect(soundEffectName = 'click', volume = 1) {
+            if (!opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
+                return
+            }
+            let audio;
+
+            if (prevAudio && audio.src == prevAudio.src) {
+                audio = prevAudio
+            }
+            else {
+                audio = new Audio(`../assets/${soundEffectName}.mp3`)
+            }
+
+            audio.currentTime = 0; // Reset the audio to the beginning
+            audio.volume = volume
+            audio.play(); // Play the audio file
+        }
+
         const domUpdaterFunctions = {
 
             actionFuncs: {
@@ -125,10 +144,11 @@ const opt = {
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).addEventListener('change', async function (event) {
                                 if (event.target.checked) {
                                     console.log('Extension Enabled');
+                                    playSoundEffect('switchOn')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = true
                                 } else {
-
                                     console.log('Extension Disabled');
+                                    playSoundEffect('switchOff')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = false
                                 }
                                 await setStorage({ ...opt.completeData })
@@ -146,6 +166,7 @@ const opt = {
                             const editShortcutButton = qS('.editShortcutButton', shortcutSettingsWrapper)
                             setEvent(editShortcutButton, 'click', async () => {
 
+                                playSoundEffect('click', 1)
 
                                 const editShortcutDialogHTMLFileURL = chrome.runtime.getURL('src/options/editShortcutDialog.html');
                                 let editShortcutDialogInnerHTML = ``;
@@ -247,10 +268,12 @@ const opt = {
                                     shortcutSelectionEnabled = false
                                     // document.removeEventListener('keypress', keyShortcutTracker)
                                     switchClass(shortcutKeyEditButton, 'onSelection', 'editSelection')
+                                    playSoundEffect('keyAccepted')
                                     changeEditedState()
 
                                 }
                                 setEvent(shortcutKeyEditButton, 'click', (e) => {
+                                    playSoundEffect('enterKey')
                                     if (!shortcutSelectionEnabled) {
                                         shortcutSelectionEnabled = true
                                         switchClass(shortcutKeyEditButton, 'editSelection', 'onSelection')
@@ -329,134 +352,118 @@ const opt = {
                                 setEvent(confirmEditedSettingsButton, 'click', confirmEditedPropertiesAndSaveData)
 
                                 function closeEditShortcutSettings() {
+                                    playSoundEffect('click')
                                     shortcutSelectionEnabled = false
                                     document.removeEventListener('keypress', keyShortcutTracker)
-
-                                    // editShortcutSettingsDialog.style.display = 'none'
-                                    // editShortcutSettingsDialog.close()
                                     document.body.removeChild(editShortcutSettingsDialog)
-
-                                    console.log("Close hogya bhaii!!!!!!!!!!!!!");
                                 }
 
                                 const closeEditShortcutSettingsButton = qS('.closeEditShortcutSettingsButton', editShortcutSettingsDialog)
                                 setEvent(closeEditShortcutSettingsButton, 'click', closeEditShortcutSettings)
 
 
-                                // editShortcutSettingsDialog.style.display = 'flex'
                                 document.body.appendChild(editShortcutSettingsDialog)
                                 editShortcutSettingsDialog.showModal()
                             })
 
-                            function confirmationDialog(confirmationText) {
+                            // function confirmationDialog(confirmationText) {
 
-                                return new Promise((resolve, reject) => {
-                                    const dialogElementData = {
-                                        tagName: "dialog",
-                                        attributes: {
-                                            classes: ['confirmationDialog'],
-                                            // id: undefined,
-                                            // otherAttributes: []
-                                        },
-                                        // textContent: "No",
-                                        innerHTML: `
-                                        <div class="closeConfirmationDialogButton-wrapper">
-                                            <button class="closeConfirmationDialogButton actionButton">
-                                                <i class="fa-close fa-solid"></i>
-                                            </button>
-                                        </div>
+                            //     return new Promise((resolve, reject) => {
+                            //         const dialogElementData = {
+                            //             tagName: "dialog",
+                            //             attributes: {
+                            //                 classes: ['confirmationDialog'],
+                            //                 // id: undefined,
+                            //                 // otherAttributes: []
+                            //             },
+                            //             // textContent: "No",
+                            //             innerHTML: `
+                            //             <div class="closeConfirmationDialogButton-wrapper">
+                            //                 <button class="closeConfirmationDialogButton actionButton">
+                            //                     <i class="fa-close fa-solid"></i>
+                            //                 </button>
+                            //             </div>
 
-                                        <div class="confirmationTextSpan-wrapper">
-                                            <span class="confirmationTextSpan">${confirmationText}</span>
-                                        </div>
-                                        <div class="buttons-wrapper">
-                                            <button class="confirmationButton greenButtonFilled">Yes</button>
-                                            <button class="notConfirmButton redButtonFilled">No</button>
-                                        </div>
-                                        `,
-                                        // childElements: [confirmationTextSpan, greenButton, redButton]
+                            //             <div class="confirmationTextSpan-wrapper">
+                            //                 <span class="confirmationTextSpan">${confirmationText}</span>
+                            //             </div>
+                            //             <div class="buttons-wrapper">
+                            //                 <button class="confirmationButton greenButtonFilled">Yes</button>
+                            //                 <button class="notConfirmButton redButtonFilled">No</button>
+                            //             </div>
+                            //             `,
+                            //             // childElements: [confirmationTextSpan, greenButton, redButton]
 
-                                    }
-                                    const dialogElement = elementCreator(dialogElementData)
+                            //         }
+                            //         const dialogElement = elementCreator(dialogElementData)
 
-                                    function closeDialog(resolverValue) {
-                                        document.body.removeChild(dialogElement)
-                                        resolve(resolverValue)
-                                    }
+                            //         function closeDialog(resolverValue) {
+                            //             document.body.removeChild(dialogElement)
+                            //             resolve(resolverValue)
+                            //         }
 
-                                    dialogElement.querySelector('.closeConfirmationDialogButton').addEventListener('click', () => {
-                                        closeDialog(false)
-                                    })
-                                    dialogElement.querySelector('.confirmationButton').addEventListener('click', () => {
-                                        closeDialog(true)
-                                    })
-                                    dialogElement.querySelector('.notConfirmButton').addEventListener('click', () => {
-                                        closeDialog(false)
-                                    })
-                                    document.body.appendChild(dialogElement)
-                                    dialogElement.showModal()
+                            //         dialogElement.querySelector('.closeConfirmationDialogButton').addEventListener('click', () => {
+                            //             closeDialog(false)
+                            //         })
+                            //         dialogElement.querySelector('.confirmationButton').addEventListener('click', () => {
+                            //             closeDialog(true)
+                            //         })
+                            //         dialogElement.querySelector('.notConfirmButton').addEventListener('click', () => {
+                            //             closeDialog(false)
+                            //         })
+                            //         document.body.appendChild(dialogElement)
+                            //         dialogElement.showModal()
 
-                                })
-                            }
+                            //     })
+                            // }
 
                             // ------------------------- Delete Shortcut Settings Dialog Opener -------------------------
                             const deleteShortcutButton = qS('.deleteShortcutButton', shortcutSettingsWrapper)
                             setEvent(deleteShortcutButton, 'click', async () => {
-                                if (await confirmationDialog("Are you sure you want to delete the shortcut?")) {
-                                    // console.log("Karoo vroo");
+                                playSoundEffect('click', 1)
+
+                                if (await confirmationDialogOpener("Are you sure you want to delete the shortcut?")) {
 
                                     delete opt.completeData.websitesData[url].shortcuts[shortcutKey]
                                     await setStorage({ ...opt.completeData })
 
                                     if (isObjEmpty(opt.completeData.websitesData[url].shortcuts)) {
-                                        // opt.updateDOM 
-
                                         console.log("Delete button clicked");
-                                        confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response => {
-                                            if (response) {
-                                                opt.deleteWebsite(url)
-                                                opt.currentState.websiteSelected = null
-                                                opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
-                                            }
-
-                                        })
-                                        
+                                        if (await confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`)) {
+                                            opt.deleteWebsite(url)
+                                            opt.currentState.websiteSelected = null
+                                            opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
+                                        }
                                     }
-                                    else{
+                                    else {
                                         domUpdaterFunctions.actionFuncs.loadShortcuts(websiteShortcuts)
 
                                     }
+
                                 }
+                                playSoundEffect('click', 1)
                             })
 
+                            setEvent(shortcutSettingsWrapper, 'mouseenter', () => {
+
+                                // console.log(shortcutSettingsWrapper.classList.contains('hovered'));
+                                if (shortcutSettingsWrapper.classList.contains('hovered')) {
+                                    shortcutSettingsWrapper.classList.remove('hovered')
+                                }
+                                playSoundEffect('hover')
+                            })
 
                             shortcutSettingsWrapper.id = shortcutKey
+                            qSA('button', shortcutSettingsWrapper).forEach((button) => {
+                                setEvent(button, 'click', () => { playSoundEffect('click') })
+                            })
+
                             shortcutsListWrapper.appendChild(shortcutSettingsWrapper)
 
 
-                            // qSA('button:not(.backToWebsitesListButton)', shortcutSettingsWrapper).forEach((button) => {
-                            //     // console.log(button);
-                            //     setEvent(button, 'click', () => { playSoundEffect('click', 0.5) })
-                            // })
 
                         }
                     }
-
-                    const hoverAudio = new Audio('../assets/quick_bass_effect2.mp3')
-                    qSA('.shortcutSettings-wrapper').forEach((shortcutSettingsWrapper) => {
-                        setEvent(shortcutSettingsWrapper, 'mouseenter', () => {
-
-                            // console.log(shortcutSettingsWrapper.classList.contains('hovered'));
-                            if (shortcutSettingsWrapper.classList.contains('hovered')) {
-                                shortcutSettingsWrapper.classList.remove('hovered')
-                                
-                            }
-                            
-                                hoverAudio.currentTime = 0; // Reset the audio to the beginning
-                                hoverAudio.volume = 1
-                                hoverAudio.play(); // Play the audio file
-                        })
-                    })
                 },
 
                 openWebsiteSettings: (url) => {
@@ -486,15 +493,14 @@ const opt = {
                     // Removing existing event listeners
                     let deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
                     let toggleSwitchInput = qS('.disableWebsiteToggle-wrapper .toggleSwitchInput')
+                    let backToWebsitesListButton = qS('.backToWebsitesListButton')
 
-
-
-
-                    removeAllEventListenersOfElements([deleteWebsiteButton, toggleSwitchInput])
+                    removeAllEventListenersOfElements([deleteWebsiteButton, toggleSwitchInput, backToWebsitesListButton])
 
                     // Delete a website
                     deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
                     async function deleteWebsiteButtonFunction() {
+                        playSoundEffect('click')
                         console.log("Delete button clicked");
                         confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response => {
                             if (response) {
@@ -503,6 +509,7 @@ const opt = {
                                 opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
                             }
 
+                            playSoundEffect('click')
                         })
 
                     }
@@ -517,9 +524,11 @@ const opt = {
                     async function toggleSwitchInputFunction(e) {
                         if (e.target.checked) {
                             console.log('Website Disabled');
+                            playSoundEffect('switchOff')
                             opt.completeData.websitesData[url].settings.enabled = false
                         } else {
                             console.log('Website Enabled');
+                            playSoundEffect('switchOn')
                             opt.completeData.websitesData[url].settings.enabled = true
                         }
                         await setStorage({ ...opt.completeData })
@@ -529,8 +538,9 @@ const opt = {
 
 
                     // Back Button
-                    const backToWebsitesListButton = qS('.backToWebsitesListButton')
+                    backToWebsitesListButton = qS('.backToWebsitesListButton')
                     backToWebsitesListButton.addEventListener('click', (e) => {
+                        playSoundEffect('click', 0.5)
                         domUpdaterFunctions.actionFuncs.closeWebsiteSettingsAndBackToWebsitesList()
                     })
 
@@ -650,15 +660,16 @@ const opt = {
                         urlWrapperDiv.setAttribute('data-url', websiteURL)
 
                         urlWrapperDiv.addEventListener('click', (e) => {
+                            playSoundEffect('click', 1)
                             domUpdaterFunctions.actionFuncs.openWebsiteSettings(websiteURL)
 
                         })
-                        // urlWrapperDiv.addEventListener('mouseenter', (e) => {
-                        //     playSoundEffect('hover')
-                        // })
+                        urlWrapperDiv.addEventListener('mouseenter', (e) => {
+                            playSoundEffect('hover')
+                        })
                         urlsListWrapper.id = websiteURL
 
-                        
+
                         urlsListWrapper.appendChild(urlWrapperNode)
 
                     })
@@ -666,31 +677,62 @@ const opt = {
                 },
 
                 group2Activated: () => {
-                    let toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
-                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), toggleSwitchInput])
+                    let disableEverywhereToggle = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
+                    let disableSoundToggle = qS('.disableSoundToggle-wrapper .toggleSwitchInput')
+
+                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), disableEverywhereToggle, disableSoundToggle])
 
 
 
                     // ------------------------- Enable/Disable Website -------------------------
-                    toggleSwitchInput = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
-                    toggleSwitchInput.checked = !opt.completeData.globalSettings.extensionEnabled
-                    toggleSwitchInput.addEventListener('change', async (e) => {
+                    disableEverywhereToggle = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
+                    disableEverywhereToggle.checked = !opt.completeData.globalSettings.extensionEnabled
+                    disableEverywhereToggle.addEventListener('change', async (e) => {
                         if (e.target.checked) {
                             console.log('Extension Disabled');
                             opt.completeData.globalSettings.extensionEnabled = false
+                            playSoundEffect('switchOff')
                         } else {
                             console.log('Extension Enabled');
+                            playSoundEffect('switchOn')
                             opt.completeData.globalSettings.extensionEnabled = true
                         }
                         await setStorage({ ...opt.completeData })
 
                     })
 
+                    // ------------------------- Enable/Disable Sounds -------------------------
+                    disableSoundToggle = qS('.disableSoundToggle-wrapper .toggleSwitchInput')
+                    disableSoundToggle.checked = !opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled
+                    // console.log(opt.globalSettings.optionsPageSettings);
+                    console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
+
+                    console.log(opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
+                    disableSoundToggle.addEventListener('change', async (e) => {
+                        if (e.target.checked) {
+                            console.log('Sounds Disabled');
+                            playSoundEffect('switchOff')
+                            opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = false
+                        } else {
+                            console.log('Sounds Enabled');
+                            opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = true
+                        }
+                        await setStorage({ ...opt.completeData })
+                        if (opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = true) {
+                            playSoundEffect('switchOn')
+
+                        }
+                        console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
+
+                    })
+
                     // Clear All Data Button
                     setEvent(qS('.clearAllDataButton'), 'click', async (e) => {
+                        playSoundEffect('click')
                         if (await confirmationDialogOpener('Warning: Deleting all data. Are you sure you want to proceed?')) {
                             opt.clearAllData()
                         }
+                        playSoundEffect('click')
 
                     })
 
@@ -715,9 +757,7 @@ const opt = {
                         opt.currentState.activeGroup = groupID
                         opt.updateDOM('changeActiveGroup')
 
-                        selectAudio.currentTime = 0; // Reset the audio to the beginning
-                        selectAudio.volume = .5
-                        selectAudio.play(); // Play the audio file
+                        playSoundEffect('select', .5)
                     })
                 })
                 opt.currentState.activeGroup = 'g1'
@@ -776,54 +816,8 @@ const opt = {
                     const affectAmount = 0.45
 
                     if (ceilingLightWrapper.classList.contains('rightLight-wrapper')) {
-                        if (opt.currentState.lights.rightCeilingLight) {
-                            opt.currentState.lights.rightCeilingLight = false
-                            rmClass(ceilingLightWrapper, ['active'])
-                            opt.currentState.lights.overlayOpacity += affectAmount
-                            // playSoundEffect('lightsOff', 0.5, 'right')
-
-
-
-                            audioElementSwitchOff.currentTime = 0; // Reset the audio to the beginning
-                            audioElementSwitchOff.volume = .5
-                            audioElementSwitchOff.play(); // Play the audio file
-                        }
-                        else {
-                            opt.currentState.lights.rightCeilingLight = true
-                            addClass(ceilingLightWrapper, ['active'])
-                            opt.currentState.lights.overlayOpacity -= affectAmount
-                            // playSoundEffect('lightsOn', 0.5, 'right')
-
-                            audioElementSwitchOn.currentTime = 0; // Reset the audio to the beginning
-                            audioElementSwitchOn.volume = .5
-                            audioElementSwitchOn.play(); // Play the audio file
-                        }
-                    }
-                    else {
-                        if (opt.currentState.lights.leftCeilingLight) {
-                            opt.currentState.lights.leftCeilingLight = false
-                            rmClass(ceilingLightWrapper, ['active'])
-                            opt.currentState.lights.overlayOpacity += affectAmount
-                            // playSoundEffect('lightsOff', 0.5, 'left')
-
-                            audioElementSwitchOff.currentTime = 0; // Reset the audio to the beginning
-                            audioElementSwitchOff.volume = .5
-                            audioElementSwitchOff.play(); // Play the audio file
-
-                        }
-                        else {
-                            opt.currentState.lights.leftCeilingLight = true
-                            addClass(ceilingLightWrapper, ['active'])
-                            opt.currentState.lights.overlayOpacity -= affectAmount
-                            // playSoundEffect('lightsOn', 0.5, 'left')
-
-
-                            audioElementSwitchOn.currentTime = 0; // Reset the audio to the beginning
-                            audioElementSwitchOn.volume = .5
-                            audioElementSwitchOn.play(); // Play the audio file
-                        }
-                    }
-                    // lightAffectedElementsStyleUpdater()                    
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
                 }
                 qSA('.ceilingLight-wrapper').forEach(ceilingLightWrapper => {
                     setEvent(ceilingLightWrapper, 'click', () => {

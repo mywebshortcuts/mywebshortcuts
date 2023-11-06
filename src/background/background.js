@@ -11,7 +11,7 @@ const bg = {
         globalSettings: {
             extensionEnabled: true,
             darkMode: true,
-
+                optionsPageSoundsEnabled: true,
         }
     },
 
