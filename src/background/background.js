@@ -3,6 +3,9 @@
 import { getCompleteData, getStorage, isObjEmpty, sendMsg, setStorage } from '../modules/quickMethods';
 import setter from '../scripts/setter?script'
 
+// import '../scripts/styles/root.css'
+// import '../scripts/styles/keySelector.css'
+// import '../scripts/styles/elementSelector.css'
 
 const bg = {
     completeData: {
@@ -11,15 +14,15 @@ const bg = {
         globalSettings: {
             extensionEnabled: true,
             darkMode: true,
-            optionsPageSettings:{
+            optionsPageSettings: {
                 optionsPageSoundsEnabled: true,
-                optionsPageLights:{overlayOpactiy:0, left:true, right:true}
+                optionsPageLights: { overlayOpactiy: 0, left: true, right: true }
             },
         }
     },
 
-    currentState:{
-        selectorEnabledTabsIDArray:[],
+    currentState: {
+        selectorEnabledTabsIDArray: [],
     },
 
 
@@ -27,13 +30,16 @@ const bg = {
         chrome.tabs.sendMessage(tab.id, { action: "turnOffSelector" })
     },
 
-    turnOnSelector: function (tab) {
+    turnOnSelector: function (tabID) {
+        // chrome.scripting.insertCSS({
+        //     target: { tabId: tabID }, // Specify the tab where you want to inject CSS
+        //     files: ["../scripts/styles/root.css", "../scripts/styles/keySelector.css", "../scripts/styles/elementSelector.css"],     // Specify the CSS file(s) to inject
+        // })
         chrome.scripting.executeScript({
-            target: { tabId: tab.id },
+            target: { tabId: tabID },
             files: [setter]
         })
-
-        chrome.tabs.sendMessage(tab.id, { action: "turnOnSelector" });
+        chrome.tabs.sendMessage(tabID, { action: "turnOnSelector" });
     },
 
     getCompleteDataInBackground: async function () {
@@ -41,9 +47,9 @@ const bg = {
         // console.log(data);
         if (isObjEmpty(data)) {
             // console.log(data);
-            await setStorage({...bg.completeData})
+            await setStorage({ ...bg.completeData })
         }
-        else{
+        else {
             bg.completeData = data
         }
     },
@@ -80,7 +86,7 @@ const bg = {
                 console.log("selector enabled");
                 console.log(request);
                 console.log(sender);
-                
+
                 bg.currentState.selectorEnabledTabsIDArray.push(sender.tab.id)
 
             }
@@ -88,9 +94,9 @@ const bg = {
                 console.log("Spreading");
                 await chrome.tabs.sendMessage(sender.tab.id, request);
             }
-            
+
             if (request.msg = "sendCompleteData") {
-                console.log("Something asked for data: ",bg.completeData);
+                console.log("Something asked for data: ", bg.completeData);
                 await bg.onDataUpdate()
                 await sendResponse(bg.completeData)
             }
@@ -99,7 +105,7 @@ const bg = {
             }
             else if (request.action == "turnOnSelector") {
                 if (!bg.currentState.selectorEnabledTabsIDArray.includes(request.tab.id)) {
-                    bg.turnOnSelector(request.tab)
+                    bg.turnOnSelector(request.tab.id)
                 }
             }
         }
@@ -111,5 +117,25 @@ const bg = {
 chrome.storage.onChanged.addListener(async (changes) => {
     await bg.onDataUpdate()
 })
+chrome.commands.onCommand.addListener(async (command) => {
+    console.log(`Command: ${command}`);
+    if (command = "startSelection") {
 
+        await chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            if (tabs && tabs[0]) {
+                let currentTab = tabs[0];
+                // console.log(currentTab);
+                // let url = (currentTab.url)
+
+                if (!bg.currentState.selectorEnabledTabsIDArray.includes(currentTab.id)) {
+                    bg.turnOnSelector(currentTab.id)
+                }
+
+            }
+        })
+
+        
+
+    }
+});
 bg.init()

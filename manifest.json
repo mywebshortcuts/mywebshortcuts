@@ -50,6 +50,15 @@
         ]
     }
     ],
+    "commands": {
+        "startSelection": {
+            "suggested_key": {
+                "default": "Ctrl+Shift+Q",
+                "mac": "Command+Shift+Q"
+            },
+            "description": "Start selection on current page."
+        }
+    },
     "options_page": "src/options/options.html",
     "permissions": [
         "tabs",
