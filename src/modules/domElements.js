@@ -48,6 +48,12 @@ export function confirmationDialogOpener(confirmationText) {
         dialogElement.querySelector('.notConfirmButton').addEventListener('click', () => {
             closeDialog(false)
         })
+
+        window.addEventListener('keydown', (e)=>{
+            if (e.key=="Escape") {
+                closeDialog(false)
+            }
+        })
         document.body.appendChild(dialogElement)
         dialogElement.showModal()
 
