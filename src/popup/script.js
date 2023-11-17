@@ -32,8 +32,12 @@ const pop = {
 
     },
 
-    openOptionsPage: () => {
-        chrome.runtime.openOptionsPage();
+    openOptionsPage: (e) => {
+        pop.playSoundEffect('click2')
+        e.srcElement.textContent = "Opening Options Page..."
+        setTimeout(() => {
+            chrome.runtime.openOptionsPage();
+        }, 300);
     },
 
     updateData: async () => {
@@ -110,6 +114,25 @@ const pop = {
     },
 
 
+    prevAudio: '',
+    playSoundEffect: function (soundEffectName = 'click', volume = 1) {
+        if (!pop.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
+            return
+        }
+        let audio;
+
+        if (pop.prevAudio && audio.src == pop.prevAudio.src) {
+            audio = pop.prevAudio
+        }
+        else {
+            let audioFileLink = chrome.runtime.getURL(`src/assets/sounds/${soundEffectName}.mp3`);
+            audio = new Audio(audioFileLink)
+        }
+        audio.currentTime = 0; // Reset the audio to the beginning
+        audio.volume = volume
+        audio.play(); // Play the audio file
+    },
+
 
     createShortcutDivs: () => {
         const templateElement = document.querySelector('.shortcutDivTemplate')
@@ -167,6 +190,10 @@ const pop = {
                     chrome.tabs.create({ url: shortcutSettingsURL }, (newTab) => {
                         console.log("New tab created with ID:", newTab.id);
                     });
+                })
+
+                shortcutDivElement.addEventListener('mouseenter',(e)=>{
+                    pop.playSoundEffect('hover')
                 })
 
                 shortcutsListDiv.appendChild(shortcutDiv)
@@ -237,6 +264,19 @@ const pop = {
 
         setEvent(qS('.disableEverywhereToggle-wrapper .toggleSwitchInput'), "change", pop.enableDisableEverwhere)
         setEvent(qS('.disableWebsiteToggle-wrapper .toggleSwitchInput'), "change", pop.enableDisableForWebsite)
+
+        qSA('.toggleSwitchInput').forEach(toggleSwitchInput=>{
+            toggleSwitchInput.addEventListener('change', (e) => {
+                if (e.srcElement.checked) {
+                    pop.playSoundEffect('switchOn')
+                }
+                else{
+                    pop.playSoundEffect('switchOff')
+                }
+            })
+
+        })
+
 
         const openOptionsButton = document.querySelector('.openOptionsButton');
 

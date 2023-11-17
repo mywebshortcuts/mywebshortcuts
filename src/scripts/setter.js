@@ -265,7 +265,7 @@ const mws = {
                     mws.enableNameSetting()
 
                     mws.currentState.keyboardShortcutSelectionOn = false;
-
+                    mws.playSoundEffect('keyAccepted')
                 }
                 else{
                     addClass(qS('.mws-selectedShortcutKBD'), ['shortcutExists'])
@@ -297,9 +297,11 @@ const mws = {
                         window.addEventListener('mouseover', mws.addRemoveborder);
                         mws.currentState.elementSelectionPaused = false
                         qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
+                        mws.playSoundEffect('unpause', 0.2)
 
                     }
                     else {
+                        mws.playSoundEffect('pause', 0.2)
                         window.removeEventListener('mouseover', mws.addRemoveborder);
                         mws.currentState.elementSelectionPaused = true
                         qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
@@ -402,6 +404,25 @@ const mws = {
 
 
 
+    prevAudio: '',
+    playSoundEffect: function (soundEffectName = 'click', volume = 1) {
+        if (!mws.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
+            return
+        }
+        let audio;
+
+        if (mws.prevAudio && audio.src == mws.prevAudio.src) {
+            audio = mws.prevAudio
+        }
+        else {
+            let audioFileLink = chrome.runtime.getURL(`src/assets/sounds/${soundEffectName}.mp3`);
+            audio = new Audio(audioFileLink)
+        }
+        audio.currentTime = 0; // Reset the audio to the beginning
+        audio.volume = volume
+        audio.play(); // Play the audio file
+    },
+
     openKeyboardShortcutSelectionDialog: async function () {
         const el = mws.currentElement
 
@@ -429,6 +450,24 @@ const mws = {
         let dialogElement = elementCreator(dialogElementData)
         mws.addClassToChildElements(dialogElement, 'mws-element');
 
+
+        qSA('button', dialogElement).forEach((buttonElement) => {
+            buttonElement.addEventListener('click', () => {
+                mws.playSoundEffect('click')
+            })
+        })
+
+
+        qSA('select', dialogElement).forEach((selectTag) => {
+            selectTag.addEventListener('mouseenter', () => {
+                if (!selectTag.disabled) {
+                    mws.playSoundEffect('hover')
+                }
+            })
+        })
+
+
+
         document.body.appendChild(dialogElement)
 
         mws.turnOnKeyboardEvents()
@@ -443,6 +482,7 @@ const mws = {
                 rmClass(qS('.mws-selectedShortcutKBD'), ['active'])
             }
             else {
+                mws.playSoundEffect('enterKey')
                 addClass(qS('.mws-selectedShortcutKBD'), ['active'])
                 switchClass(selectionDoneButton, 'editSelection', 'onSelection')
                 mws.disableNameSetting()
@@ -647,27 +687,45 @@ const mws = {
 
         mws.addClassToChildElements(floatingDiv, 'mws-element');
 
+
+
+        qSA('select', floatingDiv).forEach((selectTag) => {
+            selectTag.addEventListener('mouseenter', () => {
+                mws.playSoundEffect('hover')
+            })
+        })
+
+
+
+
+        qSA('button', floatingDiv).forEach((button) => {
+            button.addEventListener('click', () => {
+                mws.playSoundEffect('click')
+            })
+        })
+
+
+
+
         document.body.appendChild(floatingDiv)
 
         mws.makeElementDraggable(floatingDiv)
 
         mws.currentState.elementSelectorOpen = true
 
-        function enableDisableElementSelection() {
-            if (mws.currentState.elementSelectionOn) {
-                // mws.currentState.elementSelectionOn = false
-                // setTextContent(qS('.mws-elementSelectionEnableDisableButton'), "Off")
-                mws.switchOffSelector()
-            }
-            else {
-                // setTextContent(qS('.mws-elementSelectionEnableDisableButton'), "On")
-                // mws.currentState.elementSelectionOn = true
-                mws.switchOnSelector()
-            }
-            // setTextContent(qS('.mws-elementSelectionEnableDisableButton'), mws.currentState.elementSelectionOn ? "On" : "Off")
-
-        }
         setEvent(qS('.mws-toggleSwitchInput'), 'change', mws.switchSelector)
+
+
+        qSA('.mws-toggleSwitchInput', floatingDiv).forEach((switchInputElement) => {
+            switchInputElement.addEventListener('change', (e) => {
+                if (e.srcElement.checked) {
+                    mws.playSoundEffect('switchOn')
+                }
+                else{
+                    mws.playSoundEffect('switchOff')
+                }
+            })
+        })
 
         function closeElementSelectorAndTurnOffElementSelection() {
             mws.turnOffEverything()
