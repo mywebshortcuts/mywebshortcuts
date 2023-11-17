@@ -36,19 +36,25 @@
         }
     ],
     "web_accessible_resources": [
-    {
-        "resources": [
-            "src/assets/font-awesome/webfonts/fa-solid-900.woff2",
-            "src/assets/font-awesome/css/fontawesome.css",
-            "src/assets/font-awesome/css/solid.css",
-            "src/assets/font-awesome/css/regular.css",
-            "src/scripts/elementSelector.html",
-            "src/scripts/keySelector.html"
-        ],
-        "matches": [
-            "<all_urls>"
-        ]
-    }
+        {
+            "resources": [
+                "src/assets/font-awesome/webfonts/fa-solid-900.woff2",
+                "src/assets/font-awesome/webfonts/fa-regular-400.woff2",
+                "src/assets/font-awesome/css/fontawesome.css",
+                "src/assets/font-awesome/css/solid.css",
+                "src/assets/font-awesome/css/regular.css",
+                "src/assets/inter/Inter-Regular.woff",
+                "src/assets/inter/Inter-Regular.woff2",
+                "src/scripts/elementSelector.html",
+                "src/scripts/keySelector.html",
+                "src/options/editShortcutDialog.html",
+                "src/scripts/styles/*",
+                "src/assets/sounds/*"
+            ],
+            "matches": [
+                "<all_urls>"
+            ]
+        }
     ],
     "commands": {
         "startSelection": {
