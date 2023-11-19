@@ -1,13 +1,7 @@
 @font-face {
-	font-family: 'Grandstander';
-	src: url('./assets/grandstander_font/Grandstander-VariableFont_wght.ttf')
-		format('truetype');
-}
-
-@font-face {
 	font-family: 'Inter';
-	src: url('../assets/inter/Inter-Regular.woff2') format('woff2'),
-		url('../assets/inter/Inter-Regular.woff') format('woff');
+	src: url('assets/inter/Inter-Regular.woff2') format('woff2'),
+		url('assets/inter/Inter-Regular.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
@@ -83,6 +77,12 @@
 }
 ::-webkit-scrollbar-thumb:hover {
 	background: rgb(93, 128, 151);
+}
+
+
+::selection{
+	color: var(--light-green);
+	background-color: var(--black);
 }
 
 body {

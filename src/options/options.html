@@ -1,278 +1,393 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- <link rel="stylesheet" href="../forExtensionPages.css">
-    <link rel="stylesheet" href="./style.css"> -->
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0" />
 
-		<title>My Web Shortcuts | Options ⚙️</title>
-	</head>
+	<title>My Web Shortcuts Options</title>
+</head>
 
-	<body>
-		<h1 class="settings-header-text">
-			<span><i class="fa-solid fa-sliders"></i></span>
-			My Web Shortcuts Settings
-		</h1>
+<body>
+	<h1 class="settings-header-text">
+		<span><i class="fa-solid fa-gear"></i></span>
+		My Web Shortcuts Settings
+	</h1>
 
-		<div class="settings">
-			<div class="settingsNavigation">
-				<button class="navigationButton active" data-groupID="g1">
-					Edit Shortcuts
-				</button>
-				<button class="navigationButton" data-groupID="g2">
-					Extension Settings
-				</button>
-				<button class="navigationButton" data-groupID="g3">About</button>
-			</div>
+	<div class="settings">
+		<div class="settingsNavigation">
+			<button class="navigationButton active"
+					data-groupID="g1" title="Websites & Shortcuts Settings">
+				<i class="fa-keyboard fa-solid"></i> Websites & Shortcuts
+			</button>
+			<button class="navigationButton"
+					data-groupID="g2" title="Global Settings">
+				<i class="fa-globe fa-solid"></i> Global
+			</button>
+			<button class="navigationButton"
+					data-groupID="g3" title="More About Extension">
+				<i class="fa-info-circle fa-solid"></i> About Extension
+			</button>
+		</div>
 
-			<main>
-				<!-- ------------------------------------- GROUP 1 ------------------------------------- -->
-				<div class="settingsGroup active" id="g1">
-					<div class="searchBar-wrapper">
-						<input
-							class="searchURLInput"
-							type="text"
-							placeholder="Search URL" />
-					</div>
+		<main>
+			<!-- ------------------------------------- GROUP 1 ------------------------------------- -->
+			<div class="settingsGroup active"
+				 id="g1">
+				<div class="searchBar-wrapper">
+					<input class="searchURLInput"
+						   type="text"
+						   title="Search Website"
+						   placeholder="Search Website" />
+						   
+				</div>
 
-					<template class="urlWrapperTemplate">
-						<div class="url-wrapper" tabindex="0">
-							<span class="urlSpan">www.github.com/prakhartiwari0</span>
+				<template class="urlWrapperTemplate">
+					<div class="url-wrapper"
+						 tabindex="0">
+						<span class="urlSpan">www.github.com/prakhartiwari0</span>
+						<button class="openPagesListButton"
+								title="Show Pages List">
+							<i class="fa-angle-down fa-solid"></i>
+						</button>
+						<div class="subURLs-wrapper">
+							<ul class="subURLs-UnorderedList">
+								<!-- <li class="subURL-li">Sub URL</li> -->
+								<div class="noSubURL-wrapper">
+									<span class="noSubURLSpan">No Pages within...</span>
+								</div>
+							</ul>
 						</div>
-					</template>
-					<div class="urlsList-wrapper">
-
+					</div>
+				</template>
+				<div class="urlsList-wrapper">
+					<div class="noWebsiteAddedMessage-wrapper">
 						<div class="noWebsiteAddedMessage-wrapper">
 							<span class="noWebsiteAddedMessage">No Websites Added :&#40;</span>
 						</div>
-					</div>
-					<div class="websiteSettingsHeader">
-						<button class="backToWebsitesListButton">
-							<i class="fa-arrow-left fa-solid"></i>
-						</button>
-
-						<div class="urlHeading-wrapper">
-							<h1 class="urlHeading">www.github.com</h1>
+						<div class="helperVideo-wrapper">
+							<div class="helperText-wrapper">
+								<span class="helperText">Not sure how to add shortcuts? <br />Watch this video
+									tutorial <i class="fa-arrow-right fa-solid"></i></span>
+							</div>
+							<div class="helperYTvideo-wrapper">
+								<iframe src="https://www.youtube-nocookie.com/embed/x_fYfporwmA?si=Yi3sP1DtAhy40q-T&amp;controls=0"
+										title="YouTube video player"
+										frameborder="0"
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+										allowfullscreen></iframe>
+							</div>
 						</div>
 					</div>
+				</div>
+				<div class="websiteSettingsHeader">
+					<button class="backToWebsitesListButton" title="Back to Websites List">
+						<i class="fa-arrow-left fa-solid"></i>
+					</button>
 
+					<div class="urlHeading-wrapper">
+						<a class="urlHeading"
+						   target="_blank"
+						   title="www.github.com">www.github.com</a>
+					</div>
+				</div>
 
-					<div class="websiteSettingsDiv">
-
-						<div class="websiteSettingsContent-wrapper">
-						<div class="toggleWithText-wrapper">
-							<span class="disableWebsiteSpan">Disable for this Website</span>
+				<div class="websiteSettingsDiv">
+					<div class="websiteSettingsContent-wrapper">
+						<div class="toggleWithText-wrapper" title="Disable all shortcuts for domain">
+							<span class="disableWebsiteSpan">Disable Shortcuts for Domain</span>
 							<div class="disableWebsiteToggle-wrapper">
 								<label class="toggleSwitchLabel">
-									<input type="checkbox" class="toggleSwitchInput redToggle" />
+									<input type="checkbox"
+										   class="toggleSwitchInput redToggle" />
 									<span class="toggleSwitchSpan redToggle"></span>
 								</label>
 							</div>
 						</div>
 
-						<div
-							class="dangerButtonWithText-wrapper deleteWebsiteButtonWithText-wrapper">
+						<div class="dangerButtonWithText-wrapper deleteWebsiteButtonWithText-wrapper">
 							<p class="text">Delete this Website</p>
-							<button class="dangerButton deleteWebsiteButton redButton">
+							<button class="dangerButton deleteWebsiteButton redButton" title="Delete Website">
 								<i class="fa-solid fa-trash-can"></i>
 								<p>Delete</p>
 							</button>
 						</div>
 
 						<!-- <div class="shortcuts-wrapper"> -->
-							<div class="shortcutsListHeader-wrapper">
-								<h2 class="shortcutListHeading">
-									Shortcuts (<span class="numberOfShortcutsSpan"></span>)
-								</h2>
+						<div class="shortcutsListHeader-wrapper">
+							<h2 class="shortcutListHeading">
+								Shortcuts (<span class="numberOfShortcutsSpan"></span>)
+							</h2>
 
-								<div class="searchBar-wrapper">
-									<input
-										class="searchShortcutInput"
-										type="text"
-										placeholder="Search Shortcut" />
+							<div class="searchBar-wrapper">
+								<input class="searchShortcutInput"
+									   type="text"
+									   placeholder="Search Shortcut"
+									   title="Search Shortcut" />
+							</div>
+						</div>
+						<div class="shortcutsList-wrapper"></div>
+						<template class="shortcutSettingsWrapperTemplate">
+							<div class="shortcutSettings-wrapper"
+								 data-shortcutName="Home Tab"
+								 data-shortcutKey="K"
+								 data-shortcutAction="click"
+								 data-shortcutEnabled="true"
+								 tabindex="0">
+								<div class="shortcutName-wrapper">
+									<span class="shortcutNameSpan">Home Tab</span>
+								</div>
+
+								<div class="shortcutKey-wrapper">
+									<kbd tabindex="-1"
+										 class="shortcutKeyKbd">K</kbd>
+								</div>
+
+								<div class="disableShortcutToggle-wrapper" title="Enable/Disable Shortcut">
+									<label class="toggleSwitchLabel" title="Enable/Disable Shortcut">
+										<input checked
+											   type="checkbox"
+											   class="toggleSwitchInput greenToggle"  title="Enable/Disable Shortcut"/>
+										<span class="toggleSwitchSpan greenToggle"  title="Enable/Disable Shortcut"></span>
+									</label>
+								</div>
+
+								<div class="properties-wrapper">
+									<div class="urlType-wrapper" title="Type of URL">
+										URL Type:
+										<span class="urlTypeSpan">domainAndAllPages</span>
+									</div>
+									<div class="action-wrapper" title="Action">
+										Action:
+										<span class="actionSpan">click</span>
+									</div>
+								</div>
+
+								<div class="editDeleteButtons-wrapper">
+									<div class="editShortcutButton-wrapper">
+										<button class="editShortcutButton greenButtonFilled"
+												tabindex="0" title="Edit Shortcut">
+											<i class="fa-pencil fa-solid"></i>
+										</button>
+									</div>
+									<div class="deleteShortcutButton-wrapper">
+										<button class="deleteShortcutButton redButtonFilled"
+												tabindex="0" title="Delete Shortcut">
+											<i class="fa-trash fa-solid"></i>
+										</button>
+									</div>
 								</div>
 							</div>
-							<div class="shortcutsList-wrapper"></div>
-							<template class="shortcutSettingsWrapperTemplate">
-								<div
-									class="shortcutSettings-wrapper"
-									data-shortcutName="Home Tab"
-									data-shortcutKey="K"
-									data-shortcutAction="click"
-									data-shortcutEnabled="true">
-									<div class="shortcutName-wrapper">
-										<span class="shortcutNameSpan">Home Tab</span>
-									</div>
+						</template>
+					</div>
+				</div>
+			</div>
 
-									<div class="shortcutKey-wrapper">
-										<kbd tabindex="0" class="shortcutKeyKbd">K</kbd>
-									</div>
+			<!-- ------------------------------------- GROUP 2 ------------------------------------- -->
 
-									<div class="disableShortcutToggle-wrapper">
-										<label class="toggleSwitchLabel">
-											<input
-												checked
-												type="checkbox"
-												class="toggleSwitchInput greenToggle" />
-											<span class="toggleSwitchSpan greenToggle"></span>
-										</label>
-									</div>
-									<div class="editDeleteButtons-wrapper">
-										<div class="editShortcutButton-wrapper">
-											<button class="editShortcutButton greenButtonFilled">
-												<i class="fa-pencil fa-solid"></i>
-											</button>
-										</div>
-										<div class="deleteShortcutButton-wrapper">
-											<button class="deleteShortcutButton redButtonFilled">
-												<i class="fa-trash fa-solid"></i>
-											</button>
-										</div>
-									</div>
-								</div>
-							</template>
-						</div>
+			<div class="settingsGroup"
+				 id="g2">
+				<div class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper" title="Disable Extension Globally">
+					<span class="disableEverywhereSpan">Disable Extension Globally</span>
+					<div class="disableEverywhereToggle-wrapper">
+						<label class="toggleSwitchLabel">
+							<input type="checkbox"
+								   class="toggleSwitchInput redToggle" />
+							<span class="toggleSwitchSpan redToggle"></span>
+						</label>
+					</div>
+				</div>
+				<div class="toggleWithText-wrapper disableSoundToggleWithText-wrapper" title="Disable Sounds Globally">
+					<span class="disableSoundSpan">Disable Sounds Globally</span>
+					<div class="disableSoundToggle-wrapper">
+						<label class="toggleSwitchLabel">
+							<input type="checkbox"
+								   class="toggleSwitchInput redToggle" />
+							<span class="toggleSwitchSpan redToggle"></span>
+						</label>
 					</div>
 				</div>
 
-				<!-- ------------------------------------- GROUP 2 ------------------------------------- -->
-
-				<div class="settingsGroup" id="g2">
-
-					<div
-						class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper">
-						<span class="disableEverywhereSpan"
-							>Disable Extension Everywhere</span
-						>
-						<div class="disableEverywhereToggle-wrapper">
-							<label class="toggleSwitchLabel">
-								<input type="checkbox" class="toggleSwitchInput redToggle" />
-								<span class="toggleSwitchSpan redToggle"></span>
-							</label>
-						</div>
-					</div>
-					<div
-						class="toggleWithText-wrapper disableSoundToggleWithText-wrapper">
-						<span class="disableSoundSpan"
-							>Disable Sounds</span
-						>
-						<div class="disableSoundToggle-wrapper">
-							<label class="toggleSwitchLabel">
-								<input type="checkbox" class="toggleSwitchInput redToggle" />
-								<span class="toggleSwitchSpan redToggle"></span>
-							</label>
-						</div>
-					</div>
-
-					<div
-						class="dangerButtonWithText-wrapper clearAllDataButtonWithText-wrapper">
-						<p class="text">Delete all data</p>
-						<button class="dangerButton clearAllDataButton redButton">
-							<i class="fa-solid fa-trash-can"></i>
-							<p>Delete</p>
-						</button>
-					</div>
-
-
-				</div>
-
-				<!-- ------------------------------------- GROUP 3 ------------------------------------- -->
-
-				<div class="settingsGroup" id="g3">Group 3</div>
-			</main>
-		</div>
-
-		<footer>
-			<div class="links-wrapper">
-				<a href="#">Report an Issue</a>
-				<a href="#">GitHub Repo</a>
-				<a href="#">Join Discord Server</a>
-			</div>
-		</footer>
-
-		<div class="animatedLogo-wrapper">
-			<img src="../assets/globe.png" alt="" class="animatedLogo globe" />
-			<img src="../assets/keyboard.png" alt="" class="animatedLogo keyboard" />
-		</div>
-
-		<div
-			class="ceilingLight-wrapper rightLight-wrapper"
-			title="Light (Click or Press l)"
-			tabindex="0">
-			<img src="../assets/ceiling.svg" alt="" class="ceilingBulb" />
-			<img src="../assets/circle_trans.png" alt="" class="circle" />
-		</div>
-
-		<div
-			class="ceilingLight-wrapper leftLight-wrapper"
-			title="Light (Click or Press l)"
-			tabindex="0">
-			<img src="../assets/ceiling.svg" alt="" class="ceilingBulb" />
-			<img src="../assets/circle_trans.png" alt="" class="circle" />
-		</div>
-
-		<div class="overlay"></div>
-		<!-- <dialog class="editShortcutSettingsDialog">
-			<div class="closeEditShortcutSettingsButton-wrapper">
-				<button class="closeEditShortcutSettingsButton actionButton">
-					<i class="fa-close fa-solid"></i>
-				</button>
-			</div>
-
-			<div class="shortnameEdit-wrapper">
-				<label for="shortcutNameEditInput" class="shortcutNameEditLabel"
-					>Shortcut Name</label
-				>
-				<input type="text" class="shortcutNameInput" id="shortcutNameInput" />
-			</div>
-
-			<div class="shortcutKeyEdit-wrapper">
-				<span class="shortcutKeyEditSpan">Edit Shortcut</span>
-				<kbd tabindex="0" class="shortcutKeyEditKbd">K</kbd>
-			</div>
-
-			<div class="selectAction-wrapper">
-				<label for="selectAction" class="selectActionLabel"
-					>Select Action on Shortcut Press</label
-				>
-				<div class="select-wrapper">
-					<select id="selectAction">
-						<option value="click">Click</option>
-						<option disabled value="focus">Focus</option>
-						<option disabled value="highlight">Highlight</option>
-						<option disabled value="scrollto">Scroll To</option>
-					</select>
-					<button class="selectArrowButton" tabindex="-1">
-						<i class="fa-angle-down fa-solid"></i>
+				<div class="dangerButtonWithText-wrapper clearAllDataButtonWithText-wrapper" title="Delete all the data">
+					<p class="text">Delete all data</p>
+					<button class="dangerButton clearAllDataButton redButton">
+						<i class="fa-solid fa-trash-can"></i>
+						<p>Delete</p>
 					</button>
 				</div>
 			</div>
 
-			<div class="confirmEditedSettingsButton-wrapper">
-				<button disabled class="confirmEditedSettingsButton greenButtonFilled">
-					Confirm <i class="fa-check fa-solid"></i>
-				</button>
-			</div>
-		</dialog> -->
+			<!-- ------------------------------------- GROUP 3 ------------------------------------- -->
 
-		<!-- <dialog class="confirmationDialog">
-			<div class="closeConfirmationDialogButton-wrapper">
-				<button class="closeConfirmationDialogButton actionButton">
-					<i class="fa-close fa-solid"></i>
-				</button>
+			<div class="settingsGroup"
+				 id="g3">
+				<div class="bannerImage-wrapper">
+					<!-- <img src="../assets/github_banner.png" alt="" class="bannerImage"> -->
+					<span class="mwsVersionSpan"
+						  title="Current Version 1.0.0">v1.0.0</span>
+				</div>
+				<div class="aboutScrollableArea">
+
+					<p class="aboutPara">
+						My Web Shortcuts is an open-source browser extension that lets you
+						create custom keyboard shortcuts in any website to click
+						<em>(or perform other actions)</em> on any element(s).
+					</p>
+					<p class="infoText">This extension is currently in it's early development phase, you may face a few bugs or lack of features.</p>
+					<!-- <div class="links-wrapper"> -->
+
+					<div class="usefulLinks-wrapper">
+
+						<h2 class="usefulLinksHeading">Useful Links</h2>
+
+						<div>
+
+							<div class="linkAndText-wrapper">
+								<span>Visit the Official Website</span>
+								<a href="https://www.mywebshortcuts.xyz/"
+								   class="websiteLink links"
+								   target="_blank"><i class="fa-globe fa-solid"></i> mywebshortcuts.xyz</a>
+							</div>
+						</div>
+
+						<div>
+							<div class="linkAndText-wrapper">
+								<span>This project is 100% free and open source, your support
+									will help us keep working on it &#128516;</span>
+								<a href="https://github.com/sponsors/prakhartiwari0"
+								   class="sponsorLink links"
+								   target="_blank"><i class="fa-hand-holding-dollar fa-solid"></i> Sponsor Project</a>
+							</div>
+						</div>
+
+						<div>
+							<div class="linkAndText-wrapper">
+								<span>Join the Discord server for updates, surveys, and support</span>
+								<a href="https://discord.gg/gYcptZAhPv"
+								   class="discordLink links"
+								   target="_blank"><i class="fa-discord fa-brands"></i> Discord Server</a>
+							</div>
+
+							<div class="linkAndText-wrapper">
+								<span>Tag us or <a href="https://twitter.com/prakhartiwari0" target="_blank">@Prakhartiwari0</a> on Twitter & share your review!</span>
+								<a href="https://twitter.com/mywebshortcuts"
+								   class="twitterLink links"
+								   target="_blank"><i class="fa-twitter fa-brands"></i> @mywebshortcuts</a>
+							</div>
+						</div>
+
+
+						<div class="linkAndText-wrapper">
+							<span>If you're interested to contribute to the project, here's the GitHub Repo</span>
+							<a href="https://github.com/prakhartiwari0/my-web-shortcuts"
+							   class="githubLink links"
+							   target="_blank"><i class="fa-github fa-brands"></i> GitHub</a>
+						</div>
+
+						<div>
+							<div class="linkAndText-wrapper">
+								<span>Found a Bug? Report it now!</span>
+								<a href="https://github.com/prakhartiwari0/my-web-shortcuts/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=%5BBUG%5D+"
+								   class="bugReportLink links"
+								   target="_blank"><i class="fa-bug fa-solid"></i> Bug Report</a>
+							</div>
+							<div class="linkAndText-wrapper">
+								<span>Want some feature? Request it and we shall add it if good enough</span>
+								<a href="https://github.com/prakhartiwari0/my-web-shortcuts/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=%5BFEATURE%5D+"
+								   class="featureRequestLink links"
+								   target="_blank"><i class="fa-circle-plus fa-solid"></i> Feature Request</a>
+							</div>
+						</div>
+					</div>
+
+					<!-- </div> -->
+				</div>
 			</div>
 
-			<div class="confirmationTextSpan-wrapper">
-				<span class="confirmationTextSpan">Are you sure you wanna delete the shortcut?</span>
-			</div>
-			<div class="buttons-wrapper">
-				<button class="confirmationButton greenButtonFilled">Yes</button>
-				<button class="notConfirmButton redButtonFilled">No</button>
-			</div>
-		</dialog> -->
-	</body>
+		</main>
+	</div>
 
-	<script src="script.js" type="module"></script>
+	<footer>
+		<span class="creatorText">A Creation of
+			<a href="https://www.heyprakhar.com/"
+			   target="_blank">Prakhar</a> & Contributors</span>
+		<span class="prakashhOSPText">&copy; 2023
+			<a href="https://github.com/prakashhtech"
+			   target="_blank">Prakashh Technologies</a>
+		</span>
+	</footer>
+
+	<div class="helpButton-wrapper">
+		<button class="helpButton" title="Help & Support"><i class="fa-question fa-solid"></i></button>
+	</div>
+
+	<dialog class="helpDialog">
+		<button class="closeHelpDialogButton actionButton"><i class="fa-close fa-solid"></i></button>
+
+
+		<h2>Help & Support <i class="fa-handshake-angle fa-solid"></i></h2>
+
+		<div class="links-wrapper">
+			<a href="https://www.youtube.com/playlist?list=PLfgTGKHKRdmg9jobp2McX4d_4Q7Nka3TX"
+			   class="youtubePlaylist links"
+			   target="_blank"><i class="fa-youtube fa-brands"></i> Tutorials</a>
+			<a href="https://www.mywebshortcuts.xyz/guide"
+			   class="usageGuide links"
+			   target="_blank"><i class="fa-book fa-solid"></i> Usage Guide</a>
+			<a href="https://www.mywebshortcuts.xyz#faqs"
+			   class="faqs links"
+			   target="_blank"><i class="fa-question fa-solid"></i> FAQs</a>
+		</div>
+
+		<div class="contactMail-wrapper">
+			<a href="mailto:contact@mywebshortcuts.xyz"
+			   class="email"
+			   target="_blank"><i class="fa-envelope fa-solid"></i> contact@mywebshortcuts.xyz</a>
+		</div>
+		<div class="discordServer-wrapper">
+			<a href="https://discord.gg/gYcptZAhPv"
+			   class="discordSupprtServerLink"
+			   target="_blank"><i class="fa-discord fa-brands"></i> Join Discord Server for Support</a>
+		</div>
+
+	</dialog>
+
+	<div class="animatedLogo-wrapper">
+		<img src="../assets/globe.png"
+			 alt=""
+			 class="animatedLogo globe" />
+		<img src="../assets/keyboard.png"
+			 alt=""
+			 class="animatedLogo keyboard" />
+	</div>
+
+	<div class="ceilingLight-wrapper rightLight-wrapper"
+		 title="Light (Click or Press l)"
+		 tabindex="0">
+		<img src="../assets/ceiling.svg"
+			 alt=""
+			 class="ceilingBulb" />
+		<img src="../assets/circle_trans.png"
+			 alt=""
+			 class="circle" />
+	</div>
+
+	<div class="ceilingLight-wrapper leftLight-wrapper"
+		 title="Light (Click or Press l)"
+		 tabindex="0">
+		<img src="../assets/ceiling.svg"
+			 alt=""
+			 class="ceilingBulb" />
+		<img src="../assets/circle_trans.png"
+			 alt=""
+			 class="circle" />
+	</div>
+
+	<div class="overlay"></div>
+</body>
+
+<script src="script.js"
+		type="module"></script>
+
 </html>

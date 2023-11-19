@@ -1,6 +1,6 @@
 
 import "../forExtensionPages.css"
-import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, rmEvent, isObjEmpty, getElemAt } from "../modules/quickMethods";
+import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, isObjEmpty, updateCSS } from "../modules/quickMethods";
 import "./style.css"
 
 // Import Font Awesome
@@ -10,7 +10,6 @@ import "../assets/font-awesome/css/brands.css"
 import "../assets/font-awesome/css/regular.css"
 
 
-import elementCreator from '../modules/elementCreator'
 import createElement from "../modules/elementCreator"
 
 import { confirmationDialogOpener } from '../modules/domElements'
@@ -36,6 +35,8 @@ const opt = {
     globalSettings: {},
 
     websitesList: [],
+
+    domainsAndTheirPages: {},
 
     clearAllData: () => {
         chrome.storage.local.clear(() => {
@@ -69,8 +70,9 @@ const opt = {
                 audio = prevAudio
             }
             else {
-                audio = new Audio(`../assets/${soundEffectName}.mp3`)
+                audio = new Audio(`../assets/sounds/${soundEffectName}.mp3`)
             }
+            console.log("Playing: ", soundEffectName);
 
             audio.currentTime = 0; // Reset the audio to the beginning
             audio.volume = volume
@@ -117,9 +119,24 @@ const opt = {
                     const shortcutSettingsWrapperTemplate = qS('.shortcutSettingsWrapperTemplate')
 
                     const url = opt.currentState.websiteSelected
+                    const urlObject = new URL(url)
 
                     for (const shortcutKey in websiteShortcuts) {
                         if (Object.hasOwnProperty.call(websiteShortcuts, shortcutKey)) {
+                            const urlType = websiteShortcuts[shortcutKey].properties.urlType
+                            console.log("urlType is:", urlType);
+                            if (urlObject.pathname == '/') {
+                                console.log("Its a domain");
+                            }
+                            else {
+                                console.log("its a page");
+                                if (urlType == "onlyDomain") {
+                                    continue
+
+                                }
+                            }
+
+
                             const shortcutKeyObject = websiteShortcuts[shortcutKey];
 
                             const repeatedHTML = shortcutSettingsWrapperTemplate.content.cloneNode(true)
@@ -134,6 +151,38 @@ const opt = {
 
                             qS('.shortcutNameSpan', shortcutSettingsWrapper).innerText = shortcutKeyObject.name
                             qS('.shortcutKeyKbd', shortcutSettingsWrapper).innerText = shortcutKey
+                            qS('.shortcutKeyKbd', shortcutSettingsWrapper).title = shortcutKey
+
+                            const urlTypeSpan = qS('.urlTypeSpan', shortcutSettingsWrapper)
+                            urlTypeSpan.innerText = shortcutKeyObject.properties.urlType
+                            
+                            const actionSpan = qS('.actionSpan', shortcutSettingsWrapper)
+                            actionSpan.innerText = shortcutKeyObject.properties.action
+                            if (shortcutKeyObject.properties.urlType == "domainAndAllPages") {
+                                urlTypeSpan.innerText = "Domain and all its pages"
+                                
+                            }
+                            else if (shortcutKeyObject.properties.urlType == "domainAndPage"){
+                                urlTypeSpan.innerText = "Domain and a page"
+                                
+                            }
+                            else if (shortcutKeyObject.properties.urlType == "onlyDomain"){
+                                urlTypeSpan.innerText = "Only Domain"
+                                
+                            }
+                            else if (shortcutKeyObject.properties.urlType == "onlyPage"){
+                                urlTypeSpan.innerText = "Only Page"
+                                
+                            }
+                            else if (shortcutKeyObject.properties.urlType == "fullPath"){
+                                urlTypeSpan.innerText = "Full Path"
+                                
+                            }
+                            else if (shortcutKeyObject.properties.urlType == "custom"){
+                                urlTypeSpan.innerText = "Custom"
+
+                            }
+
 
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).checked = shortcutKeyObject.enabled
 
@@ -159,18 +208,19 @@ const opt = {
                             let editedProperties = {
                                 key: null,
                                 name: null,
+                                action: null,
                             }
                             const editShortcutButton = qS('.editShortcutButton', shortcutSettingsWrapper)
                             setEvent(editShortcutButton, 'click', async () => {
 
                                 playSoundEffect('click', 1)
 
+                                // Creating Edit Shortcut Dialog Element
                                 const editShortcutDialogHTMLFileURL = chrome.runtime.getURL('src/options/editShortcutDialog.html');
                                 let editShortcutDialogInnerHTML = ``;
                                 await fetch(editShortcutDialogHTMLFileURL).then(response => response.text()).then(html => {
                                     editShortcutDialogInnerHTML = html
                                 });
-
                                 const dialogElementData = {
 
                                     tagName: "dialog",
@@ -179,8 +229,8 @@ const opt = {
                                     },
                                     innerHTML: editShortcutDialogInnerHTML,
                                 }
-
                                 let editShortcutSettingsDialog = createElement(dialogElementData)
+
 
                                 const shortcutNameInput = qS('.shortcutNameInput', editShortcutSettingsDialog)
                                 shortcutNameInput.value = shortcutKeyObject.name
@@ -190,13 +240,32 @@ const opt = {
 
                                 const shortcutKeyEditButton = qS('.shortcutSelectionDoneButton', editShortcutSettingsDialog)
 
+                                const shortcutActionSelect = qS('.actionSelect', editShortcutSettingsDialog)
+                                shortcutActionSelect.value = shortcutKeyObject.properties.action
+                                
+                                // const urlTypeSelect = qS('.urlTypeSelect', editShortcutSettingsDialog)
+                                // urlTypeSelect.value = shortcutKeyObject.properties.urlType
+
+                                // urlTypeSelect.addEventListener('change', (e) => {
+                                //     if (e.srcElement.value != shortcutKeyObject.properties.urlType) {
+                                //         console.log("Value changed");
+                                //         editedProperties.action = e.srcElement.value
+                                //     }
+                                //     else {
+                                //         editedProperties.action = null
+                                //     }
+                                //     changeEditedState()
+                                // })
+
+
+
 
                                 let propertiesEdited = false;
                                 let confirmEditedSettingsButton = qS('.confirmEditedSettingsButton', editShortcutSettingsDialog)
                                 confirmEditedSettingsButton.disabled = true
 
                                 function changeEditedState() {
-                                    if ((editedProperties.key || editedProperties.name) && !shortcutSelectionEnabled) {
+                                    if ((editedProperties.key || editedProperties.name || editedProperties.action) && !shortcutSelectionEnabled) {
                                         propertiesEdited = true;
                                         confirmEditedSettingsButton.disabled = false
                                     }
@@ -206,6 +275,7 @@ const opt = {
                                         confirmEditedSettingsButton.disabled = true
                                     }
                                 }
+                                
 
                                 setEvent(shortcutNameInput, 'keyup', () => {
                                     if (shortcutNameInput.value != shortcutKeyObject.name) {
@@ -237,11 +307,146 @@ const opt = {
                                         // If it's an Enter key
                                         // console.log(e);
                                         return
-
                                     }
-                                    let existingShortcutKeys = Object.keys(opt.websitesData[url].shortcuts)
+
+                                    console.log(keyCode);
+                                    console.log((keyCode >= 65 && keyCode <= 90));
+                                    console.log((keyCode >= 48 && keyCode <= 57));
+                                    console.log((keyCode >= 186 && keyCode <= 192));
+                                    console.log((keyCode >= 219 && keyCode <= 222));
+                                    if (
+                                        (keyCode >= 65 && keyCode <= 90) ||   // A-Z
+                                        (keyCode >= 48 && keyCode <= 57) ||   // 0-9
+                                        (keyCode >= 186 && keyCode <= 192) || // Special characters like ";", "=", ",", ".", "/", etc.
+                                        (keyCode >= 219 && keyCode <= 222)    // Punctuation characters like "[", "]", "\", and "'"
+                                    ) {
+                                    // It's a character key
+                                    console.log("It's a characterkey");
+
+                                    // This is an important part, we are going to extract all the shortcuts from the enabled urls or the same origin
+                                    // so that one is able to access all the shortcuts that are available for the current url, if it's matched.
+                                    // We will extract domain, page, full path (if hash & search params exist) and custom url shortcuts and merge them into 
+                                    // one object for the onShortcutClicker to access.
+
+                                    let allMatchedUrlsShortcutsObjects = []
+                                    let currentURLObject = new URL(url)
+
+                                    // Checking for Domain
+                                    if (opt.completeData.websitesData[currentURLObject.origin] && !isObjEmpty(opt.completeData.websitesData[currentURLObject.origin].shortcuts)) {
+
+                                        // If the current URL is NOT just the domain, simply add the shortcuts which have domainAndAllPages as their urlType
+                                        if (currentURLObject.pathname != '/') {
+
+                                            for (const key in opt.completeData.websitesData[currentURLObject.origin].shortcuts) {
+                                                if (Object.hasOwnProperty.call(opt.completeData.websitesData[currentURLObject.origin].shortcuts, key)) {
+                                                    const shortcutObject = opt.completeData.websitesData[currentURLObject.origin].shortcuts[key];
+                                                    if (shortcutObject.properties.urlType == "domainAndAllPages") {
+                                                        allMatchedUrlsShortcutsObjects[key] = shortcutObject
+                                                    }
+
+                                                }
+                                            }
+                                        }
+                                        // If the current URL is just the domain, add all shortcuts
+                                        else {
+
+                                            for (const key in opt.completeData.websitesData[currentURLObject.origin].shortcuts) {
+                                                if (Object.hasOwnProperty.call(opt.completeData.websitesData[currentURLObject.origin].shortcuts, key)) {
+                                                    const shortcutObject = opt.completeData.websitesData[currentURLObject.origin].shortcuts[key];
+                                                    allMatchedUrlsShortcutsObjects[key] = shortcutObject
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    for (let websiteURL in opt.completeData.websitesData) {
+
+                                        if (Object.hasOwnProperty.call(opt.completeData.websitesData, websiteURL)) {
+                                            websiteURL = websiteURL
+                                            const websiteData = opt.completeData.websitesData[websiteURL];
+                                            let urlObject = new URL(websiteURL)
+
+                                            // Check if the url is having the same origin, is enabled and is not just the origin
+                                            if (urlObject.origin == currentURLObject.origin && (urlObject.pathname != '/')) {
+
+                                                // Checking for Custom URLs
+                                                if (/~mws-[^~]+~/.test(websiteURL)) {
+                                                    let customURL = websiteURL
+
+                                                    let customURLRegex;
+                                                    // mws-end 
+                                                    let endTerm = "~mws-end~";
+                                                    if (customURL.includes(endTerm)) {
+                                                        let endIndex = customURL.indexOf(endTerm);
+                                                        customURL = customURL.substring(0, endIndex);
+                                                    }
+                                                    // mws-string 
+                                                    let stringTerm = "~mws-string~";
+                                                    if (customURL.includes(stringTerm)) {
+                                                        customURLRegex = customURL.replaceAll(stringTerm, '.*')
+                                                    }
+
+                                                    let regex = new RegExp('^' + customURLRegex + "$")
+
+                                                    let firstSlashIndex = customURL.lastIndexOf('/')
+                                                    console.log("Index of first slash: ", firstSlashIndex);
+                                                    let urlAfterFirstSlash = customURL.substring(firstSlashIndex, customURL.length)
+                                                    console.log("URL after the first url: ", urlAfterFirstSlash);
+
+
+                                                    if (regex.test(websiteURL)) {
+                                                        console.log(customURLRegex);
+                                                        console.log(regex);
+                                                        console.log("Matched URL:", websiteURL);
+
+                                                        // allMatchedUrlsShortcutsObjects.push({ ...opt.completeData.websitesData[websiteURL].shortcuts })
+                                                        // addWebsiteShortcuts = true
+
+                                                        if (!isObjEmpty(opt.completeData.websitesData[websiteURL].shortcuts)) {
+                                                            for (const key in opt.completeData.websitesData[websiteURL].shortcuts) {
+                                                                if (Object.hasOwnProperty.call(opt.completeData.websitesData[websiteURL].shortcuts, key)) {
+                                                                    const shortcutObject = opt.completeData.websitesData[websiteURL].shortcuts[key];
+                                                                }
+                                                            }
+                                                        }
+                                                        continue
+                                                    }
+
+                                                }
+
+                                                // Checking for Page
+                                                // console.log((currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
+                                                if (((currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, '')) && !(urlObject.hash || urlObject.search)) {
+                                                    if (!isObjEmpty(opt.completeData.websitesData[websiteURL].shortcuts)) {
+                                                        for (const key in opt.completeData.websitesData[websiteURL].shortcuts) {
+                                                            if (Object.hasOwnProperty.call(opt.completeData.websitesData[websiteURL].shortcuts, key)) {
+                                                                const shortcutObject = opt.completeData.websitesData[websiteURL].shortcuts[key];
+                                                                allMatchedUrlsShortcutsObjects[key] = shortcutObject
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                // Checking for Full Path
+                                                if ((urlObject.hash || urlObject.search) && (currentURLObject.href == urlObject.href)) {
+                                                    console.log("Full Path matches");
+                                                    if (!isObjEmpty(opt.completeData.websitesData[websiteURL].shortcuts)) {
+                                                        for (const key in opt.completeData.websitesData[websiteURL].shortcuts) {
+                                                            if (Object.hasOwnProperty.call(opt.completeData.websitesData[websiteURL].shortcuts, key)) {
+                                                                const shortcutObject = opt.completeData.websitesData[websiteURL].shortcuts[key];
+                                                                allMatchedUrlsShortcutsObjects[key] = shortcutObject
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+
+                                    // let existingShortcutKeys = Object.keys(opt.websitesData[url].shortcuts)
+                                    let existingShortcutKeys = Object.keys(allMatchedUrlsShortcutsObjects)
                                     let shortcutIndex = existingShortcutKeys.indexOf(shortcutKey);
                                     existingShortcutKeys.splice(shortcutIndex, 1);
+                                    console.log(existingShortcutKeys);
 
                                     shortcutKeyEditKbd.innerText = pressedKey
                                     if (existingShortcutKeys.includes(pressedKey)) {
@@ -261,97 +466,88 @@ const opt = {
                                     else {
                                         editedProperties.key = null
                                     }
+
+
                                     rmClass(shortcutKeyEditKbd, ['active'])
                                     shortcutSelectionEnabled = false
                                     // document.removeEventListener('keypress', keyShortcutTracker)
                                     switchClass(shortcutKeyEditButton, 'onSelection', 'editSelection')
                                     playSoundEffect('keyAccepted')
+                                    shortcutKeyEditKbd.focus() // Prevent focusing on Edit Shortcut button
                                     changeEditedState()
 
                                 }
-                                setEvent(shortcutKeyEditButton, 'click', (e) => {
+                                }
+
+                                function editShortcutButtonClicked() {
                                     playSoundEffect('enterKey')
                                     if (!shortcutSelectionEnabled) {
                                         shortcutSelectionEnabled = true
                                         switchClass(shortcutKeyEditButton, 'editSelection', 'onSelection')
                                         addClass(shortcutKeyEditKbd, ['active'])
 
-                                        document.addEventListener('keypress', keyShortcutTracker)
+                                        document.addEventListener('keydown', keyShortcutTracker)
                                     }
                                     else {
                                         // document.removeEventListener('keypress', keyShortcutTracker)
                                     }
+                                }
+                                setEvent(shortcutKeyEditButton, 'click', (e) => {
+                                    editShortcutButtonClicked(e)
                                     changeEditedState()
                                 })
 
+                                editShortcutSettingsDialog.addEventListener('keydown', (e) => {
+                                    if (e.key == 'Escape') {
+                                        closeEditShortcutSettings()
+                                    }
+                                    else if (e.key == 'Enter') {
+                                        if (!confirmEditedSettingsButton.disabled) {
+                                            confirmEditedPropertiesAndSaveData()
+                                        }
+                                    }
+                                })
+
                                 async function confirmEditedPropertiesAndSaveData() {
-                                    console.log(editedProperties);
-                                    console.log("Before Changes:");
-                                    console.log(opt.completeData.websitesData[url].shortcuts);
-                                    console.log(opt.completeData.websitesData[url].shortcuts[editedProperties.key]);
                                     if (editedProperties.key) {
                                         opt.completeData.websitesData[url].shortcuts[editedProperties.key] = opt.completeData.websitesData[url].shortcuts[shortcutKey]
                                         delete opt.completeData.websitesData[url].shortcuts[shortcutKey]
-                                        console.log("Key Changed:");
-                                        console.log(opt.completeData.websitesData[url].shortcuts);
                                     }
                                     if (editedProperties.name) {
-                                        console.log("Name Changed:");
+                                        if (editedProperties.name.length > 20) {
+                                            editedProperties.name = editedProperties.name.substring(0, 20);
+                                        }
                                         if (!editedProperties.key) {
-                                            console.log("Before Name Change:");
-                                            console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey].name);
                                             opt.completeData.websitesData[url].shortcuts[shortcutKey].name = editedProperties.name
-                                            console.log("After Name Change:");
-                                            console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey].name);
                                         }
                                         else {
-                                            console.log("Before Name Change:");
-                                            console.log(opt.completeData.websitesData[url].shortcuts[editedProperties.key].name);
                                             opt.completeData.websitesData[url].shortcuts[editedProperties.key].name = editedProperties.name
-                                            console.log("After Name Change:");
-                                            console.log(opt.completeData.websitesData[url].shortcuts[editedProperties.key].name);
                                         }
                                     }
-
-                                    console.log("After changes:");
-                                    console.log(opt.completeData.websitesData[url].shortcuts);
+                                    if (editedProperties.action) {
+                                        let validActionsList = ['click', 'focus']
+                                        if (!validActionsList.includes(editedProperties.action)) {
+                                            editedProperties.action = 'click'
+                                        }
+                                        if (!editedProperties.action) {
+                                            opt.completeData.websitesData[url].shortcuts[shortcutKey].action = editedProperties.action
+                                        }
+                                        else {
+                                            opt.completeData.websitesData[url].shortcuts[editedProperties.key].action = editedProperties.action
+                                        }
+                                    }
 
                                     await setStorage({ ...opt.completeData })
 
                                     closeEditShortcutSettings()
-
-
-
-                                    // if (propertiesEdited) {
-                                    //     console.log(editedProperties);
-                                    //     if (editedProperties.key) {
-                                    //         opt.completeData.websitesData[url].shortcuts[editedProperties.key] = opt.completeData.websitesData[url].shortcuts[shortcutKey]
-                                    //         delete opt.completeData.websitesData[url].shortcuts[shortcutKey]
-                                    //     }
-                                    //     if (editedProperties.name) {
-                                    //         if (!editedProperties.key) {
-                                    //             opt.completeData.websitesData[url].shortcuts[shortcutKey].name = editedProperties.name
-                                    //         }
-                                    //         else{
-                                    //             opt.completeData.websitesData[url].shortcuts[editedProperties.key].name = editedProperties.name
-
-                                    //         }
-                                    //     }
-
-                                    //     closeEditShortcutSettings()
-                                    //     await setStorage({ ...opt.completeData })
-
-
-                                    // }
                                 }
 
-                                // const confirmEditedSettingsButton = qS('.confirmEditedSettingsButton')
                                 setEvent(confirmEditedSettingsButton, 'click', confirmEditedPropertiesAndSaveData)
 
                                 function closeEditShortcutSettings() {
                                     playSoundEffect('click')
                                     shortcutSelectionEnabled = false
-                                    document.removeEventListener('keypress', keyShortcutTracker)
+                                    document.removeEventListener('keydown', keyShortcutTracker)
                                     document.body.removeChild(editShortcutSettingsDialog)
                                 }
 
@@ -362,57 +558,6 @@ const opt = {
                                 document.body.appendChild(editShortcutSettingsDialog)
                                 editShortcutSettingsDialog.showModal()
                             })
-
-                            // function confirmationDialog(confirmationText) {
-
-                            //     return new Promise((resolve, reject) => {
-                            //         const dialogElementData = {
-                            //             tagName: "dialog",
-                            //             attributes: {
-                            //                 classes: ['confirmationDialog'],
-                            //                 // id: undefined,
-                            //                 // otherAttributes: []
-                            //             },
-                            //             // textContent: "No",
-                            //             innerHTML: `
-                            //             <div class="closeConfirmationDialogButton-wrapper">
-                            //                 <button class="closeConfirmationDialogButton actionButton">
-                            //                     <i class="fa-close fa-solid"></i>
-                            //                 </button>
-                            //             </div>
-
-                            //             <div class="confirmationTextSpan-wrapper">
-                            //                 <span class="confirmationTextSpan">${confirmationText}</span>
-                            //             </div>
-                            //             <div class="buttons-wrapper">
-                            //                 <button class="confirmationButton greenButtonFilled">Yes</button>
-                            //                 <button class="notConfirmButton redButtonFilled">No</button>
-                            //             </div>
-                            //             `,
-                            //             // childElements: [confirmationTextSpan, greenButton, redButton]
-
-                            //         }
-                            //         const dialogElement = elementCreator(dialogElementData)
-
-                            //         function closeDialog(resolverValue) {
-                            //             document.body.removeChild(dialogElement)
-                            //             resolve(resolverValue)
-                            //         }
-
-                            //         dialogElement.querySelector('.closeConfirmationDialogButton').addEventListener('click', () => {
-                            //             closeDialog(false)
-                            //         })
-                            //         dialogElement.querySelector('.confirmationButton').addEventListener('click', () => {
-                            //             closeDialog(true)
-                            //         })
-                            //         dialogElement.querySelector('.notConfirmButton').addEventListener('click', () => {
-                            //             closeDialog(false)
-                            //         })
-                            //         document.body.appendChild(dialogElement)
-                            //         dialogElement.showModal()
-
-                            //     })
-                            // }
 
                             // ------------------------- Delete Shortcut Settings Dialog Opener -------------------------
                             const deleteShortcutButton = qS('.deleteShortcutButton', shortcutSettingsWrapper)
@@ -441,19 +586,43 @@ const opt = {
                                 playSoundEffect('click', 1)
                             })
 
-                            setEvent(shortcutSettingsWrapper, 'mouseenter', () => {
 
+                            let mouseOver = false;
+                            setEvent(shortcutSettingsWrapper, 'mouseenter', (e) => {
+                                mouseOver = true
                                 // console.log(shortcutSettingsWrapper.classList.contains('hovered'));
                                 if (shortcutSettingsWrapper.classList.contains('hovered')) {
                                     shortcutSettingsWrapper.classList.remove('hovered')
                                 }
-                                playSoundEffect('hover')
+                                if (!(e.fromElement.classList.contains('toggleSwitchSpan'))) {
+                                    playSoundEffect('hover')
+                                }
                             })
+                            setEvent(shortcutSettingsWrapper, 'mouseleave', () => {
+                                mouseOver = false
+                                // window.removeEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
+                            })
+                            
+                            // window.addEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
+
+                            function editDeleteShortcutKeyboardShortcuts(e) {
+                                console.log(e);
+                                // if (!mouseOver) {
+                                    // return
+                                // }
+                                if (e.key == 'e' || e.key == 'E') {
+                                    editShortcutButton.click()
+                                }
+                                else if (e.key == 'd' || e.key == 'D') {
+                                    deleteShortcutButton.click()
+                                }
+                            }
 
                             shortcutSettingsWrapper.id = shortcutKey
-                            qSA('button', shortcutSettingsWrapper).forEach((button) => {
-                                setEvent(button, 'click', () => { playSoundEffect('click') })
-                            })
+                            shortcutSettingsWrapper.title = shortcutKeyObject.name
+                            // qSA('button', shortcutSettingsWrapper).forEach((button) => {
+                            //     setEvent(button, 'click', () => { playSoundEffect('click') })
+                            // })
 
                             shortcutsListWrapper.appendChild(shortcutSettingsWrapper)
 
@@ -464,6 +633,11 @@ const opt = {
                 },
 
                 openWebsiteSettings: (url) => {
+                    console.log(opt.websitesData);
+                    if (!opt.websitesData[url]) {
+                        console.log("Doesn't exist in websitesdata", url);
+                        return
+                    }
                     const openedWebsiteSettings = opt.websitesData[url]
                     opt.currentState.websiteSelected = url
 
@@ -481,8 +655,23 @@ const opt = {
 
 
                     // URL Heading
+                    console.log(url);
+                    let urlWithoutProtocol = url.replace(/^(https?|ftp):\/\//, '')
                     const urlHeading = qS('.urlHeading')
-                    urlHeading.innerText = url
+                    if (urlWithoutProtocol.length > 28) {
+                        console.log("Greater");
+                        urlWithoutProtocol = urlWithoutProtocol.slice(0, 28);
+                        urlWithoutProtocol = urlWithoutProtocol + '...';
+                        // updateCSS(urlHeading, {'padding-left':'3.8rem'})
+                    }
+                    // updateCSS(urlHeading, {'padding-left':'0rem'})
+                    if (urlWithoutProtocol.length > 28) {
+                    }
+                    else {
+                    }
+                    urlHeading.innerText = urlWithoutProtocol
+                    urlHeading.href = url
+                    urlHeading.title = url
 
 
 
@@ -541,6 +730,18 @@ const opt = {
                         domUpdaterFunctions.actionFuncs.closeWebsiteSettingsAndBackToWebsitesList()
                     })
 
+                    window.addEventListener('keydown', (e) => {
+                        let activeElement = document.activeElement
+                        if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
+                            return;
+                        }
+                        if (e.key == 'Backspace') {
+                            if (!qS('dialog[open]') && backToWebsitesListButton.parentElement.style.display != 'none') {
+                                console.log(backToWebsitesListButton);
+                                backToWebsitesListButton.click()
+                            }
+                        }
+                    })
 
                     const websiteShortcuts = openedWebsiteSettings.shortcuts
 
@@ -555,7 +756,6 @@ const opt = {
 
                     // Search Shortcut
 
-                    console.log(qS('.shortcutsListHeader-wrapper .searchShortcutInput'));
                     setEvent(qS('.shortcutsListHeader-wrapper .searchShortcutInput'), 'input', (e) => {
                         const searchedText = e.srcElement.value
                         let searchedText2 = searchedText.replace(/\s/g, "").toLowerCase()
@@ -646,30 +846,111 @@ const opt = {
                         return
                     }
                     const urlsListWrapper = document.body.querySelector('.urlsList-wrapper')
-                    urlsListWrapper.innerHTML = '' // Why is this not working?
+                    urlsListWrapper.innerHTML = ''
 
-                    opt.websitesList.forEach((websiteURL) => {
-                        let urlWrapperNode = templateElement.content.cloneNode(true)
-
-                        qS('span', urlWrapperNode).textContent = websiteURL
-
-                        const urlWrapperDiv = qS('.url-wrapper', urlWrapperNode)
-                        urlWrapperDiv.setAttribute('data-url', websiteURL)
-
-                        urlWrapperDiv.addEventListener('click', (e) => {
-                            playSoundEffect('click', 1)
-                            domUpdaterFunctions.actionFuncs.openWebsiteSettings(websiteURL)
-
-                        })
-                        urlWrapperDiv.addEventListener('mouseenter', (e) => {
-                            playSoundEffect('hover')
-                        })
-                        urlsListWrapper.id = websiteURL
+                    for (const origin in opt.domainsAndTheirPages) {
+                        if (Object.hasOwnProperty.call(opt.domainsAndTheirPages, origin)) {
+                            const pagesArray = opt.domainsAndTheirPages[origin];
 
 
-                        urlsListWrapper.appendChild(urlWrapperNode)
+                            let urlWrapperNode = templateElement.content.cloneNode(true)
 
-                    })
+
+                            qS('.urlSpan', urlWrapperNode).textContent = origin.replace(/^(https?|ftp):\/\//, '')
+
+                            const urlWrapperDiv = qS('.url-wrapper', urlWrapperNode)
+                            urlWrapperDiv.setAttribute('data-url', origin)
+
+                            urlWrapperDiv.addEventListener('click', (e) => {
+                                playSoundEffect('click', 1)
+                                domUpdaterFunctions.actionFuncs.openWebsiteSettings(origin)
+
+                            })
+
+
+                            const openPagesListButton = qS('.openPagesListButton', urlWrapperDiv)
+
+                            const subURLsWrapper = qS('.subURLs-wrapper', urlWrapperDiv)
+                            subURLsWrapper.setAttribute('data-url', origin)
+
+
+                            openPagesListButton.addEventListener('click', (e) => {
+                                e.stopPropagation();
+                                playSoundEffect('click', 1)
+                                if (
+                                    qS('.subURLs-wrapper.active') && !qS(`.subURLs-wrapper.active[data-url="${origin}"]`) &&
+                                    qS('.url-wrapper.pagesListOpen') && !qS(`.url-wrapper.pagesListOpen[data-url="${origin}"]`)
+
+                                ) {
+                                    console.log(qS('.subURLs-wrapper.active'));
+                                    rmClass(qS('.subURLs-wrapper.active'), ['active'])
+                                    rmClass(qS('.url-wrapper.pagesListOpen'), ['pagesListOpen'])
+                                }
+                                subURLsWrapper.classList.contains('active') ? rmClass(subURLsWrapper, ['active']) : addClass(subURLsWrapper, ['active'])
+                                urlWrapperDiv.classList.contains('pagesListOpen') ? rmClass(urlWrapperDiv, ['pagesListOpen']) : addClass(urlWrapperDiv, ['pagesListOpen'])
+                                console.log("yoo");
+                            })
+                            const subURLsUnorderedList = qS('.subURLs-UnorderedList', urlWrapperDiv)
+
+                            if (pagesArray.length > 0) {
+                                subURLsUnorderedList.innerHTML = ''
+                                pagesArray.forEach((pageURL) => {
+                                    const listElement = document.createElement('li')
+                                    listElement.classList.add('subURL-li')
+
+                                    listElement.setAttribute('data-url', pageURL)
+                                    listElement.title = pageURL
+                                    listElement.tabindex = "1"
+
+                                    listElement.addEventListener('mouseenter', (e) => {
+                                        playSoundEffect('hover', 0.5)
+                                        console.log("hi");
+                                    })
+                                    listElement.addEventListener('click', (e) => {
+                                        e.stopPropagation()
+                                        playSoundEffect('click', 1)
+                                        console.log("Setting Click url", pageURL);
+                                        domUpdaterFunctions.actionFuncs.openWebsiteSettings(pageURL)
+                                    })
+
+
+                                    // Extract special terms using a regular expression
+                                    const specialTerms = pageURL.match(/~mws-[^~]+~/g);
+
+                                    let innerHTML = pageURL;
+                                    // If there are special terms, wrap them in a span
+                                    if (specialTerms) {
+                                        specialTerms.forEach((term) => {
+                                            const span = document.createElement('span');
+                                            span.className = 'specialTerm';
+                                            span.textContent = term;
+
+                                            // Replace the special term in the pageURL with the span
+                                            innerHTML = pageURL.replaceAll(term, span.outerHTML);
+                                        });
+                                    }
+
+                                    // listElement.innerText = pageURL.replace(/^(https?|ftp):\/\//, '')
+                                    listElement.innerHTML = innerHTML.replace(origin, '')
+
+                                    subURLsUnorderedList.appendChild(listElement)
+                                    // domUpdaterFunctions.actionFuncs.openWebsiteSettings(pageURL)
+                                })
+
+                            }
+
+
+
+                            urlWrapperDiv.addEventListener('mouseenter', (e) => {
+                                playSoundEffect('hover')
+                            })
+                            urlWrapperDiv.title = origin
+
+
+
+                            urlsListWrapper.appendChild(urlWrapperNode)
+                        }
+                    }
 
                 },
 
@@ -738,6 +1019,30 @@ const opt = {
 
 
                 group3Activated: () => {
+                    console.log("Heyy it's about pageee");
+
+                    let settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
+                    removeAllEventListenersOfElements(settingsGroupLinks)
+                    
+                    settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
+                    console.log(settingsGroupLinks);
+
+                    settingsGroupLinks.forEach(link=>{
+                        setEvent(link, 'mouseenter', () => {
+                            playSoundEffect('hover', 0.3)
+                        })
+                        if (link.classList.contains('sponsorLink')) {
+                            setEvent(link, 'click', () => {
+                                playSoundEffect('sponsor')
+                            })
+                            
+                        }
+                        else{
+                            setEvent(link, 'click', () => {
+                                playSoundEffect('click2')
+                            })
+                        }
+                    })
 
                 }
 
@@ -748,7 +1053,6 @@ const opt = {
 
 
                 function keyboardShortcuts(e) {
-
                     let activeElement = document.activeElement
                     if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
                         // An input element is focused; don't execute your shortcut
@@ -762,6 +1066,20 @@ const opt = {
                         })
                         overlayOpacityUpdater()
                     }
+
+                    if (e.key == 'e' || e.key == 'E') {
+                        if (activeElement.classList.contains('shortcutSettings-wrapper') || qS('.shortcutSettings-wrapper:hover')) {
+                            (qS('.shortcutSettings-wrapper:focus .editShortcutButton') || qS('.shortcutSettings-wrapper:hover .editShortcutButton')).click()                            
+                        }
+                    }
+                    else if (e.key == 'd' || e.key == 'D') {
+                        if (activeElement.classList.contains('shortcutSettings-wrapper') || qS('.shortcutSettings-wrapper:hover')) {
+                            (qS('.shortcutSettings-wrapper:focus .deleteShortcutButton') || qS('.shortcutSettings-wrapper:hover .deleteShortcutButton')).click()                            
+                        }
+                    }
+
+                    // else if (e.key == 'Escape') {
+                    // }
                 }
 
                 window.addEventListener('keydown', keyboardShortcuts)
@@ -784,7 +1102,6 @@ const opt = {
                 document.querySelectorAll('[tabindex="0"]').forEach(accessibleElement => {
 
                     accessibleElement.addEventListener('keydown', function (event) {
-                        console.log(accessibleElement);
                         // Check if the Enter key was pressed (key code 13) or the Space key (key code 32)
                         if (event.keyCode === 13 || event.keyCode === 32) {
                             if (accessibleElement.classList.contains('toggleSwitchInput')) {
@@ -812,11 +1129,11 @@ const opt = {
                     else if (leftLightEnabled || rightLightEnabled) {
                         opacity = 0.45
                     }
-                    else{
+                    else {
 
                         opacity = 9
                     }
-                    
+
                     qS('.overlay').style.opacity = opacity
                 }
 
@@ -830,10 +1147,10 @@ const opt = {
 
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
-                        
+
                     }
                     else {
-                        
+
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left = !opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
@@ -860,7 +1177,7 @@ const opt = {
 
 
 
-                // Search Websites Functionality
+                // Search Websites Functionality (Doesn't support Sub URLs search right now)
                 setEvent(qS('.settingsGroup > .searchBar-wrapper .searchURLInput'), 'input', (e) => {
                     const searchedText = e.srcElement.value
                     let searchedText2 = searchedText.replace(/\s/g, "")
@@ -914,10 +1231,38 @@ const opt = {
                         console.log("Nothing like that");
                     }
 
+
                     console.log("-------------");
                     // console.log(results);
 
                 })
+
+
+                // Help Button
+                const helpButton = qS('.helpButton')
+                const helpDialog = qS('.helpDialog')
+                const closeHelpDialogButton = qS('.closeHelpDialogButton')
+
+
+                function closeHelpDialog() {
+                    playSoundEffect('click')
+                    helpDialog.close()
+                    updateCSS(helpDialog, { 'display': 'none' })
+                }
+                setEvent(closeHelpDialogButton, 'click', closeHelpDialog)
+                helpButton.addEventListener('click', (e) => {
+                    playSoundEffect('click')
+                    helpDialog.showModal()
+                    updateCSS(helpDialog, { 'display': 'flex' })
+                    console.log(helpDialog);
+                })
+                window.addEventListener('keydown', (e) => {
+                    if (e.key == 'Escape') {
+                        closeHelpDialog()
+                    }
+                })
+
+
 
             },
 
@@ -957,7 +1302,7 @@ const opt = {
 
         }
         else {
-            domUpdaterFunctions.actionFuncs[changeSpecified](args)
+            domUpdaterFunctions.actionFuncs[changeSpecified](...args)
 
             // const functionsListOfInit = Object.keys(domUpdaterFunctions.initFunctions)
             // const functionsListOfActionFuncs = Object.keys(domUpdaterFunctions.actionFuncs)
@@ -979,10 +1324,35 @@ const opt = {
         opt.globalSettings = opt.completeData.globalSettings
 
         opt.websitesList = []
-        for (const website in opt.websitesData) {
+        opt.domainsAndTheirPages = {}
+        for (let website in opt.websitesData) {
             if (Object.hasOwnProperty.call(opt.websitesData, website)) {
+
+                // Only remove the ending slash if the website is not a custom URL as it creates problems if the user has deliberately put a slash
+                if (!(/~mws-[^~]+~/.test(website))) {
+                    website = website.replace(/\/$/, ''); // Replace a trailing '/' with an empty string
+                }
+
+                // let urlWithoutProtocol = website.replace(/^(https:\/\/|http:\/\/)/, ""); // Use a regular expression to remove "https://" or "http://"
+
+
+                const url = new URL(website)
+                const origin = url.origin
+                const path = url.pathname
+                const domain = url.hostname
+
+                if (!opt.domainsAndTheirPages[origin]) {
+                    opt.domainsAndTheirPages[origin] = []
+                }
+                if (!opt.domainsAndTheirPages[origin][website]) {
+                    if (path != '/') {
+                        opt.domainsAndTheirPages[origin].push(website)
+                    }
+                }
+
                 // const element = opt.websitesData[website];
                 opt.websitesList.push(website)
+                // console.log(opt.websitesList);
 
             }
         }
@@ -1001,21 +1371,32 @@ const opt = {
 
         let currentURL = window.location.href
         let hash = window.location.hash
+        let hashSplitArray = hash.split('#')
+        let lastHashValue = hashSplitArray[hashSplitArray.length - 1]
+
 
         // Use the URL constructor to parse the URL
-        const url = new URL(currentURL);
+        let url = new URL(currentURL);
 
         // Access the value of the 'url' query parameter
-        const urlParameter = url.searchParams.get('url');
+        let urlParameter = url.searchParams.get('url');
+        console.log(urlParameter);
+
+        hashSplitArray.forEach(hashValue => {
+            if (hashValue && hashValue != lastHashValue) {
+                urlParameter += "#" + hashValue
+            }
+        })
+
         if (urlParameter && opt.websitesList.includes(urlParameter)) {
-            console.log(urlParameter);
             opt.currentState.websiteSelected = urlParameter
             opt.updateDOM('openWebsiteSettings', urlParameter)
 
             // Check if there is a hash in the URL
-            if (window.location.hash) {
-                const hash = window.location.hash;
-                const targetElement = document.getElementById(hash.substring(1)); // Remove the leading '#'
+            if (hash) {
+                console.log("Hash present");
+                console.log(lastHashValue);
+                const targetElement = document.getElementById(lastHashValue);
 
                 // Add a class to the target element to trigger the hover effect
                 targetElement.classList.add('hovered'); // Replace 'hover-effect' with your desired class
@@ -1040,7 +1421,6 @@ const opt = {
         }
 
         console.log(hash);
-
 
 
 

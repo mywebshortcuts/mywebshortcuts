@@ -1,13 +1,13 @@
 <!-- KEYBOARD SHORTCUT SELECTOR DIALOG  -->
 <!-- <dialog class=" mws-keyboardShortcutSelectionDialog" open=""> -->
 
-<button class="mws-closeKeyboardShortcutSelectionDialogButton mws-actionButton">
+<button class="mws-closeKeyboardShortcutSelectionDialogButton mws-actionButton" title="Close Key Selector">
 	<i class="fa-close fa-solid"></i>
 </button>
 
 <div class="mws-shortcutSelector-wrapper">
 	<div class="mws-selectShortcutText-wrapper">
-		<span class="mws-selectShortcutText"> Being by Pressing a Key </span>
+		<span class="mws-selectShortcutText"> Begin by Pressing a Key </span>
 	</div>
 
 	<div class="mws-selectShortcutButtonAndKBD-wrapper">
@@ -15,7 +15,7 @@
 			<kbd class="mws-selectedShortcutKBD active" tabindex="0"></kbd>
 		</div>
 		<div class="mws-selectShortcutButton-wrapper">
-			<button class="mws-shortcutSelectionDoneButton mws-blueButtonFilled onSelection">
+			<button class="mws-shortcutSelectionDoneButton mws-blueButtonFilled onSelection" title="Edit Shortcut">
 				<!-- <i class="fas fa-check-circle"></i> -->
 				<span class="onSelection">
 					<i class="fa-keyboard fa-solid"></i>
@@ -31,10 +31,10 @@
 </div>
 
 <div class="mws-shortcutName-wrapper">
-	<div class="mws-shortcutNameLabel-wrapper">
-		<label for="shortcutName" class="mws-ShortcutNameLabel"
+	<div class="mws-shortcutNameLabel-wrapper" title="Shortcut Name Input">
+		<span for="shortcutName" class="mws-ShortcutNameLabel"
 			>Shortcut Name
-		</label>
+		</span>
 	</div>
 	<div class="mws-shortcutNameInput-wrapper">
 		<input
@@ -45,36 +45,69 @@
 			class="mws-shortcutNameInput"
 			disabled="true"
 			value="My Web Shortcut"
-			placeholder="Enter Shortcut Name" />
+			placeholder="Enter Shortcut Name"
+			title="Shortcut Name Input"
+			/>
 	</div>
 </div>
 
 
 
 <div class="mws-keyDialogOptionsWithHeading-wrapper">
-	<h3 class="mws-keyDialogOptionsHeading">Other Options</h3>
+	<span class="mws-keyDialogOptionsHeading">Other Options</span>
 
 	<div class="mws-keyDialogOptions-wrapper">
 
 		<div class="mws-urlTypeSelection-wrapper">
-			<label class="mws-urlTypeSelectLabel" for="urlType">URL Type </label>
+			<span class="mws-urlTypeSelectLabel" for="urlType">Set shortcut for</span>
 
-			<select name="urlType" id="urlType" class="mws-urlTypeSelect">
-				<option value="domain" class="mws-option">Only Domain</option>
-				<option value="page" class="mws-option" disabled>With Page (Coming Soon)</option>
-				<option value="custom" class="mws-option" disabled>Custom (Coming Soon)</option>
-			</select>
+			<div class="mws-urlTypeSelect-wrapper">
+				<select name="urlType" id="urlType" class="mws-urlTypeSelect" title="Select URL Type">
+					<option value="domainAndAllPages" class="mws-option">this Domain and all its pages</option>
+					<option value="domainAndPage" class="mws-option">this Page & the Domain only (and no other pages inside)</option>
+					<option value="onlyDomain" class="mws-option">the Domain only (and no pages inside)</option>
+					<option value="onlyPage" class="mws-option">this Page only</option>
+					<option value="fullPath" class="mws-option">the exact full path (with search queries and hash fragments)</option>
+					<option value="custom" class="mws-option" disabled>Custom (Coming soon)</option>
+				</select>
+				<button class="mws-editCustomShortcutButton mws-greenButtonFilled"><i class="fa-pencil fa-solid"></i></button>
+			</div>
+				
 		</div>
 		<div class="mws-actionSelection-wrapper">
-			<label class="mws-actionSelectLabel" for="action">Action </label>
+			<span class="mws-actionSelectLabel" for="action">Action </span>
 
-			<select name="action" id="action" class="mws-actionSelect">
+			<select name="action" id="action" class="mws-actionSelect" title="Select Shortcut Action">
 				<option value="click" class="mws-option">Click</option>
-				<option value="focus" class="mws-option" disabled>Focus (Coming Soon)</option>
+				<option value="focus" class="mws-option">Focus</option>
 				<option value="highlight" class="mws-option" disabled>Highlight (Coming Soon)</option>
 				<option value="scrollto" class="mws-option" disabled>Scroll To (Coming Soon)</option>
 			</select>
 		</div>
+
+		<dialog class="mws-customURLEditorDialog">
+
+			<div class="mws-spanText-wrapper">
+				<span class="mws-spanText">
+					Special Terms: 
+					<select name="specialTerm" id="specialTermSelect" class="mws-specialTermSelect">
+						<option value="~mws-string~">~mws-string~</option>
+						<option value="~mws-end~">~mws-end~</option>
+					</select>
+				<div class="mws-copySpecialStringButton-wrapper">
+					<button class="mws-copySpecialStringButton mws-actionButton"><i class="fa-copy fa-solid"></i></button>
+				</div> 
+				</span>
+			</div>
+
+			<div class="mws-customURLEditor-wrapper">
+				
+			</div>
+			<button class="mws-confirmCustomURLButton greenButtonFilled">Done</button>
+			<!-- <div class="mws-specialTermsInsertButton mws-blueButtonFilled">Insert Special String</div> -->
+
+			<button class="mws-closeCustomURLEditorDialogButton mws-actionButton"><i class="fa-close fa-solid"></i></button>
+		</dialog>
 	</div>
 </div>
 

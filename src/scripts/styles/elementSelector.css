@@ -55,18 +55,19 @@
 	display: flex;
 	flex-direction: column;
 
+	font-size: var(--mws-fontSize);
+
 	align-items: flex-start;
 	justify-content: flex-start;
 
 	color: #bfbfbf;
-
 }
 .mws-currentElementSpan {
     text-align: center;
 	color: var(--mws-light-green);
 	background-color: #1f1f1f;
 
-	padding: var(--mws-padding);
+	padding: var(--mws-padding-l);
 	width: 100%;
 
 	border-radius: var(--mws-borderRadius);
@@ -74,12 +75,14 @@
 	font-size: var(--mws-fontSize-l);
 }
 button.mws-selectElementButton {
-	margin-block: var(--mws-margin);
+	margin-top: var(--mws-margin);
+	font-size: var(--mws-fontSize);
 
 	padding: var(--mws-padding-l);
 	border-radius: var(--mws-borderRadius);
 
-	display: flex;
+	/* display: flex; */
+	display: none;
 	flex-direction: row;
 	width: 100%;
 }
@@ -91,16 +94,16 @@ button.mws-selectElementButton {
 .mws-elementSelectorActions-wrapper {
 	flex-direction: row;
 	
-	background-color: #262626;
+	/* background-color: #262626; */
 	border-radius: var(--mws-borderRadius);
-
-	padding: var(--mws-padding-l);
+	margin-top: var(--mws-margin);
+	/* padding: var(--mws-padding-l); */
 	
 }
 
 
 .mws-disableElementSelectionSpan-wrapper{
-	padding: var(--mws-padding-s);
+	/* padding: var(--mws-padding-s); */
 	text-align: center;
 	
 }
@@ -110,12 +113,12 @@ button.mws-selectElementButton {
 
 .mws-elementSelectorActions-wrapper .toggleWithText-wrapper {
 	flex-direction: row;
-	justify-content: center;
-	align-items: center;
+	/* justify-content: center; */
+	/* align-items: center; */
 }
 
 .mws-element .mws-disableElementSelectionToggle-wrapper {
-	margin-inline: var(--mws-margin);
+	/* margin-inline: var(--mws-margin); */
 	width: fit-content;
 }
 
@@ -124,28 +127,34 @@ button.mws-selectElementButton {
 
 
 .mws-collapsableSettings-wrapper{
-    
+	
 	display: flex;
 	flex-direction: column;
 	/* align-items: flex-start; */
 	color: #bfbfbf;
     width: 100%;
-
+	
     
 }
-.mws-collapsableSettings-wrapper summary{
-    background-color: var(--mws-dark-grey);
 
+.mws-collapsableSettings-wrapper summary{
+	background-color: var(--mws-dark-grey);
+	
     padding: var(--mws-padding-l);
     
     margin-top: var(--mws-margin);
     border-radius: var(--mws-borderRadius);
     
     color: #bfbfbf;
+	font-size: var(--mws-fontSize);
     
 }
+.mws-collapsableSettings-wrapper summary:hover{
+	filter: brightness(.8);
+	cursor: pointer;
+}
 .mws-collapsableSettings-wrapper details[open] summary{
-    border-radius: 0px;
+	border-radius: 0px;
     border-top-left-radius: var(--mws-borderRadius);
     border-top-right-radius: var(--mws-borderRadius);
     /* background-color: black; */
@@ -171,7 +180,7 @@ button.mws-selectElementButton {
   right: var(--mws-rem);
 }
 
-.mws-collapsableSettings-wrapper details[open] > .mws-collapsableSettings-wrapper summary::after {
+.mws-collapsableSettings-wrapper details[open] > summary::after {
   transform: rotate(90deg);
 }
 
@@ -186,6 +195,76 @@ button.mws-selectElementButton {
     border-bottom-left-radius: var(--mws-borderRadius);
     border-bottom-right-radius: var(--mws-borderRadius);
 }
-.mws-elementSelectionOptions-wrapper label {
+.mws-elementSelectionOptions-wrapper span {
     margin-block: var(--mws-margin);
+	font-size: var(--mws-fontSize);
+	font-weight: 600;
+}
+
+
+
+
+.mws-element .mws-selectionGuideDetails{
+	color: #bfbfbf;
+	align-self: center;
+	
+	text-align: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: var(--mws-margin);
+	width: 100%;
+	
+	background-color: var(--mws-dark-grey);
+	border-radius: var(--mws-borderRadius-s);
+	padding: var(--mws-padding);
+
+	font-size: var(--mws-fontSize-s);
+}
+.mws-element .mws-selectionGuideDetails span{
+}
+.mws-element .mws-selectionGuideDetails i{
+	font-size: calc(var(--mws-rem)/2);
+}
+.mws-element .mws-selectionGuideDetails[open]{
+	align-self: center;
+}
+.mws-element .mws-selectionGuideDetails[open] .mws-selectionGuideSummary{
+	margin-bottom: var(--mws-margin);
+	border-bottom: 2px solid #bfbfbf15;	
+	border-bottom-left-radius: 0;
+	border-bottom-right-radius: 0;
+	width: 100%;
+	padding-bottom: var(--mws-padding);
+}
+.mws-element .mws-selectionGuideSummary{
+	font-size: var(--mws-fontSize-s);
+	display: flex;
+	position: relative;
+	/* align-items: center; */
+	/* justify-content: center; */
+
+	padding: var(--mws-padding-s);
+	border-radius: var(--mws-borderRadius-s);
+	background-color: var(--mws-dark-grey);
+
+	align-self: center;
+	width: 100%;
+	/* display: block; */
+}
+.mws-element .mws-selectionGuideDetails:hover {
+	filter: brightness(.8);
+}
+/* Create a new custom triangle on the right side */
+.mws-element .mws-selectionGuideSummary::after {
+  display: inline-block;
+  font-family: 'Font Awesome 6 Free';
+  content: '\f105';
+  transition: 0.3s ease;
+  position: absolute;
+  right: var(--mws-rem);
+}
+
+.mws-element .mws-selectionGuideDetails[open] > .mws-selectionGuideSummary::after {
+  transform: rotate(90deg);
 }

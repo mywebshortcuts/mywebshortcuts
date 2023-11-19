@@ -1,5 +1,5 @@
 <div class="closeEditShortcutSettingsButton-wrapper">
-    <button class="closeEditShortcutSettingsButton actionButton">
+    <button class="closeEditShortcutSettingsButton actionButton" title="Close Edit Shortcut Dialog">
         <i class="fa-close fa-solid"></i>
     </button>
 </div>
@@ -10,7 +10,9 @@
     <input type="text"
            maxlength="20"
            class="shortcutNameInput"
-           id="shortcutNameInput" />
+           id="shortcutNameInput" 
+           title="Shortcut Name Input"
+           />
 </div>
 <!-- 
 <div class="kbd-wrapper">
@@ -24,7 +26,7 @@
              tabindex="0"> </kbd>
     </div>
     <div class="selectShortcutButton-wrapper">
-        <button class="shortcutSelectionDoneButton blueButtonFilled editSelection">
+        <button class="shortcutSelectionDoneButton blueButtonFilled editSelection" title="Edit Shortcut">
             <!-- <i class="fas fa-check-circle"></i> -->
             <span class="onSelection">
                 <i class="fa-keyboard fa-solid"></i>
@@ -42,25 +44,39 @@
     <label for="selectAction"
            class="selectActionLabel">Action</label>
     <div class="select-wrapper">
-        <select id="selectAction">
+        <select id="selectAction" class="actionSelect" title="Edit Shortcut Action">
             <option value="click">Click</option>
+            <option value="focus">Focus</option>
             <option disabled
-                    value="focus">Focus</option>
+                    value="highlight">Highlight (Coming Soon)</option>
             <option disabled
-                    value="highlight">Highlight</option>
-            <option disabled
-                    value="scrollto">Scroll To</option>
+                    value="scrollto">Scroll To (Coming Soon)</option>
         </select>
-        <button class="selectArrowButton"
+        <!-- <button class="selectArrowButton"
                 tabindex="-1">
             <i class="fa-angle-down fa-solid"></i>
-        </button>
+        </button> -->
     </div>
 </div>
 
+<!-- <div class="selectURLType-wrapper">
+    <label for="selectURLType"
+           class="selectURLTypeLabel">URL Type</label>
+    <div class="select-wrapper">
+        <select id="selectURLType" class="urlTypeSelect">
+					<option value="domainAndAllPages">this Domain and all its pages</option>
+					<option value="domainAndPage">this Page & the Domain only (and no other pages inside)</option>
+					<option value="onlyDomain">the Domain only (and no pages inside)</option>
+					<option value="onlyPage">this Page only</option>
+					<option value="fullPath">the exact full path (with search queries and hash fragments)</option>
+					<option value="custom" disabled>Custom</option>
+        </select>
+    </div>
+</div> -->
+
 <div class="confirmEditedSettingsButton-wrapper">
     <button disabled
-            class="confirmEditedSettingsButton greenButtonFilled">
+            class="confirmEditedSettingsButton greenButtonFilled" title="Confirm Edited Properties">
         Confirm <i class="fa-check-circle fa-solid"></i>
     </button>
 </div>

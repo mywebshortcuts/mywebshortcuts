@@ -9,24 +9,24 @@ export function confirmationDialogOpener(confirmationText) {
         const dialogElementData = {
             tagName: "dialog",
             attributes: {
-                classes: ['confirmationDialog'],
+                classes: ['confirmationDialog', 'mws-element', 'mws-confirmationDialog'],
                 // id: undefined,
                 // otherAttributes: []
             },
             // textContent: "No",
             innerHTML: `
-            <div class="closeConfirmationDialogButton-wrapper">
-                <button class="closeConfirmationDialogButton actionButton">
+            <div class="mws-element closeConfirmationDialogButton-wrapper mws-closeConfirmationDialogButton-wrapper">
+                <button class="closeConfirmationDialogButton actionButton mws-element mws-closeConfirmationDialogButton mws-actionButton">
                     <i class="fa-close fa-solid"></i>
                 </button>
             </div>
 
-            <div class="confirmationTextSpan-wrapper">
-                <span class="confirmationTextSpan">${confirmationText}</span>
+            <div class="mws-element confirmationTextSpan-wrapper mws-confirmationTextSpan-wrapper">
+                <span class="mws-element confirmationTextSpan mws-confirmationTextSpan">${confirmationText}</span>
             </div>
-            <div class="buttons-wrapper">
-                <button class="confirmationButton greenButtonFilled">Yes</button>
-                <button class="notConfirmButton redButtonFilled">No</button>
+            <div class="mws-element buttons-wrapper mws-buttons-wrapper">
+                <button class="mws-element confirmationButton greenButtonFilled mws-confirmationButton mws-greenButtonFilled">Yes</button>
+                <button class="mws-element notConfirmButton redButtonFilled mws-notConfirmButton mws-redButtonFilled">No</button>
             </div>
             `,
             // childElements: [confirmationTextSpan, greenButton, redButton]

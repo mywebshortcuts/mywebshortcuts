@@ -22,17 +22,12 @@
     },
     "content_scripts": [
         {
-            "matches": [
-                "https://opensource.guide/*",
-                "https://www.google.com/*",
-                "https://kresa.vercel.app/*",
-                "https://github.com/prakhartiwari0/*",
-                "https://docs.google.com/*"
-            ],
+            "matches": ["https://opensource.guide/*"],
             "all_frames": true,
             "js": [
                 "src/scripts/useCustomShortcut.js"
-            ]
+            ],
+            "run_at":"document_start"
         }
     ],
     "web_accessible_resources": [

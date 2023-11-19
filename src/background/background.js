@@ -67,7 +67,7 @@ const bg = {
         chrome.runtime.onInstalled.addListener(details => {
             console.log("BRooooo Hiiii you just installed meee");
             if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-                chrome.runtime.setUninstallURL('https://www.heyprakhar.xyz');
+                chrome.runtime.setUninstallURL('https://mywebshortcuts.xyz/installed');
             }
         })
 

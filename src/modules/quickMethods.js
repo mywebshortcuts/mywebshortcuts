@@ -17,7 +17,18 @@ export const switchClass = (element, classToRemove, classToAdd) => {
 }
 
 export const getElemAt = (x, y) => {
-    return document.elementFromPoint(x, y)
+    let hoveredElement = document.elementFromPoint(x, y);
+    // let element;
+    // if (hoveredElement.tagName == 'IFRAME') {
+    //     // console.log("it's an iframe")
+    //     const iframeDocument = hoveredElement.contentDocument || hoveredElement.contentWindow.document;
+    //     element = iframeDocument.elementFromPoint(x, y);
+    // }
+    // else{
+    //     element = hoveredElement
+    // }
+    let element = hoveredElement
+    return element
 }
 
 export const setTextContent = (element, text = "") => {

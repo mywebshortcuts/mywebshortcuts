@@ -1,21 +1,10 @@
-
-
-
-
-
-
-
-
-
-
-
-
 /* ----------------------- KEY SELECTOR Styles ----------------------- */
 
 .mws-keyboardShortcutSelectionDialog.mws-element {
 	cursor: auto;
-	padding: calc(var(--mws-rem)*2);
+	padding: calc(var(--mws-rem) * 2);
 
+	overflow-y: hidden;
 }
 .mws-keyboardShortcutSelectionDialog div {
 	/* cursor: auto; */
@@ -23,54 +12,50 @@
 	flex-direction: column;
 	width: 100%;
 }
-.mws-keyboardShortcutSelectionDialog .mws-closeKeyboardShortcutSelectionDialogButton {
+.mws-keyboardShortcutSelectionDialog
+	.mws-closeKeyboardShortcutSelectionDialogButton {
 	position: absolute;
 	top: 0px;
 	right: 0px;
 }
 
-
 /* Shortcut Selector Styles */
-.mws-shortcutSelector-wrapper{
+.mws-shortcutSelector-wrapper {
 	align-items: center;
 	justify-content: center;
-	
+
 	flex-direction: row;
 
 	/* margin-block: var(--mws-margin); */
-
 }
 
-.mws-selectShortcutText-wrapper{
+.mws-selectShortcutText-wrapper {
 	flex-direction: row;
 	justify-content: center;
-	
 }
 
-
-.mws-selectShortcutText{
-	color: #bfbfbf;	
+.mws-selectShortcutText {
+	color: #bfbfbf;
+	font-size: var(--mws-fontSize);
+	font-weight: 500;
 }
 
-
-
-
-
-.mws-selectShortcutButtonAndKBD-wrapper.mws-element{
+.mws-selectShortcutButtonAndKBD-wrapper.mws-element {
 	margin-top: var(--mws-margin);
 	flex-direction: row;
 	width: 100%;
 	justify-content: flex-start;
 }
 
-
 kbd.mws-element {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+	border: none;
+	outline: none;
+	box-shadow: none;
 	color: white;
-	font-weight:  500;
+	font-weight: 500;
 	background-color: #1f1f1f;
 	/* width: calc(var(--mws-rem)*3); */
 	/* height: calc(var(--mws-rem)*3); */
@@ -80,67 +65,74 @@ kbd.mws-element {
 	cursor: pointer;
 }
 
-.mws-kbd-wrapper.mws-element{
+.mws-kbd-wrapper.mws-element {
 	width: 50%;
 }
-.mws-selectedShortcutKBD{
+.mws-selectedShortcutKBD {
 	width: 100%;
 	height: 100%;
 	/* padding: 1rem; */
 }
-.mws-selectedShortcutKBD.active{
+.mws-selectedShortcutKBD.active {
 	border: 2px solid #26bcd6;
 }
-.mws-selectedShortcutKBD.shortcutExists{
+.mws-selectedShortcutKBD.shortcutExists {
 	border: 2px solid var(--mws-red);
-
 }
 
-.mws-selectShortcutButton-wrapper{
+.mws-selectShortcutButton-wrapper {
 	align-items: center;
-	margin-inline: var(--mws-margin-l);
+	margin-inline: var(--mws-margin);
+	width: 100%;
+	
 }
-.mws-shortcutSelectionDoneButton.mws-element{
+.mws-shortcutSelectionDoneButton.mws-element {
 	padding: var(--mws-padding-l);
 	/* padding: 1rem; */
-	border-radius: var(--mws-borderRadius);	
+	border-radius: var(--mws-borderRadius);
 	width: 100%;
+	font-size: var(--mws-fontSize);
 }
 .mws-shortcutSelectionDoneButton .onSelection,
 .mws-shortcutSelectionDoneButton .editSelection {
-    display: none; /* Hide both spans by default */
+	display: none; /* Hide both spans by default */
 }
 
 .mws-shortcutSelectionDoneButton.onSelection .onSelection,
 .mws-shortcutSelectionDoneButton.editSelection .editSelection {
-    display: inline; /* Show the respective span when the class is present */
+	display: inline; /* Show the respective span when the class is present */
 }
 
-.mws-shortcutSelectionDoneButton.editSelection{
+.mws-shortcutSelectionDoneButton.editSelection {
 	background-color: var(--mws-dark-green);
 }
-.mws-shortcutSelectionDoneButton.editSelection:hover{
+.mws-shortcutSelectionDoneButton.editSelection:hover {
 	background-color: #277422;
 }
-.mws-shortcutSelectionDoneButton.onSelection:focus{
+.mws-shortcutSelectionDoneButton.onSelection:focus {
 	outline: none;
 	pointer-events: none;
 }
 
 /* Shortcut Name styles */
 
-.mws-shortcutName-wrapper{
-	margin-block: var(--mws-margin-l);
-
+.mws-shortcutName-wrapper {
+	margin-block: var(--mws-margin);
 }
 
-.mws-shortcutNameLabel-wrapper{
+.mws-shortcutNameLabel-wrapper {
 	color: #bfbfbf;
+	font-size: var(--mws-fontSize-l);
+	font-weight: 500;
+	margin-block: var(--mws-margin-s);
 }
 
-.mws-shortcutNameInput-wrapper{}
-
-
+.mws-shortcutNameInput-wrapper {
+	margin-block: var(--mws-margin-s);
+}
+.mws-shortcutNameInput-wrapper input {
+	font-size: var(--mws-fontSize);
+}
 
 /* Key Dialog Options */
 
@@ -149,8 +141,13 @@ kbd.mws-element {
 	flex-direction: column;
 	align-items: flex-start;
 	color: #bfbfbf;
+	margin-block: var(--mws-margin-s);
+	/* margin-block: var(--mws-margin); */
 }
 .mws-keyDialogOptionsHeading {
+	font-size: var(--mws-fontSize-l);
+	font-weight: 500;
+	margin-bottom: var(--mws-margin-s);
 }
 .mws-keyDialogOptions-wrapper {
 	display: flex;
@@ -165,36 +162,128 @@ kbd.mws-element {
 .mws-keyDialogOptions-wrapper > div {
 	margin-block: var(--mws-margin);
 }
+.mws-keyDialogOptions-wrapper span {
+	font-size: var(--mws-fontSize);
+	font-weight: 500;
+}
 
+.mws-element select {
+	padding: var(--mws-padding-l);
+	margin-top: var(--mws-margin-s);
+}
 
+.mws-element .mws-urlTypeSelect-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	/* background-color: black; */
+	padding: var(--mws-padding-s);
+
+	width: 100%;
+}
+.mws-element .mws-urlTypeSelect-wrapper select.mws-element {
+	flex: 1;
+	width: 100%;
+}
+.mws-element .mws-editCustomShortcutButton {
+	display: none;
+	margin-inline: var(--mws-margin-s);
+	height: calc(var(--mws-rem) * 2.5);
+	width: calc(var(--mws-rem) * 2.5);
+}
 
 /* Done Button */
 
-.mws-allDoneButton.mws-element{
-	margin-top: var(--mws-margin-l);
+.mws-allDoneButton.mws-element {
+	margin-top: var(--mws-margin);
 	padding: var(--mws-padding-l);
 	width: 80%;
+	font-size: var(--mws-fontSize);
 }
-.mws-allDoneButton i{
+.mws-allDoneButton i {
 	margin-inline: var(--mws-margin);
 }
 
 
 
+/* Custom URL Editor */
+.mws-element .mws-customURLEditorDialog {
+	display: none;
 
+	/* min-width: calc(var(--mws-rem)*25); */
+	min-width: fit-content;
+	padding: var(--mws-padding-xl);
+}
+.mws-element .mws-customURLEditorDialog:focus {
+	outline: none;
+}
+.mws-element .mws-customURLEditorDialog div {
+	/* display: flex; */
+}
+.mws-element .mws-spanText-wrapper {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	justify-content: center;
+	/* align-items: center; */
+	margin-block: var(--mws-margin-l);
+}
 
+.mws-element .mws-customURLEditorDialog .mws-spanText {
+	width: 100;
+	/* flex: 1; */
+}
+.mws-customURLEditorDialog select.mws-specialTermSelect{
+	padding: var(--mws-padding);
+}
 
+.mws-element .mws-copySpecialStringButton-wrapper {
+	display: inline-flex;
+	/* flex-direction: row; */
+	width: fit-content;
 
+}
+.mws-element button.mws-copySpecialStringButton {
+	display: flex;
+	font-size: var(--mws-fontSize-s);
+	/* width: 1rem; */
+	/* height: 1rem; */
+	padding: 1rem;
+	position: relative;
+}
+.mws-element.mws-copySpecialStringButton:active {
+	transform: scale(0.7);
+}
+.mws-element .mws-customURLEditor-wrapper {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	/* flex-wrap: wrap; */
+	width: 100%;
 
+	margin-block: var(--mws-margin);
+	color: var(--mws-dark-green);
+}
+.mws-customURLEditor-wrapper span.mws-element {
+	margin-inline: var(--mws-margin-s);
+}
 
+.mws-customURLEditor-wrapper input.mws-element {
+	/* display: inline-flex; */
+	max-width: 10rem;
+	/* flex: 1; */
+}
 
+.mws-element .mws-customURLEditorDialog .mws-confirmCustomURLButton {
+	margin-top: var(--mws-margin-l);
 
+}
+.mws-element.mws-closeCustomURLEditorDialogButton {
+	position: absolute;
+	top: 0%;
+	right: 0%;
 
-
-
-
-
-
-
-
-
+	border-radius: 100%;
+}

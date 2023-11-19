@@ -1,8 +1,37 @@
+/* CSS Reset for Common Elements within .mws-element */
+
+/* Resetting specific elements inside .mws-element */
+.mws-element a,
+.mws-element button,
+.mws-element input,
+.mws-element select,
+.mws-element input,
+.mws-element details,
+.mws-element summary,
+.mws-element textarea {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  display: inline-block;
+  position: static;
+  overflow: visible;
+  cursor: auto;
+  box-shadow: none;
+  font-weight: normal;
+}
+
+
+
 /* STYLES THAT WILL BE USED IN THE WEBPAGE FOR ELEMENT SELECTION PURPOSES */
 
 .mws-stylesForPage {
 	cursor: pointer !important;
-	position: relative;
+	/* position: relative; */
 }
 
 .mws-bordered {
@@ -48,8 +77,8 @@
 
 @font-face {
 	font-family: 'Inter';
-	src: url('../assets/inter/Inter-Regular.woff2') format('woff2'),
-		url('../assets/inter/Inter-Regular.woff') format('woff');
+	src: url('../../assets/inter/Inter-Regular.woff2') format('woff2'),
+		url('../../assets/inter/Inter-Regular.woff') format('woff');
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
@@ -81,6 +110,7 @@
 	--mws-red: #d75454;
 	--mws-light-red: #d37070;
 
+	
 	--mws-rem: 16px;
 
 	--mws-borderRadius-s: calc(var(--mws-rem) / 2);
@@ -105,6 +135,11 @@
 	--mws-padding-xl: calc(var(--mws-rem) * 1.5);
 }
 
+.mws-element .fas, .mws-element .fa-solid{
+  font-family: 'Font Awesome 6 Free';
+
+}
+
 /* Custom Dialog Box Styles  */
 
 dialog.mws-element {
@@ -117,7 +152,7 @@ dialog.mws-element {
 	background-color: #2d2d2d;
 
 	border-radius: var(--mws-borderRadius-s);
-	padding: 1rem;
+	padding: var(--mws-padding-l);
 	color: white;
 
 	border: none;
@@ -128,11 +163,51 @@ dialog.mws-element {
 	bottom: 50%;
 	margin: auto;
 
-	font-size: 1rem;	
+	font-size: var(--mws-fontSize);	
+
+	max-width: 350px;
 }
+
+
 dialog.mws-element::backdrop {
 	background: #000000b1;
 }
+
+dialog.mws-element .mws-actionButton{
+	position: absolute;
+	top: 0rem;
+	right: 0rem;
+}
+
+dialog.mws-confirmationDialog{
+	min-width: 40%;
+	min-height: 30%;
+	
+	font-size: 1.5rem;
+	padding: var(--mws-padding-l);
+	padding-block: calc(var(--mws-rem)*2);
+	
+	display: flex;
+}
+dialog.mws-confirmationDialog kbd.mws-element{
+	width: fit-content;
+	display: inline-flex;
+	/* padding-inline: var(--mws-padding-l); */
+}
+dialog.mws-confirmationDialog .buttons-wrapper{
+	margin-top: var(--mws-margin);
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
+	margin-inline: var(--mws-margin);
+	font-size: var(--mws-fontSize-l);
+
+	width: calc(var(--mws-rem)*4);
+	height: calc(var(--mws-rem)*3);
+}
+
 
 /* BUTTONS STYLES */
 
@@ -177,7 +252,7 @@ dialog.mws-element::backdrop {
 	background-color: transparent;
 	/* color: var(--mws-light-green); */
 	color: white;
-	font-size: 1.2rem;
+	font-size: var(--mws-fontSize-l);
 
 	border: none;
 
@@ -187,12 +262,12 @@ dialog.mws-element::backdrop {
 
 	user-select: none;
 
-	width: 2rem;
-	height: 2rem;
+	width: calc(var(--mws-rem)*2);
+	height: calc(var(--mws-rem)*2);
 
 	transition: 0.15s ease;
 
-	padding: 1.5rem;
+	padding: var(--mws-padding-xl);
 }
 .mws-element button.mws-actionButton:hover {
 	background-color: #88888834;
@@ -248,149 +323,138 @@ dialog.mws-element::backdrop {
 	color: white;
 }
 
-/* Danger Button  */
-.mws-element .mws-dangerButtonWithText-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	padding: 0.5rem;
-	border: var(--mws-border-s) solid var(--mws-red);
-	border-radius: 1rem;
-
-	background-color: #1f1f1f;
-}
-.mws-element .mws-dangerButtonWithText-wrapper .mws-text {
-	font-size: 0.9rem;
-	/* color: rgba(255, 2	55, 255, 0.65); */
-	color: var(--mws-red);
-	margin-inline: 1rem;
-}
-.mws-element .mws-dangerButtonWithText-wrapper .mws-dangerButton {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	gap: 0.5rem;
-	padding: 0.75rem 1rem;
-}
 
 /* Toggle Switch Styles  */
 
 /* The switch - the box around the slider */
-.mws-element .toggleSwitchLabel {
+.mws-element .mws-toggleSwitchLabel {
 	position: relative;
 	display: inline-block;
-	width: 60px;
-	height: 34px;
+	width: 50px;
+	height: 28px;
 }
 
 /* Hide default HTML checkbox */
-.mws-element .toggleSwitchLabel .mws-toggleSwitchInput {
+.mws-element .mws-toggleSwitchLabel .mws-toggleSwitchInput {
 	opacity: 0;
 	width: 0;
 	height: 0;
 }
 
 /* The slider */
-.mws-element .toggleSwitchSpan {
+.mws-element .mws-toggleSwitchSpan {
 	position: absolute;
 	cursor: pointer;
 	top: 0;
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
+	background-color: #4d4d4d;
+	-webkit-transition: .4s;
+	transition: .4s;
 
 	/* Round */
 	border-radius: 34px;
 }
-.mws-element .toggleSwitchSpan:hover {
-	background-color: #b2b2b2;
+.mws-element .mws-toggleSwitchSpan:hover {
+	background-color: #696969;
 }
 
-.mws-element .toggleSwitchSpan:before {
+.mws-element .mws-toggleSwitchSpan:before {
 	position: absolute;
 	content: '';
-	height: 26px;
-	width: 26px;
+	--same-size: 20px;
+	height: var(--same-size);
+	width: var(--same-size);
 	left: 4px;
 	bottom: 4px;
 	background-color: white;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 
 	border-radius: 50%;
 }
 
-.mws-element .mws-toggleSwitchInput:checked + .toggleSwitchSpan:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
+.mws-element .mws-toggleSwitchInput:checked + .mws-toggleSwitchSpan:before {
+	--transformX-value: 22px;
+	-webkit-transform: translateX(var(--transformX-value));
+	-ms-transform: translateX(var(--transformX-value));
+	transform: translateX(var(--transformX-value));
+}
+.mws-element .mws-toggleSwitchInput:focus + .mws-toggleSwitchSpan {
+	outline: 2px solid black;
 }
 
-.mws-element
-	.mws-toggleSwitchInput.greenToggle:checked
-	+ .toggleSwitchSpan.greenToggle {
+
+
+.mws-element .mws-toggleSwitchInput.greenToggle:checked + .mws-toggleSwitchSpan.greenToggle {
 	background-color: var(--mws-light-green);
 }
-.mws-element
-	.mws-toggleSwitchInput.greenToggle:checked:hover
-	+ .toggleSwitchSpan.greenToggle {
+.mws-element .mws-toggleSwitchInput.greenToggle:checked:hover  + .mws-toggleSwitchSpan.greenToggle{
 	background-color: var(--mws-dark-green);
 }
 
-.mws-element
-	.mws-toggleSwitchInput.greenToggle:focus
-	+ .toggleSwitchSpan.greenToggle {
-	box-shadow: 0 0 1px var(--mws-light-green);
-}
-
-.mws-element
-	.mws-toggleSwitchInput.redToggle:checked
-	+ .toggleSwitchSpan.redToggle {
+.mws-element .mws-toggleSwitchInput.redToggle:checked + .mws-toggleSwitchSpan.redToggle {
 	background-color: var(--mws-red);
 }
 
-.mws-element
-	.mws-toggleSwitchInput.redToggle:checked:hover
-	+ .toggleSwitchSpan.redToggle {
+.mws-element .mws-toggleSwitchInput.redToggle:checked:hover  + .mws-toggleSwitchSpan.redToggle{
 	background-color: #aa3c3c;
 }
 
-.mws-element
-	.mws-toggleSwitchInput.redToggle:focus
-	+ .toggleSwitchSpan.redToggle {
-	box-shadow: 0 0 1px var(--mws-red);
+
+
+/* Toggle with Text Wrapper */
+
+
+.mws-element .mws-toggleWithText-wrapper {
+	/* display: flex; */
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+
+	background-color: #262626;
+	border-radius: var(--mws-borderRadius);
+	padding: var(--mws-padding-l);
+	
+	font-size: var(--mws-fontSize);
+	
+	color: white;
+	
 }
+.mws-element .mws-toggleWithText-wrapper > div {
+	/* margin-inline: 1rem; */
+}
+
+
+
 
 /* INPUT STYLES */
 
-.mws-element input:not(.mws-toggleSwitchInput) {
+.mws-element input[type="text"] {
 	background-color: white;
 	border: none;
 	/* border: var(--mws-light-black) 1px solid; */
-	padding: 0.5rem;
+	padding: var(--mws-padding);
 
-	border-radius: 0.5rem;
+	border-radius: var(--mws-borderRadius-s);
 
 	color: var(--mws-black);
 }
-.mws-element input:not(.mws-toggleSwitchInput):focus {
+.mws-element input[type="text"]:focus {
 	outline: var(--mws-black) 3px solid;
 }
-.mws-element input:disabled {
+.mws-element input[type="text"]:disabled {
 	border-color: #575757;
 	background-color: #57575727;
 	color: #575757;
 	cursor: not-allowed;
 }
-.mws-element input:not(.mws-toggleSwitchInput)::placeholder {
+.mws-element input[type="text"]::placeholder {
 	color: var(--mws-black);
 	opacity: 0.5;
 }
-.mws-element input:disabled::placeholder {
+.mws-element input[type="text"]:disabled::placeholder {
 	opacity: 0.2;
 }
 
@@ -422,4 +486,10 @@ dialog.mws-element::backdrop {
 	background-color: #575757;
 	opacity: 0.5;
 	cursor: not-allowed;
+}
+
+
+
+.mws-element summary{
+	cursor: pointer !important;
 }

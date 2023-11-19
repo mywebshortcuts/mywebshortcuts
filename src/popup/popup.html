@@ -22,7 +22,7 @@
 		</button>
 
 		<div class="activeWebsiteShortcutsDiv flex">
-			<span>Current Shortcuts</span>
+			<span class="">Current Shortcuts <span class="numOfShortcuts"></span></span>
 
 			<div class="shortcutsListDiv">
 				
@@ -40,7 +40,7 @@
 					<div class="shortcutKeyDiv flex" title="Shortcut Key">
 						<span class="shortcutKey"></span>
 					</div>
-					<div class="shortcutEnableDisableToggle-wrapper">
+					<div class="shortcutEnableDisableToggle-wrapper" title="Enable/Disable Shortcut">
 						<label class="toggleSwitchLabel">
 							<input type="checkbox" class="toggleSwitchInput greenToggle" checked/>
 							<span class="toggleSwitchSpan greenToggle"></span>
@@ -54,8 +54,8 @@
 		<footer class="flex">
 			<div class="disableButtonsDiv flex">
 
-				<div class="toggleWithText-wrapper disableForThisSiteToggleWithText-wrapper">
-					<span class="disableWebsiteSpan">Disable for this site</span>
+				<div class="toggleWithText-wrapper disableForThisSiteToggleWithText-wrapper" title="Disable All Shortcuts for this domain">
+					<span class="disableWebsiteSpan">Disable for domain</span>
 					<div class="disableWebsiteToggle-wrapper">
 						<label class="toggleSwitchLabel">
 							<input type="checkbox" class="toggleSwitchInput redToggle" />
@@ -65,8 +65,8 @@
 				</div>
 
 				<div
-					class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper">
-					<span class="disableEverywhereSpan">Disable Everywhere</span>
+					class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper" title="Disable Extension Globally">
+					<span class="disableEverywhereSpan">Disable Globally</span>
 					<div class="disableEverywhereToggle-wrapper">
 						<label class="toggleSwitchLabel">
 							<input type="checkbox" class="toggleSwitchInput redToggle" />
@@ -77,8 +77,8 @@
 			</div>
 
 			<div class="settingsButtonDiv flex">
-				<button class="openOptionsButton">
-					<i class="fa-solid fa-gear"></i>Open Settings<i
+				<button class="openOptionsButton" title="Open Options Page">
+					<i class="fa-solid fa-gear"></i>Open Options Page<i
 						class="fa-angle-right fa-solid"></i>
 				</button>
 			</div>
