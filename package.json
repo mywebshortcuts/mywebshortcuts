@@ -9,8 +9,8 @@
     "preview": "vite preview"
   },
   "devDependencies": {
-    "@crxjs/vite-plugin": "^2.0.0-beta.19",
-    "vite": "^4.4.5"
+    "@crxjs/vite-plugin": "^2.0.0-beta.21",
+    "vite": "^4.5.0"
   },
   "dependencies": {
     "@medv/finder": "^3.1.0"
