@@ -18,16 +18,19 @@
 	<div class="settings">
 		<div class="settingsNavigation">
 			<button class="navigationButton active"
-					data-groupID="g1" title="Websites & Shortcuts Settings">
-				<i class="fa-keyboard fa-solid"></i> Websites & Shortcuts
+					data-groupID="g1"
+					title="Websites & Shortcuts Settings">
+				<i class="fa-keyboard fa-solid"></i> Shortcuts
 			</button>
 			<button class="navigationButton"
-					data-groupID="g2" title="Global Settings">
+					data-groupID="g2"
+					title="Global Settings">
 				<i class="fa-globe fa-solid"></i> Global
 			</button>
 			<button class="navigationButton"
-					data-groupID="g3" title="More About Extension">
-				<i class="fa-info-circle fa-solid"></i> About Extension
+					data-groupID="g3"
+					title="More About Extension">
+				<i class="fa-info-circle fa-solid"></i> About
 			</button>
 		</div>
 
@@ -40,7 +43,7 @@
 						   type="text"
 						   title="Search Website"
 						   placeholder="Search Website" />
-						   
+
 				</div>
 
 				<template class="urlWrapperTemplate">
@@ -82,9 +85,12 @@
 					</div>
 				</div>
 				<div class="websiteSettingsHeader">
-					<button class="backToWebsitesListButton" title="Back to Websites List">
-						<i class="fa-arrow-left fa-solid"></i>
-					</button>
+					<div class="backToWebsitesListButton-wrapper">
+						<button class="backToWebsitesListButton"
+								title="Back to Websites List">
+							<i class="fa-arrow-left fa-solid"></i>
+						</button>
+					</div>
 
 					<div class="urlHeading-wrapper">
 						<a class="urlHeading"
@@ -95,7 +101,8 @@
 
 				<div class="websiteSettingsDiv">
 					<div class="websiteSettingsContent-wrapper">
-						<div class="toggleWithText-wrapper" title="Disable all shortcuts for domain">
+						<div class="toggleWithText-wrapper"
+							 title="Disable all shortcuts for domain">
 							<span class="disableWebsiteSpan">Disable Shortcuts for Domain</span>
 							<div class="disableWebsiteToggle-wrapper">
 								<label class="toggleSwitchLabel">
@@ -108,7 +115,8 @@
 
 						<div class="dangerButtonWithText-wrapper deleteWebsiteButtonWithText-wrapper">
 							<p class="text">Delete this Website</p>
-							<button class="dangerButton deleteWebsiteButton redButton" title="Delete Website">
+							<button class="dangerButton deleteWebsiteButton redButton"
+									title="Delete Website">
 								<i class="fa-solid fa-trash-can"></i>
 								<p>Delete</p>
 							</button>
@@ -144,21 +152,27 @@
 										 class="shortcutKeyKbd">K</kbd>
 								</div>
 
-								<div class="disableShortcutToggle-wrapper" title="Enable/Disable Shortcut">
-									<label class="toggleSwitchLabel" title="Enable/Disable Shortcut">
+								<div class="disableShortcutToggle-wrapper"
+									 title="Enable/Disable Shortcut">
+									<label class="toggleSwitchLabel"
+										   title="Enable/Disable Shortcut">
 										<input checked
 											   type="checkbox"
-											   class="toggleSwitchInput greenToggle"  title="Enable/Disable Shortcut"/>
-										<span class="toggleSwitchSpan greenToggle"  title="Enable/Disable Shortcut"></span>
+											   class="toggleSwitchInput greenToggle"
+											   title="Enable/Disable Shortcut" />
+										<span class="toggleSwitchSpan greenToggle"
+											  title="Enable/Disable Shortcut"></span>
 									</label>
 								</div>
 
 								<div class="properties-wrapper">
-									<div class="urlType-wrapper" title="Type of URL">
+									<div class="urlType-wrapper"
+										 title="Type of URL">
 										URL Type:
 										<span class="urlTypeSpan">domainAndAllPages</span>
 									</div>
-									<div class="action-wrapper" title="Action">
+									<div class="action-wrapper"
+										 title="Action">
 										Action:
 										<span class="actionSpan">click</span>
 									</div>
@@ -167,13 +181,15 @@
 								<div class="editDeleteButtons-wrapper">
 									<div class="editShortcutButton-wrapper">
 										<button class="editShortcutButton greenButtonFilled"
-												tabindex="0" title="Edit Shortcut">
+												tabindex="0"
+												title="Edit Shortcut">
 											<i class="fa-pencil fa-solid"></i>
 										</button>
 									</div>
 									<div class="deleteShortcutButton-wrapper">
 										<button class="deleteShortcutButton redButtonFilled"
-												tabindex="0" title="Delete Shortcut">
+												tabindex="0"
+												title="Delete Shortcut">
 											<i class="fa-trash fa-solid"></i>
 										</button>
 									</div>
@@ -188,7 +204,8 @@
 
 			<div class="settingsGroup"
 				 id="g2">
-				<div class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper" title="Disable Extension Globally">
+				<div class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper"
+					 title="Disable Extension Globally">
 					<span class="disableEverywhereSpan">Disable Extension Globally</span>
 					<div class="disableEverywhereToggle-wrapper">
 						<label class="toggleSwitchLabel">
@@ -198,7 +215,8 @@
 						</label>
 					</div>
 				</div>
-				<div class="toggleWithText-wrapper disableSoundToggleWithText-wrapper" title="Disable Sounds Globally">
+				<div class="toggleWithText-wrapper disableSoundToggleWithText-wrapper"
+					 title="Disable Sounds Globally">
 					<span class="disableSoundSpan">Disable Sounds Globally</span>
 					<div class="disableSoundToggle-wrapper">
 						<label class="toggleSwitchLabel">
@@ -209,7 +227,8 @@
 					</div>
 				</div>
 
-				<div class="dangerButtonWithText-wrapper clearAllDataButtonWithText-wrapper" title="Delete all the data">
+				<div class="dangerButtonWithText-wrapper clearAllDataButtonWithText-wrapper"
+					 title="Delete all the data">
 					<p class="text">Delete all data</p>
 					<button class="dangerButton clearAllDataButton redButton">
 						<i class="fa-solid fa-trash-can"></i>
@@ -234,12 +253,23 @@
 						create custom keyboard shortcuts in any website to click
 						<em>(or perform other actions)</em> on any element(s).
 					</p>
-					<p class="infoText">This extension is currently in it's early development phase, you may face a few bugs or lack of features.</p>
+					<p class="infoText">This extension is currently in it's early development phase, you may face a few
+						bugs or lack of features.</p>
 					<!-- <div class="links-wrapper"> -->
 
+					<h2 class="usefulLinksHeading">Useful Links</h2>
 					<div class="usefulLinks-wrapper">
+						<div>
+							<div class="linkAndText-wrapper">
+								<span>This project is 100% free and open source, your support
+									will help us keep working on it &#128516;</span>
+								<a href="https://github.com/sponsors/prakhartiwari0"
+								   class="sponsorLink links"
+								   target="_blank"><i class="fa-hand-holding-dollar fa-solid"></i> <span>Sponsor
+										Project</span></a>
+							</div>
+						</div>
 
-						<h2 class="usefulLinksHeading">Useful Links</h2>
 
 						<div>
 
@@ -247,17 +277,30 @@
 								<span>Visit the Official Website</span>
 								<a href="https://www.mywebshortcuts.xyz/"
 								   class="websiteLink links"
-								   target="_blank"><i class="fa-globe fa-solid"></i> mywebshortcuts.xyz</a>
+								   target="_blank"><i class="fa-globe fa-solid"></i> <span>mywebshortcuts.xyz</span></a>
+							</div>
+							<div class="linkAndText-wrapper">
+								<span>Rate & Review us on Chrome Webstore</span>
+								<a href="https://www.mywebshortcuts.xyz/"
+								   class="chromeWebstoreLink links"
+								   target="_blank"><i class="fa-chrome fa-brands"></i> <span>Chrome Webstore</span></a>
 							</div>
 						</div>
 
+
 						<div>
 							<div class="linkAndText-wrapper">
-								<span>This project is 100% free and open source, your support
-									will help us keep working on it &#128516;</span>
-								<a href="https://github.com/sponsors/prakhartiwari0"
-								   class="sponsorLink links"
-								   target="_blank"><i class="fa-hand-holding-dollar fa-solid"></i> Sponsor Project</a>
+								<span>Did find a Bug? Please raise an issue immediately!</span>
+								<a href="https://github.com/prakhartiwari0/my-web-shortcuts/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=%5BBUG%5D+"
+								   class="bugReportLink links"
+								   target="_blank"><i class="fa-bug fa-solid"></i> <span>Bug Report</span></a>
+							</div>
+							<div class="linkAndText-wrapper">
+								<span>Want some feature? Request it and we shall add it if good enough</span>
+								<a href="https://github.com/prakhartiwari0/my-web-shortcuts/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=%5BFEATURE%5D+"
+								   class="featureRequestLink links"
+								   target="_blank"><i class="fa-circle-plus fa-solid"></i> <span>Feature
+										Request</span></a>
 							</div>
 						</div>
 
@@ -266,14 +309,15 @@
 								<span>Join the Discord server for updates, surveys, and support</span>
 								<a href="https://discord.gg/gYcptZAhPv"
 								   class="discordLink links"
-								   target="_blank"><i class="fa-discord fa-brands"></i> Discord Server</a>
+								   target="_blank"><i class="fa-discord fa-brands"></i> <span>Discord Server</span></a>
 							</div>
 
 							<div class="linkAndText-wrapper">
-								<span>Tag us or <a href="https://twitter.com/prakhartiwari0" target="_blank">@Prakhartiwari0</a> on Twitter & share your review!</span>
+								<span>Tag us or <a href="https://twitter.com/prakhartiwari0"
+									   target="_blank">@Prakhartiwari0</a> on Twitter & share your review!</span>
 								<a href="https://twitter.com/mywebshortcuts"
 								   class="twitterLink links"
-								   target="_blank"><i class="fa-twitter fa-brands"></i> @mywebshortcuts</a>
+								   target="_blank"><i class="fa-twitter fa-brands"></i> <span>@mywebshortcuts</span></a>
 							</div>
 						</div>
 
@@ -282,23 +326,9 @@
 							<span>If you're interested to contribute to the project, here's the GitHub Repo</span>
 							<a href="https://github.com/prakhartiwari0/my-web-shortcuts"
 							   class="githubLink links"
-							   target="_blank"><i class="fa-github fa-brands"></i> GitHub</a>
+							   target="_blank"><i class="fa-github fa-brands"></i> <span>GitHub Repository</span></a>
 						</div>
 
-						<div>
-							<div class="linkAndText-wrapper">
-								<span>Found a Bug? Report it now!</span>
-								<a href="https://github.com/prakhartiwari0/my-web-shortcuts/issues/new?assignees=&labels=&projects=&template=bug_report.md&title=%5BBUG%5D+"
-								   class="bugReportLink links"
-								   target="_blank"><i class="fa-bug fa-solid"></i> Bug Report</a>
-							</div>
-							<div class="linkAndText-wrapper">
-								<span>Want some feature? Request it and we shall add it if good enough</span>
-								<a href="https://github.com/prakhartiwari0/my-web-shortcuts/issues/new?assignees=&labels=&projects=&template=feature_request.md&title=%5BFEATURE%5D+"
-								   class="featureRequestLink links"
-								   target="_blank"><i class="fa-circle-plus fa-solid"></i> Feature Request</a>
-							</div>
-						</div>
 					</div>
 
 					<!-- </div> -->
@@ -308,18 +338,10 @@
 		</main>
 	</div>
 
-	<footer>
-		<span class="creatorText">A Creation of
-			<a href="https://www.heyprakhar.com/"
-			   target="_blank">Prakhar</a> & Contributors</span>
-		<span class="prakashhOSPText">&copy; 2023
-			<a href="https://github.com/prakashhtech"
-			   target="_blank">Prakashh Technologies</a>
-		</span>
-	</footer>
 
 	<div class="helpButton-wrapper">
-		<button class="helpButton" title="Help & Support"><i class="fa-question fa-solid"></i></button>
+		<button class="helpButton"
+				title="Help & Support"><i class="fa-question fa-solid"></i></button>
 	</div>
 
 	<dialog class="helpDialog">
@@ -338,18 +360,50 @@
 			<a href="https://www.mywebshortcuts.xyz#faqs"
 			   class="faqs links"
 			   target="_blank"><i class="fa-question fa-solid"></i> FAQs</a>
-		</div>
 
-		<div class="contactMail-wrapper">
-			<a href="mailto:contact@mywebshortcuts.xyz"
-			   class="email"
-			   target="_blank"><i class="fa-envelope fa-solid"></i> contact@mywebshortcuts.xyz</a>
-		</div>
-		<div class="discordServer-wrapper">
 			<a href="https://discord.gg/gYcptZAhPv"
-			   class="discordSupprtServerLink"
-			   target="_blank"><i class="fa-discord fa-brands"></i> Join Discord Server for Support</a>
+			   class="discordSupprtServerLink links"
+			   target="_blank"><i class="fa-discord fa-brands"></i> Discord Server</a>
+
+
+			<a href="https://twitter.com/mywebshortcuts"
+			   class="mwsTwitterLink links"
+			   target="_blank"><i class="fa-twitter fa-brands"></i> Twitter</a>
+
+
+			<a href="mailto:contact@mywebshortcuts.xyz"
+			   class="email links"
+			   target="_blank"><i class="fa-envelope fa-solid"></i> Email us</a>
 		</div>
+<!-- 
+		<div class="contactSupportLinks-wrapper">
+			<div class="discordServer-wrapper">
+				<a href="https://discord.gg/gYcptZAhPv"
+				   class="discordSupprtServerLink"
+				   target="_blank"><i class="fa-discord fa-brands"></i> Join Discord Server for Support</a>
+			</div>
+
+			<div class="twitterSupport-wrapper">
+				<span class="twitterSupportSpan">
+					<i class="fa-twitter fa-brands"></i>
+					Tag
+					<a href="https://twitter.com/mywebshortcuts"
+					   class="mwsTwitterLink"
+					   target="_blank"> @mywebshortcuts</a>
+
+					and <a
+					   href="https://twitter.com/intent/tweet?text=Hey%20@mywebshortcuts%2C%20can%20you%20help%20me%20with%20this%3F%20Write%20your%20issue..."
+					   target="_blank">share your query/problem</a> with us!
+				</span>
+			</div>
+
+
+			<div class="contactMail-wrapper">
+				<a href="mailto:contact@mywebshortcuts.xyz"
+				   class="email"
+				   target="_blank"><i class="fa-envelope fa-solid"></i> contact@mywebshortcuts.xyz</a>
+			</div>
+		</div> -->
 
 	</dialog>
 
@@ -383,6 +437,19 @@
 			 alt=""
 			 class="circle" />
 	</div>
+
+
+
+	<footer>
+		<span class="creatorText">A Creation of
+			<a href="https://www.heyprakhar.com/"
+			   target="_blank">Prakhar</a> & Contributors</span>
+		<span class="prakashhOSPText">&copy; 2023
+			<a href="https://github.com/prakashhtech"
+			   target="_blank">Prakashh Technologies</a>
+		</span>
+	</footer>
+
 
 	<div class="overlay"></div>
 </body>

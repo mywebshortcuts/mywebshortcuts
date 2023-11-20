@@ -8,6 +8,10 @@
 }
 
 :root {
+	--baseSize: 16px;
+	--rem: var(--baseSize);
+	font-size: var(--baseSize);
+
 	--default-font: 'Inter', sans-serif;
 
 	--black: #000000;
@@ -24,9 +28,6 @@
 
 	--red: #d75454;
 	--light-red: #d37070;
-
-
-	--rem: 16px;
 
 	--borderRadius-s: calc(var(--rem) / 2);
 	--borderRadius: calc(var(--rem));
@@ -50,6 +51,70 @@
 	--padding-xl: calc(var(--rem) * 1.5);
 }
 
+
+/* 1366x768 */
+@media only screen and (min-width: 1366px) {
+	:root {
+		--base-size:18x;
+	}
+}
+
+/* 1440x900 */
+@media only screen and (min-width: 1440px) {
+	:root {
+		--baseSize: 20px;
+	}
+}
+
+/* 1600x900 */
+@media only screen and (min-width: 1600px) {
+	:root {
+		--baseSize: 22px;
+	}
+}
+
+/* 1920x1080 */
+@media only screen and (min-width: 1920px) {
+	:root {
+		--baseSize: 25px;
+	}
+}
+
+/* 2560x1440 */
+@media only screen and (min-width: 2560px) {
+	:root {
+		--baseSize: 32px;
+	}
+}
+/* 2560x1440 */
+@media only screen and (min-width: 3200px) {
+	:root {
+		--baseSize: 40px;
+	}
+}
+
+/* 3840x2160 */
+@media only screen and (min-width: 3840px) {
+	:root {
+		--baseSize: 49px;
+	}
+}
+/* 4096x2160 */
+@media only screen and (min-width: 4096px) {
+	:root {
+		--baseSize: 59px;
+	}
+}
+
+/* 5120x2880 */
+@media only screen and (min-width: 5120px) {
+	:root {
+		--baseSize: 70px;
+	}
+}
+
+
+
 * {
 	margin: 0px;
 	padding: 0px;
@@ -60,27 +125,25 @@
 
 /* Remove the default scrollbar styles */
 ::-webkit-scrollbar {
-	width: 10px; /* Adjust the width as needed */
+	width: .5rem; /* Adjust the width as needed */
 }
 
 /* Track (the background) */
 ::-webkit-scrollbar-track {
 	background: transparent; /* No background color */
-	/* margin: .5rem 0px; */
 }
 
 /* Handle (the thumb) */
 ::-webkit-scrollbar-thumb {
 	margin-top: 1rem;
 	background: rgba(93, 128, 151, 0.768);
-	border-radius: 10px;
+	border-radius: 0.5rem;
 }
 ::-webkit-scrollbar-thumb:hover {
 	background: rgb(93, 128, 151);
 }
 
-
-::selection{
+::selection {
 	color: var(--light-green);
 	background-color: var(--black);
 }
@@ -122,18 +185,17 @@ button:disabled {
 	color: var(--grey) !important;
 	border-color: var(--grey) !important;
 	opacity: 0.7 !important;
-	background-color:  #4d4d4d !important;
+	background-color: #4d4d4d !important;
 	cursor: not-allowed;
 
 	/* pointer-events: none !important; */
 }
 
-
-button.actionButton{
+button.actionButton {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+
 	background-color: transparent;
 	color: var(--light-green);
 	font-size: 1.2rem;
@@ -145,23 +207,21 @@ button.actionButton{
 	border-radius: 100%;
 
 	user-select: none;
-	
+
 	width: 2rem;
 	height: 2rem;
 
 	transition: 0.15s ease;
 
 	padding: 1.5rem;
-	
 }
-button.actionButton:hover{
+button.actionButton:hover {
 	background-color: #88888834;
-
 }
 
 .redButton {
 	background-color: transparent;
-	border: 2px solid var(--red);
+	border: 0.125rem solid var(--red);
 	color: var(--red);
 }
 .redButton:hover {
@@ -171,7 +231,7 @@ button.actionButton:hover{
 
 .greenButton {
 	background-color: transparent;
-	border: 2px solid var(--dark-green);
+	border: 0.125rem solid var(--dark-green);
 	color: var(--dark-green);
 }
 .greenButton:hover {
@@ -186,7 +246,6 @@ button.actionButton:hover{
 .redButtonFilled:hover {
 	background-color: #a54040;
 	color: white;
-
 }
 
 .greenButtonFilled {
@@ -198,44 +257,41 @@ button.actionButton:hover{
 	color: white;
 }
 /* BLUE BUTTON FILLED */
- .blueButtonFilled {
+.blueButtonFilled {
 	background-color: var(--dark-blue);
 	color: rgb(255, 255, 255);
 }
- .blueButtonFilled:hover {
+.blueButtonFilled:hover {
 	background-color: #1597ae;
 	color: white;
 }
 
 /* Danger Button  */
- .dangerButtonWithText-wrapper {
+.dangerButtonWithText-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.5rem;
-	/* border: 1px solid rgba(255, 255, 255, 0.2); */
-	border: 1px solid var(--red);
+	font-size: 1rem;
+	border: 0.0625rem solid var(--red);
 	border-radius: 1rem;
 
 	background-color: #1f1f1f;
-
 }
- .dangerButtonWithText-wrapper .text {
-	font-size: 0.9rem;
+.dangerButtonWithText-wrapper .text {
 	/* color: rgba(255, 2	55, 255, 0.65); */
 	color: var(--red);
 	margin-inline: 1rem;
 }
- .dangerButtonWithText-wrapper .dangerButton {
+.dangerButtonWithText-wrapper .dangerButton {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0.75rem 1rem;
+	font-size: 1rem;
 }
-
-
 
 /* LINK STYLES  */
 a {
@@ -246,14 +302,12 @@ a:hover {
 	color: var(--dark-green);
 }
 
-
-
 /* INPUT STYLES */
 
 input:not(.toggleSwitchInput) {
 	background-color: transparent;
 	/* border: none; */
-	border: var(--light-green) 1px solid;
+	border: var(--light-green) 0.0625rem solid;
 	padding: 0.5rem;
 
 	border-radius: 0.5rem;
@@ -261,49 +315,47 @@ input:not(.toggleSwitchInput) {
 	color: var(--light-green);
 }
 input:not(.toggleSwitchInput) :focus {
-	outline: var(--light-green) 2px solid;
+	outline: var(--light-green) 0.125rem solid;
 }
 input:not(.toggleSwitchInput) ::placeholder {
 	color: var(--light-green);
 	opacity: 0.5;
+	font-size: 100%;
 }
 
- input:not(.toggleSwitchInput) {
+input:not(.toggleSwitchInput) {
 	background-color: white;
 	border: none;
-	/* border: var(--light-black) 1px solid; */
 	padding: 0.5rem;
 
 	border-radius: 0.5rem;
 
 	color: var(--black);
 }
- input:not(.toggleSwitchInput):focus {
-	outline: var(--black) 3px solid;
+input:not(.toggleSwitchInput):focus {
+	outline: var(--black) 0.125rem solid;
 }
- input:disabled {
+input:disabled {
 	border-color: #575757;
 	background-color: #57575727;
 	color: #575757;
 	cursor: not-allowed;
 }
- input:not(.toggleSwitchInput)::placeholder {
+input:not(.toggleSwitchInput)::placeholder {
 	color: var(--black);
 	opacity: 0.5;
 }
- input:disabled::placeholder {
+input:disabled::placeholder {
 	opacity: 0.2;
 }
-
-
-/* Toggle Switch Styles  */
+/* Toggle Switch Styles */
 
 /* The switch - the box around the slider */
 .toggleSwitchLabel {
 	position: relative;
 	display: inline-block;
-	width: 50px;
-	height: 28px;
+	width: 3.125rem; /* 50px / 16px = 3.125rem */
+	height: 1.75rem; /* 28px / 16px = 1.75rem */
 }
 
 /* Hide default HTML checkbox */
@@ -322,11 +374,11 @@ input:not(.toggleSwitchInput) ::placeholder {
 	right: 0;
 	bottom: 0;
 	background-color: #4d4d4d;
-	-webkit-transition: .4s;
-	transition: .4s;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
 
 	/* Round */
-	border-radius: 34px;
+	border-radius: 2.125rem; /* 34px / 16px = 2.125rem */
 }
 .toggleSwitchSpan:hover {
 	background-color: #696969;
@@ -335,11 +387,11 @@ input:not(.toggleSwitchInput) ::placeholder {
 .toggleSwitchSpan:before {
 	position: absolute;
 	content: '';
-	--same-size: 20px;
+	--same-size: 1.25rem; /* 20px / 16px = 1.25rem */
 	height: var(--same-size);
 	width: var(--same-size);
-	left: 4px;
-	bottom: 4px;
+	left: 0.25rem; /* 4px / 16px = 0.25rem */
+	bottom: 0.25rem; /* 4px / 16px = 0.25rem */
 	background-color: white;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
@@ -348,21 +400,20 @@ input:not(.toggleSwitchInput) ::placeholder {
 }
 
 .toggleSwitchInput:checked + .toggleSwitchSpan:before {
-	--transformX-value: 22px;
+	--transformX-value: 1.375rem; /* 22px / 16px = 1.375rem */
 	-webkit-transform: translateX(var(--transformX-value));
 	-ms-transform: translateX(var(--transformX-value));
 	transform: translateX(var(--transformX-value));
 }
+
 .toggleSwitchInput:focus + .toggleSwitchSpan {
-	outline: 2px solid black;
+	outline: 0.125rem solid black;
 }
-
-
 
 .toggleSwitchInput.greenToggle:checked + .toggleSwitchSpan.greenToggle {
 	background-color: var(--light-green);
 }
-.toggleSwitchInput.greenToggle:checked:hover  + .toggleSwitchSpan.greenToggle{
+.toggleSwitchInput.greenToggle:checked:hover + .toggleSwitchSpan.greenToggle {
 	background-color: var(--dark-green);
 }
 
@@ -370,7 +421,7 @@ input:not(.toggleSwitchInput) ::placeholder {
 	background-color: var(--red);
 }
 
-.toggleSwitchInput.redToggle:checked:hover  + .toggleSwitchSpan.redToggle{
+.toggleSwitchInput.redToggle:checked:hover + .toggleSwitchSpan.redToggle {
 	background-color: #aa3c3c;
 }
 
@@ -415,7 +466,7 @@ dialog {
 	color: white;
 
 	border: none;
-	box-shadow: 0px 0px 10px 0px black;
+	box-shadow: 0rem 0rem 0.5rem 0rem black;
 
 	position: fixed;
 	top: 50%;
@@ -429,56 +480,35 @@ dialog::backdrop {
 }
 
 /* Most of the times the actionbutton inside a dialog will be the close dialog button, therefore this default style */
-dialog .actionButton{
+dialog .actionButton {
 	position: absolute;
 	top: 0rem;
 	right: 0rem;
 }
 
-dialog.confirmationDialog{
+dialog.confirmationDialog {
 	min-width: 40%;
 	min-height: 30%;
 
 	font-size: 1.5rem;
 	padding: 2rem;
 }
-dialog.confirmationDialog .buttons-wrapper{
+dialog.confirmationDialog .buttons-wrapper {
 	margin-top: 1rem;
 }
-dialog.confirmationDialog .buttons-wrapper > button{
+dialog.confirmationDialog .buttons-wrapper > button {
 	font-size: 1.5rem;
-	margin-inline: .5rem;
+	margin-inline: 0.5rem;
 }
 
-/* Custom kbd element for Keyboard shortcut */
-/* kbd {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-
-	color: var(--black);
-	font-weight: 900;
-	background: rgb(255,255,255);
-background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(135,135,135,1) 100%, rgba(0,0,0,1) 100%);
-	width: 2rem;
-	height: 2rem;
-	padding: 1rem;
-	border-radius: 0.3rem;
-	border: 2px solid var(--black);
-	cursor: pointer;
-}
-kbd:hover, kbd:focus {
-	transform: scale(.9);
-}
- */
 
 kbd {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+
 	color: white;
-	font-weight:  500;
+	font-weight: 500;
 	background-color: #1f1f1f;
 	font-size: var(--fontSize-l);
 	padding: var(--padding);
@@ -486,24 +516,22 @@ kbd {
 	cursor: pointer;
 }
 
-.kbd-wrapper{
+.kbd-wrapper {
 	width: 50%;
 }
-.selectedShortcutKBD{
+.selectedShortcutKBD {
 	width: 100%;
 	height: 100%;
 	/* padding: 1rem; */
 }
-.selectedShortcutKBD.active{
-	border: 2px solid #26bcd6;
+.selectedShortcutKBD.active {
+	border: 0.125rem solid #26bcd6;
 }
-.selectedShortcutKBD.shortcutExists{
-	border: 2px solid var(--red);
-
+.selectedShortcutKBD.shortcutExists {
+	border: 0.125rem solid var(--red);
 }
 
 /* Toggle with Text Wrapper */
-
 
 .toggleWithText-wrapper {
 	display: flex;
@@ -513,11 +541,10 @@ kbd {
 	background-color: #1f1f1f;
 	border-radius: 1rem;
 	padding: 1rem;
-	
+
 	font-size: 1rem;
-	
+
 	color: white;
-	
 }
 .toggleWithText-wrapper > div {
 	margin-inline: 1rem;
