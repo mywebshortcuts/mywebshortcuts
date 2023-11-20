@@ -53,9 +53,9 @@
 
 
 /* 1366x768 */
-@media only screen and (min-width: 1366px) {
+@media only screen and (min-width: 1367px) {
 	:root {
-		--base-size:18x;
+		--baseSize: 18px;
 	}
 }
 
@@ -86,7 +86,7 @@
 		--baseSize: 32px;
 	}
 }
-/* 2560x1440 */
+/* 3200px */
 @media only screen and (min-width: 3200px) {
 	:root {
 		--baseSize: 40px;

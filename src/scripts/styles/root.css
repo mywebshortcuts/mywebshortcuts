@@ -9,20 +9,20 @@
 .mws-element details,
 .mws-element summary,
 .mws-element textarea {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  box-sizing: border-box;
-  text-decoration: none;
-  outline: none;
-  background: transparent;
-  color: inherit;
-  display: inline-block;
-  position: static;
-  overflow: visible;
-  cursor: auto;
-  box-shadow: none;
-  font-weight: normal;
+  margin: 0 !important ;
+  padding: 0 !important ;
+  border: 0 !important ;
+  box-sizing: border-box !important ;
+  text-decoration: none !important ;
+  outline: none !important ;
+  background: transparent !important ;
+  color: inherit !important ;
+  display: inline-block !important ;
+  position: static !important ;
+  overflow: visible !important ;
+  cursor: auto !important ;
+  box-shadow: none !important ;
+  font-weight: normal !important ;
 }
 
 
@@ -30,297 +30,355 @@
 /* STYLES THAT WILL BE USED IN THE WEBPAGE FOR ELEMENT SELECTION PURPOSES */
 
 .mws-stylesForPage {
-	cursor: pointer !important;
-	/* position: relative; */
+	cursor: pointer  !important ;
+	/* position: relative !important ; */
 }
 
 .mws-bordered {
-	outline: 2px solid red !important;
+	outline: 2px solid red  !important ;
 }
 .mws-clicked {
-	position: relative;
+	position: relative !important ;
 }
 .mws-clicked::after {
-	content: attr(data-index); /* Display the data-index attribute as content */
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
-	width: 15px;
-	height: 15px;
-	background-color: yellow;
-	color: black;
-	border: 2px solid black;
-	font-size: 12px;
+	content: attr(data-index) !important ; /* Display the data-index attribute as content */
+	position: absolute !important ;
+	bottom: 5px !important ;
+	right: 5px !important ;
+	width: 15px !important ;
+	height: 15px !important ;
+	background-color: yellow !important ;
+	color: black !important ;
+	border: 2px solid black !important ;
+	font-size: 12px !important ;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+	display: flex !important ;
+	justify-content: center !important ;
+	align-items: center !important ;
+	text-align: center !important ;
 }
 .mws-clicked::before {
 	content: attr(
 		data-keyboardShortcut
-	); /* Display the data-index attribute as content */
-	position: absolute;
-	bottom: 5px;
-	right: 5px;
-	width: 15px;
-	height: 15px;
-	background-color: grey;
-	color: black;
-	border: 2px solid black;
-	font-size: 12px;
-	text-align: center;
+	) !important ; /* Display the data-index attribute as content */
+	position: absolute !important ;
+	bottom: 5px !important ;
+	right: 5px !important ;
+	width: 15px !important ;
+	height: 15px !important ;
+	background-color: grey !important ;
+	color: black !important ;
+	border: 2px solid black !important ;
+	font-size: 12px !important ;
+	text-align: center !important ;
 }
 
 /* UNIVERSAL Styles for all the Extension Generated Elements */
 
 @font-face {
-	font-family: 'Inter';
+	font-family: 'Inter' !important ;
 	src: url('../../assets/inter/Inter-Regular.woff2') format('woff2'),
-		url('../../assets/inter/Inter-Regular.woff') format('woff');
-	font-weight: normal;
-	font-style: normal;
-	font-display: swap;
+		url('../../assets/inter/Inter-Regular.woff') format('woff') !important ;
+	font-weight: normal !important ;
+	font-style: normal !important ;
+	font-display: swap !important ;
 }
 
 *.mws-element {
-	margin: 0px;
-	padding: 0px;
-	box-sizing: border-box;
+	margin: 0px !important ;
+	padding: 0px !important ;
+	box-sizing: border-box !important ;
 
-	/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"; */
-	/* font-family: Ubuntu; */
-	font-family: 'Inter', sans-serif;
+	/* font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important ; */
+	/* font-family: Ubuntu !important ; */
+	font-family: 'Inter', sans-serif !important ;
 
-	/* --default-font: 'Grandstander', cursive; */
+	/* --default-font: 'Grandstander', cursive !important ; */
 
-	--mws-black: #000000;
+	--mws-black: #000000 !important ;
 
-	--mws-light-green: #54b948;
-	--mws-dark-green: #49a942;
+	--mws-light-green: #54b948 !important ;
+	--mws-dark-green: #49a942 !important ;
 
-	--mws-dark-blue: #26bcd6;
-	--mws-light-blue: #7ed0e0;
-	--mws-lightest-blue: #cceaee;
+	--mws-dark-blue: #26bcd6 !important ;
+	--mws-light-blue: #7ed0e0 !important ;
+	--mws-lightest-blue: #cceaee !important ;
 
-	--mws-grey: #c0d3d8;
-	--mws-dark-grey: #262626;
+	--mws-grey: #c0d3d8 !important ;
+	--mws-dark-grey: #262626 !important ;
 
-	--mws-red: #d75454;
-	--mws-light-red: #d37070;
+	--mws-red: #d75454 !important ;
+	--mws-light-red: #d37070 !important ;
 
 	
-	--mws-rem: 16px;
+	--mws-rem: 16px !important ;
+	--mws1px: calc(var(--mws-rem)/16) !important ;
+	/* calc(var(--mws1px)*num) */
 
-	--mws-borderRadius-s: calc(var(--mws-rem) / 2);
-	--mws-borderRadius: calc(var(--mws-rem));
-	--mws-borderRadius-l: calc(var(--mws-rem) * 2);
+	--mws-borderRadius-s: calc(var(--mws-rem) / 2) !important ;
+	--mws-borderRadius: calc(var(--mws-rem)) !important ;
+	--mws-borderRadius-l: calc(var(--mws-rem) * 2) !important ;
 
-	--mws-border-s: calc(var(--mws-rem) / 16);
-	--mws-border-m: calc(var(--mws-rem) / 8);
-	--mws-border-l: calc(var(--mws-rem) / 4);
+	--mws-border-s: calc(var(--mws-rem) / 16) !important ;
+	--mws-border-m: calc(var(--mws-rem) / 8) !important ;
+	--mws-border-l: calc(var(--mws-rem) / 4) !important ;
 
-	--mws-fontSize-s: calc(var(--mws-rem) / 1.2);
-	--mws-fontSize: calc(var(--mws-rem));
-	--mws-fontSize-l: calc(var(--mws-rem) * 1.2);
+	--mws-fontSize-s: calc(var(--mws-rem) / 1.2) !important ;
+	--mws-fontSize: calc(var(--mws-rem)) !important ;
+	--mws-fontSize-l: calc(var(--mws-rem) * 1.2) !important ;
 
-	--mws-margin-s: calc(var(--mws-rem) / 8);
-	--mws-margin: calc(var(--mws-rem) / 2);
-	--mws-margin-l: calc(var(--mws-rem));
+	--mws-margin-s: calc(var(--mws-rem) / 8) !important ;
+	--mws-margin: calc(var(--mws-rem) / 2) !important ;
+	--mws-margin-l: calc(var(--mws-rem)) !important ;
 
-	--mws-padding-s: calc(var(--mws-rem) / 8);
-	--mws-padding: calc(var(--mws-rem) / 2);
-	--mws-padding-l: calc(var(--mws-rem));
-	--mws-padding-xl: calc(var(--mws-rem) * 1.5);
+	--mws-padding-s: calc(var(--mws-rem) / 8) !important ;
+	--mws-padding: calc(var(--mws-rem) / 2) !important ;
+	--mws-padding-l: calc(var(--mws-rem)) !important ;
+	--mws-padding-xl: calc(var(--mws-rem) * 1.5) !important ;
 }
 
+/* @media only screen and (min-width: 1366px) {
+	*.mws-element {
+		--mws-rem: 16px !important ;
+	}
+}
+
+@media only screen and (min-width: 1440px) {
+	*.mws-element {
+		--mws-rem: 20px !important ;
+	}
+}
+
+@media only screen and (min-width: 1600px) {
+	*.mws-element {
+		--mws-rem: 22px !important ;
+	}
+}
+
+@media only screen and (min-width: 1920px) {
+	*.mws-element {
+		--mws-rem: 21px !important ;
+	}
+}
+
+@media only screen and (min-width: 2560px) {
+	*.mws-element {
+		--mws-rem: 32px !important ;
+	}
+}
+@media only screen and (min-width: 3200px) {
+	*.mws-element {
+		--mws-rem: 40px !important ;
+	}
+}
+
+@media only screen and (min-width: 3840px) {
+	*.mws-element {
+		--mws-rem: 49px !important ;
+	}
+}
+@media only screen and (min-width: 4096px) {
+	*.mws-element {
+		--mws-rem: 59px !important ;
+	}
+}
+
+@media only screen and (min-width: 5120px) {
+	*.mws-element {
+		--mws-rem: 70px !important ;
+	}
+}
+ */
+
+
 .mws-element .fas, .mws-element .fa-solid{
-  font-family: 'Font Awesome 6 Free';
+  font-family: 'Font Awesome 6 Free' !important ;
 
 }
 
 /* Custom Dialog Box Styles  */
 
 dialog.mws-element {
-	display: flex;
-	flex-direction: column;
+	display: flex !important ;
+	flex-direction: column !important ;
 
-	justify-content: center;
-	align-items: center;
+	justify-content: center !important ;
+	align-items: center !important ;
 
-	background-color: #2d2d2d;
+	background-color: #2d2d2d !important ;
 
-	border-radius: var(--mws-borderRadius-s);
-	padding: var(--mws-padding-l);
-	color: white;
+	border-radius: var(--mws-borderRadius-s) !important ;
+	padding: var(--mws-padding-l) !important ;
+	color: white !important ;
 
-	border: none;
-	box-shadow: 0px 0px 10px 0px black;
+	border: none !important ;
+	box-shadow:  calc(var(--mws1px) * 0)  calc(var(--mws1px) * 0)  calc(var(--mws1px) * 10)  calc(var(--mws1px) * 0) black !important ;
+	/* calc(var(--mws-rem)/) */
 
-	position: fixed;
-	top: 50%;
-	bottom: 50%;
-	margin: auto;
+	position: fixed !important ;
+	top: 50% !important ;
+	bottom: 50% !important ;
+	margin: auto !important ;
 
-	font-size: var(--mws-fontSize);	
+	font-size: var(--mws-fontSize) !important ;	
 
-	max-width: 350px;
+	/* max-width:  calc(var(--mws1px) * 350) !important ; */
+	width: 25% !important ;
 }
 
 
 dialog.mws-element::backdrop {
-	background: #000000b1;
+	background: #000000b1 !important ;
 }
 
 dialog.mws-element .mws-actionButton{
-	position: absolute;
-	top: 0rem;
-	right: 0rem;
+	position: absolute !important ;
+	top: 0rem !important ;
+	right: 0rem !important ;
 }
 
 dialog.mws-confirmationDialog{
-	min-width: 40%;
-	min-height: 30%;
+	min-width: 40% !important ;
+	min-height: 30% !important ;
 	
-	font-size: 1.5rem;
-	padding: var(--mws-padding-l);
-	padding-block: calc(var(--mws-rem)*2);
+	font-size: 1.5rem !important ;
+	padding: var(--mws-padding-l) !important ;
+	padding-block: calc(var(--mws-rem)*2) !important ;
 	
-	display: flex;
+	display: flex !important ;
 }
 dialog.mws-confirmationDialog kbd.mws-element{
-	width: fit-content;
-	display: inline-flex;
-	/* padding-inline: var(--mws-padding-l); */
+	width: fit-content !important ;
+	display: inline-flex !important ;
+	/* padding-inline: var(--mws-padding-l) !important ; */
 }
 dialog.mws-confirmationDialog .buttons-wrapper{
-	margin-top: var(--mws-margin);
-	width: 100%;
-	display: flex;
-	justify-content: center;
+	margin-top: var(--mws-margin) !important ;
+	width: 100% !important ;
+	display: flex !important ;
+	justify-content: center !important ;
 }
 dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
-	margin-inline: var(--mws-margin);
-	font-size: var(--mws-fontSize-l);
+	margin-inline: var(--mws-margin) !important ;
+	font-size: var(--mws-fontSize-l) !important ;
 
-	width: calc(var(--mws-rem)*4);
-	height: calc(var(--mws-rem)*3);
+	width: calc(var(--mws-rem)*4) !important ;
+	height: calc(var(--mws-rem)*3) !important ;
 }
 
 
 /* BUTTONS STYLES */
 
 .mws-element button {
-	background-color: var(--mws-dark-green);
+	background-color: var(--mws-dark-green) !important ;
 
-	border: none;
+	border: none !important ;
 
-	cursor: pointer;
+	cursor: pointer !important ;
 
-	border-radius: var(--mws-borderRadius-s);
-	user-select: none;
+	border-radius: var(--mws-borderRadius-s) !important ;
+	user-select: none !important ;
 
-	transition: 0.15s ease;
+	transition: 0.15s ease !important ;
 
-	padding: var(--mws-padding);
+	padding: var(--mws-padding) !important ;
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: flex !important ;
+	justify-content: center !important ;
+	align-items: center !important ;
 }
 .mws-element button:hover {
-	/* transition: .15s ease; */
-	background-color: var(--mws-light-green);
-	color: var(--dark-grey);
+	/* transition: .15s ease !important ; */
+	background-color: var(--mws-light-green) !important ;
+	color: var(--dark-grey) !important ;
 }
 .mws-element button:disabled {
-	color: var(--mws-grey) !important;
-	border-color: var(--mws-grey) !important;
-	opacity: 0.7 !important;
-	background-color: #4d4d4d !important;
-	cursor: not-allowed;
+	color: var(--mws-grey)  !important ;
+	border-color: var(--mws-grey)  !important ;
+	opacity: 0.7  !important ;
+	background-color: #4d4d4d  !important ;
+	cursor: not-allowed !important ;
 
-	/* pointer-events: none !important; */
+	/* pointer-events: none  !important ; */
 }
 /* ACTION BUTTON */
 .mws-element button.mws-actionButton {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+	display: flex !important ;
+	justify-content: center !important ;
+	align-items: center !important ;
 
-	background-color: transparent;
-	/* color: var(--mws-light-green); */
-	color: white;
-	font-size: var(--mws-fontSize-l);
+	background-color: transparent !important ;
+	/* color: var(--mws-light-green) !important ; */
+	color: white !important ;
+	font-size: var(--mws-fontSize-l) !important ;
 
-	border: none;
+	border: none !important ;
 
-	cursor: pointer;
+	cursor: pointer !important ;
 
-	border-radius: 100%;
+	border-radius: 100% !important ;
 
-	user-select: none;
+	user-select: none !important ;
 
-	width: calc(var(--mws-rem)*2);
-	height: calc(var(--mws-rem)*2);
+	width: calc(var(--mws-rem)*2) !important ;
+	height: calc(var(--mws-rem)*2) !important ;
 
-	transition: 0.15s ease;
+	transition: 0.15s ease !important ;
 
-	padding: var(--mws-padding-xl);
+	padding: var(--mws-padding-xl) !important ;
 }
 .mws-element button.mws-actionButton:hover {
-	background-color: #88888834;
+	background-color: #88888834 !important ;
 }
 
 /* RED BUTTON */
 .mws-element .mws-redButton {
-	background-color: transparent;
-	border: var(--mws-border-s) solid var(--mws-red);
-	color: var(--mws-red);
+	background-color: transparent !important ;
+	border: var(--mws-border-s) solid var(--mws-red) !important ;
+	color: var(--mws-red) !important ;
 }
 .mws-element .mws-redButton:hover {
-	background-color: var(--mws-red);
-	color: white;
+	background-color: var(--mws-red) !important ;
+	color: white !important ;
 }
 /* GREEN BUTTON */
 
 .mws-element .mws-greenButton {
-	background-color: transparent;
-	border: var(--mws-border) solid var(--mws-dark-green);
-	color: var(--mws-dark-green);
+	background-color: transparent !important ;
+	border: var(--mws-border) solid var(--mws-dark-green) !important ;
+	color: var(--mws-dark-green) !important ;
 }
 .mws-element .mws-greenButton:hover {
-	background-color: var(--mws-dark-green);
-	color: var(--mws-dark-grey);
+	background-color: var(--mws-dark-green) !important ;
+	color: var(--mws-dark-grey) !important ;
 }
 
 /* RED BUTTON FILLED */
 .mws-element .mws-redButtonFilled {
-	background-color: var(--mws-red);
-	color: white;
+	background-color: var(--mws-red) !important ;
+	color: white !important ;
 }
 .mws-element .mws-redButtonFilled:hover {
-	background-color: #a54040;
-	color: white;
+	background-color: #a54040 !important ;
+	color: white !important ;
 }
 /* GREEN BUTTON FILLED */
 .mws-element .mws-greenButtonFilled {
-	background-color: var(--mws-dark-green);
-	color: rgb(255, 255, 255);
+	background-color: var(--mws-dark-green) !important ;
+	color: rgb(255, 255, 255) !important ;
 }
 .mws-element .mws-greenButtonFilled:hover {
-	background-color: #277422;
-	color: white;
+	background-color: #277422 !important ;
+	color: white !important ;
 }
 /* BLUE BUTTON FILLED */
 .mws-element .mws-blueButtonFilled {
-	background-color: var(--mws-dark-blue);
-	color: rgb(255, 255, 255);
+	background-color: var(--mws-dark-blue) !important ;
+	color: rgb(255, 255, 255) !important ;
 }
 .mws-element .mws-blueButtonFilled:hover {
-	background-color: #1597ae;
-	color: white;
+	background-color: #1597ae !important ;
+	color: white !important ;
 }
 
 
@@ -328,78 +386,78 @@ dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
 
 /* The switch - the box around the slider */
 .mws-element .mws-toggleSwitchLabel {
-	position: relative;
-	display: inline-block;
-	width: 50px;
-	height: 28px;
+	position: relative !important ;
+	display: inline-block !important ;
+	width:  calc(var(--mws1px) * 50) !important ;
+	height:  calc(var(--mws1px) * 28) !important ;
 }
 
 /* Hide default HTML checkbox */
 .mws-element .mws-toggleSwitchLabel .mws-toggleSwitchInput {
-	opacity: 0;
-	width: 0;
-	height: 0;
+	opacity: 0 !important ;
+	width: 0 !important ;
+	height: 0 !important ;
 }
 
 /* The slider */
 .mws-element .mws-toggleSwitchSpan {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #4d4d4d;
-	-webkit-transition: .4s;
-	transition: .4s;
+	position: absolute !important ;
+	cursor: pointer !important ;
+	top: 0 !important ;
+	left: 0 !important ;
+	right: 0 !important ;
+	bottom: 0 !important ;
+	background-color: #4d4d4d !important ;
+	-webkit-transition: .4s !important ;
+	transition: .4s !important ;
 
 	/* Round */
-	border-radius: 34px;
+	border-radius:  calc(var(--mws1px) * 34) !important ;
 }
 .mws-element .mws-toggleSwitchSpan:hover {
-	background-color: #696969;
+	background-color: #696969 !important ;
 }
 
 .mws-element .mws-toggleSwitchSpan:before {
-	position: absolute;
-	content: '';
-	--same-size: 20px;
-	height: var(--same-size);
-	width: var(--same-size);
-	left: 4px;
-	bottom: 4px;
-	background-color: white;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
+	position: absolute !important ;
+	content: '' !important ;
+	--same-size:  calc(var(--mws1px) * 20) !important ;
+	height: var(--same-size) !important ;
+	width: var(--same-size) !important ;
+	left:  calc(var(--mws1px) * 4) !important ;
+	bottom:  calc(var(--mws1px) * 4) !important ;
+	background-color: white !important ;
+	-webkit-transition: 0.3s !important ;
+	transition: 0.3s !important ;
 
-	border-radius: 50%;
+	border-radius: 50% !important ;
 }
 
 .mws-element .mws-toggleSwitchInput:checked + .mws-toggleSwitchSpan:before {
-	--transformX-value: 22px;
-	-webkit-transform: translateX(var(--transformX-value));
-	-ms-transform: translateX(var(--transformX-value));
-	transform: translateX(var(--transformX-value));
+	--transformX-value:  calc(var(--mws1px) * 22) !important ;
+	-webkit-transform: translateX(var(--transformX-value)) !important ;
+	-ms-transform: translateX(var(--transformX-value)) !important ;
+	transform: translateX(var(--transformX-value)) !important ;
 }
 .mws-element .mws-toggleSwitchInput:focus + .mws-toggleSwitchSpan {
-	outline: 2px solid black;
+	outline:  calc(var(--mws1px) * 2) solid black !important ;
 }
 
 
 
 .mws-element .mws-toggleSwitchInput.greenToggle:checked + .mws-toggleSwitchSpan.greenToggle {
-	background-color: var(--mws-light-green);
+	background-color: var(--mws-light-green) !important ;
 }
 .mws-element .mws-toggleSwitchInput.greenToggle:checked:hover  + .mws-toggleSwitchSpan.greenToggle{
-	background-color: var(--mws-dark-green);
+	background-color: var(--mws-dark-green) !important ;
 }
 
 .mws-element .mws-toggleSwitchInput.redToggle:checked + .mws-toggleSwitchSpan.redToggle {
-	background-color: var(--mws-red);
+	background-color: var(--mws-red) !important ;
 }
 
 .mws-element .mws-toggleSwitchInput.redToggle:checked:hover  + .mws-toggleSwitchSpan.redToggle{
-	background-color: #aa3c3c;
+	background-color: #aa3c3c !important ;
 }
 
 
@@ -408,22 +466,22 @@ dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
 
 
 .mws-element .mws-toggleWithText-wrapper {
-	/* display: flex; */
-	flex-direction: row;
-	justify-content: space-between;
-	align-items: center;
+	/* display: flex !important ; */
+	flex-direction: row !important ;
+	justify-content: space-between !important ;
+	align-items: center !important ;
 
-	background-color: #262626;
-	border-radius: var(--mws-borderRadius);
-	padding: var(--mws-padding-l);
+	background-color: #262626 !important ;
+	border-radius: var(--mws-borderRadius) !important ;
+	padding: var(--mws-padding-l) !important ;
 	
-	font-size: var(--mws-fontSize);
+	font-size: var(--mws-fontSize) !important ;
 	
-	color: white;
+	color: white !important ;
 	
 }
 .mws-element .mws-toggleWithText-wrapper > div {
-	/* margin-inline: 1rem; */
+	/* margin-inline: 1rem !important ; */
 }
 
 
@@ -432,64 +490,62 @@ dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
 /* INPUT STYLES */
 
 .mws-element input[type="text"] {
-	background-color: white;
-	border: none;
-	/* border: var(--mws-light-black) 1px solid; */
-	padding: var(--mws-padding);
+	background-color: white !important ;
+	border: none !important ;
+	padding: var(--mws-padding) !important ;
 
-	border-radius: var(--mws-borderRadius-s);
+	border-radius: var(--mws-borderRadius-s) !important ;
 
-	color: var(--mws-black);
+	color: var(--mws-black) !important ;
 }
 .mws-element input[type="text"]:focus {
-	outline: var(--mws-black) 3px solid;
+	outline: var(--mws-black)  calc(var(--mws1px) * 3) solid !important ;
 }
 .mws-element input[type="text"]:disabled {
-	border-color: #575757;
-	background-color: #57575727;
-	color: #575757;
-	cursor: not-allowed;
+	border-color: #575757 !important ;
+	background-color: #57575727 !important ;
+	color: #575757 !important ;
+	cursor: not-allowed !important ;
 }
 .mws-element input[type="text"]::placeholder {
-	color: var(--mws-black);
-	opacity: 0.5;
+	color: var(--mws-black) !important ;
+	opacity: 0.5 !important ;
 }
 .mws-element input[type="text"]:disabled::placeholder {
-	opacity: 0.2;
+	opacity: 0.2 !important ;
 }
 
 /* Custom Select Menu Styles  */
-.mws-element select {
-	background-color: #575757;
-	border: none;
+.mws-element select.mws-element {
+	background-color: #575757  !important ;
+	border: none !important ;
 
-	border-radius: var(--mws-borderRadius);
+	border-radius: var(--mws-borderRadius) !important ;
 
-	appearance: none;
-	padding: var(--mws-padding);
+	appearance: none !important ;
+	
+	padding-block: var(--mws-padding-l) !important ;
+	padding-inline: var(--mws-padding-l) !important ;
 
-	padding-left: var(--mws-padding-l);
-	padding-right: var(--mws-padding-l);
+	height: fit-content !important;
+	width: 100% !important;
+	font-size: var(--mws-fontSize) !important ;
 
-
-	font-size: var(--mws-fontSize);
-
-	user-select: none;
-	color: white;
+	user-select: none !important ;
+	color: white !important ;
 }
 .mws-element select:hover {
-	cursor: pointer;
-
-	background-color: #4d4d4d;
+	cursor: pointer !important ;
+	background-color: #4d4d4d !important ;
 }
 .mws-element select:disabled {
-	background-color: #575757;
-	opacity: 0.5;
-	cursor: not-allowed;
+	background-color: #575757 !important ;
+	opacity: 0.5 !important ;
+	cursor: not-allowed !important ;
 }
 
 
 
 .mws-element summary{
-	cursor: pointer !important;
+	cursor: pointer  !important ;
 }

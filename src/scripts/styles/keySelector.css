@@ -1,289 +1,290 @@
 /* ----------------------- KEY SELECTOR Styles ----------------------- */
 
 .mws-keyboardShortcutSelectionDialog.mws-element {
-	cursor: auto;
-	padding: calc(var(--mws-rem) * 2);
+	cursor: auto !important;
+	padding: calc(var(--mws-rem) * 2) !important;
 
-	overflow-y: hidden;
+	overflow-y: hidden !important;
+	width: calc(var(--mws-rem)*22) !important;
 }
 .mws-keyboardShortcutSelectionDialog div {
-	/* cursor: auto; */
-	display: flex;
-	flex-direction: column;
-	width: 100%;
+	/* cursor: auto !important; */
+	display: flex !important;
+	flex-direction: column !important;
+	width: 100% !important;
 }
 .mws-keyboardShortcutSelectionDialog
 	.mws-closeKeyboardShortcutSelectionDialogButton {
-	position: absolute;
-	top: 0px;
-	right: 0px;
+	position: absolute !important;
+	top:  calc(var(--mws1px) * 0) !important;
+	right:  calc(var(--mws1px) * 0) !important;
 }
 
 /* Shortcut Selector Styles */
 .mws-shortcutSelector-wrapper {
-	align-items: center;
-	justify-content: center;
+	align-items: center !important;
+	justify-content: center !important;
 
-	flex-direction: row;
+	flex-direction: row !important;
 
-	/* margin-block: var(--mws-margin); */
+	/* margin-block: var(--mws-margin) !important; */
 }
 
 .mws-selectShortcutText-wrapper {
-	flex-direction: row;
-	justify-content: center;
+	flex-direction: row !important;
+	justify-content: center !important;
 }
 
 .mws-selectShortcutText {
-	color: #bfbfbf;
-	font-size: var(--mws-fontSize);
-	font-weight: 500;
+	color: #bfbfbf !important;
+	font-size: var(--mws-fontSize) !important;
+	font-weight: 500 !important;
 }
 
 .mws-selectShortcutButtonAndKBD-wrapper.mws-element {
-	margin-top: var(--mws-margin);
-	flex-direction: row;
-	width: 100%;
-	justify-content: flex-start;
+	margin-top: var(--mws-margin) !important;
+	flex-direction: row !important;
+	width: 100% !important;
+	justify-content: flex-start !important;
 }
 
 kbd.mws-element {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border: none;
-	outline: none;
-	box-shadow: none;
-	color: white;
-	font-weight: 500;
-	background-color: #1f1f1f;
-	/* width: calc(var(--mws-rem)*3); */
-	/* height: calc(var(--mws-rem)*3); */
-	font-size: var(--mws-fontSize-l);
-	padding: var(--mws-padding);
-	border-radius: var(--mws-borderRadius);
-	cursor: pointer;
+	display: flex !important;
+	justify-content: center !important;
+	align-items: center !important;
+	border: none !important;
+	outline: none !important;
+	box-shadow: none !important;
+	color: white !important;
+	font-weight: 500 !important;
+	background-color: #1f1f1f !important;
+	/* width: calc(var(--mws-rem)*3) !important; */
+	/* height: calc(var(--mws-rem)*3) !important; */
+	font-size: var(--mws-fontSize-l) !important;
+	padding: var(--mws-padding) !important;
+	border-radius: var(--mws-borderRadius) !important;
+	cursor: pointer !important;
 }
 
 .mws-kbd-wrapper.mws-element {
-	width: 50%;
+	width: 50% !important;
 }
 .mws-selectedShortcutKBD {
-	width: 100%;
-	height: 100%;
-	/* padding: 1rem; */
+	width: 100% !important;
+	height: 100% !important;
+	/* padding: 1rem !important; */
 }
 .mws-selectedShortcutKBD.active {
-	border: 2px solid #26bcd6;
+	border:  calc(var(--mws1px) * 2) solid #26bcd6 !important;
 }
 .mws-selectedShortcutKBD.shortcutExists {
-	border: 2px solid var(--mws-red);
+	border:  calc(var(--mws1px) * 2) solid var(--mws-red) !important;
 }
 
 .mws-selectShortcutButton-wrapper {
-	align-items: center;
-	margin-inline: var(--mws-margin);
-	width: 100%;
+	align-items: center !important;
+	margin-inline: var(--mws-margin) !important;
+	width: 100% !important;
 	
 }
 .mws-shortcutSelectionDoneButton.mws-element {
-	padding: var(--mws-padding-l);
-	/* padding: 1rem; */
-	border-radius: var(--mws-borderRadius);
-	width: 100%;
-	font-size: var(--mws-fontSize);
+	padding: var(--mws-padding-l) !important;
+	/* padding: 1rem !important; */
+	border-radius: var(--mws-borderRadius) !important;
+	width: 100% !important;
+	font-size: var(--mws-fontSize) !important;
 }
 .mws-shortcutSelectionDoneButton .onSelection,
 .mws-shortcutSelectionDoneButton .editSelection {
-	display: none; /* Hide both spans by default */
+	display: none !important; /* Hide both spans by default */
 }
 
 .mws-shortcutSelectionDoneButton.onSelection .onSelection,
 .mws-shortcutSelectionDoneButton.editSelection .editSelection {
-	display: inline; /* Show the respective span when the class is present */
+	display: inline !important; /* Show the respective span when the class is present */
 }
 
 .mws-shortcutSelectionDoneButton.editSelection {
-	background-color: var(--mws-dark-green);
+	background-color: var(--mws-dark-green) !important;
 }
 .mws-shortcutSelectionDoneButton.editSelection:hover {
-	background-color: #277422;
+	background-color: #277422 !important;
 }
 .mws-shortcutSelectionDoneButton.onSelection:focus {
-	outline: none;
-	pointer-events: none;
+	outline: none !important;
+	pointer-events: none !important;
 }
 
 /* Shortcut Name styles */
 
 .mws-shortcutName-wrapper {
-	margin-block: var(--mws-margin);
+	margin-block: var(--mws-margin) !important;
 }
 
 .mws-shortcutNameLabel-wrapper {
-	color: #bfbfbf;
-	font-size: var(--mws-fontSize-l);
-	font-weight: 500;
-	margin-block: var(--mws-margin-s);
+	color: #bfbfbf !important;
+	font-size: var(--mws-fontSize-l) !important;
+	font-weight: 500 !important;
+	margin-block: var(--mws-margin-s) !important;
 }
 
 .mws-shortcutNameInput-wrapper {
-	margin-block: var(--mws-margin-s);
+	margin-block: var(--mws-margin-s) !important;
 }
 .mws-shortcutNameInput-wrapper input {
-	font-size: var(--mws-fontSize);
+	font-size: var(--mws-fontSize) !important;
 }
 
 /* Key Dialog Options */
 
 .mws-keyDialogOptionsWithHeading-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	color: #bfbfbf;
-	margin-block: var(--mws-margin-s);
-	/* margin-block: var(--mws-margin); */
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: flex-start !important;
+	color: #bfbfbf !important;
+	margin-block: var(--mws-margin-s) !important;
+	/* margin-block: var(--mws-margin) !important; */
 }
 .mws-keyDialogOptionsHeading {
-	font-size: var(--mws-fontSize-l);
-	font-weight: 500;
-	margin-bottom: var(--mws-margin-s);
+	font-size: var(--mws-fontSize-l) !important;
+	font-weight: 500 !important;
+	margin-bottom: var(--mws-margin-s) !important;
 }
 .mws-keyDialogOptions-wrapper {
-	display: flex;
-	flex-direction: column;
+	display: flex !important;
+	flex-direction: column !important;
 
-	align-items: flex-start;
-	justify-content: flex-start;
-	background-color: var(--mws-dark-grey);
-	padding: var(--mws-padding-l);
-	border-radius: var(--mws-borderRadius);
+	align-items: flex-start !important;
+	justify-content: flex-start !important;
+	background-color: var(--mws-dark-grey) !important;
+	padding: var(--mws-padding-l) !important;
+	border-radius: var(--mws-borderRadius) !important;
 }
 .mws-keyDialogOptions-wrapper > div {
-	margin-block: var(--mws-margin);
+	margin-block: var(--mws-margin) !important;
 }
 .mws-keyDialogOptions-wrapper span {
-	font-size: var(--mws-fontSize);
-	font-weight: 500;
+	font-size: var(--mws-fontSize) !important;
+	font-weight: 500 !important;
 }
 
 .mws-element select {
-	padding: var(--mws-padding-l);
-	margin-top: var(--mws-margin-s);
+	padding: var(--mws-padding-l) !important;
+	margin-top: var(--mws-margin-s) !important;
 }
 
 .mws-element .mws-urlTypeSelect-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: space-between;
-	/* background-color: black; */
-	padding: var(--mws-padding-s);
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	/* background-color: black !important; */
+	padding: var(--mws-padding-s) !important;
 
-	width: 100%;
+	width: 100% !important;
 }
 .mws-element .mws-urlTypeSelect-wrapper select.mws-element {
-	flex: 1;
-	width: 100%;
+	flex: 1 !important;
+	width: 100% !important;
 }
 .mws-element .mws-editCustomShortcutButton {
-	display: none;
-	margin-inline: var(--mws-margin-s);
-	height: calc(var(--mws-rem) * 2.5);
-	width: calc(var(--mws-rem) * 2.5);
+	display: none !important;
+	margin-inline: var(--mws-margin-s) !important;
+	height: calc(var(--mws-rem) * 2.5) !important;
+	width: calc(var(--mws-rem) * 2.5) !important;
 }
 
 /* Done Button */
 
 .mws-allDoneButton.mws-element {
-	margin-top: var(--mws-margin);
-	padding: var(--mws-padding-l);
-	width: 80%;
-	font-size: var(--mws-fontSize);
+	margin-top: var(--mws-margin) !important;
+	padding: var(--mws-padding-l) !important;
+	width: 80% !important;
+	font-size: var(--mws-fontSize) !important;
 }
 .mws-allDoneButton i {
-	margin-inline: var(--mws-margin);
+	margin-inline: var(--mws-margin) !important;
 }
 
 
 
 /* Custom URL Editor */
 .mws-element .mws-customURLEditorDialog {
-	display: none;
+	display: none !important;
 
-	/* min-width: calc(var(--mws-rem)*25); */
-	min-width: fit-content;
-	padding: var(--mws-padding-xl);
+	/* min-width: calc(var(--mws-rem)*25) !important; */
+	min-width: fit-content !important;
+	padding: var(--mws-padding-xl) !important;
 }
 .mws-element .mws-customURLEditorDialog:focus {
-	outline: none;
+	outline: none !important;
 }
 .mws-element .mws-customURLEditorDialog div {
-	/* display: flex; */
+	/* display: flex !important; */
 }
 .mws-element .mws-spanText-wrapper {
-	display: flex;
-	flex-direction: row;
-	width: 100%;
-	justify-content: center;
-	/* align-items: center; */
-	margin-block: var(--mws-margin-l);
+	display: flex !important;
+	flex-direction: row !important;
+	width: 100% !important;
+	justify-content: center !important;
+	/* align-items: center !important; */
+	margin-block: var(--mws-margin-l) !important;
 }
 
 .mws-element .mws-customURLEditorDialog .mws-spanText {
-	width: 100;
-	/* flex: 1; */
+	width: 100 !important;
+	/* flex: 1 !important; */
 }
 .mws-customURLEditorDialog select.mws-specialTermSelect{
-	padding: var(--mws-padding);
+	padding: var(--mws-padding) !important;
 }
 
 .mws-element .mws-copySpecialStringButton-wrapper {
-	display: inline-flex;
-	/* flex-direction: row; */
-	width: fit-content;
+	display: inline-flex !important;
+	/* flex-direction: row !important; */
+	width: fit-content !important;
 
 }
 .mws-element button.mws-copySpecialStringButton {
-	display: flex;
-	font-size: var(--mws-fontSize-s);
-	/* width: 1rem; */
-	/* height: 1rem; */
-	padding: 1rem;
-	position: relative;
+	display: flex !important;
+	font-size: var(--mws-fontSize-s) !important;
+	/* width: 1rem !important; */
+	/* height: 1rem !important; */
+	padding: 1rem !important;
+	position: relative !important;
 }
 .mws-element.mws-copySpecialStringButton:active {
-	transform: scale(0.7);
+	transform: scale(0.7) !important;
 }
 .mws-element .mws-customURLEditor-wrapper {
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	/* flex-wrap: wrap; */
-	width: 100%;
+	display: flex !important;
+	flex-direction: row !important;
+	align-items: center !important;
+	justify-content: center !important;
+	/* flex-wrap: wrap !important; */
+	width: 100% !important;
 
-	margin-block: var(--mws-margin);
-	color: var(--mws-dark-green);
+	margin-block: var(--mws-margin) !important;
+	color: var(--mws-dark-green) !important;
 }
 .mws-customURLEditor-wrapper span.mws-element {
-	margin-inline: var(--mws-margin-s);
+	margin-inline: var(--mws-margin-s) !important;
 }
 
 .mws-customURLEditor-wrapper input.mws-element {
-	/* display: inline-flex; */
-	max-width: 10rem;
-	/* flex: 1; */
+	/* display: inline-flex !important; */
+	max-width: 10rem !important;
+	/* flex: 1 !important; */
 }
 
 .mws-element .mws-customURLEditorDialog .mws-confirmCustomURLButton {
-	margin-top: var(--mws-margin-l);
+	margin-top: var(--mws-margin-l) !important;
 
 }
 .mws-element.mws-closeCustomURLEditorDialogButton {
-	position: absolute;
-	top: 0%;
-	right: 0%;
+	position: absolute !important;
+	top: 0% !important;
+	right: 0% !important;
 
-	border-radius: 100%;
+	border-radius: 100% !important;
 }

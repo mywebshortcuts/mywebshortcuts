@@ -8,103 +8,105 @@
 /* -------------------- Element Selector Styles -------------------- */
 
 .mws-floating-wrapper {
-	display: flex;
-	flex-direction: column;
+	display: flex !important;
+	flex-direction: column !important;
 
-	height: fit-content;
-	width: fit-content;
-	/* height: 300px; */
-	width: 300px;
+	height: fit-content !important;
+	width: fit-content !important;
+	/* height:  calc(var(--mws1px) * 300) !important; */
+	/* width:  calc(var(--mws1px) * 300) !important; */
+	/* width: 22% !important; */
+	width: calc(var(--mws-rem)*18) !important;
     
-	background-color: #2d2d2d;
-	padding: calc(var(--mws-rem)*2);
+	background-color: #2d2d2d !important;
+	padding: calc(var(--mws-rem)*2) !important;
 
-	border-radius: var(--mws-borderRadius);
+	border-radius: var(--mws-borderRadius) !important;
 
-	position: fixed;
-	bottom: 0px;
-	right: 0px;
+	position: fixed !important;
+	bottom:  calc(var(--mws1px) * 0) !important;
+	right:  calc(var(--mws1px) * 0) !important;
 
-	box-shadow: 0px 0px 10px 2px var(--mws-black);
-	color: var(--mws-light-green);
+	box-shadow:  calc(var(--mws1px) * 0)  calc(var(--mws1px) * 0)  calc(var(--mws1px) * 10)  calc(var(--mws1px) * 2) var(--mws-black) !important;
+	color: var(--mws-light-green) !important;
 
-	z-index: 10000;
+	z-index: 10000 !important;
 
-	cursor: grab;
-    user-select: none;
+	cursor: grab !important;
+    user-select: none !important;
 }
 .mws-floating-wrapper div {
-	display: flex;
-	flex-direction: column;
-	width: 100%;
+	display: flex !important;
+	flex-direction: column !important;
+	width: 100% !important;
 }
 
 .mws-floating-wrapper .mws-closeElementSelectorButton {
-	position: absolute;
-	top: 0px;
-	right: 0px;
+	position: absolute !important;
+	top:  calc(var(--mws1px) * 0) !important;
+	right:  calc(var(--mws1px) * 0) !important;
 }
 .mws-selectedElement-wrapper {
-	width: 100%;
+	width: 100% !important;
 
-	display: flex;
-	flex-direction: column;
+	display: flex !important;
+	flex-direction: column !important;
 }
 .mws-selectedElementPara {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
+	width: 100% !important;
+	display: flex !important;
+	flex-direction: column !important;
 
-	font-size: var(--mws-fontSize);
+	font-size: var(--mws-fontSize) !important;
 
-	align-items: flex-start;
-	justify-content: flex-start;
+	align-items: flex-start !important;
+	justify-content: flex-start !important;
 
-	color: #bfbfbf;
+	color: #bfbfbf !important;
 }
 .mws-currentElementSpan {
-    text-align: center;
-	color: var(--mws-light-green);
-	background-color: #1f1f1f;
+    text-align: center !important;
+	color: var(--mws-light-green) !important;
+	background-color: #1f1f1f !important;
 
-	padding: var(--mws-padding-l);
-	width: 100%;
+	padding: var(--mws-padding-l) !important;
+	width: 100% !important;
 
-	border-radius: var(--mws-borderRadius);
-	font-weight: 500;
-	font-size: var(--mws-fontSize-l);
+	border-radius: var(--mws-borderRadius) !important;
+	font-weight: 500 !important;
+	font-size: var(--mws-fontSize-l) !important;
 }
 button.mws-selectElementButton {
-	margin-top: var(--mws-margin);
-	font-size: var(--mws-fontSize);
+	margin-top: var(--mws-margin) !important;
+	font-size: var(--mws-fontSize) !important;
 
-	padding: var(--mws-padding-l);
-	border-radius: var(--mws-borderRadius);
+	padding: var(--mws-padding-l) !important;
+	border-radius: var(--mws-borderRadius) !important;
 
-	/* display: flex; */
-	display: none;
-	flex-direction: row;
-	width: 100%;
+	/* display: flex !important; */
+	display: none !important;
+	flex-direction: row !important;
+	width: 100% !important;
 }
 .mws-selectElementButton i {
-	margin-inline: var(--mws-margin);
+	margin-inline: var(--mws-margin) !important;
 }
 
 /* Element Selection Enable/Disable Button */
 .mws-elementSelectorActions-wrapper {
-	flex-direction: row;
+	flex-direction: row !important;
 	
-	/* background-color: #262626; */
-	border-radius: var(--mws-borderRadius);
-	margin-top: var(--mws-margin);
-	/* padding: var(--mws-padding-l); */
+	/* background-color: #262626 !important; */
+	border-radius: var(--mws-borderRadius) !important;
+	margin-top: var(--mws-margin) !important;
+	/* padding: var(--mws-padding-l) !important; */
 	
 }
 
 
 .mws-disableElementSelectionSpan-wrapper{
-	/* padding: var(--mws-padding-s); */
-	text-align: center;
+	/* padding: var(--mws-padding-s) !important; */
+	text-align: center !important;
 	
 }
 .mws-disableElementSelectionSpan{
@@ -112,14 +114,14 @@ button.mws-selectElementButton {
 }
 
 .mws-elementSelectorActions-wrapper .toggleWithText-wrapper {
-	flex-direction: row;
-	/* justify-content: center; */
-	/* align-items: center; */
+	flex-direction: row !important;
+	/* justify-content: center !important; */
+	/* align-items: center !important; */
 }
 
 .mws-element .mws-disableElementSelectionToggle-wrapper {
-	/* margin-inline: var(--mws-margin); */
-	width: fit-content;
+	/* margin-inline: var(--mws-margin) !important; */
+	width: fit-content !important;
 }
 
 
@@ -128,143 +130,143 @@ button.mws-selectElementButton {
 
 .mws-collapsableSettings-wrapper{
 	
-	display: flex;
-	flex-direction: column;
-	/* align-items: flex-start; */
-	color: #bfbfbf;
-    width: 100%;
+	display: flex !important;
+	flex-direction: column !important;
+	/* align-items: flex-start !important; */
+	color: #bfbfbf !important;
+    width: 100% !important;
 	
     
 }
 
 .mws-collapsableSettings-wrapper summary{
-	background-color: var(--mws-dark-grey);
+	background-color: var(--mws-dark-grey) !important;
 	
-    padding: var(--mws-padding-l);
+    padding: var(--mws-padding-l) !important;
     
-    margin-top: var(--mws-margin);
-    border-radius: var(--mws-borderRadius);
+    margin-top: var(--mws-margin) !important;
+    border-radius: var(--mws-borderRadius) !important;
     
-    color: #bfbfbf;
-	font-size: var(--mws-fontSize);
+    color: #bfbfbf !important;
+	font-size: var(--mws-fontSize) !important;
     
 }
 .mws-collapsableSettings-wrapper summary:hover{
-	filter: brightness(.8);
-	cursor: pointer;
+	filter: brightness(.8) !important;
+	cursor: pointer !important;
 }
 .mws-collapsableSettings-wrapper details[open] summary{
-	border-radius: 0px;
-    border-top-left-radius: var(--mws-borderRadius);
-    border-top-right-radius: var(--mws-borderRadius);
-    /* background-color: black; */
+	border-radius:  calc(var(--mws1px) * 0) !important;
+    border-top-left-radius: var(--mws-borderRadius) !important;
+    border-top-right-radius: var(--mws-borderRadius) !important;
+    /* background-color: black !important; */
 
-    border-bottom: #2d2d2d 2px solid;
+    border-bottom: #2d2d2d  calc(var(--mws1px) * 2) solid !important;
 
 
 }
 
 .mws-collapsableSettings-wrapper summary {
-  display: block;
-  position: relative;
-  user-select: none;
+  display: block !important;
+  position: relative !important;
+  user-select: none !important;
 
 }
 /* Create a new custom triangle on the right side */
 .mws-collapsableSettings-wrapper summary::after {
-  display: inline-block;
-  font-family: 'Font Awesome 6 Free';
-  content: '\f105';
-  transition: 0.3s ease;
-  position: absolute;
-  right: var(--mws-rem);
+  display: inline-block !important;
+  font-family: 'Font Awesome 6 Free' !important;
+  content: '\f105' !important;
+  transition: 0.3s ease !important;
+  position: absolute !important;
+  right: var(--mws-rem) !important;
 }
 
 .mws-collapsableSettings-wrapper details[open] > summary::after {
-  transform: rotate(90deg);
+  transform: rotate(90deg) !important;
 }
 
 .mws-elementSelectionOptions-wrapper {
-	display: flex;
-	flex-direction: column;
-	align-items: flex-start;
-	justify-content: flex-start;
-	background-color: var(--mws-dark-grey);
-	padding: var(--mws-padding-l);
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: flex-start !important;
+	justify-content: flex-start !important;
+	background-color: var(--mws-dark-grey) !important;
+	padding: var(--mws-padding-l) !important;
 
-    border-bottom-left-radius: var(--mws-borderRadius);
-    border-bottom-right-radius: var(--mws-borderRadius);
+    border-bottom-left-radius: var(--mws-borderRadius) !important;
+    border-bottom-right-radius: var(--mws-borderRadius) !important;
 }
 .mws-elementSelectionOptions-wrapper span {
-    margin-block: var(--mws-margin);
-	font-size: var(--mws-fontSize);
-	font-weight: 600;
+    margin-block: var(--mws-margin) !important;
+	font-size: var(--mws-fontSize) !important;
+	font-weight: 600 !important;
 }
 
 
 
 
 .mws-element .mws-selectionGuideDetails{
-	color: #bfbfbf;
-	align-self: center;
+	color: #bfbfbf !important;
+	align-self: center !important;
 	
-	text-align: left;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-top: var(--mws-margin);
-	width: 100%;
+	text-align: left !important;
+	display: flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	margin-top: var(--mws-margin) !important;
+	width: 100% !important;
 	
-	background-color: var(--mws-dark-grey);
-	border-radius: var(--mws-borderRadius-s);
-	padding: var(--mws-padding);
+	background-color: var(--mws-dark-grey) !important;
+	border-radius: var(--mws-borderRadius-s) !important;
+	padding: var(--mws-padding) !important;
 
-	font-size: var(--mws-fontSize-s);
+	font-size: var(--mws-fontSize-s) !important;
 }
 .mws-element .mws-selectionGuideDetails span{
 }
 .mws-element .mws-selectionGuideDetails i{
-	font-size: calc(var(--mws-rem)/2);
+	font-size: calc(var(--mws-rem)/2) !important;
 }
 .mws-element .mws-selectionGuideDetails[open]{
-	align-self: center;
+	align-self: center !important;
 }
 .mws-element .mws-selectionGuideDetails[open] .mws-selectionGuideSummary{
-	margin-bottom: var(--mws-margin);
-	border-bottom: 2px solid #bfbfbf15;	
-	border-bottom-left-radius: 0;
-	border-bottom-right-radius: 0;
-	width: 100%;
-	padding-bottom: var(--mws-padding);
+	margin-bottom: var(--mws-margin) !important;
+	border-bottom:  calc(var(--mws1px) * 2) solid #bfbfbf15 !important;	
+	border-bottom-left-radius: 0 !important;
+	border-bottom-right-radius: 0 !important;
+	width: 100% !important;
+	padding-bottom: var(--mws-padding) !important;
 }
 .mws-element .mws-selectionGuideSummary{
-	font-size: var(--mws-fontSize-s);
-	display: flex;
-	position: relative;
-	/* align-items: center; */
-	/* justify-content: center; */
+	font-size: var(--mws-fontSize-s) !important;
+	display: flex !important;
+	position: relative !important;
+	/* align-items: center !important; */
+	/* justify-content: center !important; */
 
-	padding: var(--mws-padding-s);
-	border-radius: var(--mws-borderRadius-s);
-	background-color: var(--mws-dark-grey);
+	padding: var(--mws-padding-s) !important;
+	border-radius: var(--mws-borderRadius-s) !important;
+	background-color: var(--mws-dark-grey) !important;
 
-	align-self: center;
-	width: 100%;
-	/* display: block; */
+	align-self: center !important;
+	width: 100% !important;
+	/* display: block !important; */
 }
 .mws-element .mws-selectionGuideDetails:hover {
-	filter: brightness(.8);
+	filter: brightness(.8) !important;
 }
 /* Create a new custom triangle on the right side */
 .mws-element .mws-selectionGuideSummary::after {
-  display: inline-block;
-  font-family: 'Font Awesome 6 Free';
-  content: '\f105';
-  transition: 0.3s ease;
-  position: absolute;
-  right: var(--mws-rem);
+  display: inline-block !important;
+  font-family: 'Font Awesome 6 Free' !important;
+  content: '\f105' !important;
+  transition: 0.3s ease !important;
+  position: absolute !important;
+  right: var(--mws-rem) !important;
 }
 
 .mws-element .mws-selectionGuideDetails[open] > .mws-selectionGuideSummary::after {
-  transform: rotate(90deg);
+  transform: rotate(90deg) !important;
 }
