@@ -751,13 +751,18 @@ const mws = {
             buttonElement.addEventListener('click', () => {
                 mws.playSoundEffect('click')
             })
+            buttonElement.addEventListener('mouseenter', () => {
+                if (!buttonElement.disabled && !buttonElement.classList.contains('onSelection')) {
+                    mws.playSoundEffect('hover', 0.3)
+                }
+            })
         })
 
 
         qSA('select', dialogElement).forEach((selectTag) => {
             selectTag.addEventListener('mouseenter', () => {
                 if (!selectTag.disabled) {
-                    mws.playSoundEffect('hover')
+                    mws.playSoundEffect('hover', 0.3)
                 }
             })
         })
