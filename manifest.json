@@ -22,7 +22,9 @@
     },
     "content_scripts": [
         {
-            "matches": ["https://opensource.guide/*"],
+            "matches": [
+                "<all_urls>"
+            ],
             "all_frames": true,
             "js": [
                 "src/scripts/useCustomShortcut.js"
@@ -57,7 +59,7 @@
                 "default": "Ctrl+Shift+Q",
                 "mac": "Command+Shift+Q"
             },
-            "description": "Start selection on current page."
+            "description": "Start selection on current website."
         }
     },
     "options_page": "src/options/options.html",
@@ -65,6 +67,6 @@
         "tabs",
         "activeTab",
         "scripting",
-        "storage"
+        "storage"   
     ]
 }

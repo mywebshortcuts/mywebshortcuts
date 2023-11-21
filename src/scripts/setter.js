@@ -1,7 +1,7 @@
 
-import './styles/root.css'
-import './styles/elementSelector.css'
-import './styles/keySelector.css'
+// import './styles/root.css'
+// import './styles/elementSelector.css'
+// import './styles/keySelector.css'
 
 // import { toJSON } from '../modules/domJsonConverter.js'
 
@@ -15,16 +15,13 @@ import {
 import elementCreator from '../modules/elementCreator'
 import { confirmationDialogOpener } from '../modules/domElements.js'
 
-// import "../assets/font-awesome/css/fontawesome.css"
-// import "../assets/font-awesome/css/solid.css"
-
 
 let cssToImportArray = [
     'src/assets/font-awesome/css/fontawesome.css',
     'src/assets/font-awesome/css/solid.css',
-    // 'src/scripts/styles/root.css', 
-    // 'src/scripts/styles/elementSelector.css',
-    // 'src/scripts/styles/keySelector.css',
+    'src/scripts/styles/root.css', 
+    'src/scripts/styles/elementSelector.css',
+    'src/scripts/styles/keySelector.css',
 ]
 
 cssToImportArray.forEach(fileURL => {
@@ -1393,7 +1390,7 @@ const mws = {
         await sendMsg({ msg: "selectorEnabled", spread: true })
         window.addEventListener("beforeunload", mws.sendSelectorDisabledMsg);
 
-        // mws.turnOnWindowUnloadStopper() // temporary change
+        mws.turnOnWindowUnloadStopper() // temporary change
         mws.switchOnSelector()
 
 
