@@ -306,7 +306,14 @@ const pop = {
                 let eachShortcutData = shortcutsData[key];
 
                 shortcutDiv.querySelector(".shortcutName").textContent = eachShortcutData.name
+                shortcutDiv.querySelector(".shortcutNameDiv").title = eachShortcutData.name
+                
+                if ((eachShortcutData.name).length > 10) {
+                    shortcutDiv.querySelector(".shortcutName").textContent = (eachShortcutData.name).substring(0, 7) + '...'
+                }
+
                 shortcutDiv.querySelector(".shortcutKey").textContent = key
+                shortcutDiv.querySelector(".shortcutKeyDiv").title = key
                 shortcutDiv.querySelector(".shortcutEnableDisableToggle-wrapper .toggleSwitchInput").setAttribute('data-shortcutKey', key)
                 shortcutDiv.querySelector(".shortcutEnableDisableToggle-wrapper .toggleSwitchInput").checked = eachShortcutData.enabled
 
