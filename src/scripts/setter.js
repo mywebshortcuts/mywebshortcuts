@@ -380,14 +380,15 @@ const mws = {
 
 
         // If it's just the domain
-        if (mws.currentURLObject.pathname == '/') {
+        if (mws.currentURLObject.pathname == '/' && (!mws.currentURLObject.hash && !mws.currentURLObject.search)) {
             mws.domainData.shortcuts[mws.selectedShortcut] = newShortcutData
             mws.allWebsitesData[mws.domainURL] = mws.domainData
         }
         // If not just the domain
         else {
-            // Checking if Shortcut exists for the domain or not
+            // Adding shortcut to domain if the urlType is having any of the domain values
             if (mws.selectedURLType == "domainAndPage" || mws.selectedURLType == "onlyDomain" || mws.selectedURLType == "domainAndAllPages") {
+                // Checking if Shortcut exists for the domain or not
                 if (!mws.domainData.shortcuts[mws.selectedShortcut]) { // Shortcut doesn't exist for domain
                     mws.domainData.shortcuts[mws.selectedShortcut] = newShortcutData
                     mws.allWebsitesData[mws.domainURL] = mws.domainData
@@ -402,7 +403,8 @@ const mws = {
                     }
                 }
             }
-            // If shortcut is supposed to be set only for the domain, then NOT save it
+
+            // If shortcut is NOT supposed to be set only for the domain, only then set it in the pages
             if (!(mws.selectedURLType == "onlyDomain") && !(mws.selectedURLType == "domainAndAllPages")) {
                 // If we need to set it for the page but the URL is having hash or search params then it's a problem, so this condition prevents that.
                 // Else the data of full path would have overwritten the data of the page.
@@ -410,7 +412,7 @@ const mws = {
                     mws.websiteData.shortcuts[mws.selectedShortcut] = newShortcutData
                     mws.allWebsitesData[mws.selectedURL] = mws.websiteData
                 }
-                else{
+                else if (mws.selectedURLType == "fullPath"){
                     mws.fullPathData.shortcuts[mws.selectedShortcut] = newShortcutData
                     mws.allWebsitesData[mws.selectedURL] = mws.fullPathData
                 }
