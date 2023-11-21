@@ -770,6 +770,7 @@ const mws = {
 
 
         document.body.appendChild(dialogElement)
+        mws.playSoundEffect('click2')
 
         mws.turnOnKeyboardEvents()
         mws.disableOtherSettings()
@@ -801,10 +802,8 @@ const mws = {
             qS('option[value="custom"]', urlTypeSelectInput).disabled = true
             qS('option[value="domainAndPage"]', urlTypeSelectInput).disabled = true
             qS('option[value="onlyPage"]', urlTypeSelectInput).disabled = true
-            qS('option[value="fullPath"]', urlTypeSelectInput).disabled = true
         }
         if (!mws.currentURLObject.hash && !mws.currentURLObject.search) {
-            // console.log("Hash and Search params doesn't exist in URL");
             qS('option[value="fullPath"]', urlTypeSelectInput).disabled = true
 
         }
