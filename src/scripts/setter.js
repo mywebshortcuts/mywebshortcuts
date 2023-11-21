@@ -9,7 +9,7 @@ import { finder } from '@medv/finder'
 
 import {
     addClass, rmClass, getElemAt, setTextContent, getAttr, setAttr, setEvent, rmEvent,
-    qS, qSA, sendMsg, getCompleteData, isObjEmpty, switchClass
+    qS, qSA, sendMsg, getCompleteData, isObjEmpty, switchClass, updateCSS
 } from "../modules/quickMethods.js"
 
 import elementCreator from '../modules/elementCreator'
@@ -575,10 +575,14 @@ const mws = {
                         mws.currentState.elementSelectionPaused = false
                         qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
                         mws.playSoundEffect('unpause', 0.2)
-                        qS('.mws-selectElementButton').style.display = 'none'
+                        // qS('.mws-selectElementButton').style.display = 'none'
+                        updateCSS(qS('.mws-selectElementButton'), {display:"none !important"})
+                        // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
                     }
                     else {
-                        qS('.mws-selectElementButton').style.display = 'flex'
+                        // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
+                        updateCSS(qS('.mws-selectElementButton'), {display:"flex !important"})
+                        console.log(qS('.mws-selectElementButton').style.display);
                         mws.playSoundEffect('pause', 0.2)
                         window.removeEventListener('mouseover', mws.addRemoveborder);
                         mws.currentState.elementSelectionPaused = true

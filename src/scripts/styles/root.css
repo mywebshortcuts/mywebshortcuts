@@ -298,8 +298,17 @@ dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
 	opacity: 0.7  !important ;
 	background-color: #4d4d4d  !important ;
 	cursor: not-allowed !important ;
-
 	/* pointer-events: none  !important ; */
+}
+.mws-element button.mws-element:disabled:hover {
+	color: var(--mws-grey)  !important ;
+	border-color: var(--mws-grey)  !important ;
+	opacity: 0.7  !important ;
+	background-color: #4d4d4d  !important ;
+	cursor: not-allowed !important ;
+	/* transition: .15s ease !important ; */
+	/* background-color: var(--mws-light-green) !important ;
+	color: var(--dark-grey) !important ; */
 }
 /* ACTION BUTTON */
 .mws-element button.mws-actionButton {
