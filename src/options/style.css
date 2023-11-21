@@ -897,6 +897,10 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 	/* text-align: center; */
 	font-size: 0.9rem;
 }
+.infoText a{
+	color: #dc6d6d;
+	text-decoration: underline;
+}
 
 .usefulLinks-wrapper {
 	overflow-y: scroll;
