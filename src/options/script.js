@@ -243,20 +243,20 @@ const opt = {
                                 const shortcutActionSelect = qS('.actionSelect', editShortcutSettingsDialog)
                                 shortcutActionSelect.value = shortcutKeyObject.properties.action
                                 
+                                
+                                shortcutActionSelect.addEventListener('change', (e) => {
+                                    if (e.srcElement.value != shortcutKeyObject.properties.action) {
+                                        console.log("Value changed");
+                                        editedProperties.action = e.srcElement.value
+                                    }
+                                    else {
+                                        editedProperties.action = null
+                                    }
+                                    changeEditedState()
+                                })
+
                                 // const urlTypeSelect = qS('.urlTypeSelect', editShortcutSettingsDialog)
                                 // urlTypeSelect.value = shortcutKeyObject.properties.urlType
-
-                                // urlTypeSelect.addEventListener('change', (e) => {
-                                //     if (e.srcElement.value != shortcutKeyObject.properties.urlType) {
-                                //         console.log("Value changed");
-                                //         editedProperties.action = e.srcElement.value
-                                //     }
-                                //     else {
-                                //         editedProperties.action = null
-                                //     }
-                                //     changeEditedState()
-                                // })
-
 
 
 
@@ -529,11 +529,13 @@ const opt = {
                                         if (!validActionsList.includes(editedProperties.action)) {
                                             editedProperties.action = 'click'
                                         }
-                                        if (!editedProperties.action) {
-                                            opt.completeData.websitesData[url].shortcuts[shortcutKey].action = editedProperties.action
+                                        if (!editedProperties.key) {
+                                            console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey]);
+                                            opt.completeData.websitesData[url].shortcuts[shortcutKey].properties.action = editedProperties.action
                                         }
                                         else {
-                                            opt.completeData.websitesData[url].shortcuts[editedProperties.key].action = editedProperties.action
+                                            console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey]);
+                                            opt.completeData.websitesData[url].shortcuts[editedProperties.key].properties.action = editedProperties.action
                                         }
                                     }
 
@@ -1340,12 +1342,15 @@ const opt = {
                 const origin = url.origin
                 const path = url.pathname
                 const domain = url.hostname
+                const hash = url.hash
+                const search = url.search
 
                 if (!opt.domainsAndTheirPages[origin]) {
                     opt.domainsAndTheirPages[origin] = []
                 }
                 if (!opt.domainsAndTheirPages[origin][website]) {
-                    if (path != '/') {
+                    if (path != '/' || (hash || search)) {
+                        console.log("pushing", website);
                         opt.domainsAndTheirPages[origin].push(website)
                     }
                 }
