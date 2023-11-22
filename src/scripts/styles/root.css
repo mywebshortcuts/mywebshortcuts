@@ -292,6 +292,9 @@ dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
 	background-color: var(--mws-light-green) !important ;
 	color: var(--dark-grey) !important ;
 }
+.mws-element button:focus {
+	outline: 2px solid black !important;
+}
 .mws-element button:disabled {
 	color: var(--mws-grey)  !important ;
 	border-color: var(--mws-grey)  !important ;
@@ -338,6 +341,9 @@ dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
 }
 .mws-element button.mws-actionButton:hover {
 	background-color: #88888834 !important ;
+}
+.mws-element button.mws-actionButton:focus {
+	outline: 2px solid black !important;
 }
 
 /* RED BUTTON */
@@ -551,6 +557,9 @@ dialog.mws-confirmationDialog .mws-buttons-wrapper > button.mws-element{
 	background-color: #575757 !important ;
 	opacity: 0.5 !important ;
 	cursor: not-allowed !important ;
+}
+.mws-element select:focus {
+	outline: 2px solid black !important;
 }
 
 
