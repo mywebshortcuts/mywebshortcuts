@@ -39,7 +39,7 @@ const pop = {
 
     openOptionsPage: (e) => {
         // pop.playSoundEffect('gear', 0.5)
-        pop.playSoundEffect('click2', 0.5)
+        pop.playSoundEffect('click2')
 
         e.srcElement.textContent = "Opening Options Page..."
         setTimeout(() => {
@@ -251,7 +251,7 @@ const pop = {
 
 
     prevAudio: '',
-    playSoundEffect: function (soundEffectName = 'click', volume = 1) {
+    playSoundEffect: function (soundEffectName = 'click', volume = .2) {
         if (!pop.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
             return
         }
@@ -461,9 +461,17 @@ const pop = {
         const openOptionsButton = document.querySelector('.openOptionsButton');
 
         openOptionsButton.addEventListener('click', pop.openOptionsPage);
+        let mouseInside;
         openOptionsButton.addEventListener('mouseenter', ()=>{
-            // this.playSoundEffect('hover', 0.5)
-            pop.playSoundEffect('gear', 0.5)
+            mouseInside = true;
+            setTimeout(() => {
+                if (mouseInside) {
+                    pop.playSoundEffect('gear')
+                }
+            }, 200);
+        });
+        openOptionsButton.addEventListener('mouseleave', ()=>{
+            mouseInside = false
         });
     }
 

@@ -60,7 +60,7 @@ const opt = {
         }
 
         let prevAudio;
-        function playSoundEffect(soundEffectName = 'click', volume = 1) {
+        function playSoundEffect(soundEffectName = 'click', volume = .2) {
             if (!opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
                 return
             }
