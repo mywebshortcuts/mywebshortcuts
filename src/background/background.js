@@ -36,7 +36,7 @@ const bg = {
         //     files: ["../scripts/styles/root.css", "../scripts/styles/keySelector.css", "../scripts/styles/elementSelector.css"],     // Specify the CSS file(s) to inject
         // })
         chrome.scripting.executeScript({
-            target: { tabId: tabID },
+            target: { tabId: tabID,  allFrames: true },
             files: [setter]
         })
         chrome.tabs.sendMessage(tabID, { action: "turnOnSelector" });
