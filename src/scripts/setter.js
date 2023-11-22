@@ -19,7 +19,7 @@ import { confirmationDialogOpener } from '../modules/domElements.js'
 let cssToImportArray = [
     'src/assets/font-awesome/css/fontawesome.css',
     'src/assets/font-awesome/css/solid.css',
-    'src/scripts/styles/root.css', 
+    'src/scripts/styles/root.css',
     'src/scripts/styles/elementSelector.css',
     'src/scripts/styles/keySelector.css',
 ]
@@ -85,7 +85,7 @@ const mws = {
     },
 
     // Full Path data
-    fullPathData:{},
+    fullPathData: {},
 
     // Domain Data
     domainURL: "",
@@ -353,11 +353,11 @@ const mws = {
         }
         let validActionsList = ['click', 'focus']
         if (!validActionsList.includes(mws.selectedAction)) {
-            mws.selectedAction = 'click'               
+            mws.selectedAction = 'click'
         }
         let validURLTypeList = ['domainAndAllPages', 'domainAndPage', 'onlyDomain', 'onlyPage', 'fullPath']
         if (!validURLTypeList.includes(mws.selectedURLType)) {
-            mws.selectedURLType = 'domainAndAllPages'               
+            mws.selectedURLType = 'domainAndAllPages'
         }
 
         // SAVING THE DATA
@@ -409,7 +409,7 @@ const mws = {
                     mws.websiteData.shortcuts[mws.selectedShortcut] = newShortcutData
                     mws.allWebsitesData[mws.selectedURL] = mws.websiteData
                 }
-                else if (mws.selectedURLType == "fullPath"){
+                else if (mws.selectedURLType == "fullPath") {
                     mws.fullPathData.shortcuts[mws.selectedShortcut] = newShortcutData
                     mws.allWebsitesData[mws.selectedURL] = mws.fullPathData
                 }
@@ -575,12 +575,12 @@ const mws = {
                         qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
                         mws.playSoundEffect('unpause', 0.2)
                         // qS('.mws-selectElementButton').style.display = 'none'
-                        updateCSS(qS('.mws-selectElementButton'), {display:"none !important"})
+                        updateCSS(qS('.mws-selectElementButton'), { display: "none !important" })
                         // // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
                     }
                     else {
                         // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
-                        updateCSS(qS('.mws-selectElementButton'), {display:"flex !important"})
+                        updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
                         // console.log(qS('.mws-selectElementButton').style.display);
                         mws.playSoundEffect('pause', 0.2)
                         window.removeEventListener('mouseover', mws.addRemoveborder);
@@ -610,11 +610,12 @@ const mws = {
     },
 
     accidentalUnloadPreventer: function (e) {
-        e.preventDefault()
+        e.preventDefault();
+        e.returnValue = '';
     },
 
 
-    turnOnWindowUnloadStopper: async function () {
+    turnOnWindowUnloadStopper: function () {
         window.addEventListener("beforeunload", mws.accidentalUnloadPreventer);
     },
     turnOffWindowUnloadStopper: function () {
@@ -1299,7 +1300,7 @@ const mws = {
                 if (e.srcElement.checked) {
                     mws.playSoundEffect('switchOn')
                 }
-                else{
+                else {
                     mws.playSoundEffect('switchOff')
                 }
             })
@@ -1321,7 +1322,7 @@ const mws = {
                 mws.closeKeyboardShortcutSelectionDialog()
             }
             else if (mws.currentState.elementSelectorOpen) {
-                mws.turnOffEverything()
+                await mws.turnOffEverything()
             }
 
         }
