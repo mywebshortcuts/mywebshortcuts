@@ -444,7 +444,7 @@ const mws = {
             mws.currentElement.classList.remove('mws-bordered')
         }
 
-        if (getElemAt(x, y).classList.contains('mws-element')) {
+        if (getElemAt(x, y) && getElemAt(x, y).classList.contains('mws-element')) {
             mws.currentElement = undefined
             setTextContent(qS('.mws-currentElementSpan'), 'No Element Selected')
             qS('.mws-selectElementButton').disabled = true
@@ -455,7 +455,9 @@ const mws = {
 
 
         // mws.currentElement.classList.add('mws-bordered')
-        setTextContent(qS('.mws-currentElementSpan'), (mws.currentElement).tagName)
+        if ((mws.currentElement).tagName) {
+            setTextContent(qS('.mws-currentElementSpan'), (mws.currentElement).tagName)
+        }
 
         addClass(mws.currentElement, ['mws-bordered'])
 

@@ -26,20 +26,21 @@ const bg = {
     },
 
 
-    turnOffSelector: function (tab) {
-        chrome.tabs.sendMessage(tab.id, { action: "turnOffSelector" })
+    turnOffSelector: async function (tab) {
+        await chrome.tabs.sendMessage(tab.id, { action: "turnOffSelector" })
     },
 
-    turnOnSelector: function (tabID) {
+    turnOnSelector: async function (tabID) {
         // chrome.scripting.insertCSS({
         //     target: { tabId: tabID }, // Specify the tab where you want to inject CSS
         //     files: ["../scripts/styles/root.css", "../scripts/styles/keySelector.css", "../scripts/styles/elementSelector.css"],     // Specify the CSS file(s) to inject
         // })
-        chrome.scripting.executeScript({
+        await chrome.scripting.executeScript({
             target: { tabId: tabID},
             files: [setter]
         })
-        chrome.tabs.sendMessage(tabID, { action: "turnOnSelector" });
+        await chrome.tabs.sendMessage(tabID, { action: "turnOnSelector" });
+        chrome.runtime.lastError;
     },
 
     getCompleteDataInBackground: async function () {
@@ -74,18 +75,10 @@ const bg = {
         chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
 
             if (request.msg === "selectorDisabled") {
-                // console.log("selector Disabled");
-                // console.log(request);
-                // console.log(sender);
-
                 let shortcutIndex = bg.currentState.selectorEnabledTabsIDArray.indexOf(sender.tab.id);
                 bg.currentState.selectorEnabledTabsIDArray.splice(shortcutIndex, 1);
             }
             else if (request.msg === "selectorEnabled") {
-                // console.log("selector enabled");
-                // console.log(request);
-                // console.log(sender);
-
                 bg.currentState.selectorEnabledTabsIDArray.push(sender.tab.id)
 
             }
@@ -100,11 +93,11 @@ const bg = {
                 await sendResponse(bg.completeData)
             }
             if (request.action == "turnOffSelector") {
-                bg.turnOffSelector(request.tab)
+                await bg.turnOffSelector(request.tab)
             }
             else if (request.action == "turnOnSelector") {
                 if (!bg.currentState.selectorEnabledTabsIDArray.includes(request.tab.id)) {
-                    bg.turnOnSelector(request.tab.id)
+                    await bg.turnOnSelector(request.tab.id)
                 }
             }
         }
