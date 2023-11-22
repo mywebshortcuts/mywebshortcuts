@@ -27,7 +27,7 @@ const pop = {
         pop.playSoundEffect('click2')
 
         setTimeout(async () => {
-            console.log("Starting selection");
+            // console.log("Starting selection");
     
             await sendMsg({ action: "turnOnSelector", tab: pop.currentTab })
     
@@ -120,15 +120,15 @@ const pop = {
                         let regex = new RegExp('^' + customURLRegex + "$")
 
                         let firstSlashIndex = customURL.lastIndexOf('/')
-                        console.log("Index of first slash: ", firstSlashIndex);
+                        // console.log("Index of first slash: ", firstSlashIndex);
                         let urlAfterFirstSlash = customURL.substring(firstSlashIndex, customURL.length)
-                        console.log("URL after the first url: ", urlAfterFirstSlash);
+                        // console.log("URL after the first url: ", urlAfterFirstSlash);
 
 
                         if (regex.test(websiteURL)) {
-                            console.log(customURLRegex);
-                            console.log(regex);
-                            console.log("Matched URL:", websiteURL);
+                            // console.log(customURLRegex);
+                            // console.log(regex);
+                            // console.log("Matched URL:", websiteURL);
 
                             // allMatchedUrlsShortcutsObjects.push({ ...pop.completeData.websitesData[websiteURL].shortcuts })
                             // addWebsiteShortcuts = true
@@ -148,7 +148,7 @@ const pop = {
                     }
 
                     // Checking for Page
-                    // console.log((pop.currentTabURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
+                    // // console.log((pop.currentTabURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
                     if (((pop.currentTabURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, '')) && !(urlObject.hash || urlObject.search)) {
                         if (!isObjEmpty(pop.completeData.websitesData[websiteURL].shortcuts)) {
                             for (const key in pop.completeData.websitesData[websiteURL].shortcuts) {
@@ -162,7 +162,7 @@ const pop = {
                     }
                     // Checking for Full Path
                     if ((urlObject.hash || urlObject.search) && (pop.currentTabURLObject.href == urlObject.href)) {
-                        console.log("Full Path matches");
+                        // console.log("Full Path matches");
                         if (!isObjEmpty(pop.completeData.websitesData[websiteURL].shortcuts)) {
                             for (const key in pop.completeData.websitesData[websiteURL].shortcuts) {
                                 if (Object.hasOwnProperty.call(pop.completeData.websitesData[websiteURL].shortcuts, key)) {
@@ -177,7 +177,7 @@ const pop = {
             }
         }
         pop.allMatchedUrlsShortcutsObjects = allMatchedUrlsShortcutsObjects
-        console.log(allMatchedUrlsShortcutsObjects);
+        // console.log(allMatchedUrlsShortcutsObjects);
 
 
 
@@ -196,7 +196,7 @@ const pop = {
     getCompleteData: async () => {
         pop.completeData = await getCompleteData()
 
-        console.log(pop.completeData);
+        // console.log(pop.completeData);
 
         await pop.updateData()
     },
@@ -325,7 +325,7 @@ const pop = {
                 let shortcutSettingsURL = `${optionsPageURL}?url=${urlOfShortcut}#${key}`
                 
                 if (eachShortcutData.properties.urlType == "domainAndAllPages") {
-                    console.log("It's a domainAndAllPages");
+                    // console.log("It's a domainAndAllPages");
                     // shortcutSettingsURL = `${optionsPageURL}?url=${pop.currentTabURLObject.origin}#${key}`
                     shortcutSettingsURL = `${optionsPageURL}?url=${urlOfShortcut}#${key}`
                 }
@@ -338,18 +338,18 @@ const pop = {
 
                 setEvent(shortcutNameElement, "click", (e) => {
                     chrome.tabs.create({ url: shortcutSettingsURL }, (newTab) => {
-                        console.log("New tab created with ID:", newTab.id);
+                        // console.log("New tab created with ID:", newTab.id);
                     });
                 })
                 setEvent(shortcutKeyDivElement, "click", (e) => {
                     chrome.tabs.create({ url: shortcutSettingsURL }, (newTab) => {
-                        console.log("New tab created with ID:", newTab.id);
+                        // console.log("New tab created with ID:", newTab.id);
                     });
                 })
 
                 shortcutDivElement.addEventListener('mouseenter',(e)=>{
-                    console.log(e);
-                    console.log(e.fromElement);
+                    // console.log(e);
+                    // console.log(e.fromElement);
                     if (!(e.fromElement.classList.contains('toggleSwitchSpan'))) {
                         pop.playSoundEffect('hover')
                     }
@@ -417,17 +417,17 @@ const pop = {
 
                 // pop.currentTabURL = (pop.currentTab.url).replace(hash, "");
                 pop.currentTabURL = (pop.currentTabURL).replace(/\/$/, ''); // Replace a trailing '/' with an empty string
-                console.log(pop.currentTabURL);
-
-                // console.log(pop.currentTab);
                 // console.log(pop.currentTabURL);
+
+                // // console.log(pop.currentTab);
+                // // console.log(pop.currentTabURL);
 
             }
         })
     },
 
     init: async function () {
-        console.log("Popup opened");
+        // console.log("Popup opened");
 
         await pop.setActiveTabData()
 
@@ -474,7 +474,7 @@ pop.init()
 
 
 chrome.storage.onChanged.addListener(async (changes) => {
-    console.log("Popup updating data");
+    // console.log("Popup updating data");
     await pop.setActiveTabData()
     await pop.getCompleteData()
 })
