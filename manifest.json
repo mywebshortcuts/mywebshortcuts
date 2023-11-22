@@ -2,6 +2,7 @@
     "manifest_version": 3,
     "name": "My Web Shortcuts",
     "version": "1.0.0",
+    "description": "I let you create custom shortcuts for the web :D",
     "icons": {
         "16": "src/assets/16x16.png",
         "32": "src/assets/32x32.png",
@@ -50,7 +51,8 @@
                 "src/assets/sounds/*"
             ],
             "matches": [
-                "<all_urls>"
+                "http://*/*",
+                "https://*/*"
             ]
         }
     ],
@@ -60,12 +62,11 @@
                 "default": "Ctrl+Shift+Q",
                 "mac": "Command+Shift+Q"
             },
-            "description": "Start selection on current website."
+            "description": "Start selection in the active tab"
         }
     },
     "options_page": "src/options/options.html",
     "permissions": [
-        "tabs",
         "activeTab",
         "scripting",
         "storage"   
