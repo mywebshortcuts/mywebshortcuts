@@ -2,7 +2,7 @@
     "manifest_version": 3,
     "name": "My Web Shortcuts",
     "version": "1.0.0",
-    "description": "I let you create custom shortcuts for the web :D",
+    "description": "Create custom shortcuts for the web :D",
     "icons": {
         "16": "src/assets/16x16.png",
         "32": "src/assets/32x32.png",
