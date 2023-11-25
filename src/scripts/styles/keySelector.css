@@ -106,11 +106,16 @@ kbd.mws-element {
 
 .mws-shortcutSelectionDoneButton.editSelection {
 	background-color: var(--mws-dark-green) !important;
+	pointer-events: all !important;
 }
 .mws-shortcutSelectionDoneButton.editSelection:hover {
 	background-color: #277422 !important;
 }
-.mws-shortcutSelectionDoneButton.onSelection:focus {
+.mws-shortcutSelectionDoneButton.editSelection:focus {
+	outline: 2px solid black !important;
+	background-color: #277422 !important;
+}
+.mws-shortcutSelectionDoneButton.onSelection {
 	outline: none !important;
 	pointer-events: none !important;
 }
@@ -202,6 +207,9 @@ kbd.mws-element {
 	width: 80% !important;
 	font-size: var(--mws-fontSize) !important;
 }
+.mws-allDoneButton.mws-element:focus {
+	outline: 2px solid black !important;
+}
 .mws-allDoneButton i {
 	margin-inline: var(--mws-margin) !important;
 }
@@ -285,6 +293,9 @@ kbd.mws-element {
 	position: absolute !important;
 	top: 0% !important;
 	right: 0% !important;
-
+	
 	border-radius: 100% !important;
+}
+.mws-element.mws-closeCustomURLEditorDialogButton:focus {
+	/* outline: 2px solid black !important; */
 }

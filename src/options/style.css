@@ -180,15 +180,6 @@ main {
 .helperText-wrapper {
 	display: flex;
 }
-.helperYTvideo-wrapper {
-	width: 100%;
-	margin: 1rem;
-}
-.helperVideo-wrapper iframe {
-	border-radius: 1rem;
-	min-width: 100%;
-	min-height: 15rem;
-}
 
 .url-wrapper {
 	display: flex;

@@ -245,6 +245,17 @@ footer.flex button {
 	/* width: 70%; */
 }
 
+
+.reportBugLink{
+	color: #bfbfbf;
+	text-decoration: underline;
+	margin-top: .5rem;
+}
+.reportBugLink:hover{
+	color: #858585;
+	text-decoration: underline;
+}
+
 .settingsButtonDiv {
 	width: 100%;
 }

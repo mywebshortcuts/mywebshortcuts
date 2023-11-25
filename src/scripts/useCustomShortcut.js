@@ -31,7 +31,7 @@ const ucs = {
             if (location.href !== currentUrl) {
                 currentUrl = location.href;
                 // doSomething();
-                console.log('URL change detected!');
+                // console.log('URL change detected!');
                 ucs.setCurrentURL()
                 await ucs.updateData()
 
@@ -41,7 +41,7 @@ const ucs = {
 
     updateData: async function () {
         ucs.completeData = await getCompleteData();
-        console.log(ucs.completeData);
+        // console.log(ucs.completeData);
 
 
 
@@ -110,15 +110,15 @@ const ucs = {
                         let regex = new RegExp('^' + customURLRegex + "$")
 
                         let firstSlashIndex = customURL.lastIndexOf('/')
-                        console.log("Index of first slash: ", firstSlashIndex);
+                        // console.log("Index of first slash: ", firstSlashIndex);
                         let urlAfterFirstSlash = customURL.substring(firstSlashIndex, customURL.length)
-                        console.log("URL after the first url: ", urlAfterFirstSlash);
+                        // console.log("URL after the first url: ", urlAfterFirstSlash);
 
 
                         if (regex.test(websiteURL)) {
-                            console.log(customURLRegex);
-                            console.log(regex);
-                            console.log("Matched URL:", websiteURL);
+                            // console.log(customURLRegex);
+                            // console.log(regex);
+                            // console.log("Matched URL:", websiteURL);
 
                             // allMatchedUrlsShortcutsObjects.push({ ...ucs.completeData.websitesData[websiteURL].shortcuts })
                             // addWebsiteShortcuts = true
@@ -136,7 +136,7 @@ const ucs = {
                     }
 
                     // Checking for Page
-                    // console.log((ucs.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
+                    // // console.log((ucs.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
                     if (((ucs.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, '')) && !(urlObject.hash || urlObject.search)) {
                         if (!isObjEmpty(ucs.completeData.websitesData[websiteURL].shortcuts)) {
                             for (const key in ucs.completeData.websitesData[websiteURL].shortcuts) {
@@ -149,7 +149,7 @@ const ucs = {
                     }
                     // Checking for Full Path
                     if ((urlObject.hash || urlObject.search) && (ucs.currentURLObject.href == urlObject.href)) {
-                        console.log("Full Path matches");
+                        // console.log("Full Path matches");
                         if (!isObjEmpty(ucs.completeData.websitesData[websiteURL].shortcuts)) {
                             for (const key in ucs.completeData.websitesData[websiteURL].shortcuts) {
                                 if (Object.hasOwnProperty.call(ucs.completeData.websitesData[websiteURL].shortcuts, key)) {
@@ -218,13 +218,13 @@ const ucs = {
             if (Object.hasOwnProperty.call(ucs.allAvailableShortcuts, shortcutKey)) {
                 const shortcutObject = ucs.allAvailableShortcuts[shortcutKey];
 
-                // console.log(shortcutObject);
+                // // console.log(shortcutObject);
             }
         }
 
         // ucs.allSetShortcutsArray = Object.keys(ucs.currentWebsiteData.shortcuts) || []
         ucs.allSetShortcutsArray = Object.keys(ucs.allMatchedUrlsShortcutsObjects) || []
-        console.log(ucs.allSetShortcutsArray);
+        // console.log(ucs.allSetShortcutsArray);
 
 
     },
@@ -233,7 +233,7 @@ const ucs = {
     turnOn: function () {
         // if (ucs.completeData.globalSettings.extensionEnabled && ucs.completeData.websitesData[ucs.websiteURL] && ucs.completeData.websitesData[ucs.websiteURL].settings.enabled) {
         if (ucs.completeData.globalSettings.extensionEnabled && !ucs.selectorEnabled) {
-            console.log("UCS is Enabled");
+            // console.log("UCS is Enabled");
 
             window.addEventListener('keypress', ucs.onShortcutClicker, {
                 // bubbles
@@ -244,7 +244,7 @@ const ucs = {
 
 
     turnOff: function () {
-        console.log("UCS is disabled");
+        // console.log("UCS is disabled");
         window.removeEventListener('keypress', ucs.onShortcutClicker)
         window.removeEventListener('keyup', ucs.onKeyUp)
     },
@@ -273,7 +273,7 @@ const ucs = {
         }
         setTimeout(() => {
             if (this.keyPresses > 1) {
-                // console.log("Multiple times pressed");
+                // // console.log("Multiple times pressed");
                 if (ucs.keyup) {
                     ucs.doubleKeyPress = true
                     takeAction()
@@ -301,7 +301,7 @@ const ucs = {
             return;
         }
         if (activeElement && activeElement.contentEditable == "true") {
-            console.log("Content editable div detected");
+            // console.log("Content editable div detected");
             return;
         }
 
@@ -322,12 +322,12 @@ const ucs = {
     },
 
     isElementFocusable: function (element) {
-        // console.log(element.focusable);
+        // // console.log(element.focusable);
         if (element.focusable) {
             return true;
         }
         // Check if the element has a tabIndex property
-        // console.log(element.tabIndex >= -1);
+        // // console.log(element.tabIndex >= -1);
         if (typeof element.tabIndex === 'number') {
             // Elements with a tabIndex greater than or equal to -1 are focusable
             return element.tabIndex > -1;
@@ -337,7 +337,7 @@ const ucs = {
         const nodeName = element.nodeName.toLowerCase();
         const focusableNodeNames = ['a', 'button', 'input', 'select', 'textarea'];
         // const unFocusableNodeNames = ['a', 'button', 'input', 'select', 'textarea'];
-        console.log((focusableNodeNames.includes(nodeName)));
+        // console.log((focusableNodeNames.includes(nodeName)));
         if (focusableNodeNames.includes(nodeName)) {
             return true;
         }
@@ -352,14 +352,14 @@ const ucs = {
             cancelable: true
         });
         if (element.click) {
-            console.log("Trying to click on element");
+            // console.log("Trying to click on element");
             element.dispatchEvent(clickEvent);
             // element.click()
         }
         else {
             let parentElement = element.parentElement
             if (parentElement.click) {
-                console.log("Trying to click on the parent");
+                // console.log("Trying to click on the parent");
                 element.dispatchEvent(clickEvent);
                 // parentElement.click()
             }
@@ -386,14 +386,14 @@ const ucs = {
             cssSelector = elementData.cssSelector
         }
         else {
-            console.log("Neither JSON Data nor CSS Selector of the element exists.");
+            // console.log("Neither JSON Data nor CSS Selector of the element exists.");
             return false
         }
 
         // Find the matching element on the page
         const matchingElement = document.querySelector(`${cssSelector}`);
 
-        console.log(matchingElement);
+        // console.log(matchingElement);
 
         // Click the matching element if found
         if (matchingElement) {
@@ -427,7 +427,7 @@ const ucs = {
             return true
 
         } else {
-            console.log("Element not found on the page.");
+            // console.log("Element not found on the page.");
             return false
         }
     },
@@ -437,18 +437,18 @@ const ucs = {
         ucs.setCurrentURL()
         await ucs.updateData()
         //    .then(completeData => {
-        // console.log(ucs.completeData);
+        // // console.log(ucs.completeData);
 
         // Stop if extension not enabled
         if (!ucs.completeData.globalSettings.extensionEnabled) {
-            console.log("Extension is disabled everywhere");
+            // console.log("Extension is disabled everywhere");
             ucs.turnOff()
             return
         }
         
         // Stop if no website shortcut added yet
         if (isObjEmpty(ucs.completeData.websitesData)) {
-            console.log("No website is added");
+            // console.log("No website is added");
             return
         }
 
@@ -458,7 +458,7 @@ const ucs = {
             if (ucs.completeData.websitesData[ucs.currentURLObject.origin] && ucs.completeData.websitesData[ucs.currentURLObject.origin].settings.enabled) { // If current domain is enabled
 
                 if (!ucs.selectorEnabled) { // If selector is NOT enabled
-                    console.log("Turning ON UCS");
+                    // console.log("Turning ON UCS");
                     ucs.turnOn()
                 }
                 else{
@@ -467,13 +467,13 @@ const ucs = {
                 chrome.runtime.onMessage.addListener(
                     async (request, sender, sendResponse) => {
                         if (request.msg === "selectorDisabled") {
-                            console.log("Selector is Disabled, UCS is Enabled");
+                            // console.log("Selector is Disabled, UCS is Enabled");
                             ucs.selectorEnabled = false
                             // ucs.turnOn()
                             await ucs.init()
                         }
                         else if (request.msg === "selectorEnabled") {
-                            console.log("Selector is Enabled, UCS is Disabled");
+                            // console.log("Selector is Enabled, UCS is Disabled");
                             ucs.selectorEnabled = true
                             // ucs.turn Off()
                             await ucs.init()
@@ -482,7 +482,7 @@ const ucs = {
                 );
             }
             else {
-                console.log("Domain is disabled");
+                // console.log("Domain is disabled");
                 ucs.turnOff()
             }
 
@@ -497,6 +497,6 @@ const ucs = {
 
 ucs.init()
 chrome.storage.onChanged.addListener(async (changes) => {
-    console.log("UCS updating data");
+    // console.log("UCS updating data");
     await ucs.init()
 })

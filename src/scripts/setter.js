@@ -19,7 +19,7 @@ import { confirmationDialogOpener } from '../modules/domElements.js'
 let cssToImportArray = [
     'src/assets/font-awesome/css/fontawesome.css',
     'src/assets/font-awesome/css/solid.css',
-    'src/scripts/styles/root.css', 
+    'src/scripts/styles/root.css',
     'src/scripts/styles/elementSelector.css',
     'src/scripts/styles/keySelector.css',
 ]
@@ -85,7 +85,7 @@ const mws = {
     },
 
     // Full Path data
-    fullPathData:{},
+    fullPathData: {},
 
     // Domain Data
     domainURL: "",
@@ -134,7 +134,7 @@ const mws = {
             if (location.href !== currentUrl) {
                 currentUrl = location.href;
                 // doSomething();
-                console.log('URL change detected!');
+                // console.log('URL change detected!');
                 mws.setCurrentURL()
                 await mws.getExistingDataOfCurrentWebsite()
             }
@@ -151,7 +151,7 @@ const mws = {
         mws.allWebsitesData = mws.completeData.websitesData
 
         if (isObjEmpty(mws.completeData)) {
-            console.log("No Data");
+            // console.log("No Data");
             mws.resetDataVariables()
             return
         }
@@ -159,7 +159,7 @@ const mws = {
         // Getting the Page Data
         let pageUrl = mws.domainURL + (mws.currentURLObject.pathname).replace(/\/$/, '')
         if (!mws.completeData.websitesData[pageUrl] || isObjEmpty(mws.completeData.websitesData[pageUrl].shortcuts)) {
-            console.log("No Page Data");
+            // console.log("No Page Data");
             mws.resetDataVariables()
         }
         else {
@@ -170,7 +170,7 @@ const mws = {
         if (mws.currentURLObject.search || mws.currentURLObject.hash) {
             let fullPathUrl = mws.currentURLObject.href
             if (!mws.completeData.websitesData[fullPathUrl] || isObjEmpty(mws.completeData.websitesData[fullPathUrl].shortcuts)) {
-                console.log("No Full Path Data");
+                // console.log("No Full Path Data");
 
                 mws.fullPathData = {
                     settings: {
@@ -188,7 +188,7 @@ const mws = {
         // Object.keys(mws.websiteData.shortcuts)
         // Getting Domain Data
         if (!mws.completeData.websitesData[mws.domainURL] || isObjEmpty(mws.completeData.websitesData[mws.domainURL].shortcuts)) {
-            console.log("No Domain Data");
+            // console.log("No Domain Data");
 
             mws.domainData = {
                 settings: {
@@ -284,15 +284,15 @@ const mws = {
                         let regex = new RegExp('^' + customURLRegex + "$")
 
                         let firstSlashIndex = customURL.lastIndexOf('/')
-                        console.log("Index of first slash: ", firstSlashIndex);
+                        // console.log("Index of first slash: ", firstSlashIndex);
                         let urlAfterFirstSlash = customURL.substring(firstSlashIndex, customURL.length)
-                        console.log("URL after the first url: ", urlAfterFirstSlash);
+                        // console.log("URL after the first url: ", urlAfterFirstSlash);
 
 
                         if (regex.test(websiteURL)) {
-                            console.log(customURLRegex);
-                            console.log(regex);
-                            console.log("Matched URL:", websiteURL);
+                            // console.log(customURLRegex);
+                            // console.log(regex);
+                            // console.log("Matched URL:", websiteURL);
 
                             // allMatchedUrlsShortcutsObjects.push({ ...mws.completeData.websitesData[websiteURL].shortcuts })
                             // addWebsiteShortcuts = true
@@ -310,7 +310,7 @@ const mws = {
                     }
 
                     // Checking for Page
-                    // console.log((mws.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
+                    // // console.log((mws.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
                     if (((mws.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, '')) && !(urlObject.hash || urlObject.search)) {
                         if (!isObjEmpty(mws.completeData.websitesData[websiteURL].shortcuts)) {
                             for (const key in mws.completeData.websitesData[websiteURL].shortcuts) {
@@ -338,7 +338,7 @@ const mws = {
         mws.allMatchedUrlsShortcutsObjects = allMatchedUrlsShortcutsObjects
 
         mws.allShortcuts = Object.keys(mws.allMatchedUrlsShortcutsObjects)
-        console.log(mws.allShortcuts);
+        // console.log(mws.allShortcuts);
 
     },
 
@@ -353,11 +353,11 @@ const mws = {
         }
         let validActionsList = ['click', 'focus']
         if (!validActionsList.includes(mws.selectedAction)) {
-            mws.selectedAction = 'click'               
+            mws.selectedAction = 'click'
         }
         let validURLTypeList = ['domainAndAllPages', 'domainAndPage', 'onlyDomain', 'onlyPage', 'fullPath']
         if (!validURLTypeList.includes(mws.selectedURLType)) {
-            mws.selectedURLType = 'domainAndAllPages'               
+            mws.selectedURLType = 'domainAndAllPages'
         }
 
         // SAVING THE DATA
@@ -409,7 +409,7 @@ const mws = {
                     mws.websiteData.shortcuts[mws.selectedShortcut] = newShortcutData
                     mws.allWebsitesData[mws.selectedURL] = mws.websiteData
                 }
-                else if (mws.selectedURLType == "fullPath"){
+                else if (mws.selectedURLType == "fullPath") {
                     mws.fullPathData.shortcuts[mws.selectedShortcut] = newShortcutData
                     mws.allWebsitesData[mws.selectedURL] = mws.fullPathData
                 }
@@ -418,7 +418,7 @@ const mws = {
 
 
         mws.completeData.websitesData = mws.allWebsitesData
-        console.log(mws.allWebsitesData);
+        // console.log(mws.allWebsitesData);
         await chrome.storage.local.set({ ...mws.completeData })
 
         return true
@@ -444,7 +444,7 @@ const mws = {
             mws.currentElement.classList.remove('mws-bordered')
         }
 
-        if (getElemAt(x, y).classList.contains('mws-element')) {
+        if (getElemAt(x, y) && getElemAt(x, y).classList.contains('mws-element')) {
             mws.currentElement = undefined
             setTextContent(qS('.mws-currentElementSpan'), 'No Element Selected')
             qS('.mws-selectElementButton').disabled = true
@@ -455,12 +455,14 @@ const mws = {
 
 
         // mws.currentElement.classList.add('mws-bordered')
-        setTextContent(qS('.mws-currentElementSpan'), (mws.currentElement).tagName)
+        if ((mws.currentElement).tagName) {
+            setTextContent(qS('.mws-currentElementSpan'), (mws.currentElement).tagName)
+        }
 
         addClass(mws.currentElement, ['mws-bordered'])
 
-        // console.log(mws.currentElement);
-        // console.log(finder(mws.currentElement));
+        // // console.log(mws.currentElement);
+        // // console.log(finder(mws.currentElement));
 
     },
 
@@ -482,10 +484,10 @@ const mws = {
 
         }
         // if (!mws.isElementFocusable(clickedElement)) {
-        //     console.log("Not Focusable");
+        //     // console.log("Not Focusable");
         //     return
         // }
-        // console.log(mws.currentElement);
+        // // console.log(mws.currentElement);
 
         if (!mws.currentState.keyboardShortcutSelectorOpen) {
             event.preventDefault()
@@ -507,18 +509,18 @@ const mws = {
 
     // Track keyboard key for shortcut selection when the dialog is open 
     keyboarder: function (e) {
-        console.log(e);
+        // console.log(e);
         let pressedKey = e.key;
 
         if (mws.currentState.keyboardShortcutSelectionOn) {
             const keyCode = e.keyCode || e.which;
 
 
-            console.log(keyCode);
-            console.log((keyCode >= 65 && keyCode <= 90));
-            console.log((keyCode >= 48 && keyCode <= 57));
-            console.log((keyCode >= 186 && keyCode <= 192));
-            console.log((keyCode >= 219 && keyCode <= 222));
+            // console.log(keyCode);
+            // console.log((keyCode >= 65 && keyCode <= 90));
+            // console.log((keyCode >= 48 && keyCode <= 57));
+            // console.log((keyCode >= 186 && keyCode <= 192));
+            // console.log((keyCode >= 219 && keyCode <= 222));
             // Check if it's a character key (alphabets and numbers)
             if (
                 (keyCode >= 65 && keyCode <= 90) ||   // A-Z
@@ -546,7 +548,7 @@ const mws = {
 
                     mws.currentState.keyboardShortcutSelectionOn = false;
                     mws.playSoundEffect('keyAccepted')
-                    console.log("Pressed Key:", pressedKey);
+                    // console.log("Pressed Key:", pressedKey);
                 }
                 else {
                     addClass(qS('.mws-selectedShortcutKBD'), ['shortcutExists'])
@@ -558,14 +560,14 @@ const mws = {
     },
 
     sendSelectorDisabledMsg: async function (e) {
-        console.log("Sending Selector Disabled message");
+        // console.log("Sending Selector Disabled message");
         await sendMsg({ msg: "selectorDisabled", spread: true })
     },
 
     pauseResumeSelection: (e) => {
         if (mws.currentState.elementSelectionOn) {
             // e.preventDefault()
-            // console.log(e);
+            // // console.log(e);
             if (e.type == "keydown") {
                 // keyCode of both ControlLeft and ControlRight is 17, bcoz obv both are Control keys
                 if (e.keyCode == 17) {
@@ -575,13 +577,13 @@ const mws = {
                         qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
                         mws.playSoundEffect('unpause', 0.2)
                         // qS('.mws-selectElementButton').style.display = 'none'
-                        updateCSS(qS('.mws-selectElementButton'), {display:"none !important"})
-                        // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
+                        updateCSS(qS('.mws-selectElementButton'), { display: "none !important" })
+                        // // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
                     }
                     else {
                         // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
-                        updateCSS(qS('.mws-selectElementButton'), {display:"flex !important"})
-                        console.log(qS('.mws-selectElementButton').style.display);
+                        updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
+                        // console.log(qS('.mws-selectElementButton').style.display);
                         mws.playSoundEffect('pause', 0.2)
                         window.removeEventListener('mouseover', mws.addRemoveborder);
                         mws.currentState.elementSelectionPaused = true
@@ -610,11 +612,12 @@ const mws = {
     },
 
     accidentalUnloadPreventer: function (e) {
-        e.preventDefault()
+        e.preventDefault();
+        e.returnValue = '';
     },
 
 
-    turnOnWindowUnloadStopper: async function () {
+    turnOnWindowUnloadStopper: function () {
         window.addEventListener("beforeunload", mws.accidentalUnloadPreventer);
     },
     turnOffWindowUnloadStopper: function () {
@@ -911,16 +914,16 @@ const mws = {
                     }
 
                     let customURLEditorWrapperChildrenArray = Array.from(customURLEditorWrapper.children)
-                    console.log("customURLEditorWrapperChildrenArray:", customURLEditorWrapperChildrenArray);
+                    // console.log("customURLEditorWrapperChildrenArray:", customURLEditorWrapperChildrenArray);
                     // let prevCustomURL;
                     qSA('input', customURLEditorWrapper).forEach(inputElement => {
                         setEvent(inputElement, 'input', (e) => {
                             let editedValue = e.srcElement.value
                             // let previousValue = getAttr(inputElement, 'data-previousValue') || ""
-                            // console.log("Previous value was:", previousValue);
+                            // // console.log("Previous value was:", previousValue);
                             let originalValue = getAttr(inputElement, 'data-originalValue')
                             if (inputElement.classList.contains('mws-queryParametersInput')) {
-                                // console.log("This is queryParametersInput");
+                                // // console.log("This is queryParametersInput");
                                 editedValue = '?' + editedValue
                             }
                             else if (inputElement.classList.contains('mws-hashFragmentInput')) {
@@ -938,34 +941,34 @@ const mws = {
                             customURLEditorWrapperChildrenArray.forEach(e => {
                                 changedValue += (e.tagName == 'SPAN') ? e.innerText : e.value
                             })
-                            console.log("Changed Value:", changedValue);
+                            // console.log("Changed Value:", changedValue);
 
 
                             if (!mws.customURL) {
-                                console.log("No Set Custom URL!!!");
+                                // console.log("No Set Custom URL!!!");
                                 if (changedValue != mws.currentURLObject.href) {
-                                    console.log();
-                                    console.log(changedValue != mws.currentURLObject.href);
-                                    console.log(mws.currentURLObject.href);
+                                    // console.log();
+                                    // console.log(changedValue != mws.currentURLObject.href);
+                                    // console.log(mws.currentURLObject.href);
                                     customURL = changedValue
-                                    console.log("CHANGING: Different value than website URL", customURL);
+                                    // console.log("CHANGING: Different value than website URL", customURL);
                                     confirmCustomURLButton.disabled = false
                                 }
                                 else {
-                                    console.log("NOT CHANGING: Same value as website URL");
+                                    // console.log("NOT CHANGING: Same value as website URL");
                                     customURL = ''
                                     confirmCustomURLButton.disabled = true
                                 }
                             }
                             else {
-                                console.log("Set Custom URL is there...");
+                                // console.log("Set Custom URL is there...");
                                 if (changedValue != mws.customURL && changedValue != mws.currentURLObject.href) {
                                     customURL = changedValue
-                                    console.log("CHANGING: Different value than previous one & website URL", customURL);
+                                    // console.log("CHANGING: Different value than previous one & website URL", customURL);
                                     confirmCustomURLButton.disabled = false
                                 }
                                 else {
-                                    console.log("NOT CHANGING: Same value as previous one or website URL");
+                                    // console.log("NOT CHANGING: Same value as previous one or website URL");
                                     customURL = ''
                                     confirmCustomURLButton.disabled = true
                                 }
@@ -976,18 +979,18 @@ const mws = {
                     })
 
                     setEvent(confirmCustomURLButton, 'click', () => {
-                        console.log("Done button Clicked, customURL:", customURL);
+                        // console.log("Done button Clicked, customURL:", customURL);
                         if (customURL) {
-                            console.log("Confirming edited url................");
+                            // console.log("Confirming edited url................");
                             mws.customURL = customURL
                             // prevCustomURL = customURL
                             mws.selectedURL = mws.customURL
-                            console.log("mws.customURL", mws.customURL);
+                            // console.log("mws.customURL", mws.customURL);
                             qS('.mws-allDoneButton').disabled = false
 
                             qSA('input', customURLEditorWrapper).forEach(inputElement => {
                                 setAttr(inputElement, 'data-inputValue', inputElement.value)
-                                console.log("data-inputValue is Set: ", inputElement.value);
+                                // console.log("data-inputValue is Set: ", inputElement.value);
                             })
 
                         }
@@ -1002,8 +1005,8 @@ const mws = {
 
                 }
                 else {
-                    console.log("Custom URL exists");
-                    console.log(mws.customURL);
+                    // console.log("Custom URL exists");
+                    // console.log(mws.customURL);
 
                     qS('.mws-allDoneButton').disabled = false
                 }
@@ -1014,9 +1017,9 @@ const mws = {
                 closeCustomURLEditorDialogButton.addEventListener('click', (e) => {
                     qSA('input', customURLEditorWrapper).forEach(inputElement => {
                         let inputValue = getAttr(inputElement, 'data-inputValue')
-                        console.log("Closing, inputValue is:", inputValue);
+                        // console.log("Closing, inputValue is:", inputValue);
                         if (inputValue) {
-                            // console.log("Closing, Set Input Value is:",inputValue);
+                            // // console.log("Closing, Set Input Value is:",inputValue);
                             inputElement.value = inputValue
                         }
                     })
@@ -1025,9 +1028,9 @@ const mws = {
                     customURLEditorDialog.style.display = 'none'
                     // qS('.mws-allDoneButton').disabled = false
 
-                    console.log("Closing, mws.customURL:", mws.customURL);
+                    // console.log("Closing, mws.customURL:", mws.customURL);
                     if (!mws.customURL) {
-                        console.log("There is no set custom URL, removing edit button...");
+                        // console.log("There is no set custom URL, removing edit button...");
                         editCustomShortcutButton.style.display = 'none'
                         // mws.selectedURL = mws.currentURLObject.origin
 
@@ -1043,7 +1046,7 @@ const mws = {
                 function copyToClipboard(text) {
                     navigator.clipboard.writeText(text).then(
                         () => {
-                            console.log("Text successfully copied to clipboard");
+                            // console.log("Text successfully copied to clipboard");
                         },
                         (err) => {
                             console.error("Failed to copy text to clipboard", err);
@@ -1058,8 +1061,8 @@ const mws = {
             if (selectedValue != 'custom') {
                 mws.selectedURL = urlToSetFor.replace(/\/$/, '')
             }
-            console.log("Selected URL is:", mws.selectedURL);
-            console.log("Selected URL Type is:", mws.selectedURLType);
+            // console.log("Selected URL is:", mws.selectedURL);
+            // console.log("Selected URL Type is:", mws.selectedURLType);
 
         })
 
@@ -1111,12 +1114,12 @@ const mws = {
     },
 
     isElementFocusable: function (element) {
-        // console.log(element.focusable);
+        // // console.log(element.focusable);
         if (element.focusable) {
             return true;
         }
         // Check if the element has a tabIndex property
-        // console.log(element.tabIndex >= -1);
+        // // console.log(element.tabIndex >= -1);
         if (typeof element.tabIndex === 'number') {
             // Elements with a tabIndex greater than or equal to -1 are focusable
             return element.tabIndex >= -1;
@@ -1126,7 +1129,7 @@ const mws = {
         const nodeName = element.nodeName.toLowerCase();
         const focusableNodeNames = ['a', 'button', 'input', 'select', 'textarea'];
         // const unFocusableNodeNames = ['a', 'button', 'input', 'select', 'textarea'];
-        console.log((focusableNodeNames.includes(nodeName)));
+        // console.log((focusableNodeNames.includes(nodeName)));
         if (focusableNodeNames.includes(nodeName)) {
             return true;
         }
@@ -1299,7 +1302,7 @@ const mws = {
                 if (e.srcElement.checked) {
                     mws.playSoundEffect('switchOn')
                 }
-                else{
+                else {
                     mws.playSoundEffect('switchOff')
                 }
             })
@@ -1321,13 +1324,13 @@ const mws = {
                 mws.closeKeyboardShortcutSelectionDialog()
             }
             else if (mws.currentState.elementSelectorOpen) {
-                mws.turnOffEverything()
+                await mws.turnOffEverything()
             }
 
         }
         if (e.key == "Enter") {
             e.preventDefault()
-            // console.log(e.key);
+            // // console.log(e.key);
             if (mws.currentState.keyboardShortcutSelectorOpen) {
                 let allDoneButtonDisabled = qS('.mws-allDoneButton').disabled
                 if (!allDoneButtonDisabled) {
@@ -1349,7 +1352,7 @@ const mws = {
             }
             else if (mws.currentState.elementSelectorOpen) {
                 if (mws.currentElement) {
-                    // console.log("Selecting Element...");
+                    // // console.log("Selecting Element...");
                     mws.openKeyboardShortcutSelectionDialog()
                 }
             }
@@ -1375,7 +1378,7 @@ const mws = {
         if (mws.currentElement) {
             rmClass(mws.currentElement, ['mws-bordered'])
         }
-        // console.log(mws.currentState.elementSelectorOpen);
+        // // console.log(mws.currentState.elementSelectorOpen);
         if (mws.currentState.elementSelectorOpen) {
             mws.closeFloatingDiv()
         }
@@ -1423,7 +1426,7 @@ mws.init()
 
 
 chrome.storage.onChanged.addListener(async (changes) => {
-    console.log("Updating SETTER data");
+    // console.log("Updating SETTER data");
 
     await mws.getExistingDataOfCurrentWebsite()
 })

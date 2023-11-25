@@ -16,7 +16,7 @@ export function confirmationDialogOpener(confirmationText) {
             // textContent: "No",
             innerHTML: `
             <div class="mws-element closeConfirmationDialogButton-wrapper mws-closeConfirmationDialogButton-wrapper">
-                <button class="closeConfirmationDialogButton actionButton mws-element mws-closeConfirmationDialogButton mws-actionButton">
+                <button class="closeConfirmationDialogButton actionButton mws-element mws-closeConfirmationDialogButton mws-actionButton" title="Close Confirmation Dialog (Esc)">
                     <i class="fa-close fa-solid"></i>
                 </button>
             </div>

@@ -40,7 +40,7 @@ const opt = {
 
     clearAllData: () => {
         chrome.storage.local.clear(() => {
-            console.log('All data in local storage has been cleared.');
+            // console.log('All data in local storage has been cleared.');
             chrome.runtime.reload();
         });
     },
@@ -60,7 +60,7 @@ const opt = {
         }
 
         let prevAudio;
-        function playSoundEffect(soundEffectName = 'click', volume = 1) {
+        function playSoundEffect(soundEffectName = 'click', volume = .2) {
             if (!opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
                 return
             }
@@ -72,7 +72,7 @@ const opt = {
             else {
                 audio = new Audio(`../assets/sounds/${soundEffectName}.mp3`)
             }
-            console.log("Playing: ", soundEffectName);
+            // console.log("Playing: ", soundEffectName);
 
             audio.currentTime = 0; // Reset the audio to the beginning
             audio.volume = volume
@@ -124,12 +124,12 @@ const opt = {
                     for (const shortcutKey in websiteShortcuts) {
                         if (Object.hasOwnProperty.call(websiteShortcuts, shortcutKey)) {
                             const urlType = websiteShortcuts[shortcutKey].properties.urlType
-                            console.log("urlType is:", urlType);
+                            // console.log("urlType is:", urlType);
                             if (urlObject.pathname == '/') {
-                                console.log("Its a domain");
+                                // console.log("Its a domain");
                             }
                             else {
-                                console.log("its a page");
+                                // console.log("its a page");
                                 if (urlType == "onlyDomain") {
                                     continue
 
@@ -189,11 +189,11 @@ const opt = {
                             // ------------------------- Enable/Disable Shortcut -------------------------
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).addEventListener('change', async function (event) {
                                 if (event.target.checked) {
-                                    console.log('Extension Enabled');
+                                    // console.log('Extension Enabled');
                                     playSoundEffect('switchOn')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = true
                                 } else {
-                                    console.log('Extension Disabled');
+                                    // console.log('Extension Disabled');
                                     playSoundEffect('switchOff')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = false
                                 }
@@ -246,7 +246,7 @@ const opt = {
                                 
                                 shortcutActionSelect.addEventListener('change', (e) => {
                                     if (e.srcElement.value != shortcutKeyObject.properties.action) {
-                                        console.log("Value changed");
+                                        // console.log("Value changed");
                                         editedProperties.action = e.srcElement.value
                                     }
                                     else {
@@ -270,7 +270,7 @@ const opt = {
                                         confirmEditedSettingsButton.disabled = false
                                     }
                                     else {
-                                        console.log("Nothing changed");
+                                        // console.log("Nothing changed");
                                         propertiesEdited = false;
                                         confirmEditedSettingsButton.disabled = true
                                     }
@@ -296,7 +296,7 @@ const opt = {
                                     }
                                     const activeElement = document.activeElement
                                     if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
-                                        console.log("Input h bhai");
+                                        // console.log("Input h bhai");
                                         return;
                                     }
 
@@ -305,15 +305,15 @@ const opt = {
                                     const pressedKey = e.key
                                     if (keyCode == 13) {
                                         // If it's an Enter key
-                                        // console.log(e);
+                                        // // console.log(e);
                                         return
                                     }
 
-                                    console.log(keyCode);
-                                    console.log((keyCode >= 65 && keyCode <= 90));
-                                    console.log((keyCode >= 48 && keyCode <= 57));
-                                    console.log((keyCode >= 186 && keyCode <= 192));
-                                    console.log((keyCode >= 219 && keyCode <= 222));
+                                    // console.log(keyCode);
+                                    // console.log((keyCode >= 65 && keyCode <= 90));
+                                    // console.log((keyCode >= 48 && keyCode <= 57));
+                                    // console.log((keyCode >= 186 && keyCode <= 192));
+                                    // console.log((keyCode >= 219 && keyCode <= 222));
                                     if (
                                         (keyCode >= 65 && keyCode <= 90) ||   // A-Z
                                         (keyCode >= 48 && keyCode <= 57) ||   // 0-9
@@ -321,7 +321,7 @@ const opt = {
                                         (keyCode >= 219 && keyCode <= 222)    // Punctuation characters like "[", "]", "\", and "'"
                                     ) {
                                     // It's a character key
-                                    console.log("It's a characterkey");
+                                    // console.log("It's a characterkey");
 
                                     // This is an important part, we are going to extract all the shortcuts from the enabled urls or the same origin
                                     // so that one is able to access all the shortcuts that are available for the current url, if it's matched.
@@ -389,15 +389,15 @@ const opt = {
                                                     let regex = new RegExp('^' + customURLRegex + "$")
 
                                                     let firstSlashIndex = customURL.lastIndexOf('/')
-                                                    console.log("Index of first slash: ", firstSlashIndex);
+                                                    // console.log("Index of first slash: ", firstSlashIndex);
                                                     let urlAfterFirstSlash = customURL.substring(firstSlashIndex, customURL.length)
-                                                    console.log("URL after the first url: ", urlAfterFirstSlash);
+                                                    // console.log("URL after the first url: ", urlAfterFirstSlash);
 
 
                                                     if (regex.test(websiteURL)) {
-                                                        console.log(customURLRegex);
-                                                        console.log(regex);
-                                                        console.log("Matched URL:", websiteURL);
+                                                        // console.log(customURLRegex);
+                                                        // console.log(regex);
+                                                        // console.log("Matched URL:", websiteURL);
 
                                                         // allMatchedUrlsShortcutsObjects.push({ ...opt.completeData.websitesData[websiteURL].shortcuts })
                                                         // addWebsiteShortcuts = true
@@ -415,7 +415,7 @@ const opt = {
                                                 }
 
                                                 // Checking for Page
-                                                // console.log((currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
+                                                // // console.log((currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
                                                 if (((currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, '')) && !(urlObject.hash || urlObject.search)) {
                                                     if (!isObjEmpty(opt.completeData.websitesData[websiteURL].shortcuts)) {
                                                         for (const key in opt.completeData.websitesData[websiteURL].shortcuts) {
@@ -428,7 +428,7 @@ const opt = {
                                                 }
                                                 // Checking for Full Path
                                                 if ((urlObject.hash || urlObject.search) && (currentURLObject.href == urlObject.href)) {
-                                                    console.log("Full Path matches");
+                                                    // console.log("Full Path matches");
                                                     if (!isObjEmpty(opt.completeData.websitesData[websiteURL].shortcuts)) {
                                                         for (const key in opt.completeData.websitesData[websiteURL].shortcuts) {
                                                             if (Object.hasOwnProperty.call(opt.completeData.websitesData[websiteURL].shortcuts, key)) {
@@ -446,11 +446,11 @@ const opt = {
                                     let existingShortcutKeys = Object.keys(allMatchedUrlsShortcutsObjects)
                                     let shortcutIndex = existingShortcutKeys.indexOf(shortcutKey);
                                     existingShortcutKeys.splice(shortcutIndex, 1);
-                                    console.log(existingShortcutKeys);
+                                    // console.log(existingShortcutKeys);
 
                                     shortcutKeyEditKbd.innerText = pressedKey
                                     if (existingShortcutKeys.includes(pressedKey)) {
-                                        console.log("Already exists");
+                                        // console.log("Already exists");
                                         addClass(shortcutKeyEditKbd, ['shortcutExists'])
                                         return;
                                     }
@@ -530,11 +530,11 @@ const opt = {
                                             editedProperties.action = 'click'
                                         }
                                         if (!editedProperties.key) {
-                                            console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey]);
+                                            // console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey]);
                                             opt.completeData.websitesData[url].shortcuts[shortcutKey].properties.action = editedProperties.action
                                         }
                                         else {
-                                            console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey]);
+                                            // console.log(opt.completeData.websitesData[url].shortcuts[shortcutKey]);
                                             opt.completeData.websitesData[url].shortcuts[editedProperties.key].properties.action = editedProperties.action
                                         }
                                     }
@@ -572,7 +572,7 @@ const opt = {
                                     await setStorage({ ...opt.completeData })
 
                                     if (isObjEmpty(opt.completeData.websitesData[url].shortcuts)) {
-                                        console.log("Delete button clicked");
+                                        // console.log("Delete button clicked");
                                         if (await confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`)) {
                                             opt.deleteWebsite(url)
                                             opt.currentState.websiteSelected = null
@@ -592,7 +592,7 @@ const opt = {
                             let mouseOver = false;
                             setEvent(shortcutSettingsWrapper, 'mouseenter', (e) => {
                                 mouseOver = true
-                                // console.log(shortcutSettingsWrapper.classList.contains('hovered'));
+                                // // console.log(shortcutSettingsWrapper.classList.contains('hovered'));
                                 if (shortcutSettingsWrapper.classList.contains('hovered')) {
                                     shortcutSettingsWrapper.classList.remove('hovered')
                                 }
@@ -608,7 +608,7 @@ const opt = {
                             // window.addEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
 
                             function editDeleteShortcutKeyboardShortcuts(e) {
-                                console.log(e);
+                                // console.log(e);
                                 // if (!mouseOver) {
                                     // return
                                 // }
@@ -635,9 +635,9 @@ const opt = {
                 },
 
                 openWebsiteSettings: (url) => {
-                    console.log(opt.websitesData);
+                    // console.log(opt.websitesData);
                     if (!opt.websitesData[url]) {
-                        console.log("Doesn't exist in websitesdata", url);
+                        // console.log("Doesn't exist in websitesdata", url);
                         return
                     }
                     const openedWebsiteSettings = opt.websitesData[url]
@@ -657,11 +657,11 @@ const opt = {
 
 
                     // URL Heading
-                    console.log(url);
+                    // console.log(url);
                     let urlWithoutProtocol = url.replace(/^(https?|ftp):\/\//, '')
                     const urlHeading = qS('.urlHeading')
                     if (urlWithoutProtocol.length > 28) {
-                        console.log("Greater");
+                        // console.log("Greater");
                         urlWithoutProtocol = urlWithoutProtocol.slice(0, 28);
                         urlWithoutProtocol = urlWithoutProtocol + '...';
                         // updateCSS(urlHeading, {'padding-left':'3.8rem'})
@@ -689,7 +689,7 @@ const opt = {
                     deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
                     async function deleteWebsiteButtonFunction() {
                         playSoundEffect('click')
-                        console.log("Delete button clicked");
+                        // console.log("Delete button clicked");
                         confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response => {
                             if (response) {
                                 opt.deleteWebsite(url)
@@ -711,11 +711,11 @@ const opt = {
                     toggleSwitchInput.checked = !openedWebsiteSettings.settings.enabled
                     async function toggleSwitchInputFunction(e) {
                         if (e.target.checked) {
-                            console.log('Website Disabled');
+                            // console.log('Website Disabled');
                             playSoundEffect('switchOff')
                             opt.completeData.websitesData[url].settings.enabled = false
                         } else {
-                            console.log('Website Enabled');
+                            // console.log('Website Enabled');
                             playSoundEffect('switchOn')
                             opt.completeData.websitesData[url].settings.enabled = true
                         }
@@ -739,7 +739,7 @@ const opt = {
                         }
                         if (e.key == 'Backspace') {
                             if (!qS('dialog[open]') && backToWebsitesListButton.parentElement.style.display != 'none') {
-                                console.log(backToWebsitesListButton);
+                                // console.log(backToWebsitesListButton);
                                 backToWebsitesListButton.click()
                             }
                         }
@@ -799,21 +799,21 @@ const opt = {
                             termMatchedElementsArray.forEach(termMatchedElement => {
                                 termMatchedElement.style.display = 'flex'
                             })
-                            console.log("Showing Terms Matched Elements");
+                            // console.log("Showing Terms Matched Elements");
 
                         }
                         else if (charsMatchedElementsArray.length > 0) {
                             charsMatchedElementsArray.forEach(charsMatchedElement => {
                                 charsMatchedElement.style.display = 'flex'
                             })
-                            console.log("Showing Characters Matched Elements");
+                            // console.log("Showing Characters Matched Elements");
                         }
                         else {
-                            console.log("Nothing like that");
+                            // console.log("Nothing like that");
                         }
 
-                        console.log("-------------");
-                        // console.log(results);
+                        // console.log("-------------");
+                        // // console.log(results);
 
                     })
 
@@ -884,13 +884,13 @@ const opt = {
                                     qS('.url-wrapper.pagesListOpen') && !qS(`.url-wrapper.pagesListOpen[data-url="${origin}"]`)
 
                                 ) {
-                                    console.log(qS('.subURLs-wrapper.active'));
+                                    // console.log(qS('.subURLs-wrapper.active'));
                                     rmClass(qS('.subURLs-wrapper.active'), ['active'])
                                     rmClass(qS('.url-wrapper.pagesListOpen'), ['pagesListOpen'])
                                 }
                                 subURLsWrapper.classList.contains('active') ? rmClass(subURLsWrapper, ['active']) : addClass(subURLsWrapper, ['active'])
                                 urlWrapperDiv.classList.contains('pagesListOpen') ? rmClass(urlWrapperDiv, ['pagesListOpen']) : addClass(urlWrapperDiv, ['pagesListOpen'])
-                                console.log("yoo");
+                                // console.log("yoo");
                             })
                             const subURLsUnorderedList = qS('.subURLs-UnorderedList', urlWrapperDiv)
 
@@ -906,12 +906,12 @@ const opt = {
 
                                     listElement.addEventListener('mouseenter', (e) => {
                                         playSoundEffect('hover', 0.5)
-                                        console.log("hi");
+                                        // console.log("hi");
                                     })
                                     listElement.addEventListener('click', (e) => {
                                         e.stopPropagation()
                                         playSoundEffect('click', 1)
-                                        console.log("Setting Click url", pageURL);
+                                        // console.log("Setting Click url", pageURL);
                                         domUpdaterFunctions.actionFuncs.openWebsiteSettings(pageURL)
                                     })
 
@@ -969,11 +969,11 @@ const opt = {
                     disableEverywhereToggle.checked = !opt.completeData.globalSettings.extensionEnabled
                     disableEverywhereToggle.addEventListener('change', async (e) => {
                         if (e.target.checked) {
-                            console.log('Extension Disabled');
+                            // console.log('Extension Disabled');
                             opt.completeData.globalSettings.extensionEnabled = false
                             playSoundEffect('switchOff')
                         } else {
-                            console.log('Extension Enabled');
+                            // console.log('Extension Enabled');
                             playSoundEffect('switchOn')
                             opt.completeData.globalSettings.extensionEnabled = true
                         }
@@ -984,17 +984,17 @@ const opt = {
                     // ------------------------- Enable/Disable Sounds -------------------------
                     disableSoundToggle = qS('.disableSoundToggle-wrapper .toggleSwitchInput')
                     disableSoundToggle.checked = !opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled
-                    // console.log(opt.globalSettings.optionsPageSettings);
-                    console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
+                    // // console.log(opt.globalSettings.optionsPageSettings);
+                    // console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
 
-                    console.log(opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
+                    // console.log(opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
                     disableSoundToggle.addEventListener('change', async (e) => {
                         if (e.target.checked) {
-                            console.log('Sounds Disabled');
+                            // console.log('Sounds Disabled');
                             playSoundEffect('switchOff')
                             opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = false
                         } else {
-                            console.log('Sounds Enabled');
+                            // console.log('Sounds Enabled');
                             opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = true
                         }
                         await setStorage({ ...opt.completeData })
@@ -1002,7 +1002,7 @@ const opt = {
                             playSoundEffect('switchOn')
 
                         }
-                        console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
+                        // console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
 
                     })
 
@@ -1021,13 +1021,13 @@ const opt = {
 
 
                 group3Activated: () => {
-                    console.log("Heyy it's about pageee");
+                    // console.log("Heyy it's about pageee");
 
                     let settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
                     removeAllEventListenersOfElements(settingsGroupLinks)
                     
                     settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
-                    console.log(settingsGroupLinks);
+                    // console.log(settingsGroupLinks);
 
                     settingsGroupLinks.forEach(link=>{
                         setEvent(link, 'mouseenter', () => {
@@ -1051,7 +1051,7 @@ const opt = {
             },
 
             init: function () {
-                console.log("Initializing...");
+                // console.log("Initializing...");
 
 
                 function keyboardShortcuts(e) {
@@ -1107,7 +1107,7 @@ const opt = {
                         // Check if the Enter key was pressed (key code 13) or the Space key (key code 32)
                         if (event.keyCode === 13 || event.keyCode === 32) {
                             if (accessibleElement.classList.contains('toggleSwitchInput')) {
-                                console.log("hi");
+                                // console.log("hi");
                                 accessibleElement.checked = !accessibleElement.checked
                             }
                             this.click();
@@ -1220,22 +1220,22 @@ const opt = {
                         termMatchedElementsArray.forEach(termMatchedElement => {
                             termMatchedElement.style.display = 'flex'
                         })
-                        console.log("Showing Terms Matched Elements");
+                        // console.log("Showing Terms Matched Elements");
 
                     }
                     else if (charsMatchedElementsArray.length > 0) {
                         charsMatchedElementsArray.forEach(charsMatchedElement => {
                             charsMatchedElement.style.display = 'flex'
                         })
-                        console.log("Showing Characters Matched Elements");
+                        // console.log("Showing Characters Matched Elements");
                     }
                     else {
-                        console.log("Nothing like that");
+                        // console.log("Nothing like that");
                     }
 
 
-                    console.log("-------------");
-                    // console.log(results);
+                    // console.log("-------------");
+                    // // console.log(results);
 
                 })
 
@@ -1256,7 +1256,7 @@ const opt = {
                     playSoundEffect('click')
                     helpDialog.showModal()
                     updateCSS(helpDialog, { 'display': 'flex' })
-                    console.log(helpDialog);
+                    // console.log(helpDialog);
                 })
                 window.addEventListener('keydown', (e) => {
                     if (e.key == 'Escape') {
@@ -1286,14 +1286,14 @@ const opt = {
             }
             // GROUP 2
             else if (opt.currentState.activeGroup == 'g2') {
-                console.log("This is group2 right?");
+                // console.log("This is group2 right?");
                 domUpdaterFunctions.actionFuncs.group2Activated()
 
 
             }
             // GROUP 3
             else if (opt.currentState.activeGroup == 'g3') {
-                console.log("This is group3 right?");
+                // console.log("This is group3 right?");
                 domUpdaterFunctions.actionFuncs.group3Activated()
 
 
@@ -1315,7 +1315,7 @@ const opt = {
             //     domUpdaterFunctions.actionFuncs[changeSpecified]()
             // }
             // else{
-            //     console.log("No Function like that Exists");
+            //     // console.log("No Function like that Exists");
             // }
         }
 
@@ -1350,14 +1350,14 @@ const opt = {
                 }
                 if (!opt.domainsAndTheirPages[origin][website]) {
                     if (path != '/' || (hash || search)) {
-                        console.log("pushing", website);
+                        // console.log("pushing", website);
                         opt.domainsAndTheirPages[origin].push(website)
                     }
                 }
 
                 // const element = opt.websitesData[website];
                 opt.websitesList.push(website)
-                // console.log(opt.websitesList);
+                // // console.log(opt.websitesList);
 
             }
         }
@@ -1385,7 +1385,7 @@ const opt = {
 
         // Access the value of the 'url' query parameter
         let urlParameter = url.searchParams.get('url');
-        console.log(urlParameter);
+        // console.log(urlParameter);
 
         hashSplitArray.forEach(hashValue => {
             if (hashValue && hashValue != lastHashValue) {
@@ -1399,8 +1399,8 @@ const opt = {
 
             // Check if there is a hash in the URL
             if (hash) {
-                console.log("Hash present");
-                console.log(lastHashValue);
+                // console.log("Hash present");
+                // console.log(lastHashValue);
                 const targetElement = document.getElementById(lastHashValue);
 
                 // Add a class to the target element to trigger the hover effect
@@ -1425,13 +1425,13 @@ const opt = {
 
         }
 
-        console.log(hash);
+        // console.log(hash);
 
 
 
         chrome.storage.onChanged.addListener(async (changes) => {
-            console.log("Options Page, Data updating");
-            console.log(changes);
+            // console.log("Options Page, Data updating");
+            // console.log(changes);
 
             await opt.getCompleteData()
         })
