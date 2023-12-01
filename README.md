@@ -9,27 +9,26 @@
 <a href="https://youtu.be/x_fYfporwmA"> DEMO VIDEO IS OUT! ✨🔥</a>
 </h2>
 -->
+
+<h1 align="center"> My Web Shortcuts🌎💻 - your new best friend for browsing!</h1>
+
 ![Mws_twitter_banner](https://github.com/mywebshortcuts/mywebshortcuts/assets/65062036/895cd9d5-00de-4ba4-b357-4972b31a3e26)
 
+This free, open-source browser extension lets you create custom keyboard shortcuts to click on elements in any website, boosting productivity by enabling swift actions without constant cursor movement 🖱️🍃. Enjoy a more personalized and efficient browsing experience! 😉
 
+<a href="https://www.producthunt.com/posts/my-web-shortcuts?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-my&#0045;web&#0045;shortcuts" target="_blank"><img src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=427145&theme=light" alt="My&#0032;Web&#0032;Shortcuts - Create&#0032;custom&#0032;shortcuts&#0032;for&#0032;the&#0032;Web | Product Hunt" style="width: 250px; height: 54px;" width="250" height="54" /></a>
+<a href="https://chromewebstore.google.com/detail/my-web-shortcuts/eieokkopejddkfnfioklcjabmhpbmgke"><img src="https://user-images.githubusercontent.com/585534/107280622-91a8ea80-6a26-11eb-8d07-77c548b28665.png"></a>
 
-<h1 align="center"> My Web Shortcuts 🌐⌨️ </h1>
-
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
-
-A Browser Extension to create custom keyboard shortcuts for any website you browse. 
-
-### How to use it
-1. Click on the extension icon in the toolbar.
-2. Select an element to set the shortcut for.
-3. Now select the keyboard key to use in order to click on that element.
-4. Reload the website and now you will be able to click on that element just by pressing the shortcut key that you have set. 
+![Chrome Web Store Users](https://img.shields.io/chrome-web-store/users/eieokkopejddkfnfioklcjabmhpbmgke)
+![GitHub Repo stars](https://img.shields.io/github/stars/mywebshortcuts/mywebshortcuts)
+![GitHub forks](https://img.shields.io/github/forks/mywebshortcuts/mywebshortcuts)
+![GitHub repo size](https://img.shields.io/github/repo-size/mywebshortcuts/mywebshortcuts)
 
 <!--
 > <a href="https://youtu.be/x_fYfporwmA" align="center"> First Demo of My Web Shortcuts + Invitation to Contributors! </a>
 -->
 
-# How to Install the extension
+### Installing the project for Development purposes
 
 > Note: Only Chromium-based browsers like Google Chrome & Brave are supported currently.
 
