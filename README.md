@@ -9,8 +9,7 @@
 <a href="https://youtu.be/x_fYfporwmA"> DEMO VIDEO IS OUT! ✨🔥</a>
 </h2>
 -->
-
-![image](.github/assets/MWS-GithubReadme_Banner-optimized.gif)
+![Mws_twitter_banner](https://github.com/mywebshortcuts/mywebshortcuts/assets/65062036/895cd9d5-00de-4ba4-b357-4972b31a3e26)
 
 
 
