@@ -1,6 +1,6 @@
 > Read [**Thoughts from the Creator**](https://github.com/prakhartiwari0/my-web-shortcuts/discussions/12) Announcement - 14 October 2023
 
-> [**v1.0.0 is released! (Not published on webstore yet)**](https://github.com/prakhartiwari0/my-web-shortcuts/discussions/42) - 25 November 2023
+> [**v1.0.0 is released!**](https://github.com/prakhartiwari0/my-web-shortcuts/discussions/42) - 25 November 2023
 
 
 <!-- ![image](src/assets/github_banner.png) -->
