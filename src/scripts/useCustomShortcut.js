@@ -18,6 +18,7 @@ const ucs = {
 
 
     // Data management functions
+
     setCurrentURL: () => {
 
         let url = new URL((window.location.href).replace(/\/$/, ''))
@@ -26,21 +27,14 @@ const ucs = {
         ucs.websiteURL = (ucs.websiteURL).replace(/\/$/, ''); // Replace a trailing '/' with an empty string
         ucs.websiteURL = url.href
 
-        let currentUrl = location.href;
-        setInterval(async () => {
-            if (location.href !== currentUrl) {
-                currentUrl = location.href;
-                // doSomething();
-                // console.log('URL change detected!');
-                ucs.setCurrentURL()
-                await ucs.updateData()
 
-            }
-        }, 500);
     },
 
-    updateData: async function () {
+    setCompleteData: async function () {
         ucs.completeData = await getCompleteData();
+    },
+
+    updateData: function () {
         // console.log(ucs.completeData);
 
 
@@ -136,7 +130,7 @@ const ucs = {
                     }
 
                     // Checking for Page
-                    // // console.log((ucs.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
+                    // console.log((ucs.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, ''));
                     if (((ucs.currentURLObject.pathname).replace(/\/$/, '') == (urlObject.pathname).replace(/\/$/, '')) && !(urlObject.hash || urlObject.search)) {
                         if (!isObjEmpty(ucs.completeData.websitesData[websiteURL].shortcuts)) {
                             for (const key in ucs.completeData.websitesData[websiteURL].shortcuts) {
@@ -218,7 +212,7 @@ const ucs = {
             if (Object.hasOwnProperty.call(ucs.allAvailableShortcuts, shortcutKey)) {
                 const shortcutObject = ucs.allAvailableShortcuts[shortcutKey];
 
-                // // console.log(shortcutObject);
+                // console.log(shortcutObject);
             }
         }
 
@@ -248,9 +242,9 @@ const ucs = {
         window.removeEventListener('keypress', ucs.onShortcutClicker)
         window.removeEventListener('keyup', ucs.onKeyUp)
     },
-    
-    
-    onKeyUp: (e)=>{
+
+
+    onKeyUp: (e) => {
         ucs.keyup = true
     },
     keyup: false,
@@ -260,7 +254,7 @@ const ucs = {
 
     onShortcutClicker: function (event) {
         if (ucs.selectorEnabled) {
-            return           
+            return
         }
         ucs.keyup = false
         const key = event.key
@@ -273,13 +267,13 @@ const ucs = {
         }
         setTimeout(() => {
             if (this.keyPresses > 1) {
-                // // console.log("Multiple times pressed");
+                // console.log("Multiple times pressed");
                 if (ucs.keyup) {
                     ucs.doubleKeyPress = true
                     takeAction()
                 }
             }
-            else{
+            else {
                 ucs.doubleKeyPress = false
             }
             this.keyPresses = 0
@@ -310,7 +304,7 @@ const ucs = {
                 event.preventDefault()
                 event.stopImmediatePropagation()
                 event.stopPropagation()
-    
+
                 // ucs will change when types are added
                 let elementData = ucs.allMatchedUrlsShortcutsObjects[key].selected
                 let action = ucs.allMatchedUrlsShortcutsObjects[key].properties.action
@@ -322,12 +316,12 @@ const ucs = {
     },
 
     isElementFocusable: function (element) {
-        // // console.log(element.focusable);
+        // console.log(element.focusable);
         if (element.focusable) {
             return true;
         }
         // Check if the element has a tabIndex property
-        // // console.log(element.tabIndex >= -1);
+        // console.log(element.tabIndex >= -1);
         if (typeof element.tabIndex === 'number') {
             // Elements with a tabIndex greater than or equal to -1 are focusable
             return element.tabIndex > -1;
@@ -435,9 +429,25 @@ const ucs = {
 
     init: async function () {
         ucs.setCurrentURL()
-        await ucs.updateData()
+
+        let currentUrl = location.href;
+        function updateDataOnURLChange() {
+            if (location.href !== currentUrl) {
+                // console.log('URL change detected!');
+                currentUrl = location.href;
+                ucs.setCurrentURL()
+                ucs.updateData()
+
+            }
+
+        }
+        setInterval(updateDataOnURLChange, 500);
+
+
+        await ucs.setCompleteData()
+        ucs.updateData()
         //    .then(completeData => {
-        // // console.log(ucs.completeData);
+        // console.log(ucs.completeData);
 
         // Stop if extension not enabled
         if (!ucs.completeData.globalSettings.extensionEnabled) {
@@ -445,7 +455,7 @@ const ucs = {
             ucs.turnOff()
             return
         }
-        
+
         // Stop if no website shortcut added yet
         if (isObjEmpty(ucs.completeData.websitesData)) {
             // console.log("No website is added");
@@ -461,7 +471,7 @@ const ucs = {
                     // console.log("Turning ON UCS");
                     ucs.turnOn()
                 }
-                else{
+                else {
                     ucs.turnOff()
                 }
                 chrome.runtime.onMessage.addListener(
