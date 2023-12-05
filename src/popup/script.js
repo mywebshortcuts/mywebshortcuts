@@ -299,7 +299,7 @@ const pop = {
 
         let shortcutsData = pop.currentWebsiteShortcutsData
 
-        for (const key in shortcutsData) {
+        for (let key in shortcutsData) {
             if (Object.hasOwnProperty.call(shortcutsData, key)) {
                 let shortcutDiv = templateElement.content.cloneNode(true)
 
@@ -366,7 +366,19 @@ const pop = {
                 })
 
                 shortcutsListDiv.appendChild(shortcutDiv)
-                let shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutKey='${key}']`)
+                let shortcutEnableDisableToggle;
+                if (key=='"') {
+                    shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutkey='${key}']`)
+                }
+                else if (key=="\\") {
+                    shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutkey="\\${key}"]`)
+                }
+                else{
+                    shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutkey="${key}"]`)
+                }
+
+
+                
 
                 setEvent(shortcutEnableDisableToggle, "click", (e) => {
                     pop.enableDisableForShortcut(e, shortcutEnableDisableToggle, urlOfShortcut)
