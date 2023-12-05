@@ -372,7 +372,8 @@ const mws = {
                 urlType: mws.selectedURLType
             },
 
-            selected: { cssSelector: finder(mws.currentElement) },
+            // selected: { cssSelector: finder(mws.currentElement, { seedMinLength:5 , attr : (name, value)=>{return true}}) },
+            selected: { cssSelector: mws.selectedElement},
         }
 
 
@@ -720,7 +721,10 @@ const mws = {
     },
 
     openKeyboardShortcutSelectionDialog: async function () {
-        mws.selectedElement = mws.currentElement
+        // mws.selectedElement = mws.currentElement
+        // mws.selectedElement = finder((mws.currentElement), { seedMinLength: 5, attr: (name, value) => { return true } })
+        mws.selectedElement = finder(mws.currentElement)
+        mws.selectedElement = (mws.selectedElement).replace('mws-bordered', '')
 
         mws.turnOnKeyboardEvents()
 
