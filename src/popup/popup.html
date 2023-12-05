@@ -1,23 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- <link rel="stylesheet" href="./style.css" />
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport"
+		  content="width=device-width, initial-scale=1.0" />
+
+	<!-- <link rel="stylesheet" href="./style.css" />
 		<link rel="stylesheet" href="../forExtensionPages.css" /> -->
-	</head>
-	<body class="flex">
-		<!-- <div class="mwsBrandingHeader flex">
-			<img
-				src="../assets/128x128.png"
-				alt="headerImage"
-				class="mwsHeaderImage" />
-		</div> -->
+</head>
 
-		<button
-			class="startSelectionButton greenButtonFilled flex"
-			title="Add a Shortcut in this Website">
+<body class="flex">
+
+	<div class="suitableTab">
+
+
+		<button class="startSelectionButton greenButtonFilled flex"
+				title="Add a Shortcut (Ctrl/Command + Shift + Space)">
 			<i class="fa-plus fa-solid"></i>
 		</button>
 
@@ -25,7 +24,7 @@
 			<span class="">Current Shortcuts <span class="numOfShortcuts"></span></span>
 
 			<div class="shortcutsListDiv">
-				
+
 				<div class="displayMessageDiv flex">
 					<span>No shortcuts yet :&#40;</span>
 				</div>
@@ -33,16 +32,21 @@
 			<!-- EACH SHORTCUT DIV It will be repeated inside shortcutsListDiv-->
 			<template class="shortcutDivTemplate">
 				<div class="shortcutDiv flex">
-					<div class="shortcutNameDiv flex" title="Name of the Shortcut">
+					<div class="shortcutNameDiv flex"
+						 title="Name of the Shortcut">
 						<span class="shortcutName"></span>
 					</div>
 
-					<div class="shortcutKeyDiv flex" title="Shortcut Key">
+					<div class="shortcutKeyDiv flex"
+						 title="Shortcut Key">
 						<span class="shortcutKey"></span>
 					</div>
-					<div class="shortcutEnableDisableToggle-wrapper" title="Enable/Disable Shortcut">
+					<div class="shortcutEnableDisableToggle-wrapper"
+						 title="Enable/Disable Shortcut">
 						<label class="toggleSwitchLabel">
-							<input type="checkbox" class="toggleSwitchInput greenToggle" checked/>
+							<input type="checkbox"
+								   class="toggleSwitchInput greenToggle"
+								   checked />
 							<span class="toggleSwitchSpan greenToggle"></span>
 						</label>
 					</div>
@@ -51,46 +55,226 @@
 			<!-- ---------------- -->
 		</div>
 
-		<footer class="flex">
-			<div class="disableButtonsDiv flex">
 
-				<div class="toggleWithText-wrapper disableForThisSiteToggleWithText-wrapper" title="Disable All Shortcuts for this domain">
-					<span class="disableWebsiteSpan">Disable for domain</span>
-					<div class="disableWebsiteToggle-wrapper">
-						<label class="toggleSwitchLabel">
-							<input type="checkbox" class="toggleSwitchInput redToggle" />
-							<span class="toggleSwitchSpan redToggle"></span>
-						</label>
-					</div>
-				</div>
+	</div>
 
-				<div
-					class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper" title="Disable Extension Globally">
-					<span class="disableEverywhereSpan">Disable Globally</span>
-					<div class="disableEverywhereToggle-wrapper">
-						<label class="toggleSwitchLabel">
-							<input type="checkbox" class="toggleSwitchInput redToggle" />
-							<span class="toggleSwitchSpan redToggle"></span>
-						</label>
-					</div>
+	<div class="unsuitableTab">
+		<span>Hey buddy, please open a website to use me </span>
+	</div>
+
+	<footer class="flex">
+		<div class="disableButtonsDiv flex">
+
+			<div class="toggleWithText-wrapper disableForThisSiteToggleWithText-wrapper"
+				 title="Disable All Shortcuts for this domain">
+				<span class="disableWebsiteSpan">Disable for domain</span>
+				<div class="disableWebsiteToggle-wrapper">
+					<label class="toggleSwitchLabel">
+						<input type="checkbox"
+							   class="toggleSwitchInput redToggle" />
+						<span class="toggleSwitchSpan redToggle"></span>
+					</label>
 				</div>
 			</div>
 
-
-		<a href="https://www.mywebshortcuts.xyz/pages/report-or-request.html" class="reportBugLink" target="_blank">Report a Bug</a>
-
-			<div class="settingsButtonDiv flex">
-				<button class="openOptionsButton" title="Open Options Page">
-					<i class="fa-solid fa-gear"></i>Open Options Page<i
-						class="fa-angle-right fa-solid"></i>
-				</button>
+			<div class="toggleWithText-wrapper disableEverywhereToggleWithText-wrapper"
+				 title="Disable Extension Globally">
+				<span class="disableEverywhereSpan">Disable Globally</span>
+				<div class="disableEverywhereToggle-wrapper">
+					<label class="toggleSwitchLabel">
+						<input type="checkbox"
+							   class="toggleSwitchInput redToggle" />
+						<span class="toggleSwitchSpan redToggle"></span>
+					</label>
+				</div>
 			</div>
-		</footer>
-
-
-		<div class="animatedLogo-wrapper">
-			<img src="../assets/globe.png" alt="" class="animatedLogo globe">
 		</div>
-	</body>
-	<script type="module" src="./script.js"></script>
+
+		<div class="footerLinks">
+			<a href="https://www.mywebshortcuts.xyz/pages/report-or-request.html"
+			   class="reportBugLink"
+			   target="_blank">Report a Bug</a>
+			<a href="#" class="quickHelpLink">Quick Help</a>
+		</div>
+
+		<div class="settingsButtonDiv flex">
+			<button class="openOptionsButton"
+					title="Open Options Page">
+				<i class="fa-solid fa-gear"></i>Open Options Page<i class="fa-angle-right fa-solid"></i>
+			</button>
+		</div>
+	</footer>
+
+
+	<div class="animatedLogo-wrapper">
+		<img src="../assets/globe.png"
+			 alt=""
+			 class="animatedLogo globe">
+	</div>
+
+
+	<div class="quickHelp-wrapper">
+		<button class="closeQuickHelpButton actionButton">
+			<i class="fa-arrow-left fa-solid"></i>
+		</button>
+		<h2>Quick Help</h2>
+
+		<div class="questionAnswers-wrapper">
+
+			<details>
+				<summary>Create your first Web Shortcut</summary>
+				<div class="answer-wrapper">
+					<ul>
+
+						<li>Open or reload a website.</li>
+						<li>Create a Web Shortcut: Use <strong>Ctrl/Command + Shift + Space</strong> or the popup's plus (+) button.</li>
+						<li>Drag the Element Selector anywhere on the page.</li>
+						<li>Read the 3 ways to select an Element inside the Element Selector.</li>
+						<li>Hover over elements to see a red border; select one using the Element Selector.</li>
+						<li>Choose a single occurrence Element (avoid multiples like social media 'like' buttons).</li>
+						<li>Key Selector opens; press a character key for your shortcut.</li>
+						<li>Give the shortcut a fitting name.</li>
+						<li>Refer to the <a href="https://mywebshortcuts.xyz/guide" target="_blank"><strong>usage guide</strong></a> for additional properties if needed.</li>
+						<li>For Input Elements, select "<strong>Focus</strong>" as the Action.</li>
+						<li>Click "<strong>Add Shortcut</strong>" or press Enter.</li>
+						<li>Keep the Element Selector open for more selections.</li>
+						<li>Close the Element Selector when finished.</li>
+						<li>Test your shortcut on the website.</li>
+					</ul>
+
+				</div>
+			</details>
+
+			<details>
+				<summary>How to use My Web Shortcuts</summary>
+				<div class="answer-wrapper">
+					<ul>
+						<li>
+							Read the <a href="https://mywebshortcuts.xyz/guide"
+							   target="_blank">Usage Guide</a>.
+						</li>
+						<li>
+							Watch the <a href="http://youtubetuts.mywebshortcuts.xyz"
+							   target="_blank">YouTube Tutorials</a>.
+						</li>
+					</ul>
+
+				</div>
+			</details>
+
+			<details>
+				<summary>Quick Tips</summary>
+				<div class="answer-wrapper">
+					<strong>You don't need the mouse for most of the actions!</strong>
+					<ul>
+						<li>
+							Use <strong>Ctrl/Command + Shift + Space</strong> to quickly create a new shortcut.
+						</li>
+						<li>
+							Use the <strong>Esc key</strong> to close Key Selector or Element Selector.
+						</li>
+						<li>
+							Use the <strong>Enter key to Add shortcut</strong> without clicking on the "Add Shortcut (+)" button in the Key Selector.
+						</li>
+					</ul>
+						
+					</span>
+				</div>
+			</details>
+
+			<details>
+				<summary>The Web Shortcuts I created aren't working</summary>
+				<div class="answer-wrapper">
+					<ul>
+    <li>Ensure your chosen shortcut isn't already in use on the website by pressing the desired key once there, before creating the shortcut.</li>
+	
+    <li>Confirm you've selected the <strong>correct element.</strong></li>
+
+    <li>Try <strong>reloading the tab</strong>, or <strong>closing and opening the Tab</strong> again.</li>
+
+    <li><strong>Disable certain extensions that might cause issues,</strong>, reload the tab, and try again.</li>
+
+    <li>Ensure the <strong>urlType & action properties are correctly set</strong> according to your needs.</li>
+
+	<li>Attempt <strong>selecting the element again</strong> with a new shortcut. Delete the previous one and edit the new in the options page.</li>
+					</ul>
+						
+					</span>
+				</div>
+			</details>
+
+
+			<details>
+				<summary>Unable to select an Element</summary>
+				<div class="answer-wrapper">
+					<ul>
+						<li>
+							Reload the Tab
+						</li>
+						<li>
+							Disable other extensions that may be causing issue
+						</li>
+						<li>
+							The website itself can be causing this problem. Share this with us on <a href="http://discord.mywebshortcuts.xyz" target="_blank">Discord</a>  and we will look into it.  
+							
+							</li>
+						</ul>
+						
+				</div>
+			</details>
+
+			<details>
+				<summary>The extension is not responding</summary>
+				<div class="answer-wrapper">
+						<span>
+							Try reloading the tab and the extension once.
+					</span>
+				</div>
+			</details>
+
+
+			<details>
+				<summary>Extension shortcuts aren't working</summary>
+				<div class="answer-wrapper">
+					<ul>
+						<li>Try Disabling other extensions.</li>
+						<li>
+							On some websites, Esc or other shortcut keys that are used to operate the extension might not work.
+
+						</li>
+					</ul>
+				</div>
+			</details>
+
+			<details>
+				<summary>I need some support</summary>
+				<div class="answer-wrapper">
+					<ul>
+						<li>
+							Tag <a href="http://twitter.mywebshortcuts.xyz"
+							   target="_blank">@mywebshortcuts</a> on Twitter and ask your query.
+						</li>
+						<li>
+
+							Join our <a href="http://discord.mywebshortcuts.xyz"
+							   target="_blank">Discord server</a> to get better support.
+						</li>
+					</ul>
+				</div>
+			</details>
+
+
+		</div>
+
+	</div>
+
+
+</body>
+
+
+
+
+<script type="module"
+		src="./script.js"></script>
+
 </html>
