@@ -565,39 +565,54 @@ const mws = {
         await sendMsg({ msg: "selectorDisabled", spread: true })
     },
 
+    keyPressed : false,
     pauseResumeSelection: (e) => {
         if (mws.currentState.elementSelectionOn) {
-            // e.preventDefault()
-            // // console.log(e);
+            
             if (e.type == "keydown") {
-                // keyCode of both ControlLeft and ControlRight is 17, bcoz obv both are Control keys
-                if (e.keyCode == 17) {
-                    if (mws.currentState.elementSelectionPaused) {
-                        window.addEventListener('mouseover', mws.addRemoveborder);
-                        mws.currentState.elementSelectionPaused = false
-                        qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
-                        mws.playSoundEffect('unpause', 0.2)
-                        // qS('.mws-selectElementButton').style.display = 'none'
-                        updateCSS(qS('.mws-selectElementButton'), { display: "none !important" })
-                        // // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
+                
+                if (e.key == "Control" || e.key == "Meta") {
+                    mws.keyPressed = true
+                    console.log("Presed ctrl, ");
+
+                    setTimeout(() => {
+
+                        if (mws.keyPressed) {
+                            console.log(mws.keyPressed);
+                        
+                            if (mws.currentState.elementSelectionPaused) {
+                                window.addEventListener('mouseover', mws.addRemoveborder);
+                                mws.currentState.elementSelectionPaused = false
+                                qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
+                                mws.playSoundEffect('unpause', 0.2)
+                                // qS('.mws-selectElementButton').style.display = 'none'
+                                updateCSS(qS('.mws-selectElementButton'), { display: "none !important" })
+                                // // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
+                            }
+                            else {
+                                // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
+                                updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
+                                // console.log(qS('.mws-selectElementButton').style.display);
+                                mws.playSoundEffect('pause', 0.2)
+                                window.removeEventListener('mouseover', mws.addRemoveborder);
+                                mws.currentState.elementSelectionPaused = true
+                                qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
+                            }
                     }
-                    else {
-                        // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
-                        updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
-                        // console.log(qS('.mws-selectElementButton').style.display);
-                        mws.playSoundEffect('pause', 0.2)
-                        window.removeEventListener('mouseover', mws.addRemoveborder);
-                        mws.currentState.elementSelectionPaused = true
-                        qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
-                    }
+
+                    }, 1000);
+
                 }
 
             }
-            // if (e.type == "keyup") {
-            //     if (e.keyCode == 17) {
-            //         window.addEventListener('mouseover', mws.addRemoveborder);
-            //     }
-            // }
+            
+            if(e.type == "keyup"){
+                if (e.key == "Control" || e.key == "Meta") {
+                    console.log("It's keyup of control, falsing");
+                    mws.keyPressed = false
+                    console.log(mws.keyPressed);
+                }
+            }
 
         }
     },
@@ -1185,6 +1200,7 @@ const mws = {
         window.removeEventListener('mouseover', mws.addRemoveborder);
         window.removeEventListener('click', mws.whenClicked);
         window.removeEventListener('keydown', mws.pauseResumeSelection)
+        window.removeEventListener('keyup', mws.pauseResumeSelection)
 
 
         mws.changeStateAndUpdateDOM("elementSelectionOn")
@@ -1198,6 +1214,7 @@ const mws = {
         window.addEventListener('mouseover', mws.addRemoveborder);
         window.addEventListener('click', mws.whenClicked);
         window.addEventListener('keydown', mws.pauseResumeSelection)
+        window.addEventListener('keyup', mws.pauseResumeSelection)
 
     },
     // The function to trigger switchOnSelector or switchOffSelector depending on mws.currentState.elementSelectionOn
