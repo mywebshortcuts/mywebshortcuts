@@ -422,6 +422,7 @@ const ucs = {
 
         } else {
             // console.log("Element not found on the page.");
+            alert("Element was not found - My Web Shortcuts")
             return false
         }
     },
