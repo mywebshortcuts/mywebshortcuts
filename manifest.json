@@ -59,8 +59,8 @@
     "commands": {
         "startSelection": {
             "suggested_key": {
-                "default": "Ctrl+Shift+Q",
-                "mac": "Command+Shift+Q"
+                "default": "Ctrl+Shift+Space",
+                "mac": "Command+Shift+Space"
             },
             "description": "Start selection in the active tab"
         }

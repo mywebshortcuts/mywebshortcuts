@@ -2,7 +2,7 @@ import "../forExtensionPages.css"
 import "./style.css"
 
 
-import { extractCoreUrl, qS, sendMsg, setEvent, setTextContent, setStorage, updateCSS, switchClass, getCompleteData, isObjEmpty, qSA, setAttr, setInnerHTML } from "../modules/quickMethods"
+import { extractCoreUrl, qS, sendMsg, setEvent, setTextContent, setStorage, updateCSS, switchClass, getCompleteData, isObjEmpty, qSA, setAttr, setInnerHTML, addClass, rmClass } from "../modules/quickMethods"
 
 
 import "../assets/font-awesome/css/fontawesome.css"
@@ -28,11 +28,11 @@ const pop = {
 
         setTimeout(async () => {
             // console.log("Starting selection");
-    
+
             await sendMsg({ action: "turnOnSelector", tab: pop.currentTab })
-    
+
             window.close()
-            
+
         }, 200);
 
     },
@@ -188,7 +188,7 @@ const pop = {
         pop.currentWebsiteShortcutsData = pop.allMatchedUrlsShortcutsObjects || {}
 
 
-        
+
 
         pop.updateDOM()
     },
@@ -307,7 +307,7 @@ const pop = {
 
                 shortcutDiv.querySelector(".shortcutName").textContent = eachShortcutData.name
                 shortcutDiv.querySelector(".shortcutNameDiv").title = eachShortcutData.name
-                
+
                 if ((eachShortcutData.name).length > 10) {
                     shortcutDiv.querySelector(".shortcutName").textContent = (eachShortcutData.name).substring(0, 7) + '...'
                 }
@@ -323,13 +323,13 @@ const pop = {
 
 
                 let shortcutSettingsURL = `${optionsPageURL}?url=${urlOfShortcut}#${key}`
-                
+
                 if (eachShortcutData.properties.urlType == "domainAndAllPages") {
                     // console.log("It's a domainAndAllPages");
                     // shortcutSettingsURL = `${optionsPageURL}?url=${pop.currentTabURLObject.origin}#${key}`
                     shortcutSettingsURL = `${optionsPageURL}?url=${urlOfShortcut}#${key}`
                 }
-                
+
                 const shortcutDivElement = qS('.shortcutDiv', shortcutDiv)
                 setAttr(shortcutDivElement, 'data-shortcutSettingsURL', shortcutSettingsURL)
 
@@ -347,7 +347,7 @@ const pop = {
                     });
                 })
 
-                shortcutDivElement.addEventListener('mouseenter',(e)=>{
+                shortcutDivElement.addEventListener('mouseenter', (e) => {
                     // console.log(e);
                     // console.log(e.fromElement);
                     if (!(e.fromElement.classList.contains('toggleSwitchSpan'))) {
@@ -367,18 +367,18 @@ const pop = {
 
                 shortcutsListDiv.appendChild(shortcutDiv)
                 let shortcutEnableDisableToggle;
-                if (key=='"') {
+                if (key == '"') {
                     shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutkey='${key}']`)
                 }
-                else if (key=="\\") {
+                else if (key == "\\") {
                     shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutkey="\\${key}"]`)
                 }
-                else{
+                else {
                     shortcutEnableDisableToggle = shortcutsListDiv.querySelector(`.shortcutEnableDisableToggle-wrapper .toggleSwitchInput[data-shortcutkey="${key}"]`)
                 }
 
 
-                
+
 
                 setEvent(shortcutEnableDisableToggle, "click", (e) => {
                     pop.enableDisableForShortcut(e, shortcutEnableDisableToggle, urlOfShortcut)
@@ -392,22 +392,26 @@ const pop = {
             updateCSS(qS('.disableForThisSiteToggleWithText-wrapper'), { display: "none" })
             updateCSS(qS('.disableEverywhereToggleWithText-wrapper'), { "border-radius": "1rem" })
         }
+        if (pop.currentTabURLObject.protocol != "https:" && pop.currentTabURLObject.protocol != "http:") {
+            addClass(qS('.suitableTab'), ["inactive"])
+            addClass(qS('.unsuitableTab'), ["active"])
+
+            updateCSS(qS('.disableForThisSiteToggleWithText-wrapper'), { display: "none" })
+            updateCSS(qS('.disableEverywhereToggleWithText-wrapper'), { "border-radius": "1rem" })
+        }
+
+
         if (!pop.globalSettings.extensionEnabled) {
             qS('.disableEverywhereToggle-wrapper .toggleSwitchInput').checked = !pop.globalSettings.extensionEnabled
         }
         else {
             qS('.disableEverywhereToggle-wrapper .toggleSwitchInput').checked = !pop.globalSettings.extensionEnabled
         }
-
-        if (!isObjEmpty(pop.currentWebsiteShortcutsData)) {
-            if (!pop.currentWebsiteData.settings.enabled) {
-                qS('.disableWebsiteToggle-wrapper .toggleSwitchInput').checked = !pop.currentWebsiteData.settings.enabled
-            }
-            else {
-                qS('.disableWebsiteToggle-wrapper .toggleSwitchInput').checked = !pop.currentWebsiteData.settings.enabled
-            }
-            // }
+        console.log(pop.currentWebsiteShortcutsData);
+        if (pop.currentWebsiteShortcutsData.length != 0) {
+            qS('.disableWebsiteToggle-wrapper .toggleSwitchInput').checked = !pop.currentWebsiteData.settings.enabled
         }
+
         if (!isObjEmpty(pop.currentWebsiteShortcutsData)) {
             if (qS('.displayMessageDiv')) {
                 qS('.displayMessageDiv').remove()
@@ -449,7 +453,18 @@ const pop = {
 
         setEvent(qS('.startSelectionButton'), "click", pop.startSelection)
 
-        setEvent(qS('.startSelectionButton'), "mouseenter",(e)=>{
+        setEvent(qS('.quickHelpLink'), "click", ()=>{
+            pop.playSoundEffect('click')
+            addClass(qS('.quickHelp-wrapper'), ['active'])
+        })
+        
+        setEvent(qS('.closeQuickHelpButton'), "click", ()=>{
+            pop.playSoundEffect('click')
+           rmClass(qS('.quickHelp-wrapper'), ['active'])
+           
+        })
+
+        setEvent(qS('.startSelectionButton'), "mouseenter", (e) => {
             pop.playSoundEffect('hover')
         })
 
@@ -457,12 +472,12 @@ const pop = {
         setEvent(qS('.disableWebsiteToggle-wrapper .toggleSwitchInput'), "change", pop.enableDisableForWebsite)
         setInnerHTML(qS('.disableForThisSiteToggleWithText-wrapper .disableWebsiteSpan'), `Disable for domain <em>${(pop.currentTabURLObject.origin).replace(/^(https?|ftp):\/\//, '')}</em>`)
 
-        qSA('.disableButtonsDiv .toggleSwitchInput').forEach(toggleSwitchInput=>{
+        qSA('.disableButtonsDiv .toggleSwitchInput').forEach(toggleSwitchInput => {
             toggleSwitchInput.addEventListener('change', (e) => {
                 if (e.srcElement.checked) {
                     pop.playSoundEffect('switchOn')
                 }
-                else{
+                else {
                     pop.playSoundEffect('switchOff')
                 }
             })
@@ -474,7 +489,7 @@ const pop = {
 
         openOptionsButton.addEventListener('click', pop.openOptionsPage);
         let mouseInside;
-        openOptionsButton.addEventListener('mouseenter', ()=>{
+        openOptionsButton.addEventListener('mouseenter', () => {
             mouseInside = true;
             setTimeout(() => {
                 if (mouseInside) {
@@ -482,7 +497,7 @@ const pop = {
                 }
             }, 200);
         });
-        openOptionsButton.addEventListener('mouseleave', ()=>{
+        openOptionsButton.addEventListener('mouseleave', () => {
             mouseInside = false
         });
     }

@@ -11,14 +11,34 @@ body.flex {
 	position: relative;
 
 	color: var(--dark-grey);
+
+	position: relative;
 }
 
-.mwsBrandingHeader.flex {
+.suitableTab{
 	width: 100%;
-	align-items: flex-start;
 }
-.mwsHeaderImage {
-	width: 10%;
+.suitableTab.inactive{
+	display: none;
+}
+.unsuitableTab{
+	display: none;
+}
+.unsuitableTab.active{
+	display: flex;
+	width: 100%;
+	border-radius: 1rem;
+	
+	padding: 1rem;
+	padding-block: 3rem;
+	background-color: #1f1f1f;
+	border: 2px solid var(--red);
+}
+
+.unsuitableTab span{
+	color: #bfbfbf;
+	font-size: 1rem;
+	text-align: center;
 }
 
 .startSelectionButton {
@@ -72,7 +92,7 @@ body.flex {
 
 	font-size: 1rem;
 
-	max-height: 155px;
+	max-height: 273px;
 
 	width: 100%;
 
@@ -91,14 +111,14 @@ body.flex {
 	font-size: 0.8rem;
 	width: 100%;
 	color: #bfbfbf;
-	padding: 3rem;
+	padding: 4rem;
 }
 
 .shortcutsListDiv {
 	width: 100%;
 	overflow-y: auto;
 
-	padding: 0.2rem 0.5rem;
+	padding: 0.2rem .5rem;
 	/* padding-top: 0rem; */
 	/* padding-right: 0.3rem; */
 
@@ -186,6 +206,14 @@ footer.flex {
 
 	/* flex-direction: column; */
 }
+
+footer .footerLinks{
+	width: 100%;
+	display: flex;
+	justify-content: space-evenly;
+	align-items: center;
+}
+
 footer.flex .toggleWithText-wrapper {
 	width: 100%;
 	margin-block: 0.05rem;
@@ -246,12 +274,12 @@ footer.flex button {
 }
 
 
-.reportBugLink{
+.footerLinks a{
 	color: #bfbfbf;
 	text-decoration: underline;
 	margin-top: .5rem;
 }
-.reportBugLink:hover{
+.footerLinks a:hover{
 	color: #858585;
 	text-decoration: underline;
 }
@@ -267,7 +295,6 @@ footer.flex button {
 	border-radius: 0rem;
 	border-top-left-radius: 1rem;
 	border-top-right-radius: 1rem;
-	color: white;
 	background-color: #404040;
 
 	display: flex;
@@ -275,9 +302,8 @@ footer.flex button {
 	justify-content: center;
 
 	padding: 1rem;
-	margin-top: 5rem;
+	margin-top: 1rem;
 
-	position: absolute;
 	font-size: 1rem;
 	color: #bfbfbf;
 }
@@ -333,4 +359,118 @@ footer.flex button {
 	to {
 		transform: rotate(360deg);
 	}
+}
+
+.quickHelp-wrapper{
+	display: none;
+}
+.quickHelp-wrapper.active{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0rem;
+
+	background-color: #1f1f1f;
+	color: #bfbfbf;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 1rem;
+
+	overflow-y: auto;
+	overflow-x: hidden;
+	
+	scroll-behavior: smooth;
+
+	/* line-height: 1.4em; */
+
+}
+button.closeQuickHelpButton{
+	position: absolute;
+	border-top-left-radius: 0rem;
+	border-top-right-radius: 0rem;
+	border-bottom-left-radius: 0rem;
+	border-bottom-right-radius: 1rem;
+	color: #858585;
+	top: 0rem;
+	left: 0rem;
+
+	padding-inline: 2rem;
+}
+
+.questionAnswers-wrapper{
+	
+	width: 100%;
+	padding-top: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: left;
+
+}
+
+.questionAnswers-wrapper summary{
+	font-size: 1rem;
+	cursor: pointer;
+	width: 100%;
+	user-select: none;
+	opacity: .8;
+	display: flex;
+	align-items: center;
+	position: relative;
+
+	padding-right: 1rem;
+}
+.questionAnswers-wrapper summary::after{
+    display: inline-block;
+    font-family: 'Font Awesome 6 Free';
+    content: "\f105";
+    font-weight: 900;
+    transition: 0.3s ease;
+    position: absolute;
+    right: .2rem;
+}
+.questionAnswers-wrapper details[open] > summary::after {
+	transform: rotate(90deg);
+}
+
+.questionAnswers-wrapper details[open] summary{
+	border-bottom: 2px solid #858585;
+	padding-bottom: .5rem;
+}
+
+
+.questionAnswers-wrapper details{
+	font-size: .9rem;
+	margin-block: .1rem;
+	background-color: #404040;
+	border-radius: .8rem;
+	transition: .2s ease;
+	padding: .5rem;
+}
+.questionAnswers-wrapper details[open]{
+	margin-block: .5rem;
+	transform: scale(1.03);
+	background-color: #464646;
+
+	box-shadow: 0px 1px 5px 0px #000000;
+	
+}
+
+.questionAnswers-wrapper details:hover{
+	transform: scale(1.03);
+	background-color: #464646;
+}
+
+.answer-wrapper{
+	
+	padding-top: .5rem;
+	
+}
+.answer-wrapper ul{
+	padding-left: 1rem;
+
+}
+.answer-wrapper ul li{
+	margin-block: .5rem;
 }
