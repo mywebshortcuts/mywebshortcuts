@@ -16,25 +16,6 @@ import elementCreator from '../modules/elementCreator'
 import { confirmationDialogOpener } from '../modules/domElements.js'
 
 
-let cssToImportArray = [
-    'src/assets/font-awesome/css/fontawesome.css',
-    'src/assets/font-awesome/css/solid.css',
-    'src/scripts/styles/root.css',
-    'src/scripts/styles/elementSelector.css',
-    'src/scripts/styles/keySelector.css',
-]
-
-cssToImportArray.forEach(fileURL => {
-    let link = document.createElement('link');
-    link.href = chrome.runtime.getURL(fileURL);
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-})
-
-
-
-
-
 const mws = {
 
     // Set of variables to track the state of various things in order to allow or prevent actions
@@ -116,6 +97,7 @@ const mws = {
 
     },
 
+    urlInterval:undefined,
     setCurrentURL: () => {
         let url = new URL((window.location.href).replace(/\/$/, ''))
         mws.currentURLObject = url
@@ -129,16 +111,6 @@ const mws = {
         mws.websiteURL = (mws.websiteURL).replace(/\/$/, ''); // Replace a trailing '/' with an empty string
 
 
-        let currentUrl = location.href;
-        setInterval(async () => {
-            if (location.href !== currentUrl) {
-                currentUrl = location.href;
-                // doSomething();
-                // console.log('URL change detected!');
-                mws.setCurrentURL()
-                await mws.getExistingDataOfCurrentWebsite()
-            }
-        }, 500);
     },
 
 
@@ -345,6 +317,16 @@ const mws = {
 
     // Sets the new data (updated variables) to storage
     setDataOfCurrentWebsite: async function () {
+        let cssSelector;
+        try {
+            cssSelector = finder(mws.currentElement)
+            
+        } catch (error) {
+            alert("Element can't be found, please try selecting again - My Web Shortcuts")
+            return false
+            
+        }
+
 
         // Verifying if the entered data is valid, this is to prevent if the user does some mischief with the html code to crash the extension XD
         // Still one can crash it in someway, if you find another way, please report it immediately!
@@ -372,7 +354,9 @@ const mws = {
                 urlType: mws.selectedURLType
             },
 
-            selected: { cssSelector: finder(mws.currentElement) },
+            // selected: { cssSelector: finder(mws.currentElement, { seedMinLength:5 , attr : (name, value)=>{return true}}) },
+            // selected: { cssSelector: mws.selectedElement},
+            selected: { cssSelector: cssSelector},
         }
 
 
@@ -513,23 +497,10 @@ const mws = {
         let pressedKey = e.key;
 
         if (mws.currentState.keyboardShortcutSelectionOn) {
-            const keyCode = e.keyCode || e.which;
 
+            const isCharacterKey = e.key.length === 1 && e.key !== ' ' && e.key !== '\t';
 
-            // console.log(keyCode);
-            // console.log((keyCode >= 65 && keyCode <= 90));
-            // console.log((keyCode >= 48 && keyCode <= 57));
-            // console.log((keyCode >= 186 && keyCode <= 192));
-            // console.log((keyCode >= 219 && keyCode <= 222));
-            // Check if it's a character key (alphabets and numbers)
-            if (
-                (keyCode >= 65 && keyCode <= 90) ||   // A-Z
-                (keyCode >= 48 && keyCode <= 57) ||   // 0-9
-                (keyCode >= 186 && keyCode <= 192) || // Special characters like ";", "=", ",", ".", "/", etc.
-                (keyCode >= 219 && keyCode <= 222)    // Punctuation characters like "[", "]", "\", and "'"
-            ) {    // 0-9
-                // It's a character key
-
+            if (isCharacterKey) {
                 if (!mws.allShortcuts.includes(pressedKey)) {
                     e.preventDefault()
 
@@ -564,39 +535,56 @@ const mws = {
         await sendMsg({ msg: "selectorDisabled", spread: true })
     },
 
+    keyPressed : false,
     pauseResumeSelection: (e) => {
         if (mws.currentState.elementSelectionOn) {
-            // e.preventDefault()
-            // // console.log(e);
+            
+            let timeoutID;
             if (e.type == "keydown") {
-                // keyCode of both ControlLeft and ControlRight is 17, bcoz obv both are Control keys
-                if (e.keyCode == 17) {
-                    if (mws.currentState.elementSelectionPaused) {
-                        window.addEventListener('mouseover', mws.addRemoveborder);
-                        mws.currentState.elementSelectionPaused = false
-                        qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
-                        mws.playSoundEffect('unpause', 0.2)
-                        // qS('.mws-selectElementButton').style.display = 'none'
-                        updateCSS(qS('.mws-selectElementButton'), { display: "none !important" })
-                        // // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
+                
+                if (e.key == "Control" || e.key == "Meta") {
+                    mws.keyPressed = true
+                    // console.log("Presed ctrl, ");
+
+                    timeoutID = setTimeout(() => {
+
+                        if (mws.keyPressed) {
+                            // console.log(mws.keyPressed);
+                        
+                            if (mws.currentState.elementSelectionPaused) {
+                                window.addEventListener('mouseover', mws.addRemoveborder);
+                                mws.currentState.elementSelectionPaused = false
+                                qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
+                                mws.playSoundEffect('unpause', 0.2)
+                                // qS('.mws-selectElementButton').style.display = 'none'
+                                updateCSS(qS('.mws-selectElementButton'), { display: "none !important" })
+                                // // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
+                            }
+                            else {
+                                // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
+                                updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
+                                // console.log(qS('.mws-selectElementButton').style.display);
+                                mws.playSoundEffect('pause', 0.2)
+                                window.removeEventListener('mouseover', mws.addRemoveborder);
+                                mws.currentState.elementSelectionPaused = true
+                                qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
+                            }
                     }
-                    else {
-                        // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
-                        updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
-                        // console.log(qS('.mws-selectElementButton').style.display);
-                        mws.playSoundEffect('pause', 0.2)
-                        window.removeEventListener('mouseover', mws.addRemoveborder);
-                        mws.currentState.elementSelectionPaused = true
-                        qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
-                    }
+
+                    }, 1000);
+
                 }
 
             }
-            // if (e.type == "keyup") {
-            //     if (e.keyCode == 17) {
-            //         window.addEventListener('mouseover', mws.addRemoveborder);
-            //     }
-            // }
+            
+            if(e.type == "keyup"){
+                if (e.key == "Control" || e.key == "Meta") {
+                    // console.log("It's keyup of control, falsing");
+                    mws.keyPressed = false
+                    clearTimeout(timeoutID)
+                    // console.log(mws.keyPressed);
+                }
+            }
 
         }
     },
@@ -721,6 +709,9 @@ const mws = {
 
     openKeyboardShortcutSelectionDialog: async function () {
         mws.selectedElement = mws.currentElement
+        // mws.selectedElement = finder((mws.currentElement), { seedMinLength: 5, attr: (name, value) => { return true } })
+        // mws.selectedElement = finder(mws.currentElement)
+        // mws.selectedElement = (mws.selectedElement).replace('mws-bordered', '')
 
         mws.turnOnKeyboardEvents()
 
@@ -1079,8 +1070,12 @@ const mws = {
             e.preventDefault()
             // await mws.getExistingDataOfCurrentWebsite()
             mws.currentElement = mws.selectedElement
+            qS('.mws-allDoneButton').innerText = "Adding Shortcut..."
             if (await mws.setDataOfCurrentWebsite()) {
-                qS('.mws-allDoneButton').innerText = "Adding Shortcut..."
+                mws.currentElement = null
+                mws.closeKeyboardShortcutSelectionDialog()
+            }
+            else{
                 mws.currentElement = null
                 mws.closeKeyboardShortcutSelectionDialog()
             }
@@ -1181,6 +1176,7 @@ const mws = {
         window.removeEventListener('mouseover', mws.addRemoveborder);
         window.removeEventListener('click', mws.whenClicked);
         window.removeEventListener('keydown', mws.pauseResumeSelection)
+        window.removeEventListener('keyup', mws.pauseResumeSelection)
 
 
         mws.changeStateAndUpdateDOM("elementSelectionOn")
@@ -1194,6 +1190,7 @@ const mws = {
         window.addEventListener('mouseover', mws.addRemoveborder);
         window.addEventListener('click', mws.whenClicked);
         window.addEventListener('keydown', mws.pauseResumeSelection)
+        window.addEventListener('keyup', mws.pauseResumeSelection)
 
     },
     // The function to trigger switchOnSelector or switchOffSelector depending on mws.currentState.elementSelectionOn
@@ -1366,14 +1363,20 @@ const mws = {
     turnOffSelectorShortcuts: () => {
         window.removeEventListener('keydown', mws.selectorShortcuts)
     },
+
+
     turnOffEverything: async function () {
         await sendMsg({ msg: "selectorDisabled", spread: true })
 
+        qSA('.mws-SelectorStyles').forEach(styleTag=>{
+            document.head.removeChild(styleTag)
+        })
         mws.turnOffWindowUnloadStopper()
 
         mws.switchOffSelector()
         mws.turnOffSelectorShortcuts()
 
+        clearInterval(mws.urlInterval)
 
         if (mws.currentElement) {
             rmClass(mws.currentElement, ['mws-bordered'])
@@ -1386,7 +1389,38 @@ const mws = {
 
     },
     turnOnEverything: async function () {
+
+
+        let cssToImportArray = [
+            'src/assets/font-awesome/css/fontawesome.css',
+            'src/assets/font-awesome/css/solid.css',
+            'src/scripts/styles/root.css',
+            'src/scripts/styles/elementSelector.css',
+            'src/scripts/styles/keySelector.css',
+        ]
+
+        cssToImportArray.forEach(fileURL => {
+            let link = document.createElement('link');
+            link.href = chrome.runtime.getURL(fileURL);
+            link.rel = 'stylesheet';
+            link.classList.add('mws-SelectorStyles')
+            document.head.appendChild(link);
+        })
+
         mws.setCurrentURL()
+
+
+        let currentUrl = location.href;
+        mws.urlInterval = setInterval(async () => {
+            // console.log("URL INTERVAL OF SETTER");
+            if (location.href !== currentUrl) {
+                currentUrl = location.href;
+                // doSomething();
+                // console.log('URL change detected!');
+                mws.setCurrentURL()
+                await mws.getExistingDataOfCurrentWebsite()
+            }
+        }, 500);
 
         await mws.getExistingDataOfCurrentWebsite()
 
@@ -1407,8 +1441,8 @@ const mws = {
 
     init: async function () {
 
-        mws.turnOnEverything()
 
+        mws.turnOnEverything()
 
         chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             if (message.action === "turnOffSelector") {
