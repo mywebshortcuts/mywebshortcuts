@@ -345,6 +345,16 @@ const mws = {
 
     // Sets the new data (updated variables) to storage
     setDataOfCurrentWebsite: async function () {
+        let cssSelector;
+        try {
+            cssSelector = finder(mws.currentElement)
+            
+        } catch (error) {
+            alert("Element can't be found, please try selecting again - My Web Shortcuts")
+            return false
+            
+        }
+
 
         // Verifying if the entered data is valid, this is to prevent if the user does some mischief with the html code to crash the extension XD
         // Still one can crash it in someway, if you find another way, please report it immediately!
@@ -373,7 +383,8 @@ const mws = {
             },
 
             // selected: { cssSelector: finder(mws.currentElement, { seedMinLength:5 , attr : (name, value)=>{return true}}) },
-            selected: { cssSelector: mws.selectedElement},
+            // selected: { cssSelector: mws.selectedElement},
+            selected: { cssSelector: cssSelector},
         }
 
 
@@ -736,10 +747,10 @@ const mws = {
     },
 
     openKeyboardShortcutSelectionDialog: async function () {
-        // mws.selectedElement = mws.currentElement
+        mws.selectedElement = mws.currentElement
         // mws.selectedElement = finder((mws.currentElement), { seedMinLength: 5, attr: (name, value) => { return true } })
-        mws.selectedElement = finder(mws.currentElement)
-        mws.selectedElement = (mws.selectedElement).replace('mws-bordered', '')
+        // mws.selectedElement = finder(mws.currentElement)
+        // mws.selectedElement = (mws.selectedElement).replace('mws-bordered', '')
 
         mws.turnOnKeyboardEvents()
 
@@ -1098,8 +1109,12 @@ const mws = {
             e.preventDefault()
             // await mws.getExistingDataOfCurrentWebsite()
             mws.currentElement = mws.selectedElement
+            qS('.mws-allDoneButton').innerText = "Adding Shortcut..."
             if (await mws.setDataOfCurrentWebsite()) {
-                qS('.mws-allDoneButton').innerText = "Adding Shortcut..."
+                mws.currentElement = null
+                mws.closeKeyboardShortcutSelectionDialog()
+            }
+            else{
                 mws.currentElement = null
                 mws.closeKeyboardShortcutSelectionDialog()
             }
