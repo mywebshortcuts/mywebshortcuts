@@ -525,23 +525,10 @@ const mws = {
         let pressedKey = e.key;
 
         if (mws.currentState.keyboardShortcutSelectionOn) {
-            const keyCode = e.keyCode || e.which;
 
+            const isCharacterKey = e.key.length === 1 && e.key !== ' ' && e.key !== '\t';
 
-            // console.log(keyCode);
-            // console.log((keyCode >= 65 && keyCode <= 90));
-            // console.log((keyCode >= 48 && keyCode <= 57));
-            // console.log((keyCode >= 186 && keyCode <= 192));
-            // console.log((keyCode >= 219 && keyCode <= 222));
-            // Check if it's a character key (alphabets and numbers)
-            if (
-                (keyCode >= 65 && keyCode <= 90) ||   // A-Z
-                (keyCode >= 48 && keyCode <= 57) ||   // 0-9
-                (keyCode >= 186 && keyCode <= 192) || // Special characters like ";", "=", ",", ".", "/", etc.
-                (keyCode >= 219 && keyCode <= 222)    // Punctuation characters like "[", "]", "\", and "'"
-            ) {    // 0-9
-                // It's a character key
-
+            if (isCharacterKey) {
                 if (!mws.allShortcuts.includes(pressedKey)) {
                     e.preventDefault()
 
