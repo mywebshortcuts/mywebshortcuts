@@ -387,17 +387,71 @@ const ucs = {
         // Find the matching element on the page
         const matchingElement = document.querySelector(`${cssSelector}`);
 
-        // console.log(matchingElement);
-
         // Click the matching element if found
         if (matchingElement) {
+
+            let styleTag = document.createElement('style');
+            let styles = `
+            
+            #mws-tapCircle {
+                width: 10px;
+                height: 10px;
+                background-color: red;
+                border-radius: 50%;
+                z-index:9999;
+                position: absolute;
+                transform: translate(-50%, -50%);
+                opacity: 1;
+                animation: tapAnimation 0.5s ease-out forwards;
+                
+                }
+
+            @keyframes tapAnimation {
+                0% {
+                    width: 10px;
+                    height: 10px;
+                    opacity: 1;
+                }
+                100% {
+                    width: 100px; /* Adjust size as needed */
+                    height: 100px; /* Adjust size as needed */
+                    opacity: 0;
+                }
+            }
+            
+            `
+            styleTag.textContent = styles
+            document.head.appendChild(styleTag);
+
+
+            let tapCircle = document.createElement('div')
+            // Create the tapCircle element
+            tapCircle.id = 'mws-tapCircle'           
+
+
+            const rect = matchingElement.getBoundingClientRect();
+            // const x = rect.left + window.scrollX;
+            // const y = rect.top + window.scrollY;
+
+            const x = rect.left + rect.width / 2 + window.scrollX;
+            const y = rect.top + rect.height / 2 + window.scrollY;
+            tapCircle.style.left = `${x}px`;
+            tapCircle.style.top = `${y}px`;
+
+
+            document.body.style.position = 'relative'
+            document.body.appendChild(tapCircle);
+            setTimeout(() => {
+                document.body.removeChild(tapCircle);
+            }, 1000);
+
             if (action == "click") {
                 document.activeElement.blur();
                 if (matchingElement.tabIndex < 0) {
                     matchingElement.tabIndex = 0
                 }
                 setTimeout(() => {
-                    matchingElement.focus();
+                    // matchingElement.focus();
                 }, 0);
                 ucs.clickOnClickableElement(matchingElement)
             }
