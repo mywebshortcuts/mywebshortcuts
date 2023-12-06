@@ -1,4 +1,4 @@
-import { getStorage, extractCoreUrl, getCompleteData, sendMsg, getWebsiteData, isObjEmpty, setStorage } from "../modules/quickMethods";
+import { getStorage, extractCoreUrl, getCompleteData, sendMsg, getWebsiteData, isObjEmpty, setStorage, updateCSS, addClass } from "../modules/quickMethods";
 
 
 const ucs = {
@@ -239,6 +239,8 @@ const ucs = {
 
     turnOff: function () {
         // console.log("UCS is disabled");
+        // console.log(ucs.urlInterval);
+        clearInterval(ucs.urlInterval)
         window.removeEventListener('keypress', ucs.onShortcutClicker)
         window.removeEventListener('keyup', ucs.onKeyUp)
     },
@@ -481,12 +483,14 @@ const ucs = {
         }
     },
 
+    urlInterval:undefined,
 
     init: async function () {
         ucs.setCurrentURL()
 
         let currentUrl = location.href;
         function updateDataOnURLChange() {
+            // console.log("url interval");
             if (location.href !== currentUrl) {
                 // console.log('URL change detected!');
                 currentUrl = location.href;
@@ -496,8 +500,6 @@ const ucs = {
             }
 
         }
-        setInterval(updateDataOnURLChange, 500);
-
 
         await ucs.setCompleteData()
         ucs.updateData()
@@ -525,6 +527,10 @@ const ucs = {
                 if (!ucs.selectorEnabled) { // If selector is NOT enabled
                     // console.log("Turning ON UCS");
                     ucs.turnOn()
+
+                    ucs.urlInterval = setInterval(updateDataOnURLChange, 500);
+                    // console.log(ucs.urlInterval);
+
                 }
                 else {
                     ucs.turnOff()
@@ -563,5 +569,6 @@ const ucs = {
 ucs.init()
 chrome.storage.onChanged.addListener(async (changes) => {
     // console.log("UCS updating data");
+    ucs.turnOff()
     await ucs.init()
 })
