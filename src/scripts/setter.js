@@ -16,25 +16,6 @@ import elementCreator from '../modules/elementCreator'
 import { confirmationDialogOpener } from '../modules/domElements.js'
 
 
-let cssToImportArray = [
-    'src/assets/font-awesome/css/fontawesome.css',
-    'src/assets/font-awesome/css/solid.css',
-    'src/scripts/styles/root.css',
-    'src/scripts/styles/elementSelector.css',
-    'src/scripts/styles/keySelector.css',
-]
-
-cssToImportArray.forEach(fileURL => {
-    let link = document.createElement('link');
-    link.href = chrome.runtime.getURL(fileURL);
-    link.rel = 'stylesheet';
-    document.head.appendChild(link);
-})
-
-
-
-
-
 const mws = {
 
     // Set of variables to track the state of various things in order to allow or prevent actions
@@ -116,6 +97,7 @@ const mws = {
 
     },
 
+    urlInterval:undefined,
     setCurrentURL: () => {
         let url = new URL((window.location.href).replace(/\/$/, ''))
         mws.currentURLObject = url
@@ -129,16 +111,6 @@ const mws = {
         mws.websiteURL = (mws.websiteURL).replace(/\/$/, ''); // Replace a trailing '/' with an empty string
 
 
-        let currentUrl = location.href;
-        setInterval(async () => {
-            if (location.href !== currentUrl) {
-                currentUrl = location.href;
-                // doSomething();
-                // console.log('URL change detected!');
-                mws.setCurrentURL()
-                await mws.getExistingDataOfCurrentWebsite()
-            }
-        }, 500);
     },
 
 
@@ -567,16 +539,17 @@ const mws = {
     pauseResumeSelection: (e) => {
         if (mws.currentState.elementSelectionOn) {
             
+            let timeoutID;
             if (e.type == "keydown") {
                 
                 if (e.key == "Control" || e.key == "Meta") {
                     mws.keyPressed = true
-                    console.log("Presed ctrl, ");
+                    // console.log("Presed ctrl, ");
 
-                    setTimeout(() => {
+                    timeoutID = setTimeout(() => {
 
                         if (mws.keyPressed) {
-                            console.log(mws.keyPressed);
+                            // console.log(mws.keyPressed);
                         
                             if (mws.currentState.elementSelectionPaused) {
                                 window.addEventListener('mouseover', mws.addRemoveborder);
@@ -606,9 +579,10 @@ const mws = {
             
             if(e.type == "keyup"){
                 if (e.key == "Control" || e.key == "Meta") {
-                    console.log("It's keyup of control, falsing");
+                    // console.log("It's keyup of control, falsing");
                     mws.keyPressed = false
-                    console.log(mws.keyPressed);
+                    clearTimeout(timeoutID)
+                    // console.log(mws.keyPressed);
                 }
             }
 
@@ -1389,14 +1363,20 @@ const mws = {
     turnOffSelectorShortcuts: () => {
         window.removeEventListener('keydown', mws.selectorShortcuts)
     },
+
+
     turnOffEverything: async function () {
         await sendMsg({ msg: "selectorDisabled", spread: true })
 
+        qSA('.mws-SelectorStyles').forEach(styleTag=>{
+            document.head.removeChild(styleTag)
+        })
         mws.turnOffWindowUnloadStopper()
 
         mws.switchOffSelector()
         mws.turnOffSelectorShortcuts()
 
+        clearInterval(mws.urlInterval)
 
         if (mws.currentElement) {
             rmClass(mws.currentElement, ['mws-bordered'])
@@ -1409,7 +1389,38 @@ const mws = {
 
     },
     turnOnEverything: async function () {
+
+
+        let cssToImportArray = [
+            'src/assets/font-awesome/css/fontawesome.css',
+            'src/assets/font-awesome/css/solid.css',
+            'src/scripts/styles/root.css',
+            'src/scripts/styles/elementSelector.css',
+            'src/scripts/styles/keySelector.css',
+        ]
+
+        cssToImportArray.forEach(fileURL => {
+            let link = document.createElement('link');
+            link.href = chrome.runtime.getURL(fileURL);
+            link.rel = 'stylesheet';
+            link.classList.add('mws-SelectorStyles')
+            document.head.appendChild(link);
+        })
+
         mws.setCurrentURL()
+
+
+        let currentUrl = location.href;
+        mws.urlInterval = setInterval(async () => {
+            // console.log("URL INTERVAL OF SETTER");
+            if (location.href !== currentUrl) {
+                currentUrl = location.href;
+                // doSomething();
+                // console.log('URL change detected!');
+                mws.setCurrentURL()
+                await mws.getExistingDataOfCurrentWebsite()
+            }
+        }, 500);
 
         await mws.getExistingDataOfCurrentWebsite()
 
@@ -1430,8 +1441,8 @@ const mws = {
 
     init: async function () {
 
-        mws.turnOnEverything()
 
+        mws.turnOnEverything()
 
         chrome.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
             if (message.action === "turnOffSelector") {
