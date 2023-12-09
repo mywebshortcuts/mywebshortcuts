@@ -13,6 +13,7 @@
     "vite": "^4.5.0"
   },
   "dependencies": {
-    "@medv/finder": "^3.1.0"
+    "@medv/finder": "^3.1.0",
+    "joi": "^17.11.0"
   }
 }
