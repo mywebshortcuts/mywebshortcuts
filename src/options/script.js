@@ -1071,17 +1071,25 @@ const opt = {
 
                     if (e.key == 'e' || e.key == 'E') {
                         if (activeElement.classList.contains('shortcutSettings-wrapper') || qS('.shortcutSettings-wrapper:hover')) {
-                            (qS('.shortcutSettings-wrapper:focus .editShortcutButton') || qS('.shortcutSettings-wrapper:hover .editShortcutButton')).click()                            
+                            (qS('.shortcutSettings-wrapper:focus .editShortcutButton') || qS('.shortcutSettings-wrapper:hover .editShortcutButton')).click()
                         }
                     }
                     else if (e.key == 'd' || e.key == 'D') {
                         if (activeElement.classList.contains('shortcutSettings-wrapper') || qS('.shortcutSettings-wrapper:hover')) {
-                            (qS('.shortcutSettings-wrapper:focus .deleteShortcutButton') || qS('.shortcutSettings-wrapper:hover .deleteShortcutButton')).click()                            
+                            (qS('.shortcutSettings-wrapper:focus .deleteShortcutButton') || qS('.shortcutSettings-wrapper:hover .deleteShortcutButton')).click()
                         }
                     }
-
-                    // else if (e.key == 'Escape') {
-                    // }
+                    else if (e.key == 'Escape') {
+                        if (qS('dialog[open]')) {
+                            console.log(qS('dialog[open] i.fa-close'));
+                            qS('dialog[open] i.fa-close').click()
+                        }
+                    }
+                    else if (['1', '2', '3'].includes(e.key)){
+                        let groupButton = qS(`.navigationButton[data-groupid="g${e.key}"]:not(.active)`)
+                        console.log(groupButton);
+                        groupButton.dispatchEvent(new MouseEvent('click'))
+                    }
                 }
 
                 window.addEventListener('keydown', keyboardShortcuts)
