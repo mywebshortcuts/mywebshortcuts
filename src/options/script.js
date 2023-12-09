@@ -1444,6 +1444,12 @@ const opt = {
             await opt.getCompleteData()
         })
 
+        let audio = new Audio(`../assets/sounds/campfire.mp3`)
+        audio.currentTime = 0; // Reset the audio to the beginning
+        audio.volume = .1
+        audio.loop = true
+        audio.play(); // Play the audio file
+
     }
 }
 

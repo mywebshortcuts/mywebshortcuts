@@ -1307,3 +1307,106 @@ button.closeHelpDialogButton {
 	background-color: #464646;
 
 }
+
+
+
+/* Campfire */
+
+.cartoonCampfire-wrapper{
+	position: fixed;
+	bottom: 0rem;
+	left: 0rem;
+	
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+	width: 22rem;
+	user-select: none;
+	
+	border: 3px solid var(--dark-blue);
+	border-bottom: none;
+
+	background-color: #181818;
+	border-top-left-radius: 2rem;
+	border-top-right-radius: 2rem;
+	
+	z-index: 5;
+}
+
+.cartoonCampfire-wrapper:hover .campfire_circle{
+	transition: 2s ease;
+	box-shadow: 0rem -1rem 6rem 3rem orange;
+	animation: none;
+}
+.cartoonCampfire-wrapper:hover .cartoonCampfire{
+}
+.cartoonCampfire-wrapper:hover .cartoonKeyboard{
+	transition: transform 2s ease;
+	transform: translateX(1rem);
+}
+.cartoonCampfire-wrapper:hover .cartoonGlobe{
+	transition: transform 2s ease;
+	transform: translateX(-1rem);
+}
+
+
+img.snowCap{
+	width: 25rem;
+	position: absolute;
+	top: -2rem;
+	/* left: 30vw; */
+	right: 8%;
+	z-index: -5;
+}
+.cartoonCampfire-wrapper img{
+	width: 100%;
+	position: relative;
+	bottom: -.5rem;
+	z-index: -5;
+	transition: transform 2s ease;
+
+}
+
+
+.campfire-wrapper{
+	display: flex;
+	position: relative;
+	/* border: 1px solid red; */
+
+}
+.campfire-wrapper img{
+	/* width: 100%; */
+	position: relative;
+	bottom: -1.5rem;
+}
+
+.campfire_circle{
+	/* display: none; */
+	/* z-index: 5; */
+	transition: 2s ease;
+
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	border-radius: 50%;
+	margin: auto;
+	/* padding: .1rem; */
+	/* box-shadow: 0rem -2rem 6rem 4rem orange; */
+	animation: flames 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes flames {
+	0%{
+		box-shadow: 0rem -1rem 4rem 2rem orange;
+	}
+	50%{
+		box-shadow: 0rem -1rem 5rem 2rem orange;
+	}
+	100%{
+		box-shadow: 0rem -1rem 4rem 2rem orange;
+	}
+	
+}
+
