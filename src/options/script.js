@@ -49,6 +49,27 @@ const opt = {
         await setStorage({ ...opt.completeData })
 
     },
+
+
+    prevAudio: "",
+    playSoundEffect: function (soundEffectName = 'click', volume = .2) {
+        if (!opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
+            return
+        }
+        let audio;
+
+        if (opt.prevAudio && audio.src == opt.prevAudio.src) {
+            audio = opt.prevAudio
+        }
+        else {
+            audio = new Audio(`../assets/sounds/${soundEffectName}.mp3`)
+        }
+        // console.log("Playing: ", soundEffectName);
+
+        audio.currentTime = 0; // Reset the audio to the beginning
+        audio.volume = volume
+        audio.play(); // Play the audio file
+    },
     updateDOM: (changeSpecified = "initialize", ...args) => {
 
 
@@ -59,25 +80,6 @@ const opt = {
             })
         }
 
-        let prevAudio;
-        function playSoundEffect(soundEffectName = 'click', volume = .2) {
-            if (!opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
-                return
-            }
-            let audio;
-
-            if (prevAudio && audio.src == prevAudio.src) {
-                audio = prevAudio
-            }
-            else {
-                audio = new Audio(`../assets/sounds/${soundEffectName}.mp3`)
-            }
-            // console.log("Playing: ", soundEffectName);
-
-            audio.currentTime = 0; // Reset the audio to the beginning
-            audio.volume = volume
-            audio.play(); // Play the audio file
-        }
 
         const domUpdaterFunctions = {
 
@@ -155,30 +157,30 @@ const opt = {
 
                             const urlTypeSpan = qS('.urlTypeSpan', shortcutSettingsWrapper)
                             urlTypeSpan.innerText = shortcutKeyObject.properties.urlType
-                            
+
                             const actionSpan = qS('.actionSpan', shortcutSettingsWrapper)
                             actionSpan.innerText = shortcutKeyObject.properties.action
                             if (shortcutKeyObject.properties.urlType == "domainAndAllPages") {
                                 urlTypeSpan.innerText = "Domain and all its pages"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "domainAndPage"){
+                            else if (shortcutKeyObject.properties.urlType == "domainAndPage") {
                                 urlTypeSpan.innerText = "Domain and a page"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "onlyDomain"){
+                            else if (shortcutKeyObject.properties.urlType == "onlyDomain") {
                                 urlTypeSpan.innerText = "Only Domain"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "onlyPage"){
+                            else if (shortcutKeyObject.properties.urlType == "onlyPage") {
                                 urlTypeSpan.innerText = "Only Page"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "fullPath"){
+                            else if (shortcutKeyObject.properties.urlType == "fullPath") {
                                 urlTypeSpan.innerText = "Full Path"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "custom"){
+                            else if (shortcutKeyObject.properties.urlType == "custom") {
                                 urlTypeSpan.innerText = "Custom"
 
                             }
@@ -190,11 +192,11 @@ const opt = {
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).addEventListener('change', async function (event) {
                                 if (event.target.checked) {
                                     // console.log('Extension Enabled');
-                                    playSoundEffect('switchOn')
+                                    opt.playSoundEffect('switchOn')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = true
                                 } else {
                                     // console.log('Extension Disabled');
-                                    playSoundEffect('switchOff')
+                                    opt.playSoundEffect('switchOff')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = false
                                 }
                                 await setStorage({ ...opt.completeData })
@@ -213,7 +215,7 @@ const opt = {
                             const editShortcutButton = qS('.editShortcutButton', shortcutSettingsWrapper)
                             setEvent(editShortcutButton, 'click', async () => {
 
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
 
                                 // Creating Edit Shortcut Dialog Element
                                 const editShortcutDialogHTMLFileURL = chrome.runtime.getURL('src/options/editShortcutDialog.html');
@@ -242,8 +244,8 @@ const opt = {
 
                                 const shortcutActionSelect = qS('.actionSelect', editShortcutSettingsDialog)
                                 shortcutActionSelect.value = shortcutKeyObject.properties.action
-                                
-                                
+
+
                                 shortcutActionSelect.addEventListener('change', (e) => {
                                     if (e.srcElement.value != shortcutKeyObject.properties.action) {
                                         // console.log("Value changed");
@@ -275,8 +277,6 @@ const opt = {
                                         confirmEditedSettingsButton.disabled = true
                                     }
                                 }
-                                
-
                                 setEvent(shortcutNameInput, 'keyup', () => {
                                     if (shortcutNameInput.value != shortcutKeyObject.name) {
                                         editedProperties.name = shortcutNameInput.value
@@ -472,7 +472,7 @@ const opt = {
                                     shortcutSelectionEnabled = false
                                     // document.removeEventListener('keypress', keyShortcutTracker)
                                     switchClass(shortcutKeyEditButton, 'onSelection', 'editSelection')
-                                    playSoundEffect('keyAccepted')
+                                    opt.playSoundEffect('keyAccepted')
                                     shortcutKeyEditKbd.focus() // Prevent focusing on Edit Shortcut button
                                     changeEditedState()
 
@@ -480,7 +480,7 @@ const opt = {
                                 }
 
                                 function editShortcutButtonClicked() {
-                                    playSoundEffect('enterKey')
+                                    opt.playSoundEffect('enterKey')
                                     if (!shortcutSelectionEnabled) {
                                         shortcutSelectionEnabled = true
                                         switchClass(shortcutKeyEditButton, 'editSelection', 'onSelection')
@@ -547,7 +547,7 @@ const opt = {
                                 setEvent(confirmEditedSettingsButton, 'click', confirmEditedPropertiesAndSaveData)
 
                                 function closeEditShortcutSettings() {
-                                    playSoundEffect('click')
+                                    opt.playSoundEffect('click')
                                     shortcutSelectionEnabled = false
                                     document.removeEventListener('keydown', keyShortcutTracker)
                                     document.body.removeChild(editShortcutSettingsDialog)
@@ -564,7 +564,7 @@ const opt = {
                             // ------------------------- Delete Shortcut Settings Dialog Opener -------------------------
                             const deleteShortcutButton = qS('.deleteShortcutButton', shortcutSettingsWrapper)
                             setEvent(deleteShortcutButton, 'click', async () => {
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
 
                                 if (await confirmationDialogOpener("Are you sure you want to delete the shortcut?")) {
 
@@ -585,7 +585,7 @@ const opt = {
                                     }
 
                                 }
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
                             })
 
 
@@ -597,20 +597,20 @@ const opt = {
                                     shortcutSettingsWrapper.classList.remove('hovered')
                                 }
                                 if (!(e.fromElement.classList.contains('toggleSwitchSpan'))) {
-                                    playSoundEffect('hover')
+                                    opt.playSoundEffect('hover')
                                 }
                             })
                             setEvent(shortcutSettingsWrapper, 'mouseleave', () => {
                                 mouseOver = false
                                 // window.removeEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
                             })
-                            
+
                             // window.addEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
 
                             function editDeleteShortcutKeyboardShortcuts(e) {
                                 // console.log(e);
                                 // if (!mouseOver) {
-                                    // return
+                                // return
                                 // }
                                 if (e.key == 'e' || e.key == 'E') {
                                     editShortcutButton.click()
@@ -623,7 +623,7 @@ const opt = {
                             shortcutSettingsWrapper.id = shortcutKey
                             shortcutSettingsWrapper.title = shortcutKeyObject.name
                             // qSA('button', shortcutSettingsWrapper).forEach((button) => {
-                            //     setEvent(button, 'click', () => { playSoundEffect('click') })
+                            //     setEvent(button, 'click', () => { opt.playSoundEffect('click') })
                             // })
 
                             shortcutsListWrapper.appendChild(shortcutSettingsWrapper)
@@ -688,7 +688,7 @@ const opt = {
                     // Delete a website
                     deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
                     async function deleteWebsiteButtonFunction() {
-                        playSoundEffect('click')
+                        opt.playSoundEffect('click')
                         // console.log("Delete button clicked");
                         confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response => {
                             if (response) {
@@ -697,7 +697,7 @@ const opt = {
                                 opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
                             }
 
-                            playSoundEffect('click')
+                            opt.playSoundEffect('click')
                         })
 
                     }
@@ -712,11 +712,11 @@ const opt = {
                     async function toggleSwitchInputFunction(e) {
                         if (e.target.checked) {
                             // console.log('Website Disabled');
-                            playSoundEffect('switchOff')
+                            opt.playSoundEffect('switchOff')
                             opt.completeData.websitesData[url].settings.enabled = false
                         } else {
                             // console.log('Website Enabled');
-                            playSoundEffect('switchOn')
+                            opt.playSoundEffect('switchOn')
                             opt.completeData.websitesData[url].settings.enabled = true
                         }
                         await setStorage({ ...opt.completeData })
@@ -728,7 +728,7 @@ const opt = {
                     // Back Button
                     backToWebsitesListButton = qS('.backToWebsitesListButton')
                     backToWebsitesListButton.addEventListener('click', (e) => {
-                        playSoundEffect('click', 0.5)
+                        opt.playSoundEffect('click', 0.5)
                         domUpdaterFunctions.actionFuncs.closeWebsiteSettingsAndBackToWebsitesList()
                     })
 
@@ -864,8 +864,15 @@ const opt = {
                             urlWrapperDiv.setAttribute('data-url', origin)
 
                             urlWrapperDiv.addEventListener('click', (e) => {
-                                playSoundEffect('click', 1)
-                                domUpdaterFunctions.actionFuncs.openWebsiteSettings(origin)
+                                opt.playSoundEffect('click', 1)
+                                if (opt.websitesData[origin]) {
+                                    domUpdaterFunctions.actionFuncs.openWebsiteSettings(origin)
+                                }
+                                else {
+                                    openPagesListButton.dispatchEvent(new MouseEvent('click'))
+                                }
+
+
 
                             })
 
@@ -878,7 +885,7 @@ const opt = {
 
                             openPagesListButton.addEventListener('click', (e) => {
                                 e.stopPropagation();
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
                                 if (
                                     qS('.subURLs-wrapper.active') && !qS(`.subURLs-wrapper.active[data-url="${origin}"]`) &&
                                     qS('.url-wrapper.pagesListOpen') && !qS(`.url-wrapper.pagesListOpen[data-url="${origin}"]`)
@@ -905,12 +912,12 @@ const opt = {
                                     listElement.tabindex = "1"
 
                                     listElement.addEventListener('mouseenter', (e) => {
-                                        playSoundEffect('hover', 0.5)
+                                        opt.playSoundEffect('hover', 0.5)
                                         // console.log("hi");
                                     })
                                     listElement.addEventListener('click', (e) => {
                                         e.stopPropagation()
-                                        playSoundEffect('click', 1)
+                                        opt.playSoundEffect('click', 1)
                                         // console.log("Setting Click url", pageURL);
                                         domUpdaterFunctions.actionFuncs.openWebsiteSettings(pageURL)
                                     })
@@ -944,7 +951,7 @@ const opt = {
 
 
                             urlWrapperDiv.addEventListener('mouseenter', (e) => {
-                                playSoundEffect('hover')
+                                opt.playSoundEffect('hover')
                             })
                             urlWrapperDiv.title = origin
 
@@ -1444,10 +1451,10 @@ const opt = {
                         if (e.target.checked) {
                             // console.log('Extension Disabled');
                             opt.completeData.globalSettings.extensionEnabled = false
-                            playSoundEffect('switchOff')
+                            opt.playSoundEffect('switchOff')
                         } else {
                             // console.log('Extension Enabled');
-                            playSoundEffect('switchOn')
+                            opt.playSoundEffect('switchOn')
                             opt.completeData.globalSettings.extensionEnabled = true
                         }
                         await setStorage({ ...opt.completeData })
@@ -1464,7 +1471,7 @@ const opt = {
                     disableSoundToggle.addEventListener('change', async (e) => {
                         if (e.target.checked) {
                             // console.log('Sounds Disabled');
-                            playSoundEffect('switchOff')
+                            opt.playSoundEffect('switchOff')
                             opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = false
                         } else {
                             // console.log('Sounds Enabled');
@@ -1472,7 +1479,7 @@ const opt = {
                         }
                         await setStorage({ ...opt.completeData })
                         if (opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = true) {
-                            playSoundEffect('switchOn')
+                            opt.playSoundEffect('switchOn')
 
                         }
                         // console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
@@ -1481,11 +1488,11 @@ const opt = {
 
                     // Clear All Data Button
                     setEvent(qS('.clearAllDataButton'), 'click', async (e) => {
-                        playSoundEffect('click')
+                        opt.playSoundEffect('click')
                         if (await confirmationDialogOpener('Warning: Deleting all data. Are you sure you want to proceed?')) {
                             opt.clearAllData()
                         }
-                        playSoundEffect('click')
+                        opt.playSoundEffect('click')
 
                     })
 
@@ -1498,23 +1505,23 @@ const opt = {
 
                     let settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
                     removeAllEventListenersOfElements(settingsGroupLinks)
-                    
+
                     settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
                     // console.log(settingsGroupLinks);
 
-                    settingsGroupLinks.forEach(link=>{
+                    settingsGroupLinks.forEach(link => {
                         setEvent(link, 'mouseenter', () => {
-                            playSoundEffect('hover', 0.3)
+                            opt.playSoundEffect('hover', 0.3)
                         })
                         if (link.classList.contains('sponsorLink')) {
                             setEvent(link, 'click', () => {
-                                playSoundEffect('sponsor')
+                                opt.playSoundEffect('sponsor')
                             })
-                            
+
                         }
-                        else{
+                        else {
                             setEvent(link, 'click', () => {
-                                playSoundEffect('click2')
+                                opt.playSoundEffect('click2')
                             })
                         }
                     })
@@ -1578,7 +1585,7 @@ const opt = {
                         opt.currentState.activeGroup = groupID
                         opt.updateDOM('changeActiveGroup')
 
-                        playSoundEffect('select', .5)
+                        opt.playSoundEffect('select', .5)
                     })
                 })
                 opt.currentState.activeGroup = 'g1'
@@ -1631,14 +1638,14 @@ const opt = {
                     if (ceilingLightWrapper.classList.contains('rightLight-wrapper')) {
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right = !opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right
 
-                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? opt.playSoundEffect('lightsOn') : opt.playSoundEffect('lightsOff')
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
 
                     }
                     else {
 
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left = !opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left
-                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? opt.playSoundEffect('lightsOn') : opt.playSoundEffect('lightsOff')
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
                     }
                     await setStorage({ ...opt.completeData })
@@ -1731,13 +1738,13 @@ const opt = {
 
 
                 function closeHelpDialog() {
-                    playSoundEffect('click')
+                    opt.playSoundEffect('click')
                     helpDialog.close()
                     updateCSS(helpDialog, { 'display': 'none' })
                 }
                 setEvent(closeHelpDialogButton, 'click', closeHelpDialog)
                 helpButton.addEventListener('click', (e) => {
-                    playSoundEffect('click')
+                    opt.playSoundEffect('click')
                     helpDialog.showModal()
                     updateCSS(helpDialog, { 'display': 'flex' })
                     // console.log(helpDialog);
@@ -1747,9 +1754,6 @@ const opt = {
                         closeHelpDialog()
                     }
                 })
-
-
-
             },
 
 
