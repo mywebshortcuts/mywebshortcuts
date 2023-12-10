@@ -197,20 +197,28 @@ main {
 
 	margin-block: 0.1rem;
 
-	transition: 0.2s ease;
+	transition: 0.05s ease;
 	position: relative;
 }
 .url-wrapper:hover {
 	background-color: #181818;
 	cursor: pointer;
+
+
+	z-index: 2;
+	box-shadow: 0rem 0rem .5rem 0.125rem #000000;
+	transform: scale(1.01);
 }
 .url-wrapper:focus {
 	outline: 0.125rem solid var(--light-blue);
 }
 .url-wrapper.pagesListOpen {
+	z-index: 2;
 	background-color: #161616;
 	border-bottom-left-radius: 0rem;
 	border-bottom-right-radius: 0rem;
+	box-shadow: 0rem 0rem .5rem 0.125rem #000000;
+	transform: scale(1.01);
 }
 .urlSpan {
 	width: 80%;
