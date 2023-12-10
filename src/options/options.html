@@ -219,14 +219,113 @@
 					</div>
 				</div>
 
-				<div class="dangerButtonWithText-wrapper clearAllDataButtonWithText-wrapper"
+				<div class="buttonWithText-wrapper green exportDataButtonWithText-wrapper"
+					 title="Export Data">
+					<p class="text">Export Web Shortcuts</p>
+					<button class="exportDataButton greenButton">
+						<i class="fa-solid fa-upload"></i>
+						<p>Export</p>
+					</button>
+				</div>
+
+
+				<div class="buttonWithText-wrapper green importDataButtonWithText-wrapper"
+					 title="Import Data">
+					<p class="text">Import Web Shortcuts</p>
+					<input type="file" id="importDataInput" accept=".json" style="display: none;" />
+					<button class="importDataDialogOpenButton greenButton">
+						<i class="fa-solid fa-download"></i>
+						<p>Import</p>
+					</button>
+				</div>
+
+				<template class="importDialog_template">
+
+				<dialog class="importDataDialog">
+					<button class="closeImportDataDialogButton actionButton">
+						<i class="fa-close fa-solid"></i>
+					</button>
+					
+					<h2>Let's Import Your Web Shortcuts!</h2>
+
+					<div class="importData-wrapper">
+							<span class="selectedFileName" title="Selected File Name">Select the shortcuts data file (.json)</span>
+							<input type="file" id="importDataInput" accept=".json" style="display: none;" />
+							<button class="selectDataFileButton greenButton" title="Select Shortcuts Data File">
+								<i class="fa-solid fa-file"></i>
+								<span>Select File</span>
+							</button>
+					</div>
+					
+					
+					<div class="importType-wrapper">
+						<h3>How should I Import them?</h3>
+						<span class="importTypeDefinitionSpan">Select how you want to import the data</span>
+						<select name="importType" id="importTypeSelect" class="importTypeSelect" title="Select Import Type" disabled>
+							<option value="overwrite">Overwrite Existing Shortcuts</option>
+							<option value="mergeAndReplaceExisting">Merge & Replace Existing Shortcuts</option>
+							<option value="mergeAndKeepExisting">Merge & Keep Existing Shortcuts</option>
+						</select>
+					</div>
+
+
+					<div class="websitesToImport-wrapper">
+						<h3>Which websites' shortcuts to import?</h3>
+						
+						<div class="websitesToImportCheckboxes-wrapper">
+							<div class="selectAllWebsitesCheckbox-wrapper ">
+								<input type="checkbox" id="allWebsites">
+								<label for="allWebsites"> Select All Websites</label><br>
+							</div>
+							
+
+							<template class="websiteCheckboxWrapper_template">
+								<div class="websiteCheckbox-wrapper">
+									<input type="checkbox" id="website1" name="websitePage" value="url" data-url="url">
+									<label for="website1"> Website Without Pages</label><br>
+								</div>
+							</template>
+							
+							<template class="urlWithSubUrls_template">
+								<div class="urlWithSubUrls">
+									<div class="websiteCheckbox-wrapper domainCheckbox">
+										<input type="checkbox" id="websiteWithPages1" name="websitePage" value="url" data-url="">
+										<label for="websiteWithPages1"> Website With Pages</label><br>
+									</div>
+									<ul class="subUrlsCheckboxesList">
+										
+									</ul>
+								</div>
+							</template>
+
+
+
+
+						</div>
+
+						<div class="noFileSelected">
+							<span>Please select the exported shortcuts file</span>
+						</div>
+					</div>
+
+					<button class="confirmImportButton redButtonFilled" disabled><i class="fa-download fa-solid"></i> Import Shortcuts</button>
+
+
+
+				</dialog>
+
+				</template>
+
+				<div class="buttonWithText-wrapper red clearAllDataButtonWithText-wrapper"
 					 title="Delete all the data">
 					<p class="text">Delete all data</p>
-					<button class="dangerButton clearAllDataButton redButton">
+					<button class="clearAllDataButton redButton">
 						<i class="fa-solid fa-trash-can"></i>
 						<p>Delete</p>
 					</button>
 				</div>
+
+
 			</div>
 
 			<!-- ------------------------------------- GROUP 3 ------------------------------------- -->

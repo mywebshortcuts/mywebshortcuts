@@ -959,9 +959,482 @@ const opt = {
                 group2Activated: () => {
                     let disableEverywhereToggle = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
                     let disableSoundToggle = qS('.disableSoundToggle-wrapper .toggleSwitchInput')
+                    let exportDataButton = qS('.exportDataButton')
+                    let importDataDialogOpenButton = qS('.importDataDialogOpenButton');
 
-                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), disableEverywhereToggle, disableSoundToggle])
+                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), disableEverywhereToggle, disableSoundToggle, exportDataButton, importDataDialogOpenButton])
 
+
+
+                    // ------------------------- Export Data -------------------------
+
+                    const exportButton = qS('.exportDataButton');
+
+                    exportButton.addEventListener('click', function () {
+                        opt.playSoundEffect('click')
+
+                        // Convert object to JSON string
+                        const jsonContent = JSON.stringify({ websitesData: opt.websitesData }, null, 2);
+
+                        // Create a Blob containing the JSON data
+                        const blob = new Blob([jsonContent], { type: 'application/json' });
+
+                        // Create a download link
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'mywebshortcuts.json'; // File name
+                        a.textContent = 'Download JSON';
+
+                        // Append the link to the body and trigger a click event to initiate download
+                        document.body.appendChild(a);
+                        a.click();
+
+                        // Cleanup: remove the link and revoke the Object URL
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    });
+
+
+                    // ------------------------- Import Data-------------------------
+                    importDataDialogOpenButton = qS('.importDataDialogOpenButton');
+                    // const importDataDialog = qS('.importDataDialog');
+
+
+                    setEvent(importDataDialogOpenButton, 'click', () => {
+                        opt.playSoundEffect('click')
+
+                        let importDialog_template = qS('.importDialog_template')
+                        let importDialog_HTML = importDialog_template.content.cloneNode(true)
+                        let importDataDialog = qS('.importDataDialog', importDialog_HTML)
+                        qS('#g2').appendChild(importDataDialog)
+
+                        importDataDialog = qS('.importDataDialog')
+                        importDataDialog.showModal()
+                        importDataDialog.style.display = 'flex'
+
+                        openImportDataDialog()
+
+                    })
+
+                    function openImportDataDialog() {
+                        if (!isObjEmpty(opt.websitesData)) {
+                            alert('Please back up your existing shortcuts before importing! Ignore if already done.')
+                        }
+
+                        const closeImportDataDialogButton = qS('.closeImportDataDialogButton');
+                        let selectedFileNameSpan = qS('.selectedFileName')
+                        let importTypeSelect = qS('.importTypeSelect')
+                        let importTypeDefinitionSpan = qS('.importTypeDefinitionSpan')
+                        let confirmImportButton = qS('.confirmImportButton')
+                        setEvent(closeImportDataDialogButton, 'click', () => {
+                            opt.playSoundEffect('click')
+                            qS('#g2').removeChild(qS('.importDataDialog'))
+                        })
+
+                        importTypeDefinitionSpan.innerHTML = "This will <strong>erase all your data</strong> and overwrite it with the new one"
+                        setEvent(importTypeSelect, 'change', (e) => {
+                            let value = e.srcElement.value
+                            if (value == "overwrite") {
+                                importTypeDefinitionSpan.innerHTML = "This will <strong>erase all your data</strong> and overwrite it with the new one"
+                            }
+                            else if (value == "mergeAndReplaceExisting") {
+                                importTypeDefinitionSpan.innerHTML = "This will merge the data and if shortcuts match, it will <strong>remove the existing ones</strong>."
+
+                            }
+                            else if (value == "mergeAndKeepExisting") {
+                                importTypeDefinitionSpan.innerHTML = "This will merge the data and if shortcuts match, it will <strong>keep the existing ones</strong>."
+                            }
+                        })
+
+                        function getFormattedDataShortcuts(websitesData) {
+                            let returnData = {
+                                allDomains: {},
+                                domainsWithoutPages: {
+                                    // domainName:10,
+                                    // domainName:5, // number of domain Shortcuts 
+                                },
+                                domainAndTheirPages: {
+                                    //     domainName:{
+                                    //         shortcuts:10, // number of domain shortcuts
+                                    //         pages:{
+                                    //             pageName:5, // number of page shortcuts
+                                    //             pageName:5, // number of page shortcuts
+                                    //         }
+                                    //     }
+                                }
+                            }
+
+                            for (const website in websitesData) {
+                                if (Object.hasOwnProperty.call(websitesData, website)) {
+
+                                    const aWebsiteData = websitesData[website];
+                                    let websiteWithoutSlash = website.replace(/\/$/, '')
+                                    const websiteURLObject = new URL(website)
+                                    const websiteDomain = websiteURLObject.origin
+                                    const numOfShortcuts = (Object.keys(aWebsiteData.shortcuts) || []).length;
+
+                                    if (!(Object.keys(returnData.allDomains)).includes(websiteDomain) && websitesData[websiteDomain]) {
+                                        returnData.allDomains[websiteDomain] = returnData.allDomains[websiteDomain] || (Object.keys(websitesData[websiteDomain].shortcuts) || []).length
+                                    }
+                                    if (!(Object.keys(returnData.domainsWithoutPages)).includes(websiteDomain) && websitesData[websiteDomain]) {
+                                        returnData.domainsWithoutPages[websiteDomain] = returnData.domainsWithoutPages[websiteDomain] || (Object.keys(websitesData[websiteDomain].shortcuts) || []).length
+
+                                    }
+                                    if (website != websiteDomain) {
+                                        returnData.domainAndTheirPages[websiteDomain] = returnData.domainAndTheirPages[websiteDomain] || {}
+                                        returnData.domainAndTheirPages[websiteDomain].pages = returnData.domainAndTheirPages[websiteDomain].pages || {}
+                                        returnData.domainAndTheirPages[websiteDomain].pages[website] = numOfShortcuts
+
+                                        if (returnData.domainsWithoutPages[websiteDomain]) {
+                                            delete returnData.domainsWithoutPages[websiteDomain]
+                                        }
+
+                                        if (websitesData[websiteDomain]) {
+                                            returnData.domainAndTheirPages[websiteDomain].shortcuts = returnData.domainAndTheirPages[websiteDomain].shortcuts || (Object.keys(websitesData[websiteDomain].shortcuts || []).length)
+                                        }
+                                        else {
+                                            returnData.domainAndTheirPages[websiteDomain].shortcuts = returnData.domainAndTheirPages[websiteDomain].shortcuts || 0
+                                        }
+                                    }
+
+
+
+                                }
+                            }
+                            return returnData
+
+                        }
+
+
+                        setEvent(confirmImportButton, 'click', async (e) => {
+                            opt.playSoundEffect('click')
+
+                            let importType = importTypeSelect.value
+                            if (importType != "overwrite" && importType != "mergeAndReplaceExisting" && importType != "mergeAndKeepExisting") {
+                                alert("Something's not right...")
+                            }
+                            let selectedWebsites = []
+                            qSA('input[data-shortcuts]', qS('.websitesToImportCheckboxes-wrapper')).forEach(checkBox => {
+                                let url = checkBox.value
+                                if (checkBox.checked) {
+                                    if (!selectedWebsites.includes(url) && getAttr(checkBox, 'data-shortcuts') > 0) {
+                                        selectedWebsites.push(url)
+                                    }
+                                }
+                            })
+                            if (!(selectedWebsites.length > 0)) {
+                                alert('Please Select one or more websites to import')
+                                return
+                            }
+
+                            if (await confirmationDialogOpener('Are you sure you want to import those Web Shortcuts?')) {
+                                let mergedWebsitesData = opt.websitesData; // Default value
+
+                                let importedWebsitesData = {};
+                                selectedWebsites.forEach(website => {
+                                    importedWebsitesData[website] = importedData.websitesData[website]
+                                })
+
+
+                                if (importType == 'overwrite') {
+                                    if (isObjEmpty(opt.websitesData) || confirm("WARNING: THIS WILL OVERWRITE ALL YOUR DATA!!! Please make sure the Import Type is correct")) {
+                                        for (const importedWebsite in importedWebsitesData) {
+                                            console.log("Selected Website:");
+                                            console.log(importedWebsite);
+                                            if (Object.hasOwnProperty.call(importedWebsitesData, importedWebsite)) {
+                                                const aImportedWebsiteData = importedWebsitesData[importedWebsite];
+                                                mergedWebsitesData[importedWebsite] = aImportedWebsiteData
+                                            }
+                                        }
+                                        opt.completeData.websitesData = mergedWebsitesData
+                                        setStorage({ ...opt.completeData })
+                                    }
+                                    else {
+                                        return
+                                    }
+                                }
+                                else if (importType == "mergeAndReplaceExisting") {
+
+                                    for (const importedWebsite in importedWebsitesData) {
+                                        if (Object.hasOwnProperty.call(importedWebsitesData, importedWebsite)) {
+                                            const aImportedWebsiteShortcuts = importedWebsitesData[importedWebsite].shortcuts;
+                                            console.log("Imported website shortcuts");
+                                            console.log(aImportedWebsiteShortcuts);
+
+                                            // the imported website already exists or not
+                                            if (mergedWebsitesData[importedWebsite]) {
+                                                console.log("Website already exists");
+                                                for (const importedShortcut in aImportedWebsiteShortcuts) {
+                                                    if (Object.hasOwnProperty.call(aImportedWebsiteShortcuts, importedShortcut)) {
+                                                        const importedWebShortcutData = aImportedWebsiteShortcuts[importedShortcut];
+                                                        console.log("Upcoming Shortcut: ", importedShortcut);
+                                                        console.log("Upcoming Shortcut Data: ", importedWebShortcutData);
+
+                                                        mergedWebsitesData[importedWebsite].shortcuts[importedShortcut] = importedWebShortcutData
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                console.log("Website DOESN'T exist");
+                                                mergedWebsitesData[importedWebsite] = importedWebsitesData[importedWebsite]
+                                            }
+
+                                        }
+                                    }
+                                    opt.completeData.websitesData = mergedWebsitesData
+                                    setStorage({ ...opt.completeData })
+
+                                }
+                                else if (importType == "mergeAndKeepExisting") {
+
+                                    for (const importedWebsite in importedWebsitesData) {
+                                        if (Object.hasOwnProperty.call(importedWebsitesData, importedWebsite)) {
+                                            const aImportedWebsiteShortcuts = importedWebsitesData[importedWebsite].shortcuts;
+
+                                            // the imported website already exists or not
+                                            if (mergedWebsitesData[importedWebsite]) {
+                                                for (const importedShortcut in aImportedWebsiteShortcuts) {
+                                                    if (Object.hasOwnProperty.call(aImportedWebsiteShortcuts, importedShortcut)) {
+                                                        const importedWebShortcutData = aImportedWebsiteShortcuts[importedShortcut];
+
+                                                        // If the imported shortcut key DOESN'T exist, then import the imported shortcut
+                                                        if (!mergedWebsitesData[importedWebsite].shortcuts[importedShortcut]) {
+                                                            mergedWebsitesData[importedWebsite].shortcuts[importedShortcut] = importedWebShortcutData
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                mergedWebsitesData[importedWebsite] = importedWebsitesData[importedWebsite]
+                                            }
+
+                                        }
+                                    }
+                                    opt.completeData.websitesData = mergedWebsitesData
+                                    setStorage({ ...opt.completeData })
+                                }
+                                console.log("Merged websites data");
+                                console.log(mergedWebsitesData);
+                                closeImportDataDialogButton.dispatchEvent(new MouseEvent('click'))
+
+                                alert('Data Imported Successfuly!')
+                            }
+                            else {
+                                return
+                            }
+                        })
+
+
+                        const fileInput = qS('#importDataInput', qS('.importDataDialog'));
+                        const selectDataFileButton = qS('.selectDataFileButton', qS('.importDataDialog'));
+                        let importedData;
+
+                        selectDataFileButton.addEventListener('click', function () {
+                            opt.playSoundEffect('click')
+                            fileInput.click(); // Trigger click on the hidden file input
+                        });
+
+                        fileInput.addEventListener('change', function (event) {
+                            const file = event.target.files[0];
+                            if (!file) return;
+
+
+                            const reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                const content = e.target.result;
+                                try {
+                                    importedData = JSON.parse(content);
+                                    // console.log('Imported data:', importedData);
+
+                                    // Schema for 'selected' object inside 'shortcuts'
+                                    const selectedSchema = Joi.object({
+                                        cssSelector: Joi.string().required()
+                                    });
+
+                                    // Schema for each shortcut object inside 'websitesData'
+                                    const shortcutSchema = Joi.object({
+                                        enabled: Joi.boolean().required(),
+                                        name: Joi.string().min(1).max(20).required(),
+                                        properties: Joi.object({
+                                            action: Joi.string().valid('click', 'focus').required(),
+                                            urlType: Joi.string().valid('domainAndAllPages', 'domainAndPage', 'onlyDomain', 'onlyPage', 'fullPath').required()
+                                        }).required(),
+                                        selected: selectedSchema.required(),
+                                        type: Joi.string().valid('singleElement').required()
+                                    });
+
+                                    // Schema for each website object inside 'websitesData'
+                                    const websiteSchema = Joi.object().pattern(
+                                        Joi.string(),
+                                        Joi.object({
+                                            settings: Joi.object({
+                                                enabled: Joi.boolean().required()
+                                            }).required(),
+                                            shortcuts: Joi.object().pattern(Joi.string().max(1), shortcutSchema).required()
+                                        })
+                                    );
+
+                                    // Complete schema for the entire data structure
+                                    const schema = Joi.object({
+                                        websitesData: websiteSchema.required()
+                                    });
+
+                                    const validationResult = schema.validate(importedData);
+
+                                    if (validationResult.error) {
+                                        // console.error('Validation Error:', validationResult.error.details);
+
+                                        alert('Data format is wrong')
+                                    }
+                                    else {
+                                        // console.log('Data is valid:', validationResult.value);
+                                        qS('.selectDataFileButton span').innerText = 'Change File'
+
+                                        const fileName = file.name;
+                                        selectedFileNameSpan.textContent = fileName
+
+                                        importTypeSelect.disabled = false
+                                        confirmImportButton.disabled = false
+
+                                        let formattedShortcutsData = getFormattedDataShortcuts(importedData.websitesData)
+
+                                        let websitesToImportCheckboxes_Wrapper = qS('.websitesToImportCheckboxes-wrapper')
+                                        let noFileSelected = qS('.noFileSelected')
+                                        websitesToImportCheckboxes_Wrapper.style.display = 'flex'
+                                        noFileSelected.style.display = 'none'
+
+                                        let websitesToImportCheckboxes_wrapper = qS('.websitesToImportCheckboxes-wrapper')
+                                        // Removing if any website checkboxes already exists for situations when file is changed
+                                        if (qS('.websiteCheckbox-wrapper', websitesToImportCheckboxes_wrapper)) {
+                                            let existingWebsiteCheckboxes = Array.from(websitesToImportCheckboxes_wrapper.children)
+                                            existingWebsiteCheckboxes.forEach(child => {
+                                                if (!(child.classList.contains('selectAllWebsitesCheckbox-wrapper')) && !(child.tagName == 'TEMPLATE')) {
+                                                    websitesToImportCheckboxes_wrapper.removeChild(child)
+                                                }
+                                            })
+                                        }
+
+
+                                        let websiteCheckboxWrapper_template = qS('.websiteCheckboxWrapper_template')
+
+                                        // Websites Without Pages
+                                        for (const website in formattedShortcutsData.domainsWithoutPages) {
+                                            let websiteCheckboxWrapper_HTML = websiteCheckboxWrapper_template.content.cloneNode(true)
+                                            const websiteCheckbox_Wrapper = qS('.websiteCheckbox-wrapper', websiteCheckboxWrapper_HTML)
+                                            if (Object.hasOwnProperty.call(formattedShortcutsData.domainsWithoutPages, website)) {
+                                                const numOfShortcut = formattedShortcutsData.domainsWithoutPages[website];
+                                                qS('input', websiteCheckbox_Wrapper).value = website
+                                                setAttr(qS('input', websiteCheckbox_Wrapper), 'data-shortcuts', numOfShortcut)
+                                                qS('label', websiteCheckbox_Wrapper).innerHTML = `${website} <span>(${numOfShortcut})</span>`
+                                                qS('input', websiteCheckbox_Wrapper).id = website
+                                                setAttr(qS('label', websiteCheckbox_Wrapper), 'for', website)
+
+                                                websitesToImportCheckboxes_wrapper.appendChild(websiteCheckbox_Wrapper)
+                                            }
+                                        }
+
+                                        // Websites With Pages
+                                        for (const domain in formattedShortcutsData.domainAndTheirPages) {
+                                            const urlWithSubUrls_template = qS('.urlWithSubUrls_template')
+                                            const urlWithSubUrls_HTML = urlWithSubUrls_template.content.cloneNode(true)
+
+                                            const urlWithSubUrls = qS('.urlWithSubUrls', urlWithSubUrls_HTML)
+                                            if (Object.hasOwnProperty.call(formattedShortcutsData.domainAndTheirPages, domain)) {
+                                                const numOfDomainShortcuts = formattedShortcutsData.domainAndTheirPages[domain].shortcuts;
+
+                                                qS('.domainCheckbox input', urlWithSubUrls).value = domain
+                                                qS('.domainCheckbox input', urlWithSubUrls).id = domain
+                                                setAttr(qS('.domainCheckbox input', urlWithSubUrls), 'data-shortcuts', numOfDomainShortcuts)
+
+                                                qS('.domainCheckbox label', urlWithSubUrls).innerHTML = `${domain} <span>(${numOfDomainShortcuts})</span>`
+                                                setAttr(qS('.domainCheckbox label', urlWithSubUrls), 'for', domain)
+
+                                                let domainPages = formattedShortcutsData.domainAndTheirPages[domain].pages
+                                                for (const page in domainPages) {
+                                                    let websiteCheckboxWrapper_HTML = websiteCheckboxWrapper_template.content.cloneNode(true)
+                                                    const websiteCheckbox_Wrapper = qS('.websiteCheckbox-wrapper', websiteCheckboxWrapper_HTML)
+
+
+                                                    if (Object.hasOwnProperty.call(domainPages, page)) {
+                                                        const numOfPageShortcuts = domainPages[page];
+
+                                                        qS('input', websiteCheckbox_Wrapper).value = page
+                                                        setAttr(qS('input', websiteCheckbox_Wrapper), 'data-shortcuts', numOfPageShortcuts)
+                                                        qS('label', websiteCheckbox_Wrapper).innerHTML = `${page} <span>(${numOfPageShortcuts})</span>`
+                                                        qS('input', websiteCheckbox_Wrapper).id = page
+                                                        setAttr(qS('label', websiteCheckbox_Wrapper), 'for', page)
+
+                                                        let li = document.createElement('li')
+
+
+                                                        li.appendChild(websiteCheckbox_Wrapper)
+                                                        qS('.subUrlsCheckboxesList', urlWithSubUrls).appendChild(li)
+                                                    }
+                                                }
+
+                                                websitesToImportCheckboxes_wrapper.appendChild(urlWithSubUrls)
+
+
+                                            }
+
+
+                                        }
+
+                                        // Initially all the imported websites will be selected
+                                        let selectedWebsites = Object.keys(importedData.websitesData)
+
+
+                                        qSA('input', websitesToImportCheckboxes_wrapper).forEach(checkBox => {
+                                            checkBox.checked = true
+
+                                            let url = checkBox.value
+                                        })
+
+                                        qS('.selectAllWebsitesCheckbox-wrapper input').checked = true
+                                        setEvent(qS('.selectAllWebsitesCheckbox-wrapper input'), 'change', (e) => {
+                                            qSA('input', websitesToImportCheckboxes_wrapper).forEach(checkBox => {
+                                                checkBox.checked = e.srcElement.checked
+                                            })
+                                        })
+
+
+                                        qSA('.urlWithSubUrls').forEach(urlWithSubUrlsWrapper => {
+                                            setEvent(qS('.domainCheckbox input', urlWithSubUrlsWrapper), 'change', (e) => {
+                                                qSA('.subUrlsCheckboxesList input', urlWithSubUrlsWrapper).forEach(eachInputInsideDomain => {
+                                                    eachInputInsideDomain.checked = e.srcElement.checked
+                                                    eachInputInsideDomain.dispatchEvent(new Event('change'));
+                                                })
+                                            })
+                                        })
+
+                                        qSA('div.websiteCheckbox-wrapper', websitesToImportCheckboxes_wrapper).forEach(websiteCheckboxWrapper => {
+                                            websiteCheckboxWrapper.addEventListener('click', (e) => {
+                                                opt.playSoundEffect('click2',.2)
+
+                                                if (e.srcElement.classList.contains('websiteCheckbox-wrapper')) {
+                                                    const checkbox = qS('input[type="checkbox"]', websiteCheckboxWrapper);
+                                                    checkbox.checked = !checkbox.checked;
+                                                    checkbox.dispatchEvent(new Event('change'));
+                                                }
+                                            })
+                                        })
+
+
+                                    }
+
+                                }
+                                catch (error) {
+                                    console.error(error);
+                                }
+                            };
+
+                            reader.readAsText(file);
+                        });
+
+
+                    }
 
 
                     // ------------------------- Enable/Disable Website -------------------------

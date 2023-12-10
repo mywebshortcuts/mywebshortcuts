@@ -822,6 +822,190 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 	/* width: 70%; */
 }
 
+
+
+.importDataDialog{
+	max-width: 40%;
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+	overflow-y: hidden;
+
+
+}
+.importDataDialog > div{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-block: .2rem;
+
+	padding-block: .5rem;
+}
+
+
+.importDataDialog .importData-wrapper{
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: center;
+	color: #bfbfbf;
+}
+
+.selectDataFileButton{
+	width: max-content;
+	margin-top: .5rem;
+	padding-inline: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 1.2rem;
+
+	
+}
+.selectDataFileButton i{
+	margin-inline: .3rem;
+}
+
+div.importType-wrapper h3{
+	text-align: center;
+
+}
+div.importType-wrapper{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+}
+
+.importTypeSelect{
+	width: fit-content;
+	font-size: 1rem;
+}
+.importTypeDefinitionSpan{
+	margin-block: .5rem;
+	color: var(--red);
+}
+
+.websitesToImport-wrapper h3{
+	margin-bottom: .2rem;
+}
+.noFileSelected{
+	width: 100%;
+	background-color: #171515;
+	border-radius: 1rem;
+	padding: 5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #bfbfbf;
+	user-select: none;
+}
+
+.websitesToImport-wrapper .websitesToImportCheckboxes-wrapper{
+	background-color: #171515;
+	border-radius: 1rem;
+	max-height: 15rem;
+	overflow-y: scroll;
+	
+	position: relative;
+	padding: 1rem;
+	padding-top: 0rem;
+
+	color: #bfbfbf;
+	display: none;
+	flex-direction: column;
+
+	/* user-select: none; */
+}
+.websitesToImport-wrapper .websitesToImportCheckboxes-wrapper::-webkit-scrollbar-track{
+	margin-block: 1rem;
+}
+
+.selectAllWebsitesCheckbox-wrapper{
+	position: sticky;
+	top: 0rem;
+	padding: 0.5rem 0rem;
+	background-color: inherit;
+	/* border-radius: inherit; */
+	border-top-right-radius: 0rem;
+	border-top-left-radius: 0rem;
+	font-size: 1.2rem;
+}
+.selectAllWebsitesCheckbox-wrapper label,
+.selectAllWebsitesCheckbox-wrapper input{
+	cursor: pointer;
+	color: white;
+}
+
+.websiteCheckbox-wrapper{
+	/* margin-block: .3rem; */
+	padding: .3rem;
+	border-radius: .5rem;
+}
+.websiteCheckbox-wrapper:hover{
+	background-color: #1f1f1f;
+	width: 100%;
+}
+.websiteCheckbox-wrapper input,
+.websiteCheckbox-wrapper label{
+	cursor: pointer;
+}
+.websiteCheckbox-wrapper:hover,
+.websiteCheckbox-wrapper input:hover label,
+.websiteCheckbox-wrapper label:hover{
+	color: white;
+	cursor: pointer;
+}
+.websiteCheckbox-wrapper label{
+	width: 100%;
+}
+.websiteCheckbox-wrapper input:checked label{
+	color: green;
+}
+.websiteCheckbox-wrapper label span{
+	color: var(--dark-blue);
+
+}
+
+.websitesToImport-wrapper .urlWithSubUrls{
+	/* margin-block: .2rem; */
+}
+.websitesToImport-wrapper .urlWithSubUrls ul{
+	list-style-type: none;
+	margin-inline: 1rem;
+	/* border: 1px solid var(--dark-green); */
+	
+}
+.websitesToImport-wrapper .urlWithSubUrls ul li{
+	/* margin-block: .5rem; */
+}
+.websitesToImport-wrapper .urlWithSubUrls ul li:only-child{
+	/* margin-block: .5rem; */
+}
+
+
+.confirmImportButton{
+	/* padding: 1rem; */
+	font-size: 1.2rem;
+	/* background-color: rgb(0, 114, 190); */
+	/* text-shadow: 0px 1px 1px black; */
+}
+.confirmImportButton:hover{
+	/* background-color: rgb(0, 75, 124); */
+}
+
+
+
+
+
+
+
+
 /* --------------------------- GROUP 3 --------------------------- */
 
 .settingsGroup#g3 {
