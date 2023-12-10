@@ -7,6 +7,7 @@ body {
 	flex-direction: column;
 
 	position: relative;
+	overflow-x: hidden;
 }
 body::-webkit-scrollbar-track-piece {
 	margin: 0.5rem;
@@ -515,7 +516,7 @@ main {
 
 	position: relative;
 
-	/* transition: 0.2s ease; */
+	transition: 0.2s ease;
 
 	margin-block: 0.12rem;
 
