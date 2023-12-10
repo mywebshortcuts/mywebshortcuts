@@ -1521,10 +1521,10 @@ button.closeHelpDialogButton {
 	width: 22rem;
 	user-select: none;
 	
-	border: 3px solid var(--dark-blue);
+	/* border: 3px solid var(--dark-blue); */
 	border-bottom: none;
 
-	background-color: #181818;
+	/* background-color: #181818; */
 	border-top-left-radius: 2rem;
 	border-top-right-radius: 2rem;
 	
@@ -1549,12 +1549,13 @@ button.closeHelpDialogButton {
 
 
 img.snowCap{
-	width: 25rem;
+	width: 32rem;
 	position: absolute;
-	top: -2rem;
+	top: -4rem;
 	/* left: 30vw; */
-	right: 8%;
-	z-index: -5;
+	right: 4%;
+	z-index: 5;
+	pointer-events: none;
 }
 .cartoonCampfire-wrapper img{
 	width: 100%;
@@ -1562,9 +1563,27 @@ img.snowCap{
 	bottom: -.5rem;
 	z-index: -5;
 	transition: transform 2s ease;
+	pointer-events: none;
 
 }
+.hidden.cartoonCampfire-wrapper{
+	bottom: -4rem;
+}
+.hidden.cartoonCampfire-wrapper .campfire-wrapper{
+	/* bottom: -4rem; */
+	/* display: none; */
+	opacity: 0;
+}
 
+.winterHouse{
+	width: 20rem;
+	bottom: -1rem;
+	left: 0rem;
+	z-index: 2;
+	/* display: none; */
+	position: fixed;
+	pointer-events: none;
+}
 
 .campfire-wrapper{
 	display: flex;
