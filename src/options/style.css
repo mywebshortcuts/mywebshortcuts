@@ -280,11 +280,15 @@ main {
 
 	background-color: #161616;
 	box-shadow: 0rem 0.25rem 0.25rem 0rem #181818;
+	box-shadow: 0rem .3rem .5rem 0.125rem #000000;
+
 	border-radius: 1rem;
 
 	border-top-left-radius: 0rem;
 	border-top-right-radius: 0rem;
 	flex-direction: column;
+
+
 }
 .subURLs-wrapper.active {
 	display: flex;
