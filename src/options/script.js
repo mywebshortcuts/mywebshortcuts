@@ -1552,6 +1552,9 @@ const opt = {
                             (qS('.shortcutSettings-wrapper:focus .deleteShortcutButton') || qS('.shortcutSettings-wrapper:hover .deleteShortcutButton')).click()
                         }
                     }
+                    else if (e.key == '?') {
+                        qS('.helpButton').dispatchEvent(new MouseEvent('click'))
+                    }
                     else if (e.key == 'Escape') {
                         if (qS('dialog[open]')) {
                             console.log(qS('dialog[open] i.fa-close'));
