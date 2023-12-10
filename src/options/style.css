@@ -1595,3 +1595,64 @@ img.snowCap{
 	
 }
 
+
+.whatsNewDialog{
+	position: fixed;
+	max-width: 50%;
+	padding: 2rem;
+	display: none;
+	color: #bfbfbf;
+
+	/* overflow-y: hidden; */
+}
+.whatsNewDialog h2{
+	color: var(--dark-green);
+}
+.whatsNewDialog h2,
+.whatsNewDialog span{
+	margin-block: .5rem;
+	/* text-align: center; */
+	line-height: 1.5rem;
+}
+
+.whatsNewDialog img{
+	position: absolute;
+	width: 20rem;
+	z-index: -1;
+	opacity: 0.1;
+}
+.whatsNewDialog .whatsNewGlobe{
+	top: 3rem;
+	right: 2rem;
+}
+.whatsNewDialog .whatsNewKeyboard{
+	top: 2rem;
+	left: 2rem;
+  transform: scaleX(-1)
+}
+
+
+.whatsNewDialog ul{
+	padding-inline: 2rem;
+	font-size: .9rem;
+	overflow-y: scroll;
+	max-height: 15rem;
+
+	background-color: #161616;
+	border-radius: 1rem;
+	list-style-type: disc;
+}
+.whatsNewDialog li{
+	margin-block: 1rem;
+}
+.whatsNewDialog li strong{
+	color: white;
+}
+
+.whatsNewButton{
+	position: fixed;
+	font-size: 1rem;
+	bottom: 2rem;
+	right: 7rem;
+	background-color: #161616;
+}

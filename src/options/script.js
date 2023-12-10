@@ -1920,12 +1920,19 @@ const opt = {
             await opt.getCompleteData()
         })
 
-        let audio = new Audio(`../assets/sounds/campfire.mp3`)
-        audio.currentTime = 0; // Reset the audio to the beginning
-        audio.volume = .1
-        audio.loop = true
-        audio.play(); // Play the audio file
 
+
+        setEvent(qS('.closeWhatsNewDialogButton'), 'click', () => {
+            opt.playSoundEffect('click')
+            qS('.whatsNewDialog').close()
+            qS('.whatsNewDialog').style.display = 'none'
+        })
+        
+        setEvent(qS('.whatsNewButton'), 'click', () => {
+            opt.playSoundEffect('click')
+            qS('.whatsNewDialog').showModal()
+            qS('.whatsNewDialog').style.display = 'flex'
+        })
     }
 }
 
