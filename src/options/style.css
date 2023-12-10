@@ -1047,6 +1047,7 @@ div.importType-wrapper{
 
 	box-shadow: inset 0rem 0rem 1.5rem 0rem black;
 	transition: 0.5s ease;
+	position: relative;
 }
 .bannerImage-wrapper:hover {
 	background-image: url('../assets/big_banner.gif');
