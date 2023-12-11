@@ -11,8 +11,8 @@ import "../assets/font-awesome/css/regular.css"
 
 
 import createElement from "../modules/elementCreator"
-
 import { confirmationDialogOpener } from '../modules/domElements'
+import Joi, { object } from "joi";
 
 
 
@@ -49,6 +49,27 @@ const opt = {
         await setStorage({ ...opt.completeData })
 
     },
+
+
+    prevAudio: "",
+    playSoundEffect: function (soundEffectName = 'click', volume = .2) {
+        if (!opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
+            return
+        }
+        let audio;
+
+        if (opt.prevAudio && audio.src == opt.prevAudio.src) {
+            audio = opt.prevAudio
+        }
+        else {
+            audio = new Audio(`../assets/sounds/${soundEffectName}.mp3`)
+        }
+        // console.log("Playing: ", soundEffectName);
+
+        audio.currentTime = 0; // Reset the audio to the beginning
+        audio.volume = volume
+        audio.play(); // Play the audio file
+    },
     updateDOM: (changeSpecified = "initialize", ...args) => {
 
 
@@ -59,25 +80,6 @@ const opt = {
             })
         }
 
-        let prevAudio;
-        function playSoundEffect(soundEffectName = 'click', volume = .2) {
-            if (!opt.globalSettings.optionsPageSettings.optionsPageSoundsEnabled) {
-                return
-            }
-            let audio;
-
-            if (prevAudio && audio.src == prevAudio.src) {
-                audio = prevAudio
-            }
-            else {
-                audio = new Audio(`../assets/sounds/${soundEffectName}.mp3`)
-            }
-            // console.log("Playing: ", soundEffectName);
-
-            audio.currentTime = 0; // Reset the audio to the beginning
-            audio.volume = volume
-            audio.play(); // Play the audio file
-        }
 
         const domUpdaterFunctions = {
 
@@ -155,30 +157,30 @@ const opt = {
 
                             const urlTypeSpan = qS('.urlTypeSpan', shortcutSettingsWrapper)
                             urlTypeSpan.innerText = shortcutKeyObject.properties.urlType
-                            
+
                             const actionSpan = qS('.actionSpan', shortcutSettingsWrapper)
                             actionSpan.innerText = shortcutKeyObject.properties.action
                             if (shortcutKeyObject.properties.urlType == "domainAndAllPages") {
                                 urlTypeSpan.innerText = "Domain and all its pages"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "domainAndPage"){
+                            else if (shortcutKeyObject.properties.urlType == "domainAndPage") {
                                 urlTypeSpan.innerText = "Domain and a page"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "onlyDomain"){
+                            else if (shortcutKeyObject.properties.urlType == "onlyDomain") {
                                 urlTypeSpan.innerText = "Only Domain"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "onlyPage"){
+                            else if (shortcutKeyObject.properties.urlType == "onlyPage") {
                                 urlTypeSpan.innerText = "Only Page"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "fullPath"){
+                            else if (shortcutKeyObject.properties.urlType == "fullPath") {
                                 urlTypeSpan.innerText = "Full Path"
-                                
+
                             }
-                            else if (shortcutKeyObject.properties.urlType == "custom"){
+                            else if (shortcutKeyObject.properties.urlType == "custom") {
                                 urlTypeSpan.innerText = "Custom"
 
                             }
@@ -190,11 +192,11 @@ const opt = {
                             qS('.toggleSwitchInput', shortcutSettingsWrapper).addEventListener('change', async function (event) {
                                 if (event.target.checked) {
                                     // console.log('Extension Enabled');
-                                    playSoundEffect('switchOn')
+                                    opt.playSoundEffect('switchOn')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = true
                                 } else {
                                     // console.log('Extension Disabled');
-                                    playSoundEffect('switchOff')
+                                    opt.playSoundEffect('switchOff')
                                     opt.completeData.websitesData[url].shortcuts[shortcutKey].enabled = false
                                 }
                                 await setStorage({ ...opt.completeData })
@@ -213,7 +215,7 @@ const opt = {
                             const editShortcutButton = qS('.editShortcutButton', shortcutSettingsWrapper)
                             setEvent(editShortcutButton, 'click', async () => {
 
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
 
                                 // Creating Edit Shortcut Dialog Element
                                 const editShortcutDialogHTMLFileURL = chrome.runtime.getURL('src/options/editShortcutDialog.html');
@@ -242,8 +244,8 @@ const opt = {
 
                                 const shortcutActionSelect = qS('.actionSelect', editShortcutSettingsDialog)
                                 shortcutActionSelect.value = shortcutKeyObject.properties.action
-                                
-                                
+
+
                                 shortcutActionSelect.addEventListener('change', (e) => {
                                     if (e.srcElement.value != shortcutKeyObject.properties.action) {
                                         // console.log("Value changed");
@@ -275,8 +277,6 @@ const opt = {
                                         confirmEditedSettingsButton.disabled = true
                                     }
                                 }
-                                
-
                                 setEvent(shortcutNameInput, 'keyup', () => {
                                     if (shortcutNameInput.value != shortcutKeyObject.name) {
                                         editedProperties.name = shortcutNameInput.value
@@ -472,7 +472,7 @@ const opt = {
                                     shortcutSelectionEnabled = false
                                     // document.removeEventListener('keypress', keyShortcutTracker)
                                     switchClass(shortcutKeyEditButton, 'onSelection', 'editSelection')
-                                    playSoundEffect('keyAccepted')
+                                    opt.playSoundEffect('keyAccepted')
                                     shortcutKeyEditKbd.focus() // Prevent focusing on Edit Shortcut button
                                     changeEditedState()
 
@@ -480,7 +480,7 @@ const opt = {
                                 }
 
                                 function editShortcutButtonClicked() {
-                                    playSoundEffect('enterKey')
+                                    opt.playSoundEffect('enterKey')
                                     if (!shortcutSelectionEnabled) {
                                         shortcutSelectionEnabled = true
                                         switchClass(shortcutKeyEditButton, 'editSelection', 'onSelection')
@@ -547,7 +547,7 @@ const opt = {
                                 setEvent(confirmEditedSettingsButton, 'click', confirmEditedPropertiesAndSaveData)
 
                                 function closeEditShortcutSettings() {
-                                    playSoundEffect('click')
+                                    opt.playSoundEffect('click')
                                     shortcutSelectionEnabled = false
                                     document.removeEventListener('keydown', keyShortcutTracker)
                                     document.body.removeChild(editShortcutSettingsDialog)
@@ -564,7 +564,7 @@ const opt = {
                             // ------------------------- Delete Shortcut Settings Dialog Opener -------------------------
                             const deleteShortcutButton = qS('.deleteShortcutButton', shortcutSettingsWrapper)
                             setEvent(deleteShortcutButton, 'click', async () => {
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
 
                                 if (await confirmationDialogOpener("Are you sure you want to delete the shortcut?")) {
 
@@ -585,7 +585,7 @@ const opt = {
                                     }
 
                                 }
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
                             })
 
 
@@ -597,20 +597,20 @@ const opt = {
                                     shortcutSettingsWrapper.classList.remove('hovered')
                                 }
                                 if (!(e.fromElement.classList.contains('toggleSwitchSpan'))) {
-                                    playSoundEffect('hover')
+                                    opt.playSoundEffect('hover')
                                 }
                             })
                             setEvent(shortcutSettingsWrapper, 'mouseleave', () => {
                                 mouseOver = false
                                 // window.removeEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
                             })
-                            
+
                             // window.addEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
 
                             function editDeleteShortcutKeyboardShortcuts(e) {
                                 // console.log(e);
                                 // if (!mouseOver) {
-                                    // return
+                                // return
                                 // }
                                 if (e.key == 'e' || e.key == 'E') {
                                     editShortcutButton.click()
@@ -623,7 +623,7 @@ const opt = {
                             shortcutSettingsWrapper.id = shortcutKey
                             shortcutSettingsWrapper.title = shortcutKeyObject.name
                             // qSA('button', shortcutSettingsWrapper).forEach((button) => {
-                            //     setEvent(button, 'click', () => { playSoundEffect('click') })
+                            //     setEvent(button, 'click', () => { opt.playSoundEffect('click') })
                             // })
 
                             shortcutsListWrapper.appendChild(shortcutSettingsWrapper)
@@ -688,7 +688,7 @@ const opt = {
                     // Delete a website
                     deleteWebsiteButton = qS(`.deleteWebsiteButton`, websiteSettingsDiv)
                     async function deleteWebsiteButtonFunction() {
-                        playSoundEffect('click')
+                        opt.playSoundEffect('click')
                         // console.log("Delete button clicked");
                         confirmationDialogOpener(`Warning: Deleting this website. Are you sure you want to proceed?`).then(response => {
                             if (response) {
@@ -697,7 +697,7 @@ const opt = {
                                 opt.updateDOM('closeWebsiteSettingsAndBackToWebsitesList')
                             }
 
-                            playSoundEffect('click')
+                            opt.playSoundEffect('click')
                         })
 
                     }
@@ -712,11 +712,11 @@ const opt = {
                     async function toggleSwitchInputFunction(e) {
                         if (e.target.checked) {
                             // console.log('Website Disabled');
-                            playSoundEffect('switchOff')
+                            opt.playSoundEffect('switchOff')
                             opt.completeData.websitesData[url].settings.enabled = false
                         } else {
                             // console.log('Website Enabled');
-                            playSoundEffect('switchOn')
+                            opt.playSoundEffect('switchOn')
                             opt.completeData.websitesData[url].settings.enabled = true
                         }
                         await setStorage({ ...opt.completeData })
@@ -728,7 +728,7 @@ const opt = {
                     // Back Button
                     backToWebsitesListButton = qS('.backToWebsitesListButton')
                     backToWebsitesListButton.addEventListener('click', (e) => {
-                        playSoundEffect('click', 0.5)
+                        opt.playSoundEffect('click', 0.5)
                         domUpdaterFunctions.actionFuncs.closeWebsiteSettingsAndBackToWebsitesList()
                     })
 
@@ -864,8 +864,15 @@ const opt = {
                             urlWrapperDiv.setAttribute('data-url', origin)
 
                             urlWrapperDiv.addEventListener('click', (e) => {
-                                playSoundEffect('click', 1)
-                                domUpdaterFunctions.actionFuncs.openWebsiteSettings(origin)
+                                opt.playSoundEffect('click', 1)
+                                if (opt.websitesData[origin]) {
+                                    domUpdaterFunctions.actionFuncs.openWebsiteSettings(origin)
+                                }
+                                else {
+                                    openPagesListButton.dispatchEvent(new MouseEvent('click'))
+                                }
+
+
 
                             })
 
@@ -878,7 +885,7 @@ const opt = {
 
                             openPagesListButton.addEventListener('click', (e) => {
                                 e.stopPropagation();
-                                playSoundEffect('click', 1)
+                                opt.playSoundEffect('click', 1)
                                 if (
                                     qS('.subURLs-wrapper.active') && !qS(`.subURLs-wrapper.active[data-url="${origin}"]`) &&
                                     qS('.url-wrapper.pagesListOpen') && !qS(`.url-wrapper.pagesListOpen[data-url="${origin}"]`)
@@ -905,12 +912,12 @@ const opt = {
                                     listElement.tabindex = "1"
 
                                     listElement.addEventListener('mouseenter', (e) => {
-                                        playSoundEffect('hover', 0.5)
+                                        opt.playSoundEffect('hover', 0.5)
                                         // console.log("hi");
                                     })
                                     listElement.addEventListener('click', (e) => {
                                         e.stopPropagation()
-                                        playSoundEffect('click', 1)
+                                        opt.playSoundEffect('click', 1)
                                         // console.log("Setting Click url", pageURL);
                                         domUpdaterFunctions.actionFuncs.openWebsiteSettings(pageURL)
                                     })
@@ -944,7 +951,7 @@ const opt = {
 
 
                             urlWrapperDiv.addEventListener('mouseenter', (e) => {
-                                playSoundEffect('hover')
+                                opt.playSoundEffect('hover')
                             })
                             urlWrapperDiv.title = origin
 
@@ -959,9 +966,482 @@ const opt = {
                 group2Activated: () => {
                     let disableEverywhereToggle = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
                     let disableSoundToggle = qS('.disableSoundToggle-wrapper .toggleSwitchInput')
+                    let exportDataButton = qS('.exportDataButton')
+                    let importDataDialogOpenButton = qS('.importDataDialogOpenButton');
 
-                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), disableEverywhereToggle, disableSoundToggle])
+                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), disableEverywhereToggle, disableSoundToggle, exportDataButton, importDataDialogOpenButton])
 
+
+
+                    // ------------------------- Export Data -------------------------
+
+                    const exportButton = qS('.exportDataButton');
+
+                    exportButton.addEventListener('click', function () {
+                        opt.playSoundEffect('click')
+
+                        // Convert object to JSON string
+                        const jsonContent = JSON.stringify({ websitesData: opt.websitesData }, null, 2);
+
+                        // Create a Blob containing the JSON data
+                        const blob = new Blob([jsonContent], { type: 'application/json' });
+
+                        // Create a download link
+                        const url = URL.createObjectURL(blob);
+                        const a = document.createElement('a');
+                        a.href = url;
+                        a.download = 'mywebshortcuts.json'; // File name
+                        a.textContent = 'Download JSON';
+
+                        // Append the link to the body and trigger a click event to initiate download
+                        document.body.appendChild(a);
+                        a.click();
+
+                        // Cleanup: remove the link and revoke the Object URL
+                        document.body.removeChild(a);
+                        URL.revokeObjectURL(url);
+                    });
+
+
+                    // ------------------------- Import Data-------------------------
+                    importDataDialogOpenButton = qS('.importDataDialogOpenButton');
+                    // const importDataDialog = qS('.importDataDialog');
+
+
+                    setEvent(importDataDialogOpenButton, 'click', () => {
+                        opt.playSoundEffect('click')
+
+                        let importDialog_template = qS('.importDialog_template')
+                        let importDialog_HTML = importDialog_template.content.cloneNode(true)
+                        let importDataDialog = qS('.importDataDialog', importDialog_HTML)
+                        qS('#g2').appendChild(importDataDialog)
+
+                        importDataDialog = qS('.importDataDialog')
+                        importDataDialog.showModal()
+                        importDataDialog.style.display = 'flex'
+
+                        openImportDataDialog()
+
+                    })
+
+                    function openImportDataDialog() {
+                        if (!isObjEmpty(opt.websitesData)) {
+                            alert('Please back up your existing shortcuts before importing! Ignore if already done.')
+                        }
+
+                        const closeImportDataDialogButton = qS('.closeImportDataDialogButton');
+                        let selectedFileNameSpan = qS('.selectedFileName')
+                        let importTypeSelect = qS('.importTypeSelect')
+                        let importTypeDefinitionSpan = qS('.importTypeDefinitionSpan')
+                        let confirmImportButton = qS('.confirmImportButton')
+                        setEvent(closeImportDataDialogButton, 'click', () => {
+                            opt.playSoundEffect('click')
+                            qS('#g2').removeChild(qS('.importDataDialog'))
+                        })
+
+                        importTypeDefinitionSpan.innerHTML = "This will <strong>erase all your data</strong> and overwrite it with the new one"
+                        setEvent(importTypeSelect, 'change', (e) => {
+                            let value = e.srcElement.value
+                            if (value == "overwrite") {
+                                importTypeDefinitionSpan.innerHTML = "This will <strong>erase all your data</strong> and overwrite it with the new one"
+                            }
+                            else if (value == "mergeAndReplaceExisting") {
+                                importTypeDefinitionSpan.innerHTML = "This will merge the data and if shortcuts match, it will <strong>remove the existing ones</strong>."
+
+                            }
+                            else if (value == "mergeAndKeepExisting") {
+                                importTypeDefinitionSpan.innerHTML = "This will merge the data and if shortcuts match, it will <strong>keep the existing ones</strong>."
+                            }
+                        })
+
+                        function getFormattedDataShortcuts(websitesData) {
+                            let returnData = {
+                                allDomains: {},
+                                domainsWithoutPages: {
+                                    // domainName:10,
+                                    // domainName:5, // number of domain Shortcuts 
+                                },
+                                domainAndTheirPages: {
+                                    //     domainName:{
+                                    //         shortcuts:10, // number of domain shortcuts
+                                    //         pages:{
+                                    //             pageName:5, // number of page shortcuts
+                                    //             pageName:5, // number of page shortcuts
+                                    //         }
+                                    //     }
+                                }
+                            }
+
+                            for (const website in websitesData) {
+                                if (Object.hasOwnProperty.call(websitesData, website)) {
+
+                                    const aWebsiteData = websitesData[website];
+                                    let websiteWithoutSlash = website.replace(/\/$/, '')
+                                    const websiteURLObject = new URL(website)
+                                    const websiteDomain = websiteURLObject.origin
+                                    const numOfShortcuts = (Object.keys(aWebsiteData.shortcuts) || []).length;
+
+                                    if (!(Object.keys(returnData.allDomains)).includes(websiteDomain) && websitesData[websiteDomain]) {
+                                        returnData.allDomains[websiteDomain] = returnData.allDomains[websiteDomain] || (Object.keys(websitesData[websiteDomain].shortcuts) || []).length
+                                    }
+                                    if (!(Object.keys(returnData.domainsWithoutPages)).includes(websiteDomain) && websitesData[websiteDomain]) {
+                                        returnData.domainsWithoutPages[websiteDomain] = returnData.domainsWithoutPages[websiteDomain] || (Object.keys(websitesData[websiteDomain].shortcuts) || []).length
+
+                                    }
+                                    if (website != websiteDomain) {
+                                        returnData.domainAndTheirPages[websiteDomain] = returnData.domainAndTheirPages[websiteDomain] || {}
+                                        returnData.domainAndTheirPages[websiteDomain].pages = returnData.domainAndTheirPages[websiteDomain].pages || {}
+                                        returnData.domainAndTheirPages[websiteDomain].pages[website] = numOfShortcuts
+
+                                        if (returnData.domainsWithoutPages[websiteDomain]) {
+                                            delete returnData.domainsWithoutPages[websiteDomain]
+                                        }
+
+                                        if (websitesData[websiteDomain]) {
+                                            returnData.domainAndTheirPages[websiteDomain].shortcuts = returnData.domainAndTheirPages[websiteDomain].shortcuts || (Object.keys(websitesData[websiteDomain].shortcuts || []).length)
+                                        }
+                                        else {
+                                            returnData.domainAndTheirPages[websiteDomain].shortcuts = returnData.domainAndTheirPages[websiteDomain].shortcuts || 0
+                                        }
+                                    }
+
+
+
+                                }
+                            }
+                            return returnData
+
+                        }
+
+
+                        setEvent(confirmImportButton, 'click', async (e) => {
+                            opt.playSoundEffect('click')
+
+                            let importType = importTypeSelect.value
+                            if (importType != "overwrite" && importType != "mergeAndReplaceExisting" && importType != "mergeAndKeepExisting") {
+                                alert("Something's not right...")
+                            }
+                            let selectedWebsites = []
+                            qSA('input[data-shortcuts]', qS('.websitesToImportCheckboxes-wrapper')).forEach(checkBox => {
+                                let url = checkBox.value
+                                if (checkBox.checked) {
+                                    if (!selectedWebsites.includes(url) && getAttr(checkBox, 'data-shortcuts') > 0) {
+                                        selectedWebsites.push(url)
+                                    }
+                                }
+                            })
+                            if (!(selectedWebsites.length > 0)) {
+                                alert('Please Select one or more websites to import')
+                                return
+                            }
+
+                            if (await confirmationDialogOpener('Are you sure you want to import those Web Shortcuts?')) {
+                                let mergedWebsitesData = opt.websitesData; // Default value
+
+                                let importedWebsitesData = {};
+                                selectedWebsites.forEach(website => {
+                                    importedWebsitesData[website] = importedData.websitesData[website]
+                                })
+
+
+                                if (importType == 'overwrite') {
+                                    if (isObjEmpty(opt.websitesData) || confirm("WARNING: THIS WILL OVERWRITE ALL YOUR DATA!!! Please make sure the Import Type is correct")) {
+                                        for (const importedWebsite in importedWebsitesData) {
+                                            console.log("Selected Website:");
+                                            console.log(importedWebsite);
+                                            if (Object.hasOwnProperty.call(importedWebsitesData, importedWebsite)) {
+                                                const aImportedWebsiteData = importedWebsitesData[importedWebsite];
+                                                mergedWebsitesData[importedWebsite] = aImportedWebsiteData
+                                            }
+                                        }
+                                        opt.completeData.websitesData = mergedWebsitesData
+                                        setStorage({ ...opt.completeData })
+                                    }
+                                    else {
+                                        return
+                                    }
+                                }
+                                else if (importType == "mergeAndReplaceExisting") {
+
+                                    for (const importedWebsite in importedWebsitesData) {
+                                        if (Object.hasOwnProperty.call(importedWebsitesData, importedWebsite)) {
+                                            const aImportedWebsiteShortcuts = importedWebsitesData[importedWebsite].shortcuts;
+                                            console.log("Imported website shortcuts");
+                                            console.log(aImportedWebsiteShortcuts);
+
+                                            // the imported website already exists or not
+                                            if (mergedWebsitesData[importedWebsite]) {
+                                                console.log("Website already exists");
+                                                for (const importedShortcut in aImportedWebsiteShortcuts) {
+                                                    if (Object.hasOwnProperty.call(aImportedWebsiteShortcuts, importedShortcut)) {
+                                                        const importedWebShortcutData = aImportedWebsiteShortcuts[importedShortcut];
+                                                        console.log("Upcoming Shortcut: ", importedShortcut);
+                                                        console.log("Upcoming Shortcut Data: ", importedWebShortcutData);
+
+                                                        mergedWebsitesData[importedWebsite].shortcuts[importedShortcut] = importedWebShortcutData
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                console.log("Website DOESN'T exist");
+                                                mergedWebsitesData[importedWebsite] = importedWebsitesData[importedWebsite]
+                                            }
+
+                                        }
+                                    }
+                                    opt.completeData.websitesData = mergedWebsitesData
+                                    setStorage({ ...opt.completeData })
+
+                                }
+                                else if (importType == "mergeAndKeepExisting") {
+
+                                    for (const importedWebsite in importedWebsitesData) {
+                                        if (Object.hasOwnProperty.call(importedWebsitesData, importedWebsite)) {
+                                            const aImportedWebsiteShortcuts = importedWebsitesData[importedWebsite].shortcuts;
+
+                                            // the imported website already exists or not
+                                            if (mergedWebsitesData[importedWebsite]) {
+                                                for (const importedShortcut in aImportedWebsiteShortcuts) {
+                                                    if (Object.hasOwnProperty.call(aImportedWebsiteShortcuts, importedShortcut)) {
+                                                        const importedWebShortcutData = aImportedWebsiteShortcuts[importedShortcut];
+
+                                                        // If the imported shortcut key DOESN'T exist, then import the imported shortcut
+                                                        if (!mergedWebsitesData[importedWebsite].shortcuts[importedShortcut]) {
+                                                            mergedWebsitesData[importedWebsite].shortcuts[importedShortcut] = importedWebShortcutData
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                            else {
+                                                mergedWebsitesData[importedWebsite] = importedWebsitesData[importedWebsite]
+                                            }
+
+                                        }
+                                    }
+                                    opt.completeData.websitesData = mergedWebsitesData
+                                    setStorage({ ...opt.completeData })
+                                }
+                                console.log("Merged websites data");
+                                console.log(mergedWebsitesData);
+                                closeImportDataDialogButton.dispatchEvent(new MouseEvent('click'))
+
+                                alert('Data Imported Successfuly!')
+                            }
+                            else {
+                                return
+                            }
+                        })
+
+
+                        const fileInput = qS('#importDataInput', qS('.importDataDialog'));
+                        const selectDataFileButton = qS('.selectDataFileButton', qS('.importDataDialog'));
+                        let importedData;
+
+                        selectDataFileButton.addEventListener('click', function () {
+                            opt.playSoundEffect('click')
+                            fileInput.click(); // Trigger click on the hidden file input
+                        });
+
+                        fileInput.addEventListener('change', function (event) {
+                            const file = event.target.files[0];
+                            if (!file) return;
+
+
+                            const reader = new FileReader();
+
+                            reader.onload = function (e) {
+                                const content = e.target.result;
+                                try {
+                                    importedData = JSON.parse(content);
+                                    // console.log('Imported data:', importedData);
+
+                                    // Schema for 'selected' object inside 'shortcuts'
+                                    const selectedSchema = Joi.object({
+                                        cssSelector: Joi.string().required()
+                                    });
+
+                                    // Schema for each shortcut object inside 'websitesData'
+                                    const shortcutSchema = Joi.object({
+                                        enabled: Joi.boolean().required(),
+                                        name: Joi.string().min(1).max(20).required(),
+                                        properties: Joi.object({
+                                            action: Joi.string().valid('click', 'focus').required(),
+                                            urlType: Joi.string().valid('domainAndAllPages', 'domainAndPage', 'onlyDomain', 'onlyPage', 'fullPath').required()
+                                        }).required(),
+                                        selected: selectedSchema.required(),
+                                        type: Joi.string().valid('singleElement').required()
+                                    });
+
+                                    // Schema for each website object inside 'websitesData'
+                                    const websiteSchema = Joi.object().pattern(
+                                        Joi.string(),
+                                        Joi.object({
+                                            settings: Joi.object({
+                                                enabled: Joi.boolean().required()
+                                            }).required(),
+                                            shortcuts: Joi.object().pattern(Joi.string().max(1), shortcutSchema).required()
+                                        })
+                                    );
+
+                                    // Complete schema for the entire data structure
+                                    const schema = Joi.object({
+                                        websitesData: websiteSchema.required()
+                                    });
+
+                                    const validationResult = schema.validate(importedData);
+
+                                    if (validationResult.error) {
+                                        // console.error('Validation Error:', validationResult.error.details);
+
+                                        alert('Data format is wrong')
+                                    }
+                                    else {
+                                        // console.log('Data is valid:', validationResult.value);
+                                        qS('.selectDataFileButton span').innerText = 'Change File'
+
+                                        const fileName = file.name;
+                                        selectedFileNameSpan.textContent = fileName
+
+                                        importTypeSelect.disabled = false
+                                        confirmImportButton.disabled = false
+
+                                        let formattedShortcutsData = getFormattedDataShortcuts(importedData.websitesData)
+
+                                        let websitesToImportCheckboxes_Wrapper = qS('.websitesToImportCheckboxes-wrapper')
+                                        let noFileSelected = qS('.noFileSelected')
+                                        websitesToImportCheckboxes_Wrapper.style.display = 'flex'
+                                        noFileSelected.style.display = 'none'
+
+                                        let websitesToImportCheckboxes_wrapper = qS('.websitesToImportCheckboxes-wrapper')
+                                        // Removing if any website checkboxes already exists for situations when file is changed
+                                        if (qS('.websiteCheckbox-wrapper', websitesToImportCheckboxes_wrapper)) {
+                                            let existingWebsiteCheckboxes = Array.from(websitesToImportCheckboxes_wrapper.children)
+                                            existingWebsiteCheckboxes.forEach(child => {
+                                                if (!(child.classList.contains('selectAllWebsitesCheckbox-wrapper')) && !(child.tagName == 'TEMPLATE')) {
+                                                    websitesToImportCheckboxes_wrapper.removeChild(child)
+                                                }
+                                            })
+                                        }
+
+
+                                        let websiteCheckboxWrapper_template = qS('.websiteCheckboxWrapper_template')
+
+                                        // Websites Without Pages
+                                        for (const website in formattedShortcutsData.domainsWithoutPages) {
+                                            let websiteCheckboxWrapper_HTML = websiteCheckboxWrapper_template.content.cloneNode(true)
+                                            const websiteCheckbox_Wrapper = qS('.websiteCheckbox-wrapper', websiteCheckboxWrapper_HTML)
+                                            if (Object.hasOwnProperty.call(formattedShortcutsData.domainsWithoutPages, website)) {
+                                                const numOfShortcut = formattedShortcutsData.domainsWithoutPages[website];
+                                                qS('input', websiteCheckbox_Wrapper).value = website
+                                                setAttr(qS('input', websiteCheckbox_Wrapper), 'data-shortcuts', numOfShortcut)
+                                                qS('label', websiteCheckbox_Wrapper).innerHTML = `${website} <span>(${numOfShortcut})</span>`
+                                                qS('input', websiteCheckbox_Wrapper).id = website
+                                                setAttr(qS('label', websiteCheckbox_Wrapper), 'for', website)
+
+                                                websitesToImportCheckboxes_wrapper.appendChild(websiteCheckbox_Wrapper)
+                                            }
+                                        }
+
+                                        // Websites With Pages
+                                        for (const domain in formattedShortcutsData.domainAndTheirPages) {
+                                            const urlWithSubUrls_template = qS('.urlWithSubUrls_template')
+                                            const urlWithSubUrls_HTML = urlWithSubUrls_template.content.cloneNode(true)
+
+                                            const urlWithSubUrls = qS('.urlWithSubUrls', urlWithSubUrls_HTML)
+                                            if (Object.hasOwnProperty.call(formattedShortcutsData.domainAndTheirPages, domain)) {
+                                                const numOfDomainShortcuts = formattedShortcutsData.domainAndTheirPages[domain].shortcuts;
+
+                                                qS('.domainCheckbox input', urlWithSubUrls).value = domain
+                                                qS('.domainCheckbox input', urlWithSubUrls).id = domain
+                                                setAttr(qS('.domainCheckbox input', urlWithSubUrls), 'data-shortcuts', numOfDomainShortcuts)
+
+                                                qS('.domainCheckbox label', urlWithSubUrls).innerHTML = `${domain} <span>(${numOfDomainShortcuts})</span>`
+                                                setAttr(qS('.domainCheckbox label', urlWithSubUrls), 'for', domain)
+
+                                                let domainPages = formattedShortcutsData.domainAndTheirPages[domain].pages
+                                                for (const page in domainPages) {
+                                                    let websiteCheckboxWrapper_HTML = websiteCheckboxWrapper_template.content.cloneNode(true)
+                                                    const websiteCheckbox_Wrapper = qS('.websiteCheckbox-wrapper', websiteCheckboxWrapper_HTML)
+
+
+                                                    if (Object.hasOwnProperty.call(domainPages, page)) {
+                                                        const numOfPageShortcuts = domainPages[page];
+
+                                                        qS('input', websiteCheckbox_Wrapper).value = page
+                                                        setAttr(qS('input', websiteCheckbox_Wrapper), 'data-shortcuts', numOfPageShortcuts)
+                                                        qS('label', websiteCheckbox_Wrapper).innerHTML = `${page} <span>(${numOfPageShortcuts})</span>`
+                                                        qS('input', websiteCheckbox_Wrapper).id = page
+                                                        setAttr(qS('label', websiteCheckbox_Wrapper), 'for', page)
+
+                                                        let li = document.createElement('li')
+
+
+                                                        li.appendChild(websiteCheckbox_Wrapper)
+                                                        qS('.subUrlsCheckboxesList', urlWithSubUrls).appendChild(li)
+                                                    }
+                                                }
+
+                                                websitesToImportCheckboxes_wrapper.appendChild(urlWithSubUrls)
+
+
+                                            }
+
+
+                                        }
+
+                                        // Initially all the imported websites will be selected
+                                        let selectedWebsites = Object.keys(importedData.websitesData)
+
+
+                                        qSA('input', websitesToImportCheckboxes_wrapper).forEach(checkBox => {
+                                            checkBox.checked = true
+
+                                            let url = checkBox.value
+                                        })
+
+                                        qS('.selectAllWebsitesCheckbox-wrapper input').checked = true
+                                        setEvent(qS('.selectAllWebsitesCheckbox-wrapper input'), 'change', (e) => {
+                                            qSA('input', websitesToImportCheckboxes_wrapper).forEach(checkBox => {
+                                                checkBox.checked = e.srcElement.checked
+                                            })
+                                        })
+
+
+                                        qSA('.urlWithSubUrls').forEach(urlWithSubUrlsWrapper => {
+                                            setEvent(qS('.domainCheckbox input', urlWithSubUrlsWrapper), 'change', (e) => {
+                                                qSA('.subUrlsCheckboxesList input', urlWithSubUrlsWrapper).forEach(eachInputInsideDomain => {
+                                                    eachInputInsideDomain.checked = e.srcElement.checked
+                                                    eachInputInsideDomain.dispatchEvent(new Event('change'));
+                                                })
+                                            })
+                                        })
+
+                                        qSA('div.websiteCheckbox-wrapper', websitesToImportCheckboxes_wrapper).forEach(websiteCheckboxWrapper => {
+                                            websiteCheckboxWrapper.addEventListener('click', (e) => {
+                                                opt.playSoundEffect('click2',.2)
+
+                                                if (e.srcElement.classList.contains('websiteCheckbox-wrapper')) {
+                                                    const checkbox = qS('input[type="checkbox"]', websiteCheckboxWrapper);
+                                                    checkbox.checked = !checkbox.checked;
+                                                    checkbox.dispatchEvent(new Event('change'));
+                                                }
+                                            })
+                                        })
+
+
+                                    }
+
+                                }
+                                catch (error) {
+                                    console.error(error);
+                                }
+                            };
+
+                            reader.readAsText(file);
+                        });
+
+
+                    }
 
 
                     // ------------------------- Enable/Disable Website -------------------------
@@ -971,10 +1451,10 @@ const opt = {
                         if (e.target.checked) {
                             // console.log('Extension Disabled');
                             opt.completeData.globalSettings.extensionEnabled = false
-                            playSoundEffect('switchOff')
+                            opt.playSoundEffect('switchOff')
                         } else {
                             // console.log('Extension Enabled');
-                            playSoundEffect('switchOn')
+                            opt.playSoundEffect('switchOn')
                             opt.completeData.globalSettings.extensionEnabled = true
                         }
                         await setStorage({ ...opt.completeData })
@@ -991,7 +1471,7 @@ const opt = {
                     disableSoundToggle.addEventListener('change', async (e) => {
                         if (e.target.checked) {
                             // console.log('Sounds Disabled');
-                            playSoundEffect('switchOff')
+                            opt.playSoundEffect('switchOff')
                             opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = false
                         } else {
                             // console.log('Sounds Enabled');
@@ -999,7 +1479,7 @@ const opt = {
                         }
                         await setStorage({ ...opt.completeData })
                         if (opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled = true) {
-                            playSoundEffect('switchOn')
+                            opt.playSoundEffect('switchOn')
 
                         }
                         // console.log(opt.completeData.globalSettings.optionsPageSettings.optionsPageSoundsEnabled);
@@ -1008,11 +1488,11 @@ const opt = {
 
                     // Clear All Data Button
                     setEvent(qS('.clearAllDataButton'), 'click', async (e) => {
-                        playSoundEffect('click')
+                        opt.playSoundEffect('click')
                         if (await confirmationDialogOpener('Warning: Deleting all data. Are you sure you want to proceed?')) {
                             opt.clearAllData()
                         }
-                        playSoundEffect('click')
+                        opt.playSoundEffect('click')
 
                     })
 
@@ -1025,23 +1505,23 @@ const opt = {
 
                     let settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
                     removeAllEventListenersOfElements(settingsGroupLinks)
-                    
+
                     settingsGroupLinks = qSA('.usefulLinks-wrapper .links')
                     // console.log(settingsGroupLinks);
 
-                    settingsGroupLinks.forEach(link=>{
+                    settingsGroupLinks.forEach(link => {
                         setEvent(link, 'mouseenter', () => {
-                            playSoundEffect('hover', 0.3)
+                            opt.playSoundEffect('hover', 0.3)
                         })
                         if (link.classList.contains('sponsorLink')) {
                             setEvent(link, 'click', () => {
-                                playSoundEffect('sponsor')
+                                opt.playSoundEffect('sponsor')
                             })
-                            
+
                         }
-                        else{
+                        else {
                             setEvent(link, 'click', () => {
-                                playSoundEffect('click2')
+                                opt.playSoundEffect('click2')
                             })
                         }
                     })
@@ -1071,17 +1551,28 @@ const opt = {
 
                     if (e.key == 'e' || e.key == 'E') {
                         if (activeElement.classList.contains('shortcutSettings-wrapper') || qS('.shortcutSettings-wrapper:hover')) {
-                            (qS('.shortcutSettings-wrapper:focus .editShortcutButton') || qS('.shortcutSettings-wrapper:hover .editShortcutButton')).click()                            
+                            (qS('.shortcutSettings-wrapper:focus .editShortcutButton') || qS('.shortcutSettings-wrapper:hover .editShortcutButton')).click()
                         }
                     }
                     else if (e.key == 'd' || e.key == 'D') {
                         if (activeElement.classList.contains('shortcutSettings-wrapper') || qS('.shortcutSettings-wrapper:hover')) {
-                            (qS('.shortcutSettings-wrapper:focus .deleteShortcutButton') || qS('.shortcutSettings-wrapper:hover .deleteShortcutButton')).click()                            
+                            (qS('.shortcutSettings-wrapper:focus .deleteShortcutButton') || qS('.shortcutSettings-wrapper:hover .deleteShortcutButton')).click()
                         }
                     }
-
-                    // else if (e.key == 'Escape') {
-                    // }
+                    else if (e.key == '?') {
+                        qS('.helpButton').dispatchEvent(new MouseEvent('click'))
+                    }
+                    else if (e.key == 'Escape') {
+                        if (qS('dialog[open]')) {
+                            console.log(qS('dialog[open] i.fa-close'));
+                            qS('dialog[open] i.fa-close').click()
+                        }
+                    }
+                    else if (['1', '2', '3'].includes(e.key)){
+                        let groupButton = qS(`.navigationButton[data-groupid="g${e.key}"]:not(.active)`)
+                        console.log(groupButton);
+                        groupButton.dispatchEvent(new MouseEvent('click'))
+                    }
                 }
 
                 window.addEventListener('keydown', keyboardShortcuts)
@@ -1094,7 +1585,7 @@ const opt = {
                         opt.currentState.activeGroup = groupID
                         opt.updateDOM('changeActiveGroup')
 
-                        playSoundEffect('select', .5)
+                        opt.playSoundEffect('select', .5)
                     })
                 })
                 opt.currentState.activeGroup = 'g1'
@@ -1147,14 +1638,14 @@ const opt = {
                     if (ceilingLightWrapper.classList.contains('rightLight-wrapper')) {
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right = !opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right
 
-                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? opt.playSoundEffect('lightsOn') : opt.playSoundEffect('lightsOff')
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.right ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
 
                     }
                     else {
 
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left = !opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left
-                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? playSoundEffect('lightsOn') : playSoundEffect('lightsOff')
+                        opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? opt.playSoundEffect('lightsOn') : opt.playSoundEffect('lightsOff')
                         opt.completeData.globalSettings.optionsPageSettings.optionsPageLights.left ? switchClass(ceilingLightWrapper, 'inactive', 'active') : switchClass(ceilingLightWrapper, 'active', 'inactive')
                     }
                     await setStorage({ ...opt.completeData })
@@ -1247,13 +1738,13 @@ const opt = {
 
 
                 function closeHelpDialog() {
-                    playSoundEffect('click')
+                    opt.playSoundEffect('click')
                     helpDialog.close()
                     updateCSS(helpDialog, { 'display': 'none' })
                 }
                 setEvent(closeHelpDialogButton, 'click', closeHelpDialog)
                 helpButton.addEventListener('click', (e) => {
-                    playSoundEffect('click')
+                    opt.playSoundEffect('click')
                     helpDialog.showModal()
                     updateCSS(helpDialog, { 'display': 'flex' })
                     // console.log(helpDialog);
@@ -1263,9 +1754,6 @@ const opt = {
                         closeHelpDialog()
                     }
                 })
-
-
-
             },
 
 
@@ -1436,6 +1924,19 @@ const opt = {
             await opt.getCompleteData()
         })
 
+
+
+        setEvent(qS('.closeWhatsNewDialogButton'), 'click', () => {
+            opt.playSoundEffect('click')
+            qS('.whatsNewDialog').close()
+            qS('.whatsNewDialog').style.display = 'none'
+        })
+        
+        setEvent(qS('.whatsNewButton'), 'click', () => {
+            opt.playSoundEffect('click')
+            qS('.whatsNewDialog').showModal()
+            qS('.whatsNewDialog').style.display = 'flex'
+        })
     }
 }
 

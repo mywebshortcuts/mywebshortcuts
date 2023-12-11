@@ -7,6 +7,7 @@ body {
 	flex-direction: column;
 
 	position: relative;
+	overflow-x: hidden;
 }
 body::-webkit-scrollbar-track-piece {
 	margin: 0.5rem;
@@ -196,20 +197,28 @@ main {
 
 	margin-block: 0.1rem;
 
-	transition: 0.2s ease;
+	transition: 0.05s ease;
 	position: relative;
 }
 .url-wrapper:hover {
 	background-color: #181818;
 	cursor: pointer;
+
+
+	z-index: 2;
+	box-shadow: 0rem 0rem .5rem 0.125rem #000000;
+	transform: scale(1.01);
 }
 .url-wrapper:focus {
 	outline: 0.125rem solid var(--light-blue);
 }
 .url-wrapper.pagesListOpen {
+	z-index: 2;
 	background-color: #161616;
 	border-bottom-left-radius: 0rem;
 	border-bottom-right-radius: 0rem;
+	box-shadow: 0rem 0rem .5rem 0.125rem #000000;
+	transform: scale(1.01);
 }
 .urlSpan {
 	width: 80%;
@@ -271,11 +280,15 @@ main {
 
 	background-color: #161616;
 	box-shadow: 0rem 0.25rem 0.25rem 0rem #181818;
+	box-shadow: 0rem .3rem .5rem 0.125rem #000000;
+
 	border-radius: 1rem;
 
 	border-top-left-radius: 0rem;
 	border-top-right-radius: 0rem;
 	flex-direction: column;
+
+
 }
 .subURLs-wrapper.active {
 	display: flex;
@@ -515,7 +528,7 @@ main {
 
 	position: relative;
 
-	/* transition: 0.2s ease; */
+	transition: 0.2s ease;
 
 	margin-block: 0.12rem;
 
@@ -822,6 +835,190 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 	/* width: 70%; */
 }
 
+
+
+.importDataDialog{
+	max-width: 40%;
+	padding: 2rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	display: none;
+	overflow-y: hidden;
+
+
+}
+.importDataDialog > div{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	margin-block: .2rem;
+
+	padding-block: .5rem;
+}
+
+
+.importDataDialog .importData-wrapper{
+	display: flex;
+	justify-content: space-evenly;
+	flex-direction: column;
+	align-items: center;
+	color: #bfbfbf;
+}
+
+.selectDataFileButton{
+	width: max-content;
+	margin-top: .5rem;
+	padding-inline: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	font-size: 1.2rem;
+
+	
+}
+.selectDataFileButton i{
+	margin-inline: .3rem;
+}
+
+div.importType-wrapper h3{
+	text-align: center;
+
+}
+div.importType-wrapper{
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+
+}
+
+.importTypeSelect{
+	width: fit-content;
+	font-size: 1rem;
+}
+.importTypeDefinitionSpan{
+	margin-block: .5rem;
+	color: var(--red);
+}
+
+.websitesToImport-wrapper h3{
+	margin-bottom: .2rem;
+}
+.noFileSelected{
+	width: 100%;
+	background-color: #171515;
+	border-radius: 1rem;
+	padding: 5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: #bfbfbf;
+	user-select: none;
+}
+
+.websitesToImport-wrapper .websitesToImportCheckboxes-wrapper{
+	background-color: #171515;
+	border-radius: 1rem;
+	max-height: 15rem;
+	overflow-y: scroll;
+	
+	position: relative;
+	padding: 1rem;
+	padding-top: 0rem;
+
+	color: #bfbfbf;
+	display: none;
+	flex-direction: column;
+
+	/* user-select: none; */
+}
+.websitesToImport-wrapper .websitesToImportCheckboxes-wrapper::-webkit-scrollbar-track{
+	margin-block: 1rem;
+}
+
+.selectAllWebsitesCheckbox-wrapper{
+	position: sticky;
+	top: 0rem;
+	padding: 0.5rem 0rem;
+	background-color: inherit;
+	/* border-radius: inherit; */
+	border-top-right-radius: 0rem;
+	border-top-left-radius: 0rem;
+	font-size: 1.2rem;
+}
+.selectAllWebsitesCheckbox-wrapper label,
+.selectAllWebsitesCheckbox-wrapper input{
+	cursor: pointer;
+	color: white;
+}
+
+.websiteCheckbox-wrapper{
+	/* margin-block: .3rem; */
+	padding: .3rem;
+	border-radius: .5rem;
+}
+.websiteCheckbox-wrapper:hover{
+	background-color: #1f1f1f;
+	width: 100%;
+}
+.websiteCheckbox-wrapper input,
+.websiteCheckbox-wrapper label{
+	cursor: pointer;
+}
+.websiteCheckbox-wrapper:hover,
+.websiteCheckbox-wrapper input:hover label,
+.websiteCheckbox-wrapper label:hover{
+	color: white;
+	cursor: pointer;
+}
+.websiteCheckbox-wrapper label{
+	width: 100%;
+}
+.websiteCheckbox-wrapper input:checked label{
+	color: green;
+}
+.websiteCheckbox-wrapper label span{
+	color: var(--dark-blue);
+
+}
+
+.websitesToImport-wrapper .urlWithSubUrls{
+	/* margin-block: .2rem; */
+}
+.websitesToImport-wrapper .urlWithSubUrls ul{
+	list-style-type: none;
+	margin-inline: 1rem;
+	/* border: 1px solid var(--dark-green); */
+	
+}
+.websitesToImport-wrapper .urlWithSubUrls ul li{
+	/* margin-block: .5rem; */
+}
+.websitesToImport-wrapper .urlWithSubUrls ul li:only-child{
+	/* margin-block: .5rem; */
+}
+
+
+.confirmImportButton{
+	/* padding: 1rem; */
+	font-size: 1.2rem;
+	/* background-color: rgb(0, 114, 190); */
+	/* text-shadow: 0px 1px 1px black; */
+}
+.confirmImportButton:hover{
+	/* background-color: rgb(0, 75, 124); */
+}
+
+
+
+
+
+
+
+
 /* --------------------------- GROUP 3 --------------------------- */
 
 .settingsGroup#g3 {
@@ -850,6 +1047,7 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 
 	box-shadow: inset 0rem 0rem 1.5rem 0rem black;
 	transition: 0.5s ease;
+	position: relative;
 }
 .bannerImage-wrapper:hover {
 	background-image: url('../assets/big_banner.gif');
@@ -1206,7 +1404,7 @@ footer a:hover {
 	position: absolute;
 	opacity: 0.5;
 	pointer-events: none;
-	z-index: 1;
+	z-index: 2;
 }
 
 .helpButton-wrapper {
@@ -1306,4 +1504,203 @@ button.closeHelpDialogButton {
 .email{
 	background-color: #464646;
 
+}
+
+
+
+/* Campfire */
+
+.cartoonCampfire-wrapper{
+	position: fixed;
+	bottom: 0rem;
+	left: 0rem;
+	
+	display: flex;
+	justify-content: center;
+	align-items: baseline;
+	width: 22rem;
+	user-select: none;
+	
+	/* border: 3px solid var(--dark-blue); */
+	border-bottom: none;
+
+	/* background-color: #181818; */
+	border-top-left-radius: 2rem;
+	border-top-right-radius: 2rem;
+	
+	z-index: 5;
+}
+
+.cartoonCampfire-wrapper:hover .campfire_circle{
+	transition: 2s ease;
+	box-shadow: 0rem -1rem 6rem 3rem orange;
+	animation: none;
+}
+.cartoonCampfire-wrapper:hover .cartoonCampfire{
+}
+.cartoonCampfire-wrapper:hover .cartoonKeyboard{
+	transition: transform 2s ease;
+	transform: translateX(1rem);
+}
+.cartoonCampfire-wrapper:hover .cartoonGlobe{
+	transition: transform 2s ease;
+	transform: translateX(-1rem);
+}
+
+
+img.snowCap{
+	width: 32rem;
+	position: fixed;
+	top: -4rem;
+	/* left: 30vw; */
+	right: 4%;
+	z-index: 5;
+	pointer-events: none;
+}
+.cartoonCampfire-wrapper img{
+	width: 100%;
+	position: relative;
+	bottom: -.5rem;
+	z-index: -5;
+	transition: transform 2s ease;
+	pointer-events: none;
+
+}
+.hidden.cartoonCampfire-wrapper{
+	bottom: -4rem;
+}
+.hidden.cartoonCampfire-wrapper .campfire-wrapper{
+	/* bottom: -4rem; */
+	/* display: none; */
+	opacity: 0;
+}
+
+.winterHouse{
+	width: 20rem;
+	bottom: -1rem;
+	left: 0rem;
+	z-index: 3;
+	/* display: none; */
+	position: fixed;
+	pointer-events: none;
+}
+
+.campfire-wrapper{
+	display: flex;
+	position: relative;
+	/* border: 1px solid red; */
+
+}
+.campfire-wrapper img{
+	/* width: 100%; */
+	position: relative;
+	bottom: -1.5rem;
+}
+
+.campfire_circle{
+	/* display: none; */
+	/* z-index: 5; */
+	transition: 2s ease;
+
+	position: absolute;
+	bottom: 2rem;
+	left: 50%;
+	border-radius: 50%;
+	margin: auto;
+	/* padding: .1rem; */
+	/* box-shadow: 0rem -2rem 6rem 4rem orange; */
+	animation: flames 1s;
+	animation-iteration-count: infinite;
+	animation-timing-function: linear;
+}
+
+@keyframes flames {
+	0%{
+		box-shadow: 0rem -1rem 4rem 2rem orange;
+	}
+	50%{
+		box-shadow: 0rem -1rem 5rem 2rem orange;
+	}
+	100%{
+		box-shadow: 0rem -1rem 4rem 2rem orange;
+	}
+	
+}
+
+
+.whatsNewDialog{
+	position: fixed;
+	max-width: 50%;
+	padding: 2rem;
+	display: none;
+	color: #bfbfbf;
+
+	/* overflow-y: hidden; */
+}
+.whatsNewDialog h2{
+	color: var(--dark-green);
+}
+.whatsNewDialog h2,
+.whatsNewDialog span{
+	margin-block: .5rem;
+	line-height: 1.5rem;
+}
+.whatsNewDialog .colorsMeaningSpan{
+	color: white;
+}
+.whatsNewDialog .reviewSpan{
+	text-align: center;
+	font-size: .8rem;
+	color: white;
+}
+.whatsNewDialog .reviewSpan .productHuntReview{
+	color: #ff6154;
+	font-size: 1rem;
+}
+.whatsNewDialog .reviewSpan .webstoreReview{
+	color: #4C8BF5;	
+	font-size: 1rem;
+}
+
+
+.whatsNewDialog img{
+	position: absolute;
+	width: 20rem;
+	z-index: -1;
+	opacity: 0.1;
+}
+.whatsNewDialog .whatsNewGlobe{
+	top: 3rem;
+	right: 2rem;
+}
+.whatsNewDialog .whatsNewKeyboard{
+	top: 2rem;
+	left: 2rem;
+  transform: scaleX(-1)
+}
+
+
+.whatsNewDialog ul{
+	padding-inline: 2rem;
+	font-size: .9rem;
+	overflow-y: scroll;
+	max-height: 15rem;
+
+	background-color: #161616;
+	border-radius: 1rem;
+	list-style-type: disc;
+}
+.whatsNewDialog li{
+	margin-block: 1rem;
+}
+.whatsNewDialog li strong{
+	color: white;
+}
+
+.whatsNewButton{
+	position: fixed;
+	font-size: 1rem;
+	bottom: 2rem;
+	right: 7rem;
+	background-color: #161616;
 }

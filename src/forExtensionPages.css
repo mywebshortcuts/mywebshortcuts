@@ -139,6 +139,7 @@
 	background: rgba(93, 128, 151, 0.768);
 	border-radius: 0.5rem;
 }
+
 ::-webkit-scrollbar-thumb:hover {
 	background: rgb(93, 128, 151);
 }
@@ -267,31 +268,46 @@ button.actionButton:hover {
 }
 
 /* Danger Button  */
-.dangerButtonWithText-wrapper {
+.buttonWithText-wrapper {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	justify-content: space-between;
 	padding: 0.5rem;
 	font-size: 1rem;
-	border: 0.0625rem solid var(--red);
 	border-radius: 1rem;
-
+	border: 0.0625rem solid #bfbfbf;
+	
 	background-color: #1f1f1f;
 }
-.dangerButtonWithText-wrapper .text {
-	/* color: rgba(255, 2	55, 255, 0.65); */
-	color: var(--red);
+.buttonWithText-wrapper .text {
+	color: var(--grey);
 	margin-inline: 1rem;
 }
-.dangerButtonWithText-wrapper .dangerButton {
+.buttonWithText-wrapper button {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
 	gap: 0.5rem;
 	padding: 0.75rem 1rem;
 	font-size: 1rem;
+
 }
+
+.buttonWithText-wrapper.red {
+	border: 0.0625rem solid var(--red);
+}
+.buttonWithText-wrapper.red .text {
+	color: var(--red);
+}
+
+.buttonWithText-wrapper.green {
+	border: 0.0625rem solid var(--dark-green);
+}
+.buttonWithText-wrapper.green .text {
+	color: var(--dark-green);
+}
+
 
 /* LINK STYLES  */
 a {
