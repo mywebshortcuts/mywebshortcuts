@@ -1643,9 +1643,25 @@ img.snowCap{
 .whatsNewDialog h2,
 .whatsNewDialog span{
 	margin-block: .5rem;
-	/* text-align: center; */
 	line-height: 1.5rem;
 }
+.whatsNewDialog .colorsMeaningSpan{
+	color: white;
+}
+.whatsNewDialog .reviewSpan{
+	text-align: center;
+	font-size: .8rem;
+	color: white;
+}
+.whatsNewDialog .reviewSpan .productHuntReview{
+	color: #ff6154;
+	font-size: 1rem;
+}
+.whatsNewDialog .reviewSpan .webstoreReview{
+	color: #4C8BF5;	
+	font-size: 1rem;
+}
+
 
 .whatsNewDialog img{
 	position: absolute;
