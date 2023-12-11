@@ -1404,7 +1404,7 @@ footer a:hover {
 	position: absolute;
 	opacity: 0.5;
 	pointer-events: none;
-	z-index: 1;
+	z-index: 2;
 }
 
 .helpButton-wrapper {
@@ -1550,7 +1550,7 @@ button.closeHelpDialogButton {
 
 img.snowCap{
 	width: 32rem;
-	position: absolute;
+	position: fixed;
 	top: -4rem;
 	/* left: 30vw; */
 	right: 4%;
@@ -1579,7 +1579,7 @@ img.snowCap{
 	width: 20rem;
 	bottom: -1rem;
 	left: 0rem;
-	z-index: 2;
+	z-index: 3;
 	/* display: none; */
 	position: fixed;
 	pointer-events: none;
