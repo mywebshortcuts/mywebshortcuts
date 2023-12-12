@@ -1570,7 +1570,7 @@ const opt = {
                     }
                     else if (['1', '2', '3'].includes(e.key)){
                         let groupButton = qS(`.navigationButton[data-groupid="g${e.key}"]:not(.active)`)
-                        console.log(groupButton);
+                        // console.log(groupButton);
                         groupButton.dispatchEvent(new MouseEvent('click'))
                     }
                 }
