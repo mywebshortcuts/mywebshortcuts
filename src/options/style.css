@@ -1039,7 +1039,8 @@ div.importType-wrapper{
 	border-bottom-left-radius: 0rem;
 	border-bottom-right-radius: 0rem;
 
-	background-image: url('../assets/big_banner.png');
+	/* background-image: url('../assets/big_banner.png'); */
+	background-image: url('../assets/banner.png');
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
@@ -1050,7 +1051,7 @@ div.importType-wrapper{
 	position: relative;
 }
 .bannerImage-wrapper:hover {
-	background-image: url('../assets/big_banner.gif');
+	background-image: url('../assets/animatedBanner.gif');
 	transition: 0.5s ease;
 	box-shadow: inset 0rem 0rem 0.8rem 0rem black;
 	cursor: pointer;
@@ -1059,7 +1060,9 @@ div.importType-wrapper{
 	position: absolute;
 	bottom: 0.5rem;
 	right: 0.5rem;
-	color: var(--dark-grey);
+	/* color: var(--dark-grey); */
+	color: white;
+	text-shadow: 0px 1px 2px black;
 	font-size: 1rem;
 }
 
@@ -1679,11 +1682,11 @@ img.snowCap{
 	opacity: 0.1;
 }
 .whatsNewDialog .whatsNewGlobe{
-	bottom: -35%;
+	bottom: -28%;
 	right: -3rem;
 }
 .whatsNewDialog .whatsNewKeyboard{
-	bottom: -30%;
+	bottom: -25%;
 	left: 0rem;
   transform: scaleX(-1)
 }
