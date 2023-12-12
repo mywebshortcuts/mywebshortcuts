@@ -1635,7 +1635,9 @@ img.snowCap{
 	display: none;
 	color: #bfbfbf;
 
-	/* overflow-y: hidden; */
+	overflow-y: hidden;
+	overflow-x: hidden;
+
 }
 .whatsNewDialog h2{
 	color: var(--dark-green);
@@ -1647,18 +1649,25 @@ img.snowCap{
 }
 .whatsNewDialog .colorsMeaningSpan{
 	color: white;
+	margin-block: 1rem;
 }
 .whatsNewDialog .reviewSpan{
 	text-align: center;
 	font-size: .8rem;
 	color: white;
 }
+.whatsNewDialog .reviewSpan a{
+	filter: brightness(.8);
+}
+.whatsNewDialog .reviewSpan a:hover{
+	filter: brightness(1);
+}
 .whatsNewDialog .reviewSpan .productHuntReview{
 	color: #ff6154;
 	font-size: 1rem;
 }
 .whatsNewDialog .reviewSpan .webstoreReview{
-	color: #4C8BF5;	
+	color: var(--dark-blue);	
 	font-size: 1rem;
 }
 
@@ -1670,12 +1679,12 @@ img.snowCap{
 	opacity: 0.1;
 }
 .whatsNewDialog .whatsNewGlobe{
-	top: 3rem;
-	right: 2rem;
+	bottom: -35%;
+	right: -3rem;
 }
 .whatsNewDialog .whatsNewKeyboard{
-	top: 2rem;
-	left: 2rem;
+	bottom: -30%;
+	left: 0rem;
   transform: scaleX(-1)
 }
 

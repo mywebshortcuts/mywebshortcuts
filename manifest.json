@@ -1,8 +1,9 @@
 {
     "manifest_version": 3,
     "name": "My Web Shortcuts",
-    "version": "1.0.0",
-    "description": "Create custom shortcuts for the web :D",
+    "version": "1.5.4",
+    "author":"contact@mywebshortcuts.xyz",
+    "description": "Create your custom keyboard shortcuts to access the web. Stop repetitive clicking, use one-key shortcuts, and increase your productivity.",
     "icons": {
         "16": "src/assets/16x16.png",
         "32": "src/assets/32x32.png",

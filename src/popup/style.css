@@ -210,7 +210,7 @@ footer.flex {
 footer .footerLinks{
 	width: 100%;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: space-around;
 	align-items: center;
 }
 
@@ -276,7 +276,8 @@ footer.flex button {
 
 .footerLinks a{
 	color: #bfbfbf;
-	text-decoration: underline;
+
+	/* text-decoration: underline; */
 	margin-top: .5rem;
 }
 .footerLinks a:hover{
@@ -295,8 +296,10 @@ footer.flex button {
 	border-radius: 0rem;
 	border-top-left-radius: 1rem;
 	border-top-right-radius: 1rem;
-	background-color: #404040;
-
+	/* background-color: #404040; */
+	background-color: var(--dark-green);
+background: rgb(73,169,66);
+background: linear-gradient(150deg, rgba(73,169,66,1) 0%, rgba(38,188,214,1) 100%);
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -305,11 +308,12 @@ footer.flex button {
 	margin-top: 1rem;
 
 	font-size: 1rem;
-	color: #bfbfbf;
+	/* color: #bfbfbf; */
+	color: white;
 }
 .openOptionsButton:hover {
 	color: white;
-	background-color: #555555;
+	/* background-color: #555555; */
 	
 	/* transform: translateY(-1rem); */
 	transform: scale(1.05);

@@ -67,8 +67,16 @@ const bg = {
 
         chrome.runtime.onInstalled.addListener(details => {
             if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-                chrome.runtime.setUninstallURL('https://mywebshortcuts.xyz/installed');
+                chrome.runtime.setUninstallURL('https://mywebshortcuts.xyz/feedback');
             }
+            if (details.reason === 'update') {
+                const optionsPageURL = chrome.runtime.getURL('src/options/options.html');
+                let whatsNewOptionsPageURL = `${optionsPageURL}?el=.whatsNewButton`
+                chrome.tabs.create({ url: whatsNewOptionsPageURL });
+                
+                
+            }
+
         })
 
 

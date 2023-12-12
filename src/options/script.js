@@ -1754,6 +1754,20 @@ const opt = {
                         closeHelpDialog()
                     }
                 })
+
+                // What's New 
+
+                setEvent(qS('.closeWhatsNewDialogButton'), 'click', () => {
+                    opt.playSoundEffect('click')
+                    qS('.whatsNewDialog').close()
+                    qS('.whatsNewDialog').style.display = 'none'
+                })
+
+                setEvent(qS('.whatsNewButton'), 'click', () => {
+                    opt.playSoundEffect('click')
+                    qS('.whatsNewDialog').showModal()
+                    qS('.whatsNewDialog').style.display = 'flex'
+                })
             },
 
 
@@ -1849,7 +1863,6 @@ const opt = {
 
             }
         }
-        opt.updateDOM()
     },
 
     getCompleteData: async () => {
@@ -1861,6 +1874,7 @@ const opt = {
 
     init: async function () {
         await opt.getCompleteData()
+        opt.updateDOM()
 
         let currentURL = window.location.href
         let hash = window.location.hash
@@ -1873,14 +1887,12 @@ const opt = {
 
         // Access the value of the 'url' query parameter
         let urlParameter = url.searchParams.get('url');
-        // console.log(urlParameter);
-
+        let elementParameter = url.searchParams.get('el');
         hashSplitArray.forEach(hashValue => {
             if (hashValue && hashValue != lastHashValue) {
                 urlParameter += "#" + hashValue
             }
         })
-
         if (urlParameter && opt.websitesList.includes(urlParameter)) {
             opt.currentState.websiteSelected = urlParameter
             opt.updateDOM('openWebsiteSettings', urlParameter)
@@ -1913,6 +1925,10 @@ const opt = {
 
         }
 
+        if (elementParameter){
+            qS(elementParameter).dispatchEvent(new MouseEvent('click'))
+        }
+
         // console.log(hash);
 
 
@@ -1926,17 +1942,6 @@ const opt = {
 
 
 
-        setEvent(qS('.closeWhatsNewDialogButton'), 'click', () => {
-            opt.playSoundEffect('click')
-            qS('.whatsNewDialog').close()
-            qS('.whatsNewDialog').style.display = 'none'
-        })
-        
-        setEvent(qS('.whatsNewButton'), 'click', () => {
-            opt.playSoundEffect('click')
-            qS('.whatsNewDialog').showModal()
-            qS('.whatsNewDialog').style.display = 'flex'
-        })
     }
 }
 
