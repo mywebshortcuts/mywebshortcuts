@@ -1581,11 +1581,13 @@ const opt = {
 
                 qSA('.navigationButton').forEach((navigationButton) => {
                     setEvent(navigationButton, 'click', () => {
-                        const groupID = getAttr(navigationButton, 'data-groupID')
-                        opt.currentState.activeGroup = groupID
-                        opt.updateDOM('changeActiveGroup')
-
-                        opt.playSoundEffect('select', .5)
+                        if (!navigationButton.classList.contains('active')) {
+                            const groupID = getAttr(navigationButton, 'data-groupID')
+                            opt.currentState.activeGroup = groupID
+                            opt.updateDOM('changeActiveGroup')
+                            
+                            opt.playSoundEffect('select', .5)
+                        }
                     })
                 })
                 opt.currentState.activeGroup = 'g1'
