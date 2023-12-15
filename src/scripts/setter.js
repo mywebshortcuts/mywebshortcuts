@@ -789,6 +789,7 @@ const mws = {
 
         // URL TYPE SELECTOR
         const urlTypeSelectInput = qS('.mws-urlTypeSelect', dialogElement)
+        mws.selectedURLType = 'domainAndAllPages'
         if (mws.currentURLObject.pathname == "/") {
             qS('option[value="custom"]', urlTypeSelectInput).disabled = true
             qS('option[value="domainAndPage"]', urlTypeSelectInput).disabled = true
@@ -1060,6 +1061,7 @@ const mws = {
 
         // Action Selector
         const actionSelectInput = qS('.mws-actionSelect', dialogElement)
+        mws.selectedAction = 'click'
         actionSelectInput.addEventListener('change', (e) => {
             let selectedValue = e.srcElement.value
             mws.selectedAction = selectedValue
