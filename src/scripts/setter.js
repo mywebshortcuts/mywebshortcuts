@@ -535,7 +535,7 @@ const mws = {
         await sendMsg({ msg: "selectorDisabled", spread: true })
     },
 
-    keyPressed : false,
+    ctrlCmdPressedTimes : 0,
     pauseResumeSelection: (e) => {
         if (mws.currentState.elementSelectionOn) {
             
@@ -543,14 +543,8 @@ const mws = {
             if (e.type == "keydown") {
                 
                 if (e.key == "Control" || e.key == "Meta") {
-                    mws.keyPressed = true
-                    // console.log("Presed ctrl, ");
-
-                    timeoutID = setTimeout(() => {
-
-                        if (mws.keyPressed) {
-                            // console.log(mws.keyPressed);
-                        
+                    mws.ctrlCmdPressedTimes = mws.ctrlCmdPressedTimes +1
+                    if (mws.ctrlCmdPressedTimes > 1) {
                             if (mws.currentState.elementSelectionPaused) {
                                 window.addEventListener('mouseover', mws.addRemoveborder);
                                 mws.currentState.elementSelectionPaused = false
@@ -568,23 +562,17 @@ const mws = {
                                 window.removeEventListener('mouseover', mws.addRemoveborder);
                                 mws.currentState.elementSelectionPaused = true
                                 qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
-                            }
+                        }
                     }
-
-                    }, 1000);
+                    
+                    setTimeout(() => {
+                        mws.ctrlCmdPressedTimes = 0
+                    }, 500);
 
                 }
 
             }
             
-            if(e.type == "keyup"){
-                if (e.key == "Control" || e.key == "Meta") {
-                    // console.log("It's keyup of control, falsing");
-                    mws.keyPressed = false
-                    clearTimeout(timeoutID)
-                    // console.log(mws.keyPressed);
-                }
-            }
 
         }
     },
