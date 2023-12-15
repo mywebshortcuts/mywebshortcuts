@@ -314,6 +314,10 @@ main {
 .subURLs-wrapper li:hover {
 	background-color: #1f1f1f;
 }
+.subURLs-wrapper li:focus {
+	/* border: 0.125rem solid var(--light-blue); */
+	background-color: #1f1f1f;
+}
 .subURLs-wrapper li:first-child {
 	border-radius: 1rem;
 	border-bottom-right-radius: 0%;

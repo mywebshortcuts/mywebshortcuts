@@ -559,6 +559,7 @@ const opt = {
 
                                 document.body.appendChild(editShortcutSettingsDialog)
                                 editShortcutSettingsDialog.showModal()
+                                qS('.editShortcutSettingsDialog[open] .shortcutNameInput', ).focus()
                             })
 
                             // ------------------------- Delete Shortcut Settings Dialog Opener -------------------------
@@ -897,7 +898,8 @@ const opt = {
                                 }
                                 subURLsWrapper.classList.contains('active') ? rmClass(subURLsWrapper, ['active']) : addClass(subURLsWrapper, ['active'])
                                 urlWrapperDiv.classList.contains('pagesListOpen') ? rmClass(urlWrapperDiv, ['pagesListOpen']) : addClass(urlWrapperDiv, ['pagesListOpen'])
-                                // console.log("yoo");
+                                qS('.subURLs-wrapper.active li').focus()
+                                // console.log(qS('.subURLs-wrapper.active li'));
                             })
                             const subURLsUnorderedList = qS('.subURLs-UnorderedList', urlWrapperDiv)
 
@@ -941,7 +943,7 @@ const opt = {
 
                                     // listElement.innerText = pageURL.replace(/^(https?|ftp):\/\//, '')
                                     listElement.innerHTML = innerHTML.replace(origin, '')
-
+                                    listElement.tabIndex = "0"
                                     subURLsUnorderedList.appendChild(listElement)
                                     // domUpdaterFunctions.actionFuncs.openWebsiteSettings(pageURL)
                                 })
@@ -960,6 +962,25 @@ const opt = {
                             urlsListWrapper.appendChild(urlWrapperNode)
                         }
                     }
+
+
+                    // Making all elements with tabindex="0" clickable using enter button
+                    document.querySelectorAll('[tabindex="0"]').forEach(accessibleElement => {
+                        // console.log(accessibleElement);
+
+                        accessibleElement.addEventListener('keydown', function (event) {
+                            // console.log(event);
+                            // Check if the Enter key was pressed (key code 13) or the Space key (key code 32)
+                            if ((event.key === 'Enter' || event.code === 'Space') && event.target == accessibleElement) {
+                                if (accessibleElement.classList.contains('toggleSwitchInput')) {
+                                    // console.log("hi");
+                                    accessibleElement.checked = !accessibleElement.checked
+                                }
+                                this.click();
+                                // event.preventDefault();
+                            }
+                        });
+                    })
 
                 },
 
@@ -1595,10 +1616,13 @@ const opt = {
 
                 // Making all elements with tabindex="0" clickable using enter button
                 document.querySelectorAll('[tabindex="0"]').forEach(accessibleElement => {
+                    // console.log(accessibleElement);
 
                     accessibleElement.addEventListener('keydown', function (event) {
+                        // console.log(event);
                         // Check if the Enter key was pressed (key code 13) or the Space key (key code 32)
-                        if (event.keyCode === 13 || event.keyCode === 32) {
+                        if ((event.key === 'Enter' || event.code === 'Space') && event.target == accessibleElement) {
+
                             if (accessibleElement.classList.contains('toggleSwitchInput')) {
                                 // console.log("hi");
                                 accessibleElement.checked = !accessibleElement.checked
