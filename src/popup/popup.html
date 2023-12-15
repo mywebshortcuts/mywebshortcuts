@@ -121,6 +121,7 @@
 
 		<div class="questionAnswers-wrapper">
 
+			<h3>Tutorials</h3>
 			<details>
 				<summary>Create your first Web Shortcut</summary>
 				<div class="answer-wrapper">
@@ -192,7 +193,7 @@
 
     <li>Try <strong>reloading the tab</strong>, or <strong>closing and opening the Tab</strong> again.</li>
 
-    <li><strong>Disable certain extensions that might cause issues,</strong>, reload the tab, and try again.</li>
+    <li><strong>Disable certain extensions that might cause issues</strong>, reload the tab, and try again. (<a href="https://github.com/mywebshortcuts/mywebshortcuts/wiki/Other-Extensions-that-may-interfere-with-My-Web-Shortcuts" target="_blank">See a list of interfering extensions</a>)</li>
 
     <li>Ensure the <strong>urlType & action properties are correctly set</strong> according to your needs.</li>
 
@@ -203,7 +204,7 @@
 				</div>
 			</details>
 
-
+			<h3>Solutions to Common Problems</h3>
 			<details>
 				<summary>Unable to select an Element</summary>
 				<div class="answer-wrapper">
@@ -212,10 +213,10 @@
 							Reload the Tab
 						</li>
 						<li>
-							Disable other extensions that may be causing issue
+							Disable other extensions. (<a href="https://github.com/mywebshortcuts/mywebshortcuts/wiki/Other-Extensions-that-may-interfere-with-My-Web-Shortcuts" target="_blank">See a list of interfering extensions</a>)
 						</li>
 						<li>
-							The website itself can be causing this problem. Share this with us on <a href="http://discord.mywebshortcuts.xyz" target="_blank">Discord</a>  and we will look into it.  
+							The website itself might be causing the issue. (<a href="https://github.com/mywebshortcuts/mywebshortcuts/wiki/Websites-where-My-Web-Shortcuts-doesn't-work-well" target="_blank">See a list of problematic websites</a>) 
 						</li>
 							
 						</ul>
@@ -225,26 +226,33 @@
 
 
 			<details>
-				<summary>Element can't be found, please try selecting again</summary>
+				<summary>(During Selection) Element can't be found, please try selecting again</summary>
 				<div class="answer-wrapper">
+					<span>This alert comes when the selected element doesn't exist anymore. Note that visually it may still be there, but sometimes other extensions or the website itself changes it's inner data which results in this error.</span>
 					<ul>
-						<li>This happens when the selected element is removed from the DOM during the process of creating the web shortcut.</li>
 						<li>Try selecting the element using other ways as mentioned in the Element Selector.</li>
 						<li>Hovering on the Element and Pressing Enter usually works.</li>
+						<li>Disable other Extensions. (<a href="https://github.com/mywebshortcuts/mywebshortcuts/wiki/Other-Extensions-that-may-interfere-with-My-Web-Shortcuts" target="_blank">See a list of interfering extensions</a>)</li>
+						<li>
+							The website itself might be causing the issue. (<a href="https://github.com/mywebshortcuts/mywebshortcuts/wiki/Websites-where-My-Web-Shortcuts-doesn't-work-well" target="_blank">See a list of problematic websites</a>) 
+						</li>
 					</ul>
 						
 				</div>
 			</details>
 
 			<details>
-				<summary>Element was not found</summary>
+				<summary>(During Usage) Element was not found</summary>
 				<div class="answer-wrapper">
-					<span>This message is shown when the Element is not present in the DOM.</span>
+					<span>This message is shown when the Element is not present in the website.</span>
 					<ul>
 						<li>Try checking if the element is present inside some other element.</li>
 						<li>If that is the case, try creating a shortcut to open it.</li>
 						<li>This will let you open it and access the desired element.</li>
 						<li>This might seem a bit annoying, but we can't work around it as we can't access the Element if it doesn't exist.</li>
+						<li>
+							The website itself might be causing the issue. (<a href="https://github.com/mywebshortcuts/mywebshortcuts/wiki/Websites-where-My-Web-Shortcuts-doesn't-work-well" target="_blank">See a list of problematic websites</a>) 
+						</li>
 					</ul>
 						
 				</div>
@@ -267,13 +275,13 @@
 					<ul>
 						<li>Try Disabling other extensions.</li>
 						<li>
-							On some websites, Esc or other shortcut keys that are used to operate the extension might not work.
-
+							The website itself might be causing the issue. (<a href="https://github.com/mywebshortcuts/mywebshortcuts/wiki/Websites-where-My-Web-Shortcuts-doesn't-work-well" target="_blank">See a list of problematic websites</a>) 
 						</li>
 					</ul>
 				</div>
 			</details>
 
+			<h3>Help & Support</h3>
 			<details>
 				<summary>I need some support</summary>
 				<div class="answer-wrapper">
@@ -286,6 +294,8 @@
 
 							Join our <a href="http://discord.mywebshortcuts.xyz"
 							   target="_blank">Discord server</a> to get better support.
+						</li>
+						<li>Get more support links in the Options page. Press the question mark (?) key or click on the Help & Support button.
 						</li>
 					</ul>
 				</div>
