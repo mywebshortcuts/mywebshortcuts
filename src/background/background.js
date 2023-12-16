@@ -128,10 +128,9 @@ chrome.commands.onCommand.addListener(async (command) => {
                 let urlProtocol = (new URL(currentTab.url)).protocol
 
                 // console.log(currentTab);
-                if (urlProtocol != "https:" && urlProtocol != "http:") {
-
-                if (!bg.currentState.selectorEnabledTabsIDArray.includes(currentTab.id)) {
-                    await bg.turnOnSelector(currentTab.id)
+                if (urlProtocol == "https:" || urlProtocol == "http:") {
+                    if (!bg.currentState.selectorEnabledTabsIDArray.includes(currentTab.id)) {
+                        await bg.turnOnSelector(currentTab.id)
                 }
             }
 
