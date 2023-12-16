@@ -234,7 +234,12 @@ button.mws-selectElementButton {
 
 	font-size: var(--mws-fontSize-s) !important;
 }
-.mws-element .mws-selectionGuideDetails span{
+.mws-element .mws-selectionGuideDetails ul{
+	padding-inline: var(--mws-padding-l) !important;
+}
+.mws-element .mws-selectionGuideDetails li{
+	margin-bottom: var(--mws-margin) !important;
+	user-select: text !important;
 }
 .mws-element .mws-selectionGuideDetails i{
 	font-size: calc(var(--mws-rem)/2) !important;
