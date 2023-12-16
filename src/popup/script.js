@@ -408,7 +408,7 @@ const pop = {
             qS('.disableEverywhereToggle-wrapper .toggleSwitchInput').checked = !pop.globalSettings.extensionEnabled
         }
         console.log(pop.currentWebsiteShortcutsData);
-        if (pop.currentWebsiteShortcutsData.length != 0) {
+        if ((Object.keys(pop.currentWebsiteShortcutsData)).length != 0) {
             qS('.disableWebsiteToggle-wrapper .toggleSwitchInput').checked = !pop.currentWebsiteData.settings.enabled
         }
 
