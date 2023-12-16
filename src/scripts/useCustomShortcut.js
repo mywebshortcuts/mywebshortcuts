@@ -1,4 +1,4 @@
-import { getStorage, extractCoreUrl, getCompleteData, sendMsg, getWebsiteData, isObjEmpty, setStorage, updateCSS, addClass } from "../modules/quickMethods";
+import { getStorage, extractCoreUrl, getCompleteData, sendMsg, getWebsiteData, isObjEmpty, setStorage, updateCSS, addClass, qS, qSA } from "../modules/quickMethods";
 
 
 const ucs = {
@@ -229,10 +229,10 @@ const ucs = {
         if (ucs.completeData.globalSettings.extensionEnabled && !ucs.selectorEnabled) {
             // console.log("UCS is Enabled");
 
-            window.addEventListener('keypress', ucs.onShortcutClicker, {
+            document.addEventListener('keypress', ucs.onShortcutClicker, {
                 // bubbles
             })
-            window.addEventListener('keyup', ucs.onKeyUp)
+            document.addEventListener('keyup', ucs.onKeyUp)
         }
     },
 
@@ -241,8 +241,8 @@ const ucs = {
         // console.log("UCS is disabled");
         // console.log(ucs.urlInterval);
         clearInterval(ucs.urlInterval)
-        window.removeEventListener('keypress', ucs.onShortcutClicker)
-        window.removeEventListener('keyup', ucs.onKeyUp)
+        document.removeEventListener('keypress', ucs.onShortcutClicker)
+        document.removeEventListener('keyup', ucs.onKeyUp)
     },
 
 
@@ -392,6 +392,8 @@ const ucs = {
         // Click the matching element if found
         if (matchingElement) {
 
+            if (qSA('#mws-tapCircle').length < 10) {
+                
             let styleTag = document.createElement('style');
             let styles = `
             
@@ -425,7 +427,6 @@ const ucs = {
             styleTag.textContent = styles
             document.head.appendChild(styleTag);
 
-
             let tapCircle = document.createElement('div')
             // Create the tapCircle element
             tapCircle.id = 'mws-tapCircle'           
@@ -446,6 +447,7 @@ const ucs = {
             setTimeout(() => {
                 document.body.removeChild(tapCircle);
             }, 1000);
+            }
 
             if (action == "click") {
                 document.activeElement.blur();
