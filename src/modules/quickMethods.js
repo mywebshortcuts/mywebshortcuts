@@ -90,9 +90,9 @@ export const getStorage = (keys = [], returnPromise = false, area = "local") => 
     if (area == "sync") {
         return returnPromise ? chrome.storage.sync.get(keys) : chrome.storage.sync.get(keys).then((data) => data)
     }
-    else if (area == "session") {
-        return returnPromise ? chrome.storage.session.get(keys) : chrome.storage.session.get(keys).then((data) => data)
-    }
+    // else if (area == "session") {
+    //     return returnPromise ? chrome.storage.session.get(keys) : chrome.storage.session.get(keys).then((data) => data)
+    // }
     return returnPromise ? chrome.storage.local.get(keys) : chrome.storage.local.get(keys).then((data) => data)
 }
 export const setStorage = (keyValues = {}, returnPromise = false, area = "local") => {
@@ -100,9 +100,9 @@ export const setStorage = (keyValues = {}, returnPromise = false, area = "local"
     if (area == "sync") {
         return returnPromise ? chrome.storage.sync.set(keyValues) : chrome.storage.sync.set(keyValues).then((data) => data)
     }
-    else if (area == "session") {
-        return returnPromise ? chrome.storage.session.set(keyValues) : chrome.storage.session.set(keyValues).then((data) => data)
-    }
+    // else if (area == "session") {
+    //     return returnPromise ? chrome.storage.session.set(keyValues) : chrome.storage.session.set(keyValues).then((data) => data)
+    // }
 
     return returnPromise ? chrome.storage.local.set(keyValues) : chrome.storage.local.set(keyValues).then((data) => data)
 }
