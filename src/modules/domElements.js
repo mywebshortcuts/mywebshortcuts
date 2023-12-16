@@ -49,7 +49,7 @@ export function confirmationDialogOpener(confirmationText) {
             closeDialog(false)
         })
 
-        window.addEventListener('keydown', (e)=>{
+        document.addEventListener('keydown', (e)=>{
             if (e.key=="Escape") {
                 closeDialog(false)
             }
