@@ -550,7 +550,7 @@ const mws = {
                     mws.ctrlCmdPressedTimes = mws.ctrlCmdPressedTimes +1
                     if (mws.ctrlCmdPressedTimes > 1) {
                             if (mws.currentState.elementSelectionPaused) {
-                                window.addEventListener('mouseover', mws.addRemoveborder);
+                                document.addEventListener('mouseover', mws.addRemoveborder);
                                 mws.currentState.elementSelectionPaused = false
                                 qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
                                 mws.playSoundEffect('unpause', 0.2)
@@ -563,7 +563,7 @@ const mws = {
                                 updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
                                 // console.log(qS('.mws-selectElementButton').style.display);
                                 mws.playSoundEffect('pause', 0.2)
-                                window.removeEventListener('mouseover', mws.addRemoveborder);
+                                document.removeEventListener('mouseover', mws.addRemoveborder);
                                 mws.currentState.elementSelectionPaused = true
                                 qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
                         }
@@ -584,11 +584,11 @@ const mws = {
     // Turner Functions: These functions add or remove events from window/DOM elements
 
     turnOnKeyboardEvents: () => {
-        window.addEventListener('keydown', mws.keyboarder)
+        document.addEventListener('keydown', mws.keyboarder)
 
     },
     turnOffKeyboardEvents: () => {
-        window.removeEventListener('keydown', mws.keyboarder)
+        document.removeEventListener('keydown', mws.keyboarder)
     },
 
     accidentalUnloadPreventer: function (e) {
@@ -1167,10 +1167,10 @@ const mws = {
         mws.currentElement = null
         rmClass(qS('html'), ['mws-stylesForPage'])
 
-        window.removeEventListener('mouseover', mws.addRemoveborder);
-        window.removeEventListener('click', mws.whenClicked);
-        window.removeEventListener('keydown', mws.pauseResumeSelection)
-        window.removeEventListener('keyup', mws.pauseResumeSelection)
+        document.removeEventListener('mouseover', mws.addRemoveborder);
+        document.removeEventListener('click', mws.whenClicked);
+        document.removeEventListener('keydown', mws.pauseResumeSelection)
+        // document.removeEventListener('keyup', mws.pauseResumeSelection)
 
 
         mws.changeStateAndUpdateDOM("elementSelectionOn")
@@ -1181,10 +1181,10 @@ const mws = {
 
 
 
-        window.addEventListener('mouseover', mws.addRemoveborder);
-        window.addEventListener('click', mws.whenClicked);
-        window.addEventListener('keydown', mws.pauseResumeSelection)
-        window.addEventListener('keyup', mws.pauseResumeSelection)
+        document.addEventListener('mouseover', mws.addRemoveborder);
+        document.addEventListener('click', mws.whenClicked);
+        document.addEventListener('keydown', mws.pauseResumeSelection)
+        // document.addEventListener('keyup', mws.pauseResumeSelection)
 
     },
     // The function to trigger switchOnSelector or switchOffSelector depending on mws.currentState.elementSelectionOn
@@ -1289,7 +1289,7 @@ const mws = {
         qS('.mws-selectElementButton', floatingDiv).style.display = 'none'
 
 
-
+        floatingDiv.title = "Drag to move the selector"
         document.body.appendChild(floatingDiv)
 
         mws.makeElementDraggable(floatingDiv)
@@ -1321,7 +1321,9 @@ const mws = {
     },
 
     selectorShortcuts: async (e) => {
+        // console.log(e);
         if (e.key == "Escape") {
+            // console.log("Escape pressed");
             if (mws.currentState.keyboardShortcutSelectorOpen) {
                 mws.closeKeyboardShortcutSelectionDialog()
             }
@@ -1363,10 +1365,10 @@ const mws = {
     },
 
     turnOnSelectorShortcuts: () => {
-        window.addEventListener('keydown', mws.selectorShortcuts)
+        document.addEventListener('keydown', mws.selectorShortcuts)
     },
     turnOffSelectorShortcuts: () => {
-        window.removeEventListener('keydown', mws.selectorShortcuts)
+        document.removeEventListener('keydown', mws.selectorShortcuts)
     },
 
 
