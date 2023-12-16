@@ -90,7 +90,7 @@ const bg = {
                 bg.currentState.selectorEnabledTabsIDArray.push(sender.tab.id)
 
             }
-            if (request.spread) {
+            if (request.spread && sender.tab) {
                 // console.log("Spreading");
                 await chrome.tabs.sendMessage(sender.tab.id, request);
             }
@@ -121,15 +121,19 @@ chrome.commands.onCommand.addListener(async (command) => {
     // console.log(`Command: ${command}`);
     if (command = "startSelection") {
 
-        await chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+        await chrome.tabs.query({ active: true, currentWindow: true }, async function (tabs) {
             if (tabs && tabs[0]) {
                 let currentTab = tabs[0];
                 // // console.log(currentTab);
-                // let url = (currentTab.url)
+                let urlProtocol = (new URL(currentTab.url)).protocol
+
+                // console.log(currentTab);
+                if (urlProtocol != "https:" && urlProtocol != "http:") {
 
                 if (!bg.currentState.selectorEnabledTabsIDArray.includes(currentTab.id)) {
-                    bg.turnOnSelector(currentTab.id)
+                    await bg.turnOnSelector(currentTab.id)
                 }
+            }
 
             }
         })
