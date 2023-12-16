@@ -1212,11 +1212,22 @@ const mws = {
             // mws.switchOffSelector()
         }
         element.addEventListener("mousedown", (e) => {
-            offsetX = e.x - element.offsetLeft;
-            offsetY = e.y - element.offsetTop;
-            document.addEventListener("mousemove", move)
+            if (
+                !(
+                e.target.tagName == "SUMMARY" ||
+                e.target.tagName == "LI" ||
+                e.target.tagName == "BUTTON" ||
+                e.target.tagName == "SELECT" ||
+                e.target.classList.contains('fa-close') ||
+                e.target.classList.contains('mws-toggleSwitchSpan')
+                )
+                ) {
+                offsetX = e.x - element.offsetLeft;
+                offsetY = e.y - element.offsetTop;
+                document.addEventListener("mousemove", move)
+                // setEvent(document, "mousemove", move)
+            }
 
-            // setEvent(document, "mousemove", move)
         })
         function mouseUpFunc() {
             rmEvent(document, "mousemove", move)
