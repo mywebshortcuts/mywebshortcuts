@@ -435,15 +435,19 @@ const mws = {
             return
         }
         mws.currentElement = getElemAt(x, y);
-        qS('.mws-selectElementButton').disabled = false
-
+        
+        if (qS('.mws-selectElementButton')) qS('.mws-selectElementButton').disabled = false
 
         // mws.currentElement.classList.add('mws-bordered')
-        if ((mws.currentElement).tagName) {
+        // if (mws.currentElement && (mws.currentElement).tagName) {
+        //     setTextContent(qS('.mws-currentElementSpan'), (mws.currentElement).tagName)
+        // }
+        
+        if (mws.currentElement) {
+            addClass(mws.currentElement, ['mws-bordered'])
             setTextContent(qS('.mws-currentElementSpan'), (mws.currentElement).tagName)
+            
         }
-
-        addClass(mws.currentElement, ['mws-bordered'])
 
         // // console.log(mws.currentElement);
         // // console.log(finder(mws.currentElement));
