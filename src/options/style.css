@@ -157,7 +157,6 @@ main {
 	height: 100%;
 	width: 100%;
 
-	user-select: none;
 }
 .noWebsiteAddedMessage-wrapper {
 	height: fit-content;
@@ -840,33 +839,39 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 }
 
 
-
 .importDataDialog{
 	max-width: 40%;
-	padding: 2rem;
+	padding: 3rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	display: none;
 	overflow-y: hidden;
 
-
+	font-size: .9rem;
 }
+
+.importDataDialog h2{
+	color: var(--dark-green);
+}
+
 .importDataDialog > div{
 	width: 100%;
 	display: flex;
 	flex-direction: column;
 	margin-block: .2rem;
-
 	padding-block: .5rem;
 }
 
 
+.importDataDialog .importData-wrapper h3{
+	color: white;
+}
 .importDataDialog .importData-wrapper{
 	display: flex;
 	justify-content: space-evenly;
 	flex-direction: column;
-	align-items: center;
+	/* align-items: center; */
 	color: #bfbfbf;
 }
 
@@ -887,25 +892,31 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 }
 
 div.importType-wrapper h3{
-	text-align: center;
+	text-align: left;
 
 }
 div.importType-wrapper{
 	width: 100%;
 	display: flex;
 	justify-content: center;
-	align-items: center;
-	text-align: center;
+	/* align-items: center; */
+	text-align: left;
 
 }
 
 .importTypeSelect{
 	width: fit-content;
 	font-size: 1rem;
+	/* padding: .5rem; */
+	transition: .2s ease;
+}
+.importTypeSelect:hover{
+	transform: scale(1.01);
 }
 .importTypeDefinitionSpan{
 	margin-block: .5rem;
 	color: var(--red);
+	max-width: 80%;
 }
 
 .websitesToImport-wrapper h3{
@@ -1556,7 +1567,7 @@ button.closeHelpDialogButton {
 
 
 img.snowCap{
-	width: 32rem;
+	width: 25rem;
 	position: fixed;
 	top: -4rem;
 	/* left: 30vw; */
@@ -1654,9 +1665,9 @@ img.snowCap{
 	margin-block: .5rem;
 	line-height: 1.5rem;
 }
-.whatsNewDialog .colorsMeaningSpan{
-	color: white;
-	margin-block: 1rem;
+.whatsNewDialog span{
+	padding-left: .5rem;
+	line-height: 1.7rem;
 }
 .whatsNewDialog .reviewSpan{
 	text-align: center;
@@ -1665,6 +1676,7 @@ img.snowCap{
 }
 .whatsNewDialog .reviewSpan a{
 	filter: brightness(.8);
+	text-shadow: 0px 0px .125rem black;
 }
 .whatsNewDialog .reviewSpan a:hover{
 	filter: brightness(1);
@@ -1681,18 +1693,19 @@ img.snowCap{
 
 .whatsNewDialog img{
 	position: absolute;
-	width: 20rem;
+	width: 15rem;
 	z-index: -1;
-	opacity: 0.1;
+	opacity: .5;
 }
 .whatsNewDialog .whatsNewGlobe{
-	bottom: -28%;
-	right: -3rem;
+	bottom: -25%;
+	right: -8%;
+	transform: rotate(50deg);
 }
 .whatsNewDialog .whatsNewKeyboard{
-	bottom: -25%;
-	left: 0rem;
-  transform: scaleX(-1)
+	top: -15%;
+	left: -15%;
+	transform: scaleX(-1) rotate(-50deg);
 }
 
 
@@ -1704,10 +1717,26 @@ img.snowCap{
 
 	background-color: #161616;
 	border-radius: 1rem;
-	list-style-type: disc;
+	list-style-type: none;
+
+	position: relative;
+}
+button.colorsMeaningButton{
+	background-color: transparent;
+	color: var(--dark-green);
+	position: absolute;
+	top: .2rem;
+	right: .2rem;
+	padding: .2rem;
+	font-size: 1rem;
+	border-radius: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
 }
 .whatsNewDialog li{
 	margin-block: 1rem;
+	line-height: 1.3rem;
 }
 .whatsNewDialog li strong{
 	color: white;

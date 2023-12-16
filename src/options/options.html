@@ -71,7 +71,10 @@
 						</div>
 						<div class="helperVideo-wrapper">
 							<div class="helperText-wrapper">
-								<span class="helperText">Not sure how to start? <br /> <a href="https://www.youtube.com/playlist?list=PLfgTGKHKRdmg9jobp2McX4d_4Q7Nka3TX" target="_blank">Take help from these Youtube Tutorials <i class="fa-arrow-right fa-solid"></i></a></span>
+								<span class="helperText">Not sure how to start? <br /> 
+									<a href="https://www.youtube.com/playlist?list=PLfgTGKHKRdmg9jobp2McX4d_4Q7Nka3TX" target="_blank">Take help from these Youtube Tutorials <i class="fa-arrow-right fa-solid"></i></a> <br>
+									<a href="https://www.mywebshortcuts.xyz/guide/" target="_blank">or Read the Usage Guide <i class="fa-arrow-right fa-solid"></i></a>
+								</span>
 							</div>
 						</div>
 					</div>
@@ -249,7 +252,8 @@
 					<h2>Let's Import Your Web Shortcuts!</h2>
 
 					<div class="importData-wrapper">
-							<span class="selectedFileName" title="Selected File Name">Select the shortcuts data file (.json)</span>
+						<h3>1. Select the Shortcuts JSON file</h3>
+							<span class="selectedFileName" title="Selected File Name"></span>
 							<input type="file" id="importDataInput" accept=".json" style="display: none;" />
 							<button class="selectDataFileButton greenButton" title="Select Shortcuts Data File">
 								<i class="fa-solid fa-file"></i>
@@ -259,7 +263,7 @@
 					
 					
 					<div class="importType-wrapper">
-						<h3>How should I Import them?</h3>
+						<h3>2. Select how to import them</h3>
 						<span class="importTypeDefinitionSpan">Select how you want to import the data</span>
 						<select name="importType" id="importTypeSelect" class="importTypeSelect" title="Select Import Type" disabled>
 							<option value="overwrite">Overwrite Existing Shortcuts</option>
@@ -270,7 +274,7 @@
 
 
 					<div class="websitesToImport-wrapper">
-						<h3>Which websites' shortcuts to import?</h3>
+						<h3>3. Select the websites to import</h3>
 						
 						<div class="websitesToImportCheckboxes-wrapper">
 							<div class="selectAllWebsitesCheckbox-wrapper ">
@@ -500,13 +504,15 @@
 		<img src="../assets/cartoonGlobeWithoutLegsAndHands.png" alt="Globe" class="whatsNewGlobe">
 		<img src="../assets/cartoonKeyboardWithoutLegs.png" alt="Keyboard" class="whatsNewKeyboard">
 
-		<h2>What's New? 🔥 (v1.5.4)</h2>
+		<h2>What's New? (v1.5.4) 🔥</h2>
 
-		<span>Hey there! <strong>My Web Shortcuts just got its first update! 🎉</strong><br> Meet your two lovely friends, Globy and Keyby 🥰. For this Winter season, they will be sitting near the campfire to keep themselves warm 😌. <br> We're working on exciting things, stay tuned. <strong>If we're adding value to your life, please consider <a href="http://sponsor.mywebshortcuts.xyz" target="_blank">🪙 sponsoring us</a>.</strong> Every contribution will motivate us to keep working on this.<br> Happy Winters 🥶 and Take care of yourself 😊</span>
-
-
-		<span class="colorsMeaningSpan">🔴Bugs &#8226; 🟢Features &#8226; 🟡Improvements &#8226; 🔵Other</span>
+		<span class="whatsNewIntroSpan">
+			Guess what? <strong>My Web Shortcuts</strong> just got cozier with Globy & Keyby at our winter campfire! Big things are brewing. Wanna help fuel the fire? Consider <a href="http://sponsor.mywebshortcuts.xyz" target="_blank">sponsoring us</a>—it keeps the good vibes flowing. Stay warm and stay tuned for more fun! 😊
+		</span>
 		<ul>
+
+		<button class="colorsMeaningButton" title="🔴Bugs &#8226; 🟢Features &#8226; 🟡Improvements &#8226; 🔵Other"><i class="fa-info-circle fa-solid"></i></button>
+
 			<li>
 				🟢 <strong>You can finally Import and Export your Web Shortcuts!!</strong> Go to Global settings and click on the Import/Export buttons to do so.
 			</li>
@@ -533,6 +539,9 @@
 			</li>
 			<li>
 				🟢 You can <strong>jump to Shortcuts settings, Global settings, and About using 1, 2, and 3 keys</strong> respectively.
+			</li>
+			<li>
+				🔴 <strong>You can now use Tab key with Enter/Space keys to navigate the websites list</strong>. There was a bug that didn't allow one to open a website using those keys.
 			</li>
 			<li>
 				🔴🟡 A few other bug fixes & improvements, and...

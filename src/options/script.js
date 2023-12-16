@@ -603,10 +603,10 @@ const opt = {
                             })
                             setEvent(shortcutSettingsWrapper, 'mouseleave', () => {
                                 mouseOver = false
-                                // window.removeEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
+                                // document.removeEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
                             })
 
-                            // window.addEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
+                            // document.addEventListener('keypress', editDeleteShortcutKeyboardShortcuts)
 
                             function editDeleteShortcutKeyboardShortcuts(e) {
                                 // console.log(e);
@@ -733,7 +733,7 @@ const opt = {
                         domUpdaterFunctions.actionFuncs.closeWebsiteSettingsAndBackToWebsitesList()
                     })
 
-                    window.addEventListener('keydown', (e) => {
+                    document.addEventListener('keydown', (e) => {
                         let activeElement = document.activeElement
                         if (activeElement && (activeElement.tagName === 'INPUT' || activeElement.tagName === 'TEXTAREA')) {
                             return;
@@ -1023,6 +1023,11 @@ const opt = {
                         URL.revokeObjectURL(url);
                     });
 
+                    if (isObjEmpty(opt.websitesData)) {
+                        exportButton.disabled = true                        
+                        exportButton.title = "Please create some web shortcuts to export"                        
+                    }
+
 
                     // ------------------------- Import Data-------------------------
                     importDataDialogOpenButton = qS('.importDataDialogOpenButton');
@@ -1072,6 +1077,12 @@ const opt = {
                             }
                             else if (value == "mergeAndKeepExisting") {
                                 importTypeDefinitionSpan.innerHTML = "This will merge the data and if shortcuts match, it will <strong>keep the existing ones</strong>."
+                            }
+                        })
+
+                        setEvent(importTypeSelect, 'mouseenter', (e) => {
+                            if (!importTypeSelect.disabled) {
+                                opt.playSoundEffect('hover')
                             }
                         })
 
@@ -1596,7 +1607,7 @@ const opt = {
                     }
                 }
 
-                window.addEventListener('keydown', keyboardShortcuts)
+                document.addEventListener('keydown', keyboardShortcuts)
 
 
 
@@ -1756,7 +1767,6 @@ const opt = {
 
                 })
 
-
                 // Help Button
                 const helpButton = qS('.helpButton')
                 const helpDialog = qS('.helpDialog')
@@ -1775,7 +1785,7 @@ const opt = {
                     updateCSS(helpDialog, { 'display': 'flex' })
                     // console.log(helpDialog);
                 })
-                window.addEventListener('keydown', (e) => {
+                document.addEventListener('keydown', (e) => {
                     if (e.key == 'Escape') {
                         closeHelpDialog()
                     }
