@@ -43,7 +43,7 @@ Show the Steps
 
 1. Clone the repository & Open the folder
    ```bash
-   git clone "https://github.com/prakhartiwari0/my-web-shortcuts" && cd my-web-shortcuts
+   git clone "https://github.com/mywebshortcuts/mywebshortcuts" && cd mywebshortcuts
    ```
 2. Install the Packages using NPM
     ```bash
