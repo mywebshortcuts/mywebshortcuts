@@ -2,7 +2,7 @@
 
 import { getCompleteData, getStorage, isObjEmpty, sendMsg, setStorage } from '../modules/quickMethods';
 import setter from '../scripts/setter?script'
-
+import Mellowtel from 'mellowtel';
 // import '../scripts/styles/root.css'
 // import '../scripts/styles/keySelector.css'
 // import '../scripts/styles/elementSelector.css'
@@ -73,8 +73,8 @@ const bg = {
                 const optionsPageURL = chrome.runtime.getURL('src/options/options.html');
                 let whatsNewOptionsPageURL = `${optionsPageURL}?el=.whatsNewButton`
                 chrome.tabs.create({ url: whatsNewOptionsPageURL });
-                
-                
+
+
             }
 
         })
@@ -111,6 +111,13 @@ const bg = {
         }
         )
 
+        const mellowtel = new Mellowtel("a4a884a8",{
+            disableLogs: false,
+        })
+        await mellowtel.initBackground();
+        // await mellowtel.optIn();
+        // await mellowtel.start();
+
     }
 }
 
@@ -137,7 +144,7 @@ chrome.commands.onCommand.addListener(async (command) => {
             }
         })
 
-        
+
 
     }
 });

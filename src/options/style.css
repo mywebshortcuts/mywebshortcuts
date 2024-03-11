@@ -405,7 +405,7 @@ main {
 	border-bottom-right-radius: 0rem;
 
 	z-index: 1;
-	
+
 }
 .backToWebsitesListButton-wrapper {
 	width: 20%;
@@ -885,7 +885,7 @@ dialog .selectShortcutButtonAndKBD-wrapper {
 
 	font-size: 1.2rem;
 
-	
+
 }
 .selectDataFileButton i{
 	margin-inline: .3rem;
@@ -939,7 +939,7 @@ div.importType-wrapper{
 	border-radius: 1rem;
 	max-height: 15rem;
 	overflow-y: scroll;
-	
+
 	position: relative;
 	padding: 1rem;
 	padding-top: 0rem;
@@ -1007,7 +1007,7 @@ div.importType-wrapper{
 	list-style-type: none;
 	margin-inline: 1rem;
 	/* border: 1px solid var(--dark-green); */
-	
+
 }
 .websitesToImport-wrapper .urlWithSubUrls ul li{
 	/* margin-block: .5rem; */
@@ -1217,7 +1217,7 @@ div.importType-wrapper{
 	background-color: var(--bg-color);
 	box-shadow: 0rem 0rem .8rem 0rem var(--bg-color);
 
-  transition: transform .2s ease; 
+  transition: transform .2s ease;
 }
 .sponsorLink:hover, .sponsorLink:focus {
 	transform: rotate(-2.5deg) scale(1.1);
@@ -1446,7 +1446,7 @@ footer a:hover {
 
 	justify-content: center;
 	align-items: center;
-	
+
 	padding: 2rem;
 	min-width: 50%;
 	min-height: 30%;
@@ -1485,11 +1485,11 @@ button.closeHelpDialogButton {
 }
 
 .contactSupportLinks-wrapper{
-	
+
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	
+
 	padding: 1rem;
 
 	/* width: 60%; */
@@ -1532,20 +1532,20 @@ button.closeHelpDialogButton {
 	position: fixed;
 	bottom: 0rem;
 	left: 0rem;
-	
+
 	display: flex;
 	justify-content: center;
 	align-items: baseline;
 	width: 22rem;
 	user-select: none;
-	
+
 	/* border: 3px solid var(--dark-blue); */
 	border-bottom: none;
 
 	/* background-color: #181818; */
 	border-top-left-radius: 2rem;
 	border-top-right-radius: 2rem;
-	
+
 	z-index: 5;
 }
 
@@ -1642,11 +1642,22 @@ img.snowCap{
 	100%{
 		box-shadow: 0rem -1rem 4rem 2rem orange;
 	}
-	
+
 }
 
 
 .whatsNewDialog{
+	position: fixed;
+	max-width: 50%;
+	padding: 2rem;
+	display: none;
+	color: #bfbfbf;
+
+	overflow-y: hidden;
+	overflow-x: hidden;
+
+}
+.mellowtelDisclaimerDialog{
 	position: fixed;
 	max-width: 50%;
 	padding: 2rem;
@@ -1686,7 +1697,7 @@ img.snowCap{
 	font-size: 1rem;
 }
 .whatsNewDialog .reviewSpan .webstoreReview{
-	color: var(--dark-blue);	
+	color: var(--dark-blue);
 	font-size: 1rem;
 }
 

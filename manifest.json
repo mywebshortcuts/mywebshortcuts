@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
     "name": "My Web Shortcuts",
-    "version": "1.5.9",
-    "author":"contact@mywebshortcuts.xyz",
+    "version": "1.6.0",
+    "author": "contact@mywebshortcuts.xyz",
     "description": "Create custom keyboard shortcuts to access the web, and be more productive!",
     "icons": {
         "16": "src/assets/16x16.png",
@@ -32,7 +32,18 @@
             "js": [
                 "src/scripts/useCustomShortcut.js"
             ],
-            "run_at":"document_start"
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "all_frames": true,
+            "js": [
+                "src/scripts/mellowContentScript.js"
+            ],
+            "run_at": "document_start"
         }
     ],
     "web_accessible_resources": [
@@ -70,6 +81,8 @@
     "permissions": [
         "activeTab",
         "scripting",
-        "storage"   
+        "storage",
+        "tabs",
+        "declarativeNetRequest"
     ]
 }
