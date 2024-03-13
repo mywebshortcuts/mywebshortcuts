@@ -65,6 +65,11 @@ const bg = {
 
         await bg.getCompleteDataInBackground()
 
+        const mellowtel = new Mellowtel("a4a884a8",{
+            disableLogs: false,
+        })
+        await mellowtel.initBackground();
+
         chrome.runtime.onInstalled.addListener(details => {
             if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
                 chrome.runtime.setUninstallURL('https://mywebshortcuts.xyz/feedback');
@@ -86,7 +91,7 @@ const bg = {
                 let shortcutIndex = bg.currentState.selectorEnabledTabsIDArray.indexOf(sender.tab.id);
                 bg.currentState.selectorEnabledTabsIDArray.splice(shortcutIndex, 1);
             }
-            else if (request.msg === "selectorEnabled") {
+            if (request.msg === "selectorEnabled") {
                 bg.currentState.selectorEnabledTabsIDArray.push(sender.tab.id)
 
             }
@@ -94,6 +99,10 @@ const bg = {
                 // console.log("Spreading");
                 await chrome.tabs.sendMessage(sender.tab.id, request);
             }
+            // Prakhar, can you please explain/fix this?
+            // When I uncomment, the shortcut creation doesn't work,
+            // But this message is not being sent from anywhere else (?)
+            // + it's interfering with internal messages in Mellotel
 
             if (request.msg = "sendCompleteData") {
                 // console.log("Something asked for data: ", bg.completeData);
@@ -103,20 +112,13 @@ const bg = {
             if (request.action == "turnOffSelector") {
                 await bg.turnOffSelector(request.tab)
             }
-            else if (request.action == "turnOnSelector") {
+            if (request.action == "turnOnSelector") {
                 if (!bg.currentState.selectorEnabledTabsIDArray.includes(request.tab.id)) {
                     await bg.turnOnSelector(request.tab.id)
                 }
             }
         }
         )
-
-        const mellowtel = new Mellowtel("a4a884a8",{
-            disableLogs: false,
-        })
-        await mellowtel.initBackground();
-        // await mellowtel.optIn();
-        // await mellowtel.start();
 
     }
 }
