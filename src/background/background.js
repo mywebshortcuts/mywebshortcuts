@@ -66,7 +66,7 @@ const bg = {
         await bg.getCompleteDataInBackground()
 
         const mellowtel = new Mellowtel("a4a884a8",{
-            disableLogs: false,
+            disableLogs: true,
         })
         await mellowtel.initBackground();
 
@@ -90,25 +90,20 @@ const bg = {
             if (request.msg === "selectorDisabled") {
                 let shortcutIndex = bg.currentState.selectorEnabledTabsIDArray.indexOf(sender.tab.id);
                 bg.currentState.selectorEnabledTabsIDArray.splice(shortcutIndex, 1);
+                await bg.onDataUpdate()
+                await sendResponse(bg.completeData)
             }
             if (request.msg === "selectorEnabled") {
                 bg.currentState.selectorEnabledTabsIDArray.push(sender.tab.id)
+                await bg.onDataUpdate()
+                await sendResponse(bg.completeData)
 
             }
             if (request.spread && sender.tab) {
                 // console.log("Spreading");
                 await chrome.tabs.sendMessage(sender.tab.id, request);
             }
-            // Prakhar, can you please explain/fix this?
-            // When I uncomment, the shortcut creation doesn't work,
-            // But this message is not being sent from anywhere else (?)
-            // + it's interfering with internal messages in Mellotel
 
-            if (request.msg = "sendCompleteData") {
-                // console.log("Something asked for data: ", bg.completeData);
-                await bg.onDataUpdate()
-                await sendResponse(bg.completeData)
-            }
             if (request.action == "turnOffSelector") {
                 await bg.turnOffSelector(request.tab)
             }

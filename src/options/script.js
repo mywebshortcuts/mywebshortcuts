@@ -1537,7 +1537,7 @@ const opt = {
                     // ------------------------- Enable/Disable Mellowtel  -------------------------
                     supportDeveloperToggle = qS('.supportDeveloperToggle-wrapper .toggleSwitchInput')
                     const mellowtel = new Mellowtel("a4a884a8",{
-                        disableLogs: false,
+                        disableLogs: true,
                     })
                     supportDeveloperToggle.checked = await mellowtel.getOptInStatus()
                     supportDeveloperToggle.addEventListener('change', async (e) => {

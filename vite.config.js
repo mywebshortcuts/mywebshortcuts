@@ -10,13 +10,5 @@ export default defineConfig({
         hmr: {
             port: 5173,
         },
-    },
-    optimizeDeps: {
-        esbuildOptions: {
-            target: 'esnext'
-        }
-    },
-    build: {
-        target: 'esnext'
     }
 })
