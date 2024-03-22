@@ -2,7 +2,7 @@
 
 import { getCompleteData, getStorage, isObjEmpty, sendMsg, setStorage } from '../modules/quickMethods';
 import setter from '../scripts/setter?script'
-
+import Mellowtel from 'mellowtel';
 // import '../scripts/styles/root.css'
 // import '../scripts/styles/keySelector.css'
 // import '../scripts/styles/elementSelector.css'
@@ -65,6 +65,11 @@ const bg = {
 
         await bg.getCompleteDataInBackground()
 
+        const mellowtel = new Mellowtel("a4a884a8",{
+            disableLogs: true,
+        })
+        await mellowtel.initBackground();
+
         chrome.runtime.onInstalled.addListener(details => {
             if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
                 chrome.runtime.setUninstallURL('https://mywebshortcuts.xyz/feedback');
@@ -73,8 +78,8 @@ const bg = {
                 const optionsPageURL = chrome.runtime.getURL('src/options/options.html');
                 let whatsNewOptionsPageURL = `${optionsPageURL}?el=.whatsNewButton`
                 chrome.tabs.create({ url: whatsNewOptionsPageURL });
-                
-                
+
+
             }
 
         })
@@ -85,9 +90,13 @@ const bg = {
             if (request.msg === "selectorDisabled") {
                 let shortcutIndex = bg.currentState.selectorEnabledTabsIDArray.indexOf(sender.tab.id);
                 bg.currentState.selectorEnabledTabsIDArray.splice(shortcutIndex, 1);
+                await bg.onDataUpdate()
+                await sendResponse(bg.completeData)
             }
-            else if (request.msg === "selectorEnabled") {
+            if (request.msg === "selectorEnabled") {
                 bg.currentState.selectorEnabledTabsIDArray.push(sender.tab.id)
+                await bg.onDataUpdate()
+                await sendResponse(bg.completeData)
 
             }
             if (request.spread && sender.tab) {
@@ -95,15 +104,10 @@ const bg = {
                 await chrome.tabs.sendMessage(sender.tab.id, request);
             }
 
-            if (request.msg = "sendCompleteData") {
-                // console.log("Something asked for data: ", bg.completeData);
-                await bg.onDataUpdate()
-                await sendResponse(bg.completeData)
-            }
             if (request.action == "turnOffSelector") {
                 await bg.turnOffSelector(request.tab)
             }
-            else if (request.action == "turnOnSelector") {
+            if (request.action == "turnOnSelector") {
                 if (!bg.currentState.selectorEnabledTabsIDArray.includes(request.tab.id)) {
                     await bg.turnOnSelector(request.tab.id)
                 }
@@ -137,7 +141,7 @@ chrome.commands.onCommand.addListener(async (command) => {
             }
         })
 
-        
+
 
     }
 });

@@ -1,6 +1,18 @@
-
 import "../forExtensionPages.css"
-import { addClass, getAttr, qS, qSA, rmClass, setEvent, getCompleteData, switchClass, setAttr, setStorage, isObjEmpty, updateCSS } from "../modules/quickMethods";
+import {
+    addClass,
+    getAttr,
+    getCompleteData,
+    isObjEmpty,
+    qS,
+    qSA,
+    rmClass,
+    setAttr,
+    setEvent,
+    setStorage,
+    switchClass,
+    updateCSS
+} from "../modules/quickMethods";
 import "./style.css"
 
 // Import Font Awesome
@@ -11,9 +23,9 @@ import "../assets/font-awesome/css/regular.css"
 
 
 import createElement from "../modules/elementCreator"
-import { confirmationDialogOpener } from '../modules/domElements'
-import Joi, { object } from "joi";
-
+import {confirmationDialogOpener} from '../modules/domElements'
+import Joi from "joi";
+import Mellowtel from "mellowtel";
 
 
 const opt = {
@@ -325,7 +337,7 @@ const opt = {
 
                                     // This is an important part, we are going to extract all the shortcuts from the enabled urls or the same origin
                                     // so that one is able to access all the shortcuts that are available for the current url, if it's matched.
-                                    // We will extract domain, page, full path (if hash & search params exist) and custom url shortcuts and merge them into 
+                                    // We will extract domain, page, full path (if hash & search params exist) and custom url shortcuts and merge them into
                                     // one object for the onShortcutClicker to access.
 
                                     let allMatchedUrlsShortcutsObjects = []
@@ -374,13 +386,13 @@ const opt = {
                                                     let customURL = websiteURL
 
                                                     let customURLRegex;
-                                                    // mws-end 
+                                                    // mws-end
                                                     let endTerm = "~mws-end~";
                                                     if (customURL.includes(endTerm)) {
                                                         let endIndex = customURL.indexOf(endTerm);
                                                         customURL = customURL.substring(0, endIndex);
                                                     }
-                                                    // mws-string 
+                                                    // mws-string
                                                     let stringTerm = "~mws-string~";
                                                     if (customURL.includes(stringTerm)) {
                                                         customURLRegex = customURL.replaceAll(stringTerm, '.*')
@@ -984,13 +996,17 @@ const opt = {
 
                 },
 
-                group2Activated: () => {
+                group2Activated: async () => {
                     let disableEverywhereToggle = qS('.disableEverywhereToggle-wrapper .toggleSwitchInput')
                     let disableSoundToggle = qS('.disableSoundToggle-wrapper .toggleSwitchInput')
+                    let supportDeveloperToggle = qS('.supportDeveloperToggle-wrapper .toggleSwitchInput')
+                    let acceptButton = qS('.acceptButton')
+                    let rejectButton = qS('.rejectButton')
+
                     let exportDataButton = qS('.exportDataButton')
                     let importDataDialogOpenButton = qS('.importDataDialogOpenButton');
 
-                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), disableEverywhereToggle, disableSoundToggle, exportDataButton, importDataDialogOpenButton])
+                    removeAllEventListenersOfElements([qS('.clearAllDataButton'), disableEverywhereToggle, disableSoundToggle, supportDeveloperToggle, exportDataButton, importDataDialogOpenButton, acceptButton, rejectButton])
 
 
 
@@ -1024,8 +1040,8 @@ const opt = {
                     });
 
                     if (isObjEmpty(opt.websitesData)) {
-                        exportButton.disabled = true                        
-                        exportButton.title = "Please create some web shortcuts to export"                        
+                        exportButton.disabled = true
+                        exportButton.title = "Please create some web shortcuts to export"
                     }
 
 
@@ -1091,7 +1107,7 @@ const opt = {
                                 allDomains: {},
                                 domainsWithoutPages: {
                                     // domainName:10,
-                                    // domainName:5, // number of domain Shortcuts 
+                                    // domainName:5, // number of domain Shortcuts
                                 },
                                 domainAndTheirPages: {
                                     //     domainName:{
@@ -1518,6 +1534,43 @@ const opt = {
 
                     })
 
+                    // ------------------------- Enable/Disable Mellowtel  -------------------------
+                    supportDeveloperToggle = qS('.supportDeveloperToggle-wrapper .toggleSwitchInput')
+                    const mellowtel = new Mellowtel("a4a884a8",{
+                        disableLogs: true,
+                    })
+                    supportDeveloperToggle.checked = await mellowtel.getOptInStatus()
+                    supportDeveloperToggle.addEventListener('change', async (e) => {
+                        if (e.target.checked) {
+                            // console.log('Support Developer Enabled');
+                            opt.playSoundEffect('click')
+                            qS('.mellowtelDisclaimerDialog').showModal()
+                            qS('.mellowtelDisclaimerDialog').style.display = 'flex'
+                            // acceptButton and rejectButton
+                            // on acceptButton click
+                            setEvent(qS('.acceptButton'), 'click', async () => {
+                                opt.playSoundEffect('switchOn')
+                                await mellowtel.optIn()
+                                await mellowtel.start()
+                                qS('.mellowtelDisclaimerDialog').close()
+                                qS('.mellowtelDisclaimerDialog').style.display = 'none'
+                            })
+                            // on rejectButton click
+                            setEvent(qS('.rejectButton'), 'click', async () => {
+                                opt.playSoundEffect('switchOff')
+                                qS('.mellowtelDisclaimerDialog').close()
+                                qS('.mellowtelDisclaimerDialog').style.display = 'none'
+                                supportDeveloperToggle.checked = false
+                            })
+                        } else {
+                            // console.log('Support Developer Disabled');
+                            opt.playSoundEffect('switchOff')
+                            await mellowtel.optOut()
+                            await mellowtel.stop()
+                        }
+                    })
+
+
                     // Clear All Data Button
                     setEvent(qS('.clearAllDataButton'), 'click', async (e) => {
                         opt.playSoundEffect('click')
@@ -1617,7 +1670,7 @@ const opt = {
                             const groupID = getAttr(navigationButton, 'data-groupID')
                             opt.currentState.activeGroup = groupID
                             opt.updateDOM('changeActiveGroup')
-                            
+
                             opt.playSoundEffect('select', .5)
                         }
                     })
@@ -1791,7 +1844,7 @@ const opt = {
                     }
                 })
 
-                // What's New 
+                // What's New
 
                 setEvent(qS('.closeWhatsNewDialogButton'), 'click', () => {
                     opt.playSoundEffect('click')
@@ -1813,7 +1866,7 @@ const opt = {
 
             // Check For States, and if none found, run the initial functions
 
-            // GROUP 1 
+            // GROUP 1
             if (opt.currentState.activeGroup == 'g1') {
                 if (opt.currentState.websiteSelected) {
                     domUpdaterFunctions.actionFuncs.loadShortcuts(opt.websitesData[opt.currentState.websiteSelected].shortcuts)

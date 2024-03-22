@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@medv/finder": "^3.1.0",
-    "joi": "^17.11.0"
+    "joi": "^17.11.0",
+    "mellowtel": "^1.1.7"
   }
 }
