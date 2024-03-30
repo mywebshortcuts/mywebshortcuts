@@ -1720,7 +1720,8 @@ img.snowCap{
 }
 
 
-.whatsNewDialog ul{
+/* .whatsNewDialog ul{ */
+.whatsNewDialog .whatsNewDetailsText{
 	padding-inline: 2rem;
 	font-size: .9rem;
 	overflow-y: scroll;
@@ -1732,7 +1733,16 @@ img.snowCap{
 
 	position: relative;
 }
-button.colorsMeaningButton{
+
+.whatsNewDialog .whatsNewDetailsText p{
+	margin-block: 1rem;
+	line-height: 1.3rem;
+}
+.whatsNewDialog .whatsNewDetailsText p strong{
+	color: white;
+}
+
+/* button.colorsMeaningButton{
 	background-color: transparent;
 	color: var(--dark-green);
 	position: absolute;
@@ -1744,14 +1754,8 @@ button.colorsMeaningButton{
 	display: flex;
 	justify-content: center;
 	align-items: center;
-}
-.whatsNewDialog li{
-	margin-block: 1rem;
-	line-height: 1.3rem;
-}
-.whatsNewDialog li strong{
-	color: white;
-}
+} */
+
 
 .whatsNewButton{
 	position: fixed;

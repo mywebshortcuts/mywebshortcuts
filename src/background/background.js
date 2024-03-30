@@ -72,7 +72,7 @@ const bg = {
 
         chrome.runtime.onInstalled.addListener(details => {
             if (details.reason === chrome.runtime.OnInstalledReason.INSTALL) {
-                chrome.runtime.setUninstallURL('https://mywebshortcuts.xyz/feedback');
+                chrome.runtime.setUninstallURL('https://www.mywebshortcuts.xyz/pages/feedback');
             }
             if (details.reason === 'update') {
                 const optionsPageURL = chrome.runtime.getURL('src/options/options.html');
