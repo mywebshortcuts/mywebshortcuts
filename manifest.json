@@ -1,5 +1,10 @@
 {
     "manifest_version": 3,
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "contact@mywebshortcuts.xyz"
+        }
+    },
     "name": "My Web Shortcuts",
     "version": "1.5.9",
     "author":"contact@mywebshortcuts.xyz",
@@ -20,7 +25,7 @@
         "default_popup": "src/popup/popup.html"
     },
     "background": {
-        "service_worker": "src/background/background.js"
+        "scripts": ["src/background/background.js"]
     },
     "content_scripts": [
         {
