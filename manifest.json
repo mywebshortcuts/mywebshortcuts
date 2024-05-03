@@ -1,10 +1,5 @@
 {
     "manifest_version": 3,
-    "browser_specific_settings": {
-        "gecko": {
-            "id": "contact@mywebshortcuts.xyz"
-        }
-    },
     "name": "My Web Shortcuts",
     "version": "1.5.9",
     "author":"contact@mywebshortcuts.xyz",
