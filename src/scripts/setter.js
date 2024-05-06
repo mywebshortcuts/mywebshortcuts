@@ -1057,7 +1057,11 @@ const mws = {
 
         // Action Selector
         const actionSelectInput = qS('.mws-actionSelect', dialogElement)
-        mws.selectedAction = 'click'
+        actionSelectInput.value = 'click'            
+        if (mws.selectedElement.tagName == 'INPUT' || mws.selectedElement.tagName == 'TEXTAREA' || mws.selectedElement.contentEditable == true) {
+            actionSelectInput.value = 'focus'            
+        }
+        mws.selectedAction = actionSelectInput.value
         actionSelectInput.addEventListener('change', (e) => {
             let selectedValue = e.srcElement.value
             mws.selectedAction = selectedValue
@@ -1498,11 +1502,8 @@ const mws = {
         window.addEventListener("beforeunload", mws.sendSelectorDisabledMsg);
 
         // mws.turnOnWindowUnloadStopper() // temporary change
-
-
         mws.createShadowRoot()
         mws.openFloatingDiv()
-
         mws.switchOnSelector()
         mws.turnOnSelectorShortcuts()
 
