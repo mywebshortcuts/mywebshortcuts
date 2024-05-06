@@ -433,14 +433,14 @@ const mws = {
 
         if (getElemAt(x, y) && getElemAt(x, y).classList.contains('mws-element')) {
             mws.currentElement = undefined
-            setTextContent(qS('.mws-currentElementSpan'), 'No Element Selected')
-            qS('.mws-selectElementButton').disabled = true
+            setTextContent(qS('.mws-currentElementSpan', mws.mwsShadowRootDiv.shadowRoot), 'No Element Selected')
+            qS('.mws-selectElementButton', mws.mwsShadowRootDiv.shadowRoot).disabled = true
             return
         }
         mws.currentElement = getElemAt(x, y);
         // console.log(mws.currentElement);
         
-        if (qS('.mws-selectElementButton')) qS('.mws-selectElementButton').disabled = false
+        if (qS('.mws-selectElementButton', mws.mwsShadowRootDiv.shadowRoot)) qS('.mws-selectElementButton', mws.mwsShadowRootDiv.shadowRoot).disabled = false
 
         // mws.currentElement.classList.add('mws-bordered')
         // if (mws.currentElement && (mws.currentElement).tagName) {
@@ -449,7 +449,7 @@ const mws = {
         
         if (mws.currentElement) {
             addClass(mws.currentElement, ['mws-bordered'])
-            setTextContent(qS('.mws-currentElementSpan'), (mws.currentElement).tagName)
+            setTextContent(qS('.mws-currentElementSpan', mws.mwsShadowRootDiv.shadowRoot), (mws.currentElement).tagName)
             
         }
 
@@ -561,20 +561,20 @@ const mws = {
                             if (mws.currentState.elementSelectionPaused) {
                                 document.addEventListener('mouseover', mws.addRemoveborder);
                                 mws.currentState.elementSelectionPaused = false
-                                qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
+                                qS(".mws-disableElementSelectionSpan", mws.mwsShadowRootDiv.shadowRoot).innerText = (qS(".mws-disableElementSelectionSpan", mws.mwsShadowRootDiv.shadowRoot).innerText).replace(' (Paused)', '')
                                 mws.playSoundEffect('unpause', 0.2)
                                 // qS('.mws-selectElementButton').style.display = 'none'
-                                updateCSS(qS('.mws-selectElementButton'), { display: "none !important" })
+                                updateCSS(qS('.mws-selectElementButton', mws.mwsShadowRootDiv.shadowRoot), { display: "none !important" })
                                 // // console.log(qS('.mws-element button.mws-selectElementButton').style.display);
                             }
                             else {
                                 // qS('.mws-element button.mws-selectElementButton').style.display = 'flex'
-                                updateCSS(qS('.mws-selectElementButton'), { display: "flex !important" })
+                                updateCSS(qS('.mws-selectElementButton', mws.mwsShadowRootDiv.shadowRoot), { display: "flex !important" })
                                 // console.log(qS('.mws-selectElementButton').style.display);
                                 mws.playSoundEffect('pause', 0.2)
                                 document.removeEventListener('mouseover', mws.addRemoveborder);
                                 mws.currentState.elementSelectionPaused = true
-                                qS(".mws-disableElementSelectionSpan").innerText = qS(".mws-disableElementSelectionSpan").innerText + " (Paused)"
+                                qS(".mws-disableElementSelectionSpan", mws.mwsShadowRootDiv.shadowRoot).innerText = qS(".mws-disableElementSelectionSpan", mws.mwsShadowRootDiv.shadowRoot).innerText + " (Paused)"
                         }
                     }
                     
@@ -1144,10 +1144,10 @@ const mws = {
         // These are functions that will be executed on a specific state variable changes 
         const reactionForStateChange = {
             elementSelectionOn: () => {
-                if (qS('.mws-disableElementSelectionToggle-wrapper .mws-toggleSwitchInput')) {
-                    qS('.mws-disableElementSelectionToggle-wrapper .mws-toggleSwitchInput').checked = mws.currentState[changedStateVariable] ? true : false
+                if (qS('.mws-disableElementSelectionToggle-wrapper .mws-toggleSwitchInput', mws.mwsShadowRootDiv.shadowRoot)) {
+                    qS('.mws-disableElementSelectionToggle-wrapper .mws-toggleSwitchInput', mws.mwsShadowRootDiv.shadowRoot).checked = mws.currentState[changedStateVariable] ? true : false
                 }
-                setTextContent(qS('.mws-currentElementSpan'), 'No Element Selected')
+                setTextContent(qS('.mws-currentElementSpan', mws.mwsShadowRootDiv.shadowRoot), 'No Element Selected')
 
                 if (mws.currentState.elementSelectionOn) {
 
@@ -1396,11 +1396,11 @@ const mws = {
             e.preventDefault()
             // // console.log(e.key);
             if (mws.currentState.keyboardShortcutSelectorOpen) {
-                let allDoneButtonDisabled = qS('.mws-allDoneButton').disabled
+                let allDoneButtonDisabled = qS('.mws-allDoneButton', mws.mwsShadowRootDiv.shadowRoot).disabled
                 if (!allDoneButtonDisabled) {
 
                     e.preventDefault()
-                    qS('.mws-allDoneButton').innerText = "Adding Shortcut..."
+                    qS('.mws-allDoneButton', mws.mwsShadowRootDiv.shadowRoot).innerText = "Adding Shortcut..."
                     // await mws.getExistingDataOfCurrentWebsite()
                     mws.currentElement = mws.selectedElement
                     await mws.setDataOfCurrentWebsite()
@@ -1498,12 +1498,12 @@ const mws = {
         window.addEventListener("beforeunload", mws.sendSelectorDisabledMsg);
 
         // mws.turnOnWindowUnloadStopper() // temporary change
-        mws.switchOnSelector()
 
 
         mws.createShadowRoot()
         mws.openFloatingDiv()
 
+        mws.switchOnSelector()
         mws.turnOnSelectorShortcuts()
 
     },
