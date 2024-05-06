@@ -32,6 +32,9 @@ const mws = {
 
     // Global Variables
 
+
+    mwsShadowRootDiv: null,
+
     // Selector variables
     currentElement: null,
     selectedElement: null, // Used by key selector
@@ -435,6 +438,7 @@ const mws = {
             return
         }
         mws.currentElement = getElemAt(x, y);
+        // console.log(mws.currentElement);
         
         if (qS('.mws-selectElementButton')) qS('.mws-selectElementButton').disabled = false
 
@@ -455,6 +459,7 @@ const mws = {
     },
 
     // This func tracks when a user clicks anywhere in the window, mainly used to select the clicked elements
+    
     whenClicked: function (event) {
         if (!mws.currentElement) {
             return
@@ -471,6 +476,8 @@ const mws = {
             return
 
         }
+
+        // console.log(mws.currentElement);
         // if (!mws.isElementFocusable(clickedElement)) {
         //     // console.log("Not Focusable");
         //     return
@@ -502,6 +509,8 @@ const mws = {
 
         if (mws.currentState.keyboardShortcutSelectionOn) {
 
+            const selectedShortcutKBD = qS('.mws-selectedShortcutKBD', mws.mwsShadowRootDiv.shadowRoot)
+
             const isCharacterKey = e.key.length === 1 && e.key !== ' ' && e.key !== '\t';
 
             if (isCharacterKey) {
@@ -509,13 +518,13 @@ const mws = {
                     e.preventDefault()
 
                     mws.selectedShortcut = pressedKey
-                    setTextContent(qS('.mws-selectedShortcutKBD'), `${pressedKey}`)
+                    setTextContent(selectedShortcutKBD, `${pressedKey}`)
 
-                    rmClass(qS('.mws-selectedShortcutKBD'), ['active'])
-                    rmClass(qS('.mws-selectedShortcutKBD'), ['shortcutExists'])
+                    rmClass(selectedShortcutKBD, ['active'])
+                    rmClass(selectedShortcutKBD, ['shortcutExists'])
 
 
-                    const selectionDoneButton = qS('.mws-shortcutSelectionDoneButton')
+                    const selectionDoneButton = qS('.mws-shortcutSelectionDoneButton', mws.mwsShadowRootDiv.shadowRoot)
 
                     switchClass(selectionDoneButton, 'onSelection', 'editSelection')
 
@@ -526,8 +535,8 @@ const mws = {
                     // console.log("Pressed Key:", pressedKey);
                 }
                 else {
-                    addClass(qS('.mws-selectedShortcutKBD'), ['shortcutExists'])
-                    setTextContent(qS('.mws-selectedShortcutKBD'), `${pressedKey}`)
+                    addClass(selectedShortcutKBD, ['shortcutExists'])
+                    setTextContent(selectedShortcutKBD, `${pressedKey}`)
 
                 }
             }
@@ -635,16 +644,16 @@ const mws = {
     },
 
     enableOtherSettings: function () {
-        const nameInput = qS('.mws-shortcutNameInput')
+        const nameInput = qS('.mws-shortcutNameInput', mws.mwsShadowRootDiv.shadowRoot)
         nameInput.disabled = false
         // Set the selection range to the end of the text
         nameInput.selectionStart = nameInput.value.length;
         nameInput.selectionEnd = nameInput.value.length;
         nameInput.focus()
 
-        const urlTypeSelect = qS('.mws-urlTypeSelect')
+        const urlTypeSelect = qS('.mws-urlTypeSelect', mws.mwsShadowRootDiv.shadowRoot)
         urlTypeSelect.disabled = false
-        const actionSelect = qS('.mws-actionSelect')
+        const actionSelect = qS('.mws-actionSelect', mws.mwsShadowRootDiv.shadowRoot)
         actionSelect.disabled = false
 
 
@@ -652,23 +661,23 @@ const mws = {
             mws.shortcutName = nameInput.value
 
             if (nameInput.value.length > 0) {
-                qS('.mws-allDoneButton').disabled = false
+                qS('.mws-allDoneButton', mws.mwsShadowRootDiv.shadowRoot).disabled = false
             }
             else {
-                qS('.mws-allDoneButton').disabled = true
+                qS('.mws-allDoneButton', mws.mwsShadowRootDiv.shadowRoot).disabled = true
             }
         })
 
     },
     disableOtherSettings: function () {
 
-        qS('.mws-allDoneButton').disabled = true
+        qS('.mws-allDoneButton', mws.mwsShadowRootDiv.shadowRoot).disabled = true
 
-        const nameInput = qS('.mws-shortcutNameInput')
+        const nameInput = qS('.mws-shortcutNameInput', mws.mwsShadowRootDiv.shadowRoot)
         nameInput.disabled = true
-        const urlTypeSelect = qS('.mws-urlTypeSelect')
+        const urlTypeSelect = qS('.mws-urlTypeSelect', mws.mwsShadowRootDiv.shadowRoot)
         urlTypeSelect.disabled = true
-        const actionSelect = qS('.mws-actionSelect')
+        const actionSelect = qS('.mws-actionSelect', mws.mwsShadowRootDiv.shadowRoot)
         actionSelect.disabled = true
 
         mws.removeAllEventListenersOfElements([nameInput])
@@ -752,24 +761,19 @@ const mws = {
 
 
 
-        document.body.appendChild(dialogElement)
-        mws.playSoundEffect('click2')
-
-        mws.turnOnKeyboardEvents()
-        mws.disableOtherSettings()
 
 
-        const selectionDoneButton = qS('.mws-shortcutSelectionDoneButton')
+        const selectionDoneButton = qS('.mws-shortcutSelectionDoneButton', dialogElement)
         selectionDoneButton.addEventListener('click', (e) => {
             e.preventDefault()
             if (mws.currentState.keyboardShortcutSelectionOn) {
                 switchClass(selectionDoneButton, 'onSelection', 'editSelection')
                 mws.enableOtherSettings()
-                rmClass(qS('.mws-selectedShortcutKBD'), ['active'])
+                rmClass(qS('.mws-selectedShortcutKBD', dialogElement), ['active'])
             }
             else {
                 mws.playSoundEffect('enterKey')
-                addClass(qS('.mws-selectedShortcutKBD'), ['active'])
+                addClass(qS('.mws-selectedShortcutKBD', dialogElement), ['active'])
                 switchClass(selectionDoneButton, 'editSelection', 'onSelection')
                 mws.disableOtherSettings()
             }
@@ -796,10 +800,10 @@ const mws = {
             let urlToSetFor;
             mws.selectedURLType = selectedValue
 
-            let editCustomShortcutButton = qS('.mws-editCustomShortcutButton')
+            let editCustomShortcutButton = qS('.mws-editCustomShortcutButton', dialogElement)
             editCustomShortcutButton.style.display = 'none'
 
-            qS('.mws-allDoneButton').disabled = false
+            qS('.mws-allDoneButton', dialogElement).disabled = false
 
             if (selectedValue == 'domainAndAllPages') {
                 urlToSetFor = mws.currentURLObject.origin
@@ -819,7 +823,7 @@ const mws = {
             }
             else if (selectedValue == 'custom') {
 
-                let customURLEditorDialog = qS('.mws-customURLEditorDialog')
+                let customURLEditorDialog = qS('.mws-customURLEditorDialog', dialogElement)
 
                 const customURLEditorWrapper = qS('.mws-customURLEditor-wrapper', customURLEditorDialog)
                 const confirmCustomURLButton = qS('.mws-confirmCustomURLButton', customURLEditorDialog)
@@ -843,7 +847,7 @@ const mws = {
 
                 let customURL;
                 if (!mws.customURL) {
-                    qS('.mws-allDoneButton').disabled = true
+                    qS('.mws-allDoneButton', dialogElement).disabled = true
 
                     customURLEditorWrapper.innerHTML = ''
                     let originSpan = document.createElement('span')
@@ -970,7 +974,7 @@ const mws = {
                             // prevCustomURL = customURL
                             mws.selectedURL = mws.customURL
                             // console.log("mws.customURL", mws.customURL);
-                            qS('.mws-allDoneButton').disabled = false
+                            qS('.mws-allDoneButton', dialogElement).disabled = false
 
                             qSA('input', customURLEditorWrapper).forEach(inputElement => {
                                 setAttr(inputElement, 'data-inputValue', inputElement.value)
@@ -992,7 +996,7 @@ const mws = {
                     // console.log("Custom URL exists");
                     // console.log(mws.customURL);
 
-                    qS('.mws-allDoneButton').disabled = false
+                    qS('.mws-allDoneButton', dialogElement).disabled = false
                 }
 
 
@@ -1022,7 +1026,7 @@ const mws = {
                         const changeEvent = new Event('change', { bubbles: true, cancelable: true });
                         urlTypeSelectInput.dispatchEvent(changeEvent);
 
-                        // qS('.mws-allDoneButton').disabled = false
+                        // qS('.mws-allDoneButton', dialogElement).disabled = false
                     }
                 })
 
@@ -1037,7 +1041,7 @@ const mws = {
                         }
                     );
                 }
-                setEvent(qS('.mws-copySpecialStringButton', customURLEditorDialog), 'click', () => { copyToClipboard(qS('.mws-specialTermSelect').value) })
+                setEvent(qS('.mws-copySpecialStringButton', customURLEditorDialog), 'click', () => { copyToClipboard(qS('.mws-specialTermSelect', customURLEditorDialog).value) })
 
 
             }
@@ -1060,11 +1064,11 @@ const mws = {
         })
 
 
-        qS('.mws-allDoneButton').addEventListener('click', async (e) => {
+        qS('.mws-allDoneButton', dialogElement).addEventListener('click', async (e) => {
             e.preventDefault()
             // await mws.getExistingDataOfCurrentWebsite()
             mws.currentElement = mws.selectedElement
-            qS('.mws-allDoneButton').innerText = "Adding Shortcut..."
+            qS('.mws-allDoneButton', dialogElement).innerText = "Adding Shortcut..."
             if (await mws.setDataOfCurrentWebsite()) {
                 mws.currentElement = null
                 mws.closeKeyboardShortcutSelectionDialog()
@@ -1079,12 +1083,20 @@ const mws = {
 
         })
 
-        setEvent(qS('.mws-closeKeyboardShortcutSelectionDialogButton'), 'click', (event) => {
+        setEvent(qS('.mws-closeKeyboardShortcutSelectionDialogButton', dialogElement), 'click', (event) => {
             // rmClass(mws.currentElement, ['mws-bordered'])
             // mws.currentElement = undefined;
 
             mws.closeKeyboardShortcutSelectionDialog()
         })
+
+
+        // document.body.appendChild(dialogElement)
+        mws.mwsShadowRootDiv.shadowRoot.appendChild(dialogElement)
+        mws.playSoundEffect('click2')
+
+        mws.turnOnKeyboardEvents()
+        mws.disableOtherSettings()
 
         dialogElement.showModal()
     },
@@ -1094,11 +1106,12 @@ const mws = {
         mws.turnOffKeyboardEvents()
 
         mws.switchOnSelector()
-        const dialogElement = qS('.mws-keyboardShortcutSelectionDialog')
+        const dialogElement = qS('.mws-keyboardShortcutSelectionDialog', mws.mwsShadowRootDiv.shadowRoot)
         mws.customURL = ''
         mws.currentState.keyboardShortcutSelectorOpen = false;
         mws.currentState.keyboardShortcutSelectionOn = false;
-        document.body.removeChild(dialogElement)
+        // document.body.removeChild(dialogElement)
+        mws.mwsShadowRootDiv.shadowRoot.removeChild(dialogElement)
         // mws.openFloatingDiv()
     },
 
@@ -1160,8 +1173,8 @@ const mws = {
             rmClass(mws.currentElement, ['mws-bordered'])
         }
         mws.currentState.elementSelectionPaused = false
-        qS(".mws-disableElementSelectionSpan").innerText = (qS(".mws-disableElementSelectionSpan").innerText).replace(' (Paused)', '')
-        qS('.mws-selectElementButton').style.display = 'none'
+        qS(".mws-disableElementSelectionSpan", mws.mwsShadowRootDiv.shadowRoot).innerText = (qS(".mws-disableElementSelectionSpan", mws.mwsShadowRootDiv.shadowRoot).innerText).replace(' (Paused)', '')
+        qS('.mws-selectElementButton', mws.mwsShadowRootDiv.shadowRoot).style.display = 'none'
 
 
         mws.currentElement = null
@@ -1198,7 +1211,9 @@ const mws = {
     },
 
     closeFloatingDiv: () => {
-        document.body.removeChild(qS('.mws-floating-wrapper'))
+        // document.body.removeChild(qS('.mws-floating-wrapper', mws.mwsShadowRootDiv.shadowRoot))
+        console.log(qS('.mws-floating-wrapper', mws.mwsShadowRootDiv.shadowRoot));
+        (mws.mwsShadowRootDiv.shadowRoot).removeChild(qS('.mws-floating-wrapper', mws.mwsShadowRootDiv.shadowRoot))
     },
 
     makeElementDraggable: function (element) {
@@ -1290,13 +1305,11 @@ const mws = {
 
 
         floatingDiv.title = "Drag to move the selector"
-        document.body.appendChild(floatingDiv)
-
         mws.makeElementDraggable(floatingDiv)
 
         mws.currentState.elementSelectorOpen = true
 
-        setEvent(qS('.mws-toggleSwitchInput'), 'change', mws.switchSelector)
+        setEvent(qS('.mws-toggleSwitchInput', floatingDiv), 'change', mws.switchSelector)
 
 
         qSA('.mws-toggleSwitchInput', floatingDiv).forEach((switchInputElement) => {
@@ -1311,14 +1324,61 @@ const mws = {
         })
 
 
-        setEvent(qS('.mws-closeElementSelectorButton'), 'click', mws.turnOffEverything)
+        setEvent(qS('.mws-closeElementSelectorButton', floatingDiv), 'click', mws.turnOffEverything)
 
-        setEvent(qS('.mws-selectElementButton'), 'click', () => {
+        setEvent(qS('.mws-selectElementButton', floatingDiv), 'click', () => {
             if (mws.currentElement) {
                 mws.openKeyboardShortcutSelectionDialog()
             }
         })
+
+
+
+        // document.body.appendChild(floatingDiv)
+        mws.mwsShadowRootDiv.shadowRoot.appendChild(floatingDiv)
+
+        // sRoot.appendChild(floatingDiv)
+        // document.body.appendChild(sRoot)
     },
+
+    removeShadowRoot: ()=>{
+
+        document.body.removeChild(qS('.mws-element.mws_shadowRoot'))
+
+    },
+    createShadowRoot: ()=>{
+
+        let mwsShadowRootDiv = document.createElement('div')
+        // mwsShadowRootDiv.className = 'mws_shadowRoot'
+        mwsShadowRootDiv.classList.add("mws-element", "mws_shadowRoot")
+        mwsShadowRootDiv.attachShadow({ mode: "open" })
+        let mwsShadowRoot = mwsShadowRootDiv.shadowRoot
+
+
+
+        let cssToImportArray = [
+            'src/assets/font-awesome/css/fontawesome.css',
+            'src/assets/font-awesome/css/solid.css',
+            'src/scripts/styles/root.css',
+            'src/scripts/styles/elementSelector.css',
+            'src/scripts/styles/keySelector.css',
+        ]
+
+        cssToImportArray.forEach(fileURL => {
+            let link = document.createElement('link');
+            link.href = chrome.runtime.getURL(fileURL);
+            link.rel = 'stylesheet';
+            link.classList.add('mws-SelectorStyles')
+            mwsShadowRoot.appendChild(link);
+        })
+
+
+
+        mws.mwsShadowRootDiv = mwsShadowRootDiv
+        document.body.appendChild(mws.mwsShadowRootDiv)
+        
+    },
+
 
     selectorShortcuts: async (e) => {
         // console.log(e);
@@ -1394,6 +1454,8 @@ const mws = {
         }
 
 
+        mws.removeShadowRoot()
+
     },
     turnOnEverything: async function () {
 
@@ -1401,9 +1463,10 @@ const mws = {
         let cssToImportArray = [
             'src/assets/font-awesome/css/fontawesome.css',
             'src/assets/font-awesome/css/solid.css',
-            'src/scripts/styles/root.css',
-            'src/scripts/styles/elementSelector.css',
-            'src/scripts/styles/keySelector.css',
+            'src/scripts/styles/pageStyles.css',
+            // 'src/scripts/styles/root.css',
+            // 'src/scripts/styles/elementSelector.css',
+            // 'src/scripts/styles/keySelector.css',
         ]
 
         cssToImportArray.forEach(fileURL => {
@@ -1434,10 +1497,11 @@ const mws = {
         await sendMsg({ msg: "selectorEnabled", spread: true })
         window.addEventListener("beforeunload", mws.sendSelectorDisabledMsg);
 
-        mws.turnOnWindowUnloadStopper() // temporary change
+        // mws.turnOnWindowUnloadStopper() // temporary change
         mws.switchOnSelector()
 
 
+        mws.createShadowRoot()
         mws.openFloatingDiv()
 
         mws.turnOnSelectorShortcuts()

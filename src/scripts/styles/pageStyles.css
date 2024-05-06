@@ -1,0 +1,47 @@
+
+
+/* STYLES THAT WILL BE USED IN THE WEBPAGE FOR ELEMENT SELECTION PURPOSES */
+
+.mws-stylesForPage {
+	cursor: pointer  !important ;
+	/* position: relative !important ; */
+}
+
+.mws-bordered {
+	outline: 2px solid red  !important ;
+}
+.mws-clicked {
+	position: relative !important ;
+}
+.mws-clicked::after {
+	content: attr(data-index) !important ; /* Display the data-index attribute as content */
+	position: absolute !important ;
+	bottom: 5px !important ;
+	right: 5px !important ;
+	width: 15px !important ;
+	height: 15px !important ;
+	background-color: yellow !important ;
+	color: black !important ;
+	border: 2px solid black !important ;
+	font-size: 12px !important ;
+
+	display: flex !important ;
+	justify-content: center !important ;
+	align-items: center !important ;
+	text-align: center !important ;
+}
+.mws-clicked::before {
+	content: attr(
+		data-keyboardShortcut
+	) !important ; /* Display the data-index attribute as content */
+	position: absolute !important ;
+	bottom: 5px !important ;
+	right: 5px !important ;
+	width: 15px !important ;
+	height: 15px !important ;
+	background-color: grey !important ;
+	color: black !important ;
+	border: 2px solid black !important ;
+	font-size: 12px !important ;
+	text-align: center !important ;
+}
