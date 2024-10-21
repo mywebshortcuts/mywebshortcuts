@@ -1,7 +1,7 @@
 {
     "manifest_version": 3,
     "name": "My Web Shortcuts",
-    "version": "1.5.9",
+    "version": "1.5.13",
     "author":"contact@mywebshortcuts.xyz",
     "description": "Create custom keyboard shortcuts to access the web, and be more productive!",
     "icons": {
